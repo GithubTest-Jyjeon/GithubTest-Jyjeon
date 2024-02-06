@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+	<!-- head fragment 선언 : 모든 페이지마다 공통으로 계속 동일하게 들어갈 영역 -->
+	<div th:fragment="head">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+		<title>Insert title here</title>
+
+		<!-- Google Web Font : Nanum Gothic -->
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+
+		<!-- Bootstrap v5.3.1 -->
+		<link rel="stylesheet" th:href="@{/css/bootstrap.css}" />
+	</div>
+<body>
+	head
+</body>
+</html>

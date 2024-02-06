@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace 는 이 매퍼가 어떤 인터페이스와 연관 된 매퍼인지를 설정 -->
+<mapper namespace="com.ex.springboot.dao.IuserDAO">
+	<!-- 로그인 -->
+	<select id="loginDAO" resultType="com.ex.springboot.dto.userDTO">
+		select * from CG_USER where U_ID = #{param1} and U_PW = #{param2}
+	</select>
+	
+	<!-- 회원 가입 -->
+	<insert id="joinDAO">
+		insert into CG_USER values(USER_SEQ.nextval, #{u_id}, #{u_pw}, #{u_name})
+	</insert>
+</mapper>
