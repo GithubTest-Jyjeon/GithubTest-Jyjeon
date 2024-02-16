@@ -7,16 +7,9 @@
 	<head th:replace="common/head::head"></head>
 	<body>
 		<div th:replace="common/header::header"></div>
-		<div th:replace="common/sidebar::sidebar"></div>
 		<div layout:fragment="content"></div>
 		<div th:replace="common/footer::footer"></div>
 	</body>
 	
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
-	<script th:src="@{/js/jQuery_3.7.1.js}"></script>
-	<script>
-		$( function(){
-			console.log("test");
-		})
-	</script>
 </html>

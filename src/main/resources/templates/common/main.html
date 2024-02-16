@@ -12,13 +12,492 @@
 	
 	<body>
 		<div layout:fragment="content" class="content content1">
-			<div class="container-fluid bg-primary">
+		
+			<!-- 타이포그래피 -->
+			<div class="container">
 				<div class="row">
-					<div class="col-3">3</div>
-					<div class="col-6">6</div>
-					<div class="col-3">3</div>
+					<div class="col">
+						<h1 class="display-6">페이지 타이틀 display-6</h1>
+						<hr />
+						<p>페이지 타이틀과 본문 사이에 <code>&lt;hr /&gt;</code> 태그를 넣어 분리합니다.</p>
+						<p>본문은 클래스 없이 일반 <code>&lt;p&gt;</code> 태그를 사용합니다.</p>
+						<p>본문 내 단락을 구분 할 때에는 <code>&lt;p&gt;</code> 태그를 추가합니다. 저는 본문 내용이에요 로렘입숨 Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat aliquid eum, quasi amet dolores necessitatibus vero illum culpa libero debitis.</p>
+						<p class="text-muted small">부가설명이 필요한 부분엔 calss="text-muted small" 을 사용합니다.</p>
+						<p><b>강조 표시는 일반 b 태그를 사용합니다.</b></p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div class="border border-secondary">테두리 기본은 class="border border-secondary" 를 사용합니다.</div>
+						<div class="border border-secondary rounded">모서리 기본은 class="rounded" 를 사용합니다.</div>
+						<div class="border border-secondary rounded p-2 ">패딩 기본은 class="p-2" 를 사용합니다.</div>
+						<div class="row">
+							<div class="col-12">
+								<div class="border border-secondary rounded p-2 mb-2">마진 기본은 class="mb-2" 를 사용합니다. col 끼리는 좌우 간격 자동 조정 됩니다.</div>
+							</div>
+							<div class="col-6">
+								<div class="border border-secondary rounded p-2 mb-2">마진 기본은 class="mb-2" 를 사용합니다.</div>
+							</div>
+							<div class="col-6">
+								<div class="border border-secondary rounded p-2 mb-2">마진 기본은 class="mb-2" 를 사용합니다.</div>
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
+			
+			
+			<!-- 이미지 -->
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p>이미지에는 class="img-fluid w-100" 를 사용합니다.</p>
+						<img src="https://suwon.greenart.co.kr/upimage/new_campus/20220406163123[3].jpg" class="img-fluid w-100" />
+					</div>
+				</div>
+			</div>
+			
+			<!-- 색상 / 버튼 세트 -->
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<p>기존 색상세트는 다음과 같습니다.</p>
+						<p class="bg-primary">primary: #0d6efd;</p>
+						<p class="bg-secondary">secondary: #6c757d;</p>
+						<!-- <p class="bg-success">success: #198754;</p>
+						<p class="bg-info">info: #0dcaf0;</p>
+						<p class="bg-warning">warning: #ffc107;</p>
+						<p class="bg-danger">danger: #dc3545;</p> -->
+						<p class="bg-light">light: #f8f9fa;</p>
+						<p class="bg-dark text-white">dark: #212529;</p>
+					</div>
+					<div class="col">
+						<style>
+							.cg-primary { background-color: #f74747; }
+							.cg-secondary { background-color: #a4aaa7; }
+							.cg-success { background-color: #16aa52; }
+							.cg-info { background-color: #5ac6d0; }
+							.cg-warning { background-color: #ffd700; }
+							.cg-danger { background-color: #ff4444;	}
+							.cg-light { background-color: #f0f2f4; }
+							.cg-dark { background-color: #1d1e23; }
+						</style>
+						<p>츄겟 색상세트는 다음과 같습니다.</p>
+						<p class="cg-primary">primary: #f74747; 홍색</p>
+						<p class="cg-secondary">secondary: #a4aaa7; 회색</p>
+						<!-- <p class="cg-success">success: #16aa52; 명록색</p>
+						<p class="cg-info">info: #5ac6d0; 천청색</p>
+						<p class="cg-warning">warning: #ffd700; 금색</p>
+						<p class="cg-danger">danger: #ff4444; 적홍색</p> -->
+						<p class="cg-light">light: #f0f2f4; 설백색</p>
+						<p class="cg-dark text-white">dark: #1d1e23; 흑색</p>
+					</div>
+				</div>
+			</div>
+			
+			<!-- 버튼 세트 -->
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<p>버튼 세트는 다음과 같습니다. hover 시 스타일은 수정 예정</p>
+					</div>
+					<div class="col-12">
+						<div class="row">
+							<div class="col-12 col-sm-3">
+								<button class="btn btn-sm cg-primary text-white">메인 버튼, 등록 버튼, 등..</button>
+							</div>
+							<div class="col-12 col-sm-3">
+								<button class="btn btn-sm cg-light">보조 버튼..</button>
+							</div>
+							<div class="col-12 col-sm-3">
+								<button class="btn btn-sm cg-secondary">취소 버튼, 이전 버튼 등</button>
+							</div>
+							<div class="col-12 col-sm-3">
+								<button class="btn btn-sm cg-dark text-white">수정 버튼, 삭제 버튼</button>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 ">
+								<style>
+									.btn-keyword {
+										background-color: #fcfcfc;
+										border: solid 1px #c8c8c8;
+										color: #666666;
+										border-radius: .825rem;
+										padding: .25rem .5rem;
+										cursor: default;
+										margin-bottom: .25rem;
+										display: inline-flex;
+									}
+									
+									.cg-active {
+										background-color: #f74747;
+										border: none;
+										color: #fcfcfc;
+									}
+									
+									.cg-active:hover {
+										background-color: #f74747;
+										border: none;
+										color: #fcfcfc;
+									}
+									
+									.border-light {
+										border: solid 1px #f0f2f4 !important;
+									}
+									
+								</style>
+								키워드용 버튼은 추가로 btn-keyword 를 만들었습니다.<br />
+								<button class="btn btn-sm btn-keyword">Keyword</button>
+								<button class="btn btn-sm btn-keyword cg-active">Keyword active</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- 먹거리, 살거리 list -->
+			<div class="container">
+				<style>
+					::-webkit-scrollbar {
+					    width: 5px;
+					    height: 5px;
+					  }
+					  ::-webkit-scrollbar-thumb {
+					    background-color: #ccc;
+					  }
+					  ::-webkit-scrollbar-track {
+					    background-color: #f7f7f7;
+					  }
+					  
+				</style>
+
+				<div class="row gx-2">
+					<div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
+						<div class="card border border-light h-100">
+							<a href="#"><img src="https://recipe1.ezmember.co.kr/cache/recipe/2015/05/28/fb15281c82b14b6ab9c937eb48730b2b1.jpg" class="card-img-top object-fit-cover" alt="..." style="height: 13rem;" /></a>
+							<div class="card-body">
+								<h5 class="card-title">돼지고기 김치찌개</h5>
+								<p class="card-text text-muted small text-nowrap overflow-x-auto pb-1">
+									<span class="btn-keyword">한식</span>
+									<span class="btn-keyword">안매움</span>
+									<span class="btn-keyword">국물</span>
+									<span class="btn-keyword">고기</span>
+									<span class="btn-keyword">한식</span>
+									<span class="btn-keyword">안매움</span>
+									<span class="btn-keyword">국물</span>
+									<span class="btn-keyword">고기</span>
+								</p>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
+						<div class="card border border-light">
+							<a href="#"><img src="https://thumbnail9.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/7477013655676908-953a56c7-c264-4999-8f3c-eb8762c3aa87.jpg" class="card-img-top" alt="..." style="height: 13rem; object-fit: cover;" /></a>
+							<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2">
+								<i class="fa-solid fa-cart-shopping" role="button"></i>
+							</span>
+							<div class="card-body">
+								<h5 class="card-title">대파</h5>
+								<p class="card-text fw-bold">
+									<span class="text-danger">10%</span>
+									<span>3,600원</span><br />
+									<span class="text-muted small"><del>4,000원</del></span>
+								</p>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			
+			<!-- 게시판 list -->
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<div class="row">
+							<div class="col-6 offset-6">
+								<div class="input-group">
+									<input type="text" class="form-control form-control-sm" />
+									<button type="button" class="btn btn-sm btn-primary">검색</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<table class="table table-hover cursor-pointer small">
+								<thead class="table-light">
+									<tr>
+										<th>#</th>
+										<th>제목</th>
+										<th>작성자</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>33</td>
+										<td><a href="#" class="link-dark text-decoration-none">'미나미삼삼' 님의 '영화' 목록 공유!</a></td>
+										<td>미나미삼삼</td>
+										<td>2024-02-16 12:34:56</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						    <li class="page-item disabled">
+						      <a class="page-link">
+						      	<i class="fa-solid fa-angle-left"></i>
+						      </a>
+						    </li>
+						    <li class="page-item"><a class="page-link" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link" href="#">3</a></li>
+						    <li class="page-item">
+						      <a class="page-link" href="#">
+						      	<i class="fa-solid fa-angle-right"></i>
+						      </a>
+						    </li>
+						  </ul>
+						</nav>
+						
+						<h3>또는</h3>
+						
+						<div class="row">
+							<div class="col-6 offset-6">
+								<div class="input-group">
+									<input type="text" class="form-control form-control-sm" />
+									<button type="button" class="btn btn-sm btn-primary">검색</button>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col">
+								<ul class="list-group list-group-flush">
+									<li class="list-group-item">
+										<a href="#" class="link-dark text-decoration-none">
+											<div class="row pb-2">
+												<div class="col-1">
+													<h1 class="display-6 text-primary">4</h1>
+												</div>
+												<div class="col-11">
+													<div class="row h-100">
+														<div class="col-12 col-md-9 d-flex align-items-center">
+															한식양식중식일식 님의 음식 결과 공유!
+														</div>
+														<div class="col-12 col-md-3 d-flex align-items-center">
+															<span class="text-muted small">2024-02-16 12:34:56</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</li>
+									
+									<li class="list-group-item">
+										<a href="#" class="link-dark text-decoration-none">
+											<div class="row pb-2">
+												<div class="col-1">
+													<h1 class="display-6 text-primary">3</h1>
+												</div>
+												<div class="col-11">
+													<div class="row h-100">
+														<div class="col-12 col-md-9 d-flex align-items-center">
+															로렘입숨 님의 영화 결과 공유!
+														</div>
+														<div class="col-12 col-md-3 d-flex align-items-center">
+															<span class="text-muted small">2024-02-16 09:30:00</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</li>
+									
+									<li class="list-group-item">
+										<a href="#" class="link-dark text-decoration-none">
+											<div class="row pb-2">
+												<div class="col-1">
+													<h1 class="display-6 text-primary">2</h1>
+												</div>
+												<div class="col-11">
+													<div class="row h-100">
+														<div class="col-12 col-md-9 d-flex align-items-center">
+															미나미삼삼 님의 영화 결과 공유!
+														</div>
+														<div class="col-12 col-md-3 d-flex align-items-center">
+															<span class="text-muted small">2024-02-15 12:34:56</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</li>
+									
+									<li class="list-group-item">
+										<a href="#" class="link-dark text-decoration-none">
+											<div class="row pb-2">
+												<div class="col-1">
+													<h1 class="display-6 text-primary">1</h1>
+												</div>
+												<div class="col-11">
+													<div class="row h-100">
+														<div class="col-12 col-md-9 d-flex align-items-center">
+															프론트엔드재밌다 님의 공연 결과 공유!
+														</div>
+														<div class="col-12 col-md-3 d-flex align-items-center">
+															<span class="text-muted small">2024-02-15 11:22:33</span>
+														</div>
+													</div>
+												</div>
+											</div>
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+						<nav aria-label="Page navigation example">
+						  <ul class="pagination justify-content-center">
+						    <li class="page-item disabled">
+						      <a class="page-link">
+						      	<i class="fa-solid fa-angle-left"></i>
+						      </a>
+						    </li>
+						    <li class="page-item"><a class="page-link" href="#">1</a></li>
+						    <li class="page-item"><a class="page-link" href="#">2</a></li>
+						    <li class="page-item"><a class="page-link" href="#">3</a></li>
+						    <li class="page-item">
+						      <a class="page-link" href="#">
+						      	<i class="fa-solid fa-angle-right"></i>
+						      </a>
+						    </li>
+						  </ul>
+						</nav>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- 회원가입 form -->
+			<div class="container">
+				<div class="row jusify-content-center">
+					<div class="col-12 col-md-5 offset-md-1">
+						<h1 class="display-6">환영합니다!</h1>
+						<p>회원가입을 진행해주세요!</p>
+					</div>
+					<div class="col-12 col-md-5">
+						<form id="frmUserJoin" action="#" method="post">
+							<div class="input-group mb-2">
+								<div class="form-floating">
+									<input type="text" class="form-control" id="u_id" name="u_id" placeholder="아이디">
+									<label for="u_id">아이디</label>
+								</div>
+								<span class="input-group-text" role="button" id="btnIdExistCheck">중복확인</span>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<input type="password" class="form-control" id="u_pw" name="u_pw" placeholder="패스워드">
+								<label for="u_pw">패스워드</label>
+							</div>
+							<div class="form-floating mb-2">
+								<input type="password" class="form-control" id="u_pw_chk" name="u_pw_chk" placeholder="패스워드 확인">
+								<label for="u_pw_chk">패스워드 확인</label>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="u_name" name="u_name" placeholder="패스워드">
+								<label for="u_name">이름</label>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- 먹거리 상세페이지 내 재료 list -->
+			<div class="container">
+				<div class="row row-cols-1 row-cols-lg-2">
+					<div class="col">
+						<div class="row">
+							<div class="col-7">재료명</div>
+							<div class="col-3">용량</div>
+							<div class="col-2 text-end"><button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-cart-shopping"></i></button></div>
+						</div>
+						<div class="border-bottom my-1"></div>
+					</div>
+					<div class="col">
+						<div class="row">
+							<div class="col-7">재료명</div>
+							<div class="col-3">용량</div>
+							<div class="col-2 text-end"><button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-cart-shopping"></i></button></div>
+						</div>
+						<div class="border-bottom my-1"></div>
+					</div>
+					<div class="col">
+						<div class="row">
+							<div class="col-7">재료명</div>
+							<div class="col-3">용량</div>
+							<div class="col-2 text-end"><button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-cart-shopping"></i></button></div>
+						</div>
+						<div class="border-bottom my-1"></div>
+					</div>
+					<div class="col">
+						<div class="row">
+							<div class="col-7">재료명</div>
+							<div class="col-3">용량</div>
+							<div class="col-2 text-end"><button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-cart-shopping"></i></button></div>
+						</div>
+						<div class="border-bottom my-1"></div>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- 먹거리 상세페이지 내 레시피 list -->
+			<div class="container">
+				<div class="row">
+					<div class="col-12 my-2 d-flex border-bottom">
+						<p><span class="badge bg-primary me-3 fs-4">1</span></p>
+						<p>loremloremlorem loremloremlorem loremloremlo remloremlorem lorem loremloremlorem</p>
+					</div>
+					<div class="col-12 my-2 d-flex border-bottom">
+						<p><span class="badge bg-primary me-3 fs-4">2</span></p>
+						<p>loremloremlorem loremloremlorem loremloremlo remloremlorem lorem loremloremlorem</p>
+					</div>
+					<div class="col-12 my-2 d-flex border-bottom">
+						<p><span class="badge bg-primary me-3 fs-4">3</span></p>
+						<p>loremloremlorem loremloremlorem loremloremlo remloremlorem lorem loremloremlorem</p>
+					</div>
+				</div>
+			</div>
+			
+			
+			<!-- 카카오 맵 API 연동 -->
+			<div class="container-fluid">
+				<div class="row">
+					<h1 th:if="${session.ss_u_seq != null}" th:text="${session.ss_u_seq}">session</h1>
+					
+					<div id="map" style="width: 100%; height: 400px;"></div>
+					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bde73c8b89de54b9a43958dc56ce6bc2"></script>
+					<script>
+					
+					var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+					var options = { //지도를 생성할 때 필요한 기본 옵션
+					   center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+					   level: 3 //지도의 레벨(확대, 축소 정도)
+					};
+					
+					var map = new kakao.maps.Map(container, options); //지도 생성 및 객체 리턴
+					</script>
+
+				</div>
+			</div>
+			
+			<script th:src="@{/js/myScript.js}"></script>
+			
 		</div>
 	</body>
 </html>

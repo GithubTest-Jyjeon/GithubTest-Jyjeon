@@ -3,12 +3,17 @@
 <!-- namespace 는 이 매퍼가 어떤 인터페이스와 연관 된 매퍼인지를 설정 -->
 <mapper namespace="com.ex.springboot.dao.IuserDAO">
 	<!-- 로그인 -->
-	<select id="loginDAO" resultType="com.ex.springboot.dto.userDTO">
+	<select id="loginDAO" resultType="com.ex.springboot.dto.UserDTO">
 		select * from CG_USER where U_ID = #{param1} and U_PW = #{param2}
 	</select>
 	
 	<!-- 회원 가입 -->
 	<insert id="joinDAO">
-		insert into CG_USER values(USER_SEQ.nextval, #{u_id}, #{u_pw}, #{u_name})
+		insert into CG_USER (U_SEQ, U_ID, U_PW, U_NAME, U_NICKNAME, U_EMAIL) values (USER_SEQ.nextval, #{u_id}, #{u_pw}, #{u_name}, #{u_nickname}, #{u_email})
 	</insert>
+	
+	<!-- 회원 정보 -->
+	<select id="myInfoDAO" resultType="com.ex.springboot.dto.UserDTO">
+		select * from CG_USER where U_SEQ = #{param1}
+	</select>
 </mapper>
