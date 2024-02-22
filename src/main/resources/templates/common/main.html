@@ -99,21 +99,21 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-12">
-						<p>버튼 세트는 다음과 같습니다. hover 시 스타일은 수정 예정</p>
+						<p>버튼 세트는 다음과 같습니다.</p>
 					</div>
 					<div class="col-12">
 						<div class="row">
 							<div class="col-12 col-sm-3">
-								<button class="btn btn-sm cg-primary text-white">메인 버튼, 등록 버튼, 등..</button>
+								<button class="btn btn-sm btn-primary">메인 버튼, 등록 버튼, 등..</button>
 							</div>
 							<div class="col-12 col-sm-3">
-								<button class="btn btn-sm cg-light">보조 버튼..</button>
+								<button class="btn btn-sm btn-light">보조 버튼..</button>
 							</div>
 							<div class="col-12 col-sm-3">
-								<button class="btn btn-sm cg-secondary">취소 버튼, 이전 버튼 등</button>
+								<button class="btn btn-sm btn-secondary">취소 버튼, 이전 버튼 등</button>
 							</div>
 							<div class="col-12 col-sm-3">
-								<button class="btn btn-sm cg-dark text-white">수정 버튼, 삭제 버튼</button>
+								<button class="btn btn-sm btn-dark">수정 버튼, 삭제 버튼</button>
 							</div>
 						</div>
 						<div class="row">
@@ -159,20 +159,6 @@
 			
 			<!-- 먹거리, 살거리 list -->
 			<div class="container">
-				<style>
-					::-webkit-scrollbar {
-					    width: 5px;
-					    height: 5px;
-					  }
-					  ::-webkit-scrollbar-thumb {
-					    background-color: #ccc;
-					  }
-					  ::-webkit-scrollbar-track {
-					    background-color: #f7f7f7;
-					  }
-					  
-				</style>
-
 				<div class="row gx-2">
 					<div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
 						<div class="card border border-light h-100">
@@ -410,6 +396,11 @@
 							<div class="form-floating mb-2">
 								<input type="text" class="form-control" id="u_name" name="u_name" placeholder="패스워드">
 								<label for="u_name">이름</label>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<input type="date" class="form-control" id="u_birth" name="u_birth" max="9999-12-31">
+								<label for="u_birth">생년월일</label>
 							</div>
 						</form>
 					</div>

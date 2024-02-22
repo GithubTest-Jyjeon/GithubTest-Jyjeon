@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html
+	lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content">
+		
+			<div class="container">
+		        <!-- 게시글 작성 버튼 -->
+		        <div class="my-3">
+		            <a th:href="@{/product/write}" th:text="|${p_category} 상품 등록|" class="btn btn-primary"></a>
+		        </div>
+	        </div>
+        	<!-- 리스트 아이템 반복 -->
+	        <div class="container">
+	            <div class="row gx-2">
+	                <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="dto : ${list}">
+						<div class="card border border-light h-100">
+							<a th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}"><img th:src="${dto.p_image}" class="card-img-top" alt="..." style="object-fit: cover;" /></a>
+							<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2">
+								<i class="fa-solid fa-cart-shopping" role="button"></i>
+							</span>
+							<div class="card-body">
+								<h5 class="card-title" th:text="${dto.p_name}"></h5>
+								<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
+									<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
+									<span th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
+									<span th:text="|${dto.p_price}원|" class="text-muted small" style="text-decoration: line-through;"></span>
+								</p>
+								<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
+									<span th:text="|${dto.p_price}원|"></span>
+								</p>
+							</div>
+						</div>
+					</div>
+	            </div>
+	        </div>
+	
+	        <!-- 페이지 네비게이션 -->
+	        <nav aria-label="Page navigation example">
+	            <ul class="pagination justify-content-center">
+	                <li th:classappend="${page > 1} ? '' : 'disabled'">
+	                    <a class="page-link" th:href="@{/product/list(page=${page - 1}, word=${word}, p_category=${p_category})}">Prev</a>
+	                </li>
+	                <li th:each="i : ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == i} ? 'active' : ''">
+	                    <a class="page-link" th:href="@{/product/list(page=${i}, word=${word}, p_category=${p_category})}" th:text="${i}"></a>
+	                </li>
+	                <li th:classappend="${page < totalPage} ? '' : 'disabled'">
+	                    <a class="page-link" th:href="@{/product/list(page=${page + 1}, word=${word}, p_category=${p_category})}">Next</a>
+	                </li>
+	            </ul>
+	        </nav>
+	        
+	        <!-- 검색 폼 -->
+	        <div class="row">
+	            <div class="col-4 offset-4">
+	                <form th:action="@{/product/list}" method="get">
+	                	<input type="hidden" name="p_category" th:value="${p_category}" />
+	                	<input type="hidden" name="page" th:value="${page}" />
+	                	
+	                    <div class="input-group">
+	                        <input type="text" name="word" class="form-control" placeholder="상품명 입력">
+	                        <button type="submit" class="btn btn-primary">검색</button>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
+		</div>
+	</body>
+</html>

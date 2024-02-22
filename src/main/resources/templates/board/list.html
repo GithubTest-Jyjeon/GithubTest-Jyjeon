@@ -12,7 +12,84 @@
 	
 	<body>
 		<div layout:fragment="content">
-			게시판 목록 페이지
+		
+			<li>page : <span th:text="${page}"></span></li>
+            <li>limit : <span th:text="${limit}"></span></li>
+            <li>type : <span th:text="${type}"></span></li>
+            <li>word : <span th:text="${word}"></span></li>
+            <li>startPage : <span th:text="${startPage}"></span></li>
+			<li>endPage : <span th:text="${endPage}"></span></li>
+			<li>totalPage : <span th:text="${totalPage}"></span></li>
+			<li>query : <span th:text="${query}"></span></li>
+            
+			<div class="container">
+		        <!-- 게시글 작성 버튼 -->
+		        <div class="my-3">
+		            <a th:href="@{/board/write}" class="btn btn-primary">게시글 작성</a>
+		        </div>
+	        </div>
+        	<!-- 리스트 아이템 반복 -->
+	        <div th:each="dto : ${list}" class="container">
+	            <div class="row">
+	                <div class="col">
+	                    <ul class="list-group list-group-flush">
+	                        <hr>
+	                        <li class="list-group-item">
+	                            <div class="row pb-2">
+	                                <div class="col-1">
+	                                    <h1 class="display-6 text-primary" th:text="${dto.b_seq}">ID</h1>
+	                                </div>
+	                                <div class="col-11">
+	                                    <div class="row h-100">
+	                                        <div class="col-12 col-md-8 d-flex align-items-center">
+	                                            <a th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}" class="fs-4 text-dark text-decoration-none">
+	                                            	<span th:text="${dto.u_nickname} + ' 님의 '+${dto.b_category}+' 결과 공유!'"></span>
+	                                            </a>
+	                                        </div>
+	                                        <div class="col-12 col-md-4 d-flex align-items-center justify-content-between">
+	                                            <span class="text-muted small">조회수 : <span th:text="${dto.b_hit}"></span></span>
+	                                            <span class="text-muted small" th:text="${dto.b_upd_date}"></span>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </div>
+	                        </li>
+	                    </ul>
+	                </div>
+	            </div>
+	        </div>
+	
+	        <!-- 페이지 네비게이션 -->
+	        <nav aria-label="Page navigation example">
+	            <ul class="pagination justify-content-center">
+	                <li th:classappend="${page > 1} ? '' : 'disabled'">
+	                    <a class="page-link" th:href="@{/board/list(page=${page - 1}, type=${type}, word=${word})}">Prev</a>
+	                </li>
+	                <li th:each="i : ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == i} ? 'active' : ''">
+	                    <a class="page-link" th:href="@{/board/list(page=${i}, type=${type}, word=${word})}" th:text="${i}"></a>
+	                </li>
+	                <li th:classappend="${page < totalPage} ? '' : 'disabled'">
+	                    <a class="page-link" th:href="@{/board/list(page=${page + 1}, type=${type}, word=${word})}">Next</a>
+	                </li>
+	            </ul>
+	        </nav>
+	        
+	        <!-- 검색 폼 -->
+	        <div class="row">
+	            <div class="col-4 offset-4">
+	                <form th:action="@{/board/list}" method="get">
+	                    <div class="input-group">
+	                        <select name="type" class="form-select">
+	                            <option value="title">제목</option>
+	                            <option value="content">내용</option>
+	                            <option value="writer">작성자</option>
+	                        </select>
+	                        <input type="text" name="word" class="form-control" placeholder="검색어 입력">
+	                        <button type="submit" class="btn btn-primary">검색</button>
+	                    </div>
+	                </form>
+	            </div>
+	        </div>
 		</div>
 	</body>
 </html>

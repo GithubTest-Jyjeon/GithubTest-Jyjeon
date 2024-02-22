@@ -4,7 +4,7 @@
 <mapper namespace="com.ex.springboot.dao.IuserDAO">
 	<!-- 로그인 -->
 	<select id="loginDAO" resultType="com.ex.springboot.dto.UserDTO">
-		select * from CG_USER where U_ID = #{param1} and U_PW = #{param2}
+		select * from CG_USER where U_ID = #{param1} and U_PW = #{param2} #{type} like 
 	</select>
 	
 	<!-- 회원 가입 -->

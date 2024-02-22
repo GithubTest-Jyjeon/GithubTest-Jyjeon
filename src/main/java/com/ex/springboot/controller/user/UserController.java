@@ -1,4 +1,4 @@
-package com.ex.springboot.controller;
+package com.ex.springboot.controller.user;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.ex.springboot.dao.IuserDAO;
 import com.ex.springboot.dto.UserDTO;
+import com.ex.springboot.interfaces.IuserDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -26,7 +26,7 @@ public class UserController {
 	
 	@GetMapping("/user/join")
 	public String join() {
-		return "user/join";
+		return "/user/join";
 	}
 	
 	@PostMapping("/user/joinProcess")
@@ -34,7 +34,7 @@ public class UserController {
 	
 		if(dao.joinDAO(userDTO)) {
 			System.out.println("회원가입 성공");
-			return "redirect:/";
+			return "redirect:/user/login";
 		} else{
 			System.out.println("회원가입 실패");
 			return "/user/join";
@@ -43,7 +43,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/myInfoUpdate")
-	public String myInfo(HttpServletRequest request, Model model) {
+	public String myInfoUpdatePage(HttpServletRequest request, Model model) {
 		List<UserDTO> userDTO = new ArrayList<>();
 		
 		HttpSession session = request.getSession();
@@ -85,6 +85,14 @@ public class UserController {
 			System.out.println("로그인 실패");
 			return "/user/login";
 		}
+	}
+	
+	@GetMapping("/user/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		session.invalidate();
+		System.out.println("로그아웃 성공");
+		return "redirect:/";
 	}
 	
 }

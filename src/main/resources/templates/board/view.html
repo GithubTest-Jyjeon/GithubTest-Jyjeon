@@ -12,7 +12,122 @@
 	
 	<body>
 		<div layout:fragment="content">
-			게시판 보기 페이지
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<h1 th:text="${boardInfo.b_title}" class="display-6"></h1>
+					</div>
+					<hr />
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<p>
+							<i class="fa fa-user me-3"></i> 
+							<span th:text="${boardInfo.u_nickname}" class="fs-3"></span>
+						</p>
+					</div>
+					<div class="col-6 text-end">
+						<p>
+							<i class="fa fa-eye me-3"></i> 
+							<span th:text="${boardInfo.b_hit}" class="fs-3"></span>
+						</p>
+					</div>
+					<hr />
+				</div>
+				
+				<div class="row">
+					<div class="col-12">
+						<p>
+							<i class="fa-solid fa-pen me-3"></i>
+							<span th:text="${boardInfo.b_upd_date}" class="text-muted small text-right"></span>
+							<div th:text="${boardInfo.b_content}"></div>
+						</p>
+					</div>
+					<div class="col-12">
+					</div>
+					<hr />
+				</div>
+				
+				<div class="row">
+					<div class="col-12">
+						<p>
+							<span class="fw-bold" th:text="${boardInfo.u_nickname}"></span> 님이
+							<th:block th:switch="${boardInfo.b_category}">
+							    <span class="fw-bold" th:case="M">영화</span>
+							    <span class="fw-bold" th:case="S">공연</span>
+							    <span class="fw-bold" th:case="F">음식</span>
+							    테마에서 선택 한 키워드에요
+							</th:block>
+						</p>
+						<p>
+							<span th:each="keyword : ${keywordList}" th:text="${keyword.k_word}" class="btn btn-sm btn-keyword me-1" ></span>
+						</p>
+					</div>
+					<hr />
+					
+					<div class="col-12">
+						<p>
+							키워드 조합 결과는 !?
+						</p>
+						
+						<div th:each="result : ${resultList}">
+							<th:block th:switch="${boardInfo.b_category}">
+								<div th:case="M" class="row mb-3">
+									<div class="col-4">
+										<a th:href="@{/movie/view(m_seq=${result.seq})}" class="text-dark text-decoration-none"><img th:src="${result.image}" class="img-fluid" /></a>
+									</div>
+									<div class="col-8">
+										<div th:text="${result.title}" class="fw-bold mb-2"></div>
+										<div class="text-muted small mb-1">
+											<span th:text="|${result.time}분|"></span> | 
+											<span th:text="|${result.nation}|"></span> | 
+											<span th:text="|${result.year}년 개봉|"></span>
+										</div>
+										<div class="text-muted small">
+											<span th:each="genre : ${genreList}" th:if="${genre.t_code == result.code}" th:text="|${genre.g_name}|" class="btn btn-sm btn-keyword me-1"></span>
+										</div>
+									</div>
+								</div>
+								
+								<div th:case="S" class="row mb-3">
+									<div class="col-3">
+										<a th:href="@{/movie/view(s_seq=${result.seq})}" class="text-dark text-decoration-none"><img th:src="${result.image}" class="img-fluid" /></a>
+									</div>
+									<div class="col-9">
+										<div th:text="${result.title}" class="fw-bold mb-2"></div>
+										<div class="text-muted small mb-1">
+											<span th:text="|${result.time}분|"></span> | 
+											<span th:text="|${result.위치}|"></span> | 
+											<span th:text="|${result.기간}|"></span>
+										</div>
+										<div class="text-muted small">
+											<span th:each="genre : ${genreList}" th:if="${genre.t_code == result.code}" th:text="|${genre.g_name}|" class="btn btn-sm btn-keyword me-1"></span>
+										</div>
+									</div>
+								</div>
+								
+								<div th:case="F" class="row mb-3">
+									<div class="col-3">
+										<a th:href="@{/movie/view(f_seq=${result.seq})}" class="text-dark text-decoration-none"><img th:src="${result.image}" class="img-fluid" /></a>
+									</div>
+									<div class="col-9">
+										<div th:text="${result.title}" class="fw-bold mb-2"></div>
+										<div class="text-muted small mb-1">
+											
+										</div>
+									</div>
+								</div>
+							</th:block>
+						</div>
+					</div>
+					<hr />
+				</div>
+				<div class="row">
+					<div class="col d-flex justify-content-center">
+						<a th:href="@{/board/list(page=${page})}" th:text="목록으로" class="btn btn-light"></a>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>

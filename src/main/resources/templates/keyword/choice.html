@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html
+	lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" class="content content1">
+			<style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+    *,
+    *:after,
+    *:before {
+      box-sizing: border-box;
+    }
+
+
+    .checkbox-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 600px;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .checkbox-group > * {
+      margin: 0.5rem 0.5rem;
+    }
+
+    .checkbox-group-legend {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #f74b4b;
+      text-align: center;
+      line-height: 1.125;
+      margin-bottom: 1.25rem;
+    }
+
+    .checkbox-input {
+      clip: rect(0 0 0 0);
+      -webkit-clip-path: inset(100%);
+      clip-path: inset(100%);
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+    .checkbox-input:checked + .checkbox-tile {
+      border-color: #f74b4b;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      color: #f74b4b;
+    }
+    .checkbox-input:checked + .checkbox-tile:before {
+      transform: scale(1);
+      opacity: 1;
+      background-color: #f74b4b;
+      border-color: #f74b4b;
+    }
+    .checkbox-input:checked + .checkbox-tile .checkbox-icon,
+    .checkbox-input:checked + .checkbox-tile .checkbox-label {
+      color: #f74b4b;
+    }
+    .checkbox-input:focus + .checkbox-tile {
+      border-color: #f74b4b;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #e7cece;
+    }
+    .checkbox-input:focus + .checkbox-tile:before {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .checkbox-tile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+       width: 10rem;
+      min-height: 10rem; 
+      border-radius: 0.5rem;
+      border: 2px solid #b5bfd9;
+      background-color: #fff;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.15s ease;
+      cursor: pointer;
+      position: relative;
+      /* padding: 10px 10px 10px 30px; */
+    }
+    .checkbox-tile:before {
+      content: "";
+      position: absolute;
+      display: block;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid #f74b4b;
+      background-color: #fff;
+      border-radius: 50%;
+      top: 0.25rem;
+      left: 0.25rem;
+      opacity: 0;
+      transform: scale(0);
+      transition: 0.25s ease;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='192' height='192' fill='%23FFFFFF' viewBox='0 0 256 256'%3E%3Crect width='256' height='256' fill='none'%3E%3C/rect%3E%3Cpolyline points='216 72.005 104 184 48 128.005' fill='none' stroke='%23FFFFFF' stroke-linecap='round' stroke-linejoin='round' stroke-width='32'%3E%3C/polyline%3E%3C/svg%3E");
+      background-size: 12px;
+      background-repeat: no-repeat;
+      background-position: 50% 50%;
+    }
+    .checkbox-tile:hover {
+      border-color: #f74b4b;
+      color: #f74b4b;
+    }
+    .checkbox-tile:hover:before {
+      transform: scale(1);
+      opacity: 1;
+      color: #f74b4b;
+    }
+
+    .checkbox-icon {
+      transition: 0.375s ease;
+      color: #494949;
+    }
+    .checkbox-icon svg {
+      width: 10rem;
+      height: 10rem;
+    }
+
+    .checkbox-label {
+      color: #707070;
+      transition: 0.375s ease;
+      text-align: center;
+      font-size: 1.5rem;
+    }
+    .submit {
+        overflow: visible;
+        margin: 30px 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        font: inherit;
+        font-weight: bold;
+        line-height: normal;
+        cursor: pointer;
+        display: block;
+        text-decoration: none;
+        text-transform: uppercase;
+        padding: 16px 36px 22px;
+        color: #ffffff;
+        background-color: #f74b4b;
+        border: 2px solid #f74b4b;
+        border-radius: 6px;
+        margin-bottom: 16px;
+        transition: all 0.5s ease;
+    }
+  </style>
+			<div class="container" th:if="${type == 'work'}">
+				<div class="row steps" id="formWorkType">
+					<div class="col">
+						<fieldset class="checkbox-group" id="categorySet1">
+					        <legend class="checkbox-group-legend">Choose your favorites</legend>
+					        <label class="checkbox-wrapper">
+					            <input type="checkbox" class="checkbox-input" id="checkBoxMovie" name="category" />
+					            <span class="checkbox-tile">
+					                <span class="checkbox-label">영화 보기</span>
+					            </span>
+					        </label>
+					        <label class="checkbox-wrapper">
+					            <input type="checkbox" class="checkbox-input" id="checkBoxShow" name="category" />
+					            <span class="checkbox-tile">
+					                <span class="checkbox-label">공연 보기</span>
+					            </span>
+					        </label>
+					    </fieldset>
+					    
+					</div>
+				</div>
+				
+				<div class="row steps" id="formMovieNation">
+					<div class="col">
+						<fieldset class="checkbox-group" id="categorySet1">
+						    <legend class="checkbox-group-legend">Choose your favorites</legend>
+						    <label class="checkbox-wrapper">
+						      <input type="checkbox" class="checkbox-input" id="btnCheckbox1" />
+						      <span class="checkbox-tile">
+						        <span class="checkbox-label">국내영화</span>
+						      </span>
+						    </label>
+						    <label class="checkbox-wrapper">
+						      <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+						      <span class="checkbox-tile">
+						        <span class="checkbox-label">해외영화</span>
+						      </span>
+						    </label>
+						  </fieldset>
+					</div>
+				</div>
+				
+				<div class="row steps" id="formMovieGenre">
+					<div class="col">
+						영화 step 2 : 장르 선택
+					</div>
+				</div>
+				
+				<div class="row steps" id="formMovieYear">
+					<div class="col">
+						영화 step 3 : 년대 선택
+					</div>
+				</div>
+				
+				<div class="row steps" id="formShowGenre">
+					<div class="col">
+						공연 step 1 : 장르 선택
+					</div>
+				</div>
+				
+				<div class="row steps" id="formShowRegion">
+					<div class="col">
+						<fieldset class="checkbox-group" id="categorySet1">
+      <legend class="checkbox-group-legend">Choose your favorites</legend>
+       <label class="checkbox-wrapper">
+  <input type="checkbox" class="checkbox-input" id="selectAll" />
+  <span class="checkbox-tile">
+    <span class="checkbox-label">모두 선택</span>
+  </span>
+</label>
+      <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox1" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">서울</span>
+        </span>
+      </label>
+      <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">인천</span>
+        </span>
+      </label>
+       <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">부산</span>
+        </span>
+      </label>
+       <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">대전</span>
+        </span>
+      </label>
+       <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">광주</span>
+        </span>
+      </label>
+       <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">대구</span>
+        </span>
+      </label>
+       <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">울산</span>
+        </span>
+      </label>
+       <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">제주</span>
+        </span>
+      </label>
+       <label class="checkbox-wrapper">
+        <input type="checkbox" class="checkbox-input" id="btnCheckbox2" />
+        <span class="checkbox-tile">
+          <span class="checkbox-label">세종</span>
+        </span>
+      </label>
+     
+         
+    </fieldset>
+					</div>
+				</div>
+				
+				<button type="button" class="btn btn-primary btnStep" data-currStep="choiceWorkType">다음</button>
+				<button type="button" class="btn btn-primary btnResult">결과보기</button>
+				
+			</div>
+			
+			<div class="container" th:if="${type == 'food'}">
+				<div class="row steps">
+					<div class="col">
+					
+					</div>
+				</div>
+			</div>
+			
+			<div th:if="${type != 'work' && type != 'food'}">
+				<div class="row">
+					<div class="col">
+						ERROR
+					</div>
+				</div>
+			</div>
+			
+			
+			<script th:src="@{/js/choice.js}"></script>
+		</div>
+	</body>
+</html>

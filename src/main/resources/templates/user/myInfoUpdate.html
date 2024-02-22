@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html
+	lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+	<body class="bg-danger">
+		<div layout:fragment="content" class="content content1">
+			<h1>회원정보 수정 페이지</h1>
+			<form th:action=@{/user/myInfoUpdateProcess} method="get">
+				<input type="hidden" name="u_seq" th:value="${session.ss_u_seq}" />
+				<p>아이디 : <input type="text" th:value="${userInfo.u_id}" readonly disabled /></p>
+				<p>비밀번호 : <input type="password" name="u_password" /></p>
+				<p>비밀번호확인 : <input type="password" name="u_password_chk" /></p>
+				<p>이름 : <input type="text" th:value="${userInfo.u_name}" /></p>
+				
+				<p><input type="submit" value="내 정보 수정 완료"></p>
+			</form>
+		</div>
+	
+		<!-- <div layout:fragment="content" class="content content1">
+			<h1>회원정보 수정 페이지</h1>
+			<form th:action=@{/user/joinProcess} method="post">
+				<p>아이디 : <input type="text" name="u_id" value="${myInfo.U_ID}" /></p>
+				<p>패스워드 : <input type="password" name="u_pw" /></p>
+				<p>이름 : <input type="text" name="u_name" /></p>
+				<p>별명 : <input type="text" name="u_nickname" /></p>
+				<p>이메일 : <input type="text" name="u_email" /></p>
+				<p><input type="submit" value="회원가입" /></p>
+			</form>
+		</div> -->
+	</body>
+</html>

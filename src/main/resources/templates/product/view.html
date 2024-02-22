@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html
+	lang="ko"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+	
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	
+	<body>
+		<div layout:fragment="content" class="content content1">
+			<div class="container">
+				<div class="row">
+					<div class="col">
+						<h5 class="card-title" th:text="${productInfo.p_name}"></h5>
+						<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'Y'}">
+							<span th:text="|${productInfo.p_dc_percent}%|" class="text-danger"></span>
+							<span th:text="|${((productInfo.p_price * 100) - (productInfo.p_price * productInfo.p_dc_percent)) / 100}원|"></span><br />
+							<span th:text="|${productInfo.p_price}원|" class="text-muted small" style="text-decoration: line-through;"></span>
+						</p>
+						<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'N'}">
+							<span th:text="|${productInfo.p_price}원|"></span>
+						</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col">
+						<a th:href="@{/product/list(page=${page}, word=${word}, p_category=${productInfo.p_category})}" class="btn btn-sm btn-light" th:text="@{목록으로}" /></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

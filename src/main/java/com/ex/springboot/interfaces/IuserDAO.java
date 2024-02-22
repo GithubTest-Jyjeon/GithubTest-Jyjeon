@@ -1,6 +1,5 @@
-package com.ex.springboot.dao;
+package com.ex.springboot.interfaces;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
