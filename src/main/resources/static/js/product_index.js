@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 $(document).ready(function () {
   // 수량 증가 및 감소 버튼 이벤트 처리
   $("#plusBtn").click(function () {
@@ -62,4 +50,14 @@ $(document).ready(function () {
   if (totalCards <= initialCards) {
     $("#loadMore").hide();
   }
+  
+  $(".btnCart").on("click", function(){
+	  var p_code = $(this).attr("data-bs-pcode");
+	  
+	  $("#input_p_code").val(p_code);
+	  $("#exampleModal").show();
+	  
+	  return false;
+	  
+  })
 });

@@ -27,59 +27,6 @@ div.card>button {
 	margin-left: 105px;
 }
 
-div.card>button>span {
-	left: 50%;
-	top: 50%;
-	margin-top: 5px;
-}
-
-* {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	box-sizing: border-box;
-}
-
-html, body {
-	position: relative;
-	height: 100%;
-	background-color: #ffffff;
-	overflow-x: hidden;
-}
-
-#wrapper {
-	width: 100%;
-	height: auto;
-	position: relative;
-	border: 1px wheat solid;
-}
-
-.navbar {
-	position: fixed;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	z-index: 99999;
-}
-
-.mainnav {
-	width: 90%;
-}
-
-.navbar-brand {
-	color: #f67676;
-	font-weight: bold;
-}
-
-.container-fluid {
-	padding: 0;
-}
-
-.row {
-	background-color: white;
-	margin-bottom: 20px;
-}
-
 .P_CATEGORY {
 	display: flex;
 	width: 100%;
@@ -95,10 +42,6 @@ html, body {
 
 .card.show {
 	display: block; /* "show" 클래스가 추가된 카드만 보입니다. */
-}
-
-.card:hover {
-	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
 }
 
 .P_title {
@@ -135,9 +78,6 @@ html, body {
   .MainSwiper .swiper-button-prev {
     right: 300px;
   } */
-.Maincs {
-	width: 100%;
-}
 
 /* ====================다열 캐로셀================= */
 .swp {
@@ -297,8 +237,10 @@ html, body {
 				<div class="row">
 					<div class="col P_CATEGORY">
 						<ul th:each="category : ${category_arr}">
-							<li><a th:href="@{/product/list(p_category=${category})}"
-								th:text="${category}">d</a></li>
+							<li>
+								<a th:href="@{/product/list(p_category=${category})}"
+								th:text="${category}">d</a>
+							</li>
 						</ul>
 					</div>
 				</div>
@@ -332,6 +274,35 @@ html, body {
 				</div>
 			</div>
 			<!-- ============================캐로셀 끝================================ -->
+			
+			<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="exampleModalLabel">New message</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			        <form>
+			          <div class="mb-3">
+			            <label for="recipient-name" class="col-form-label">Recipient:</label>
+			            <input type="text" class="form-control" id="input_p_code">
+			          </div>
+			          <div class="mb-3">
+			            <label for="message-text" class="col-form-label">Message:</label>
+			            <textarea class="form-control" id="message-text"></textarea>
+			          </div>
+			        </form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+			        <button type="button" class="btn btn-primary">Send message</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			
 			<div class="container">
 				<div class="row ps-3">
 					<h1 class="P_title">신상품</h1>
@@ -343,16 +314,12 @@ html, body {
 							<div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2"
 								th:each="dto : ${newList}">
 								<div class="card border border-light h-100">
-									<a
-										th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}">
-										<img
-										th:src="${dto.p_image}" class="card-img-top" alt="..."
-										style="object-fit: cover;" />
+									<a th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}">
+										<img th:src="${dto.p_image}" class="card-img-top" alt="..." style="object-fit: cover;" />
 									</a> 
-										<span
-										class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2">
-										<i class="fa-solid fa-cart-shopping" role="button"></i>
-										</span>
+									<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 btnCart" data-bs-toggle="modal" data-bs-target="#exampleModal" th:data-bs-pcode="${dto.p_code}">
+									<i class="fa-solid fa-cart-shopping"></i>
+									</span>
 									<div class="card-body">
 										<h5 class="card-title" th:text="${dto.p_name}"></h5>
 										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
