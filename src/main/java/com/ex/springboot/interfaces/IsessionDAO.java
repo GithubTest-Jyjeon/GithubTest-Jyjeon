@@ -1,5 +1,6 @@
 package com.ex.springboot.interfaces;
 
+import com.ex.springboot.dto.UserDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ex.springboot.dto.SessionDTO;

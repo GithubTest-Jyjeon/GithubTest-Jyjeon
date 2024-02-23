@@ -3,6 +3,7 @@ package com.ex.springboot.controller.user;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.ex.springboot.dao.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ex.springboot.dao.UserDAO;
 import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IuserDAO;
 
@@ -22,8 +24,8 @@ import jakarta.servlet.http.HttpSession;
 public class UserController {
 
 	@Autowired
-	IuserDAO dao;
-	
+	private UserDAO dao;
+
 	@GetMapping("/user/join")
 	public String join() {
 		return "/user/join";
@@ -32,7 +34,7 @@ public class UserController {
 	@PostMapping("/user/joinProcess")
 	public String joinProcess(UserDTO userDTO) {
 	
-		if(dao.joinDAO(userDTO)) {
+		if(dao.joinProcess(userDTO)) {
 			System.out.println("회원가입 성공");
 			return "redirect:/user/login";
 		} else{
@@ -41,21 +43,27 @@ public class UserController {
 		}
 	
 	}
-	
+
+	@Autowired
+	private SessionDAO sessionDAO;
+
 	@GetMapping("/user/myInfoUpdate")
 	public String myInfoUpdatePage(HttpServletRequest request, Model model) {
-		List<UserDTO> userDTO = new ArrayList<>();
-		
-		HttpSession session = request.getSession();
-		int u_seq = (int) session.getAttribute("ss_u_seq");
-		
-		if(u_seq > 0) {
-			userDTO = dao.myInfoDAO(u_seq);
-			UserDTO userInfo = userDTO.get(0);
-			model.addAttribute("userInfo", userInfo);
-			return "/user/myInfoUpdate";
+		String userId = (String) session.getAttribute("userId"); // 세션에서 userId 가져오기
+		String sessionId = sessionDAO.getSessionIdByUserId(userId); // SessionDAO를 통해 sessionId 가져오기
+
+		UserDTO userDTO = userDAO.getUserInfoBySessionId(sessionId); // UserDAO를 사용하여 사용자 정보 조회
+		model.addAttribute("user", userDTO); // 조회된 사용자 정보를 모델에 추가
+		return "myInfoUpdate"; // 정보를 표시할 HTML 파일 이름 반환
+	}
+
+	@PostMapping("/user/updateUserInfo")
+	public String updateUserInfo(UserDTO user, HttpServletRequest request) {
+		boolean updateResult = dao.updateUserInfoProcess(user);
+		if(updateResult) {
+			return "redirect:/user/profile"; // 업데이트 성공시 리다이렉트 할 페이지
 		} else {
-			return "/user/login";
+			return "redirect:/user/myInfoUpdate"; // 실패시 다시 수정 페이지로
 		}
 	}
 	
@@ -63,25 +71,17 @@ public class UserController {
 	public String login() {
 		return "/user/login";
 	}
-	
+
 	@PostMapping("/user/loginProcess")
 	public String loginProcess(@RequestParam(value = "u_id") String u_id, @RequestParam(value = "u_pw") String u_pw, HttpServletRequest request) {
-		List<UserDTO> userDTO = new ArrayList<>();
-		
-		System.out.println("U_ID : "+u_id);
-		System.out.println("U_PW : "+u_pw);
-		
-		userDTO = dao.loginDAO(u_id, u_pw);
-		
-		UserDTO userInfo = userDTO.get(0);
-		
-		if(userDTO.size() > 0) {
+		UserDTO userInfo = dao.loginProcess(u_id, u_pw);
+
+		if(userInfo != null) {
 			HttpSession session = request.getSession();
-			
 			session.setAttribute("ss_u_seq", userInfo.getU_seq());
 			System.out.println("로그인 성공");
 			return "redirect:/";
-		}else {
+		} else {
 			System.out.println("로그인 실패");
 			return "/user/login";
 		}
