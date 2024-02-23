@@ -2,1281 +2,506 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>살거리 메인</title>
-  </head>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>살거리 메인</title>
+</head>
 
-  <body>
-    <header>
-      <nav class="navbar pc navbar-expand-lg navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-            <img
-              src="img/로고%20완성2.png"
-              alt=""
-              width="30"
-              height="24"
-              class="d-inline-block align-text-top"
-            />
-            Chuget
-          </a>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">볼거리</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">먹거리</a>
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  id="navbarDropdown"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  살거리
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#">전체 목록</a></li>
-                  <li><a class="dropdown-item" href="#">신상품</a></li>
-                  <li><a class="dropdown-item" href="#">특가 할인 목록</a></li>
-                  <li><a class="dropdown-item" href="#">아채/채소</a></li>
-                  <li><a class="dropdown-item" href="#">축산/계란</a></li>
-                  <li>
-                    <a class="dropdown-item" href="#">소스/양념/조미료</a>
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li>
-                    <a class="dropdown-item" href="cart.html">장바구니</a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-            <form class="d-flex">
-              <input
-                class="form-control me-2"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-              />
-              <button class="btn" type="submit">
-                <span class="material-symbols-outlined"> search </span>
-              </button>
-            </form>
-          </div>
-        </div>
-      </nav>
-      <nav
-        class="navbar mo navbar-expand bg-light"
-        style="bottom: 0; position: fixed; width: 100%; z-index: 99999"
-      >
-        <div class="container-fluid">
-          <div class="collapse navbar-collapse end" id="navbarNav">
-            <ul class="navbar-nav">
-              <li class="nav-item">
-                <a class="nav-link" href="#">볼거리</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">먹거리</a>
-              </li>
-            </ul>
-          </div>
+<body>
+	<div layout:fragment="content" class="content content1">
 
-          <div class="btn-group dropup">
-            <button type="button" class="btn btn-secondary">ChuGet</button>
-            <button
-              type="button"
-              class="btn btn-secondary dropdown-toggle dropdown-toggle-split"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <span class="visually-hidden">Toggle Dropdown</span>
-            </button>
+		<style>
+.material-symbols-outlined {
+	font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+}
 
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">로그인</a></li>
-              <li><a class="dropdown-item" href="#">회원가입</a></li>
-            </ul>
-          </div>
+div.card>button {
+	border-radius: 50%;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-top: 55px;
+	margin-left: 105px;
+}
 
-          <div class="collapse navbar-collapse" id="navbarNav2">
-            <ul class="navbar-nav">
-              <li class="nav-item dropdown dropup">
-                <a
-                  class="nav-link dropdown-toggle"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  살거리
-                </a>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">전체목록</a></li>
-                  <li><a class="dropdown-item" href="#">신상품</a></li>
-                  <li><a class="dropdown-item" href="#">특가할인 목록</a></li>
-                  <li><a class="dropdown-item" href="#">야채/채소</a></li>
-                  <li><a class="dropdown-item" href="#">축산/계란</a></li>
-                  <li>
-                    <a class="dropdown-item" href="#">소스/양념/조미료</a>
-                  </li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#">장바구니</a></li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">게시판</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+div.card>button>span {
+	left: 50%;
+	top: 50%;
+	margin-top: 5px;
+}
 
-<div layout:fragment="content" class="content content1">
-	
-	<style>
-    .material-symbols-outlined {
-      font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-    }
-    
-    div.card > button {
-      border-radius: 50%;
-      width: 50px;
-      height: 50px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-top: 55px;
-      margin-left: 105px;
-    }
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+}
 
-    div.card > button > span {
-      left: 50%;
-      top: 50%;
-      margin-top: 5px;
-    }
+html, body {
+	position: relative;
+	height: 100%;
+	background-color: #ffffff;
+	overflow-x: hidden;
+}
 
-    * {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      box-sizing: border-box;
-    }
-    html,
-    body {
-      position: relative;
-      height: 100%;
-      background-color: #ffffff;
-      overflow-x: hidden;
-    }
-    #wrapper {
-      width: 100%;
-      height: auto;
-      position: relative;
-      border: 1px wheat solid;
-    }
-    .navbar {
-      position: fixed;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      z-index: 99999;
-    }
-    .mainnav {
-      width: 90%;
-    }
-    .navbar-brand {
-      color: #f67676;
-      font-weight: bold;
-    }
+#wrapper {
+	width: 100%;
+	height: auto;
+	position: relative;
+	border: 1px wheat solid;
+}
 
-    .container-fluid {
-      padding: 0;
-    }
+.navbar {
+	position: fixed;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	z-index: 99999;
+}
 
-    .row {
-      background-color: white;
-      margin-bottom: 20px;
-    }
+.mainnav {
+	width: 90%;
+}
 
-    .P_CATEGORY {
-      display: flex;
-      width: 100%;
-      justify-content: space-evenly;
-      font-size: 15px;
-      font-weight: bold;
-      color: #8c8c8c;
-    }
-    .card {
-      /* line-height: 10px; */
-      align-items: center;
-      display: none;
-    }
-    .card.show {
-      display: block;
-    }
+.navbar-brand {
+	color: #f67676;
+	font-weight: bold;
+}
 
-    .card img {
-      width: 100%;
-      height: 100%;
-    }
-    .card-body {
-      width: 100%;
-    }
-    .card h5 {
-      font-size: 15px;
-    }
-    .card-price {
-      font-size: 18px;
-      font-weight: bold;
-    }
+.container-fluid {
+	padding: 0;
+}
 
-    .card:hover {
-      box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
-    }
+.row {
+	background-color: white;
+	margin-bottom: 20px;
+}
 
-    .P_title {
-      font-size: 23px;
-      font-weight: bold;
-    }
+.P_CATEGORY {
+	display: flex;
+	width: 100%;
+	justify-content: space-evenly;
+	font-size: 15px;
+	font-weight: bold;
+	color: #8c8c8c;
+}
 
-    /* ======================메인 케로셀============================== */
-    .MainSwiper .swiper {
-      width: 100%;
-      height: 100%;
-    }
+.card {
+	display: none; /* 초기에 모든 카드를 숨깁니다. */
+}
 
-    .MainSwiper .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-    }
+.card.show {
+	display: block; /* "show" 클래스가 추가된 카드만 보입니다. */
+}
 
-    .MainSwiper .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 100%;
-      min-height: 300px;
-      object-fit: cover;
-    }
-    /* .MainSwiper .swiper-button-next {
+.card:hover {
+	box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.25);
+}
+
+.P_title {
+	font-size: 23px;
+	font-weight: bold;
+}
+
+/* ======================메인 케로셀============================== */
+.MainSwiper .swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.MainSwiper .swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.MainSwiper .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 300px;
+	object-fit: cover;
+}
+/* .MainSwiper .swiper-button-next {
     left: 1200px;
   }
   .MainSwiper .swiper-button-prev {
     right: 300px;
   } */
-    .Maincs {
-      width: 100%;
-    }
+.Maincs {
+	width: 100%;
+}
 
-    /* ====================다열 캐로셀================= */
+/* ====================다열 캐로셀================= */
+.swp {
+	width: 100%;
+	padding: 0;
+	overflow-x: hidden;
+}
 
-    .swp {
-      width: 100%;
-      padding: 0;
-      overflow-x: hidden;
-    }
-    .mySwiper .swiper {
-      width: 80%;
-      height: auto;
-      min-width: 280px;
-    }
-    .swp_title {
-      height: 200px;
-      top: 50px;
-      position: relative;
-      background: url(https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/8a99a7aedf7f5b72ed10f7ce860fa625_21311.gif)
-        no-repeat;
-      background-size: 100%;
-      background-position: center;
-    }
+.mySwiper .swiper {
+	width: 80%;
+	height: auto;
+	min-width: 280px;
+}
 
-    .mySwiper .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      border: 1px solid #dcdcdc;
-      padding: 10px;
-      border-radius: 10px;
-    }
+.swp_title {
+	height: 200px;
+	top: 50px;
+	position: relative;
+	background:
+		url(https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/8a99a7aedf7f5b72ed10f7ce860fa625_21311.gif)
+		no-repeat;
+	background-size: 100%;
+	background-position: center;
+}
 
-    .mySwiper .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: auto;
-      object-fit: contain;
-      min-width: 100px;
-    }
+.mySwiper .swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border: 1px solid #dcdcdc;
+	padding: 10px;
+	border-radius: 10px;
+}
 
-    .mySwiper .swiper-button-next,
-    .mySwiper .swiper-button-prev {
-      color: lightgray;
-    }
-    @media screen and (max-width: 1050px) {
-      .mySwiper .swiper {
-        width: 95%;
-      }
-      .swp_title h3 {
-        margin-left: 2.5%;
-      }
-    }
+.mySwiper .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	min-width: 100px;
+}
 
-    .P_dc_text {
-      width: 100%;
-      line-height: 20px;
-      margin-top: 10px;
-      text-align: left;
-    }
-    .cart {
-      width: 90%;
-      text-align: right;
-    }
-    .P_dc_title {
-      display: inline-block;
-      font-size: 1rem;
-      font-weight: bold;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      width: 180px; /* 텍스트를 표시할 너비 */
-    }
-    .P_dc_title:hover {
-      width: 300px;
-      text-decoration: underline;
-    }
-    .P_dc_per {
-      font-size: 20px;
-      color: rgb(177, 3, 3);
-      font-weight: bold;
-    }
-    .P_dc_price {
-      font-size: 18px;
-      font-weight: bold;
-    }
-    .P_dc_oriPrice {
-      font-size: 15px;
-      color: dimgray;
-      text-decoration: line-through;
-    }
-    .P_number {
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: #1a1919;
-      color: white;
-      font-weight: bold;
-      opacity: 0.8;
-      border-radius: 10px;
-    }
+.mySwiper .swiper-button-next, .mySwiper .swiper-button-prev {
+	color: lightgray;
+}
 
-    /* ==========================스위퍼 끝========================== */
-    @media screen and (max-width: 768px) {
-      .row {
-        padding: 0;
-      }
-      .card h5 {
-        font-size: 3vw;
-      }
-      .card-price {
-        font-size: 3.5vw;
-        font-weight: bold;
-      }
-    }
+@media screen and (max-width: 1050px) {
+	.mySwiper .swiper {
+		width: 95%;
+	}
+	.swp_title h3 {
+		margin-left: 2.5%;
+	}
+}
 
-    @media screen and (min-width: 991px) {
-      .mo {
-        display: none;
-      }
+.P_dc_text {
+	width: 100%;
+	line-height: 20px;
+	margin-top: 10px;
+	text-align: left;
+}
 
-      #wrapper {
-        position: relative;
-        top: 55px;
-      }
-    }
+.cart {
+	width: 90%;
+	text-align: right;
+}
 
-    @media screen and (max-width: 991px) {
-      .mo {
-        display: block;
-      }
+.P_dc_title {
+	display: inline-block;
+	font-size: 1rem;
+	font-weight: bold;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 180px; /* 텍스트를 표시할 너비 */
+}
 
-      .pc {
-        display: none;
-      }
-    }
+.P_dc_title:hover {
+	width: 300px;
+	text-decoration: underline;
+}
 
-    .end {
-      justify-content: end;
-    }
-  </style>
-	
-    <div id="wrapper">
-    			<div class="container">
+.P_dc_per {
+	font-size: 20px;
+	color: rgb(177, 3, 3);
+	font-weight: bold;
+}
+
+.P_dc_price {
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.P_dc_oriPrice {
+	font-size: 15px;
+	color: dimgray;
+	text-decoration: line-through;
+}
+
+.P_number {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #1a1919;
+	color: white;
+	font-weight: bold;
+	opacity: 0.8;
+	border-radius: 10px;
+}
+
+/* ==========================스위퍼 끝========================== */
+@media screen and (max-width: 768px) {
+	.row {
+		padding: 0;
+	}
+	.card h5 {
+		font-size: 3vw;
+	}
+	.card-price {
+		font-size: 3.5vw;
+		font-weight: bold;
+	}
+}
+
+@media screen and (min-width: 991px) {
+	.mo {
+		display: none;
+	}
+	#wrapper {
+		position: relative;
+		top: 55px;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.mo {
+		display: block;
+	}
+	.pc {
+		display: none;
+	}
+}
+
+.end {
+	justify-content: end;
+}
+</style>
+
+		<div id="wrapper">
+			<div class="container">
 				<div class="row">
-					<div class="col">
-						<ul th:each="category : ${category_arr}" class="P_CATEGORY">
+					<div class="col P_CATEGORY">
+						<ul th:each="category : ${category_arr}">
 							<li><a th:href="@{/product/list(p_category=${category})}"
 								th:text="${category}">d</a></li>
 						</ul>
 					</div>
 				</div>
 			</div>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col Maincs">
-            <!-- Swiper -->
-            <div class="swiper MainSwiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <img
-                    src="https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/1c490c1fae9796f517ce6df119f7a9cc_20794.jpg"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/1c490c1fae9796f517ce6df119f7a9cc_86336.jpg"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-                <div class="swiper-slide">
-                  <img
-                    src="https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/1c490c1fae9796f517ce6df119f7a9cc_28194.jpg"
-                    alt=""
-                    class="img-fluid"
-                  />
-                </div>
-              </div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- ============================캐로셀 끝================================ -->
-      <div class="container">
-        <div class="row ps-3">
-          <h1 class="P_title">신상품</h1>
-          <hr />
-          <div
-            class="row row-cols-2 row-cols-sm-2 row-cols-md-4 row-cols-xl-5 g-3"
-          >
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0" data-href="detail.html">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col Maincs">
+						<!-- Swiper -->
+						<div class="swiper MainSwiper">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<img
+										src="https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/1c490c1fae9796f517ce6df119f7a9cc_20794.jpg"
+										alt="" class="img-fluid" />
+								</div>
+								<div class="swiper-slide">
+									<img
+										src="https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/1c490c1fae9796f517ce6df119f7a9cc_86336.jpg"
+										alt="" class="img-fluid" />
+								</div>
+								<div class="swiper-slide">
+									<img
+										src="https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/1c490c1fae9796f517ce6df119f7a9cc_28194.jpg"
+										alt="" class="img-fluid" />
+								</div>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================캐로셀 끝================================ -->
+			<div class="container">
+				<div class="row ps-3">
+					<h1 class="P_title">신상품</h1>
+					<hr />
+				
+					<!-- 리스트 아이템 반복 -->
+					<div class="container">
+						<div class="row gx-2">
+							<div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2"
+								th:each="dto : ${newList}">
+								<div class="card border border-light h-100">
+									<a
+										th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}">
+										<img
+										th:src="${dto.p_image}" class="card-img-top" alt="..."
+										style="object-fit: cover;" />
+									</a> 
+										<span
+										class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2">
+										<i class="fa-solid fa-cart-shopping" role="button"></i>
+										</span>
+									<div class="card-body">
+										<h5 class="card-title" th:text="${dto.p_name}"></h5>
+										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
+											<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
+											<span
+												th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
+											<span th:text="|${dto.p_price}원|" class="text-muted small"
+												style="text-decoration: line-through;"></span>
+										</p>
+										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
+											<span th:text="|${dto.p_price}원|"></span>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
 
-                <!-- Button trigger modal -->
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <!-- Modal -->
-                <div
-                  class="modal fade"
-                  id="staticBackdrop"
-                  data-bs-backdrop="static"
-                  data-bs-keyboard="false"
-                  tabindex="-1"
-                  aria-labelledby="staticBackdropLabel"
-                  aria-hidden="true"
-                >
-                  <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="staticBackdropLabel">
-                          장바구니에 추가
-                        </h1>
-                        <button
-                          type="button"
-                          class="btn-close"
-                          data-bs-dismiss="modal"
-                          aria-label="Close"
-                        ></button>
-                      </div>
-                      <div class="modal-body">
-                        <h2 class="fs-5">수량</h2>
-                        <div class="input-group mb-3">
-                          <div class="input-group-prepend">
-                            <button
-                              class="btn btn-outline-secondary"
-                              type="button"
-                              id="minusBtn"
-                            >
-                              -
-                            </button>
-                          </div>
-                          <input
-                            type="text"
-                            class="form-control text-center"
-                            id="quantityInput"
-                            value="1"
-                          />
-                          <div class="input-group-append">
-                            <button
-                              class="btn btn-outline-secondary"
-                              type="button"
-                              id="plusBtn"
-                            >
-                              +
-                            </button>
-                          </div>
-                        </div>
-                        <hr />
-                        <p>
-                          <a
-                            href="cart.html"
-                            data-bs-toggle="tooltip"
-                            title="Tooltip"
-                            >장바구니 바로가기</a
-                          >
-                        </p>
-                      </div>
-                      <div class="modal-footer">
-                        <button
-                          type="button"
-                          class="btn btn-secondary"
-                          data-bs-dismiss="modal"
-                        >
-                          취소
-                        </button>
-                        <button type="button" class="btn btn-primary">
-                          장바구니 추가 후 계속 쇼핑하기
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-light">
-                <a href="#"
-                  ><img
-                    src="https://thumbnail9.coupangcdn.com/thumbnails/remote/230x230ex/image/retail/images/7477013655676908-953a56c7-c264-4999-8f3c-eb8762c3aa87.jpg"
-                    class="card-img-top"
-                    alt="..."
-                    style="object-fit: cover"
-                /></a>
-                <span
-                  class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </span>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text fw-bold">
-                    <span class="text-danger">10%</span>
-                    <span>3,600원</span><br />
-                    <span class="text-muted small"><del>4,000원</del></span>
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2">
-              <div class="card border border-0">
-                <img
-                  src="https://lfmono2.cdn-nhncommerce.com/data/goods/24/02/06/1000001282/1000001282_main_017.jpg"
-                  class="card-img-top"
-                  alt="..."
-                />
-                <button
-                  type="button"
-                  class="btn btn-primary"
-                  data-bs-toggle="modal"
-                  data-bs-target="#staticBackdrop"
-                >
-                  <span class="material-symbols-outlined"> shopping_cart </span>
-                </button>
-
-                <div class="card-body">
-                  <h5 class="card-title">대파</h5>
-                  <p class="card-text text-muted small">
-                    대파에 대한 설명을 넣어야하나?
-                  </p>
-                  <span class="text-muted small"><del>4,000원</del></span>
-                  <span class="card-title text-danger">3,600원</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row btnDiv">
-            <button class="btn btn-primary R_btn col-4 offset-4" id="loadMore">
-              더보기
-            </button>
-          </div>
-          <br />
-          <hr />
-          <br />
-          <!-- =======================================할인특가 캐로셀=================================== -->
-          <div class="row swp">
-            <div class="col swp_title">
-              <!-- <h3>한정 특가 할인!!</h3>
+					<div class="row btnDiv">
+						<button class="btn btn-primary R_btn col-4 offset-4" id="loadMore">
+							더보기</button>
+					</div>
+					<br />
+					<hr />
+					<br />
+					<!-- =======================================할인특가 캐로셀=================================== -->
+					<div class="row swp">
+						<div class="col swp_title">
+							<!-- <h3>한정 특가 할인!!</h3>
           <p>놓치면 후회하는 상품!</p> -->
-            </div>
-            <!-- Swiper -->
-            <div class="swiper mySwiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="P_number">1</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="material-symbols-outlined cart">
-                      shopping_cart
-                    </span>
-                    <br />
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">2</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">3</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">4</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">5</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">6</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">7</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">8</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-                <div class="swiper-slide">
-                  <div class="P_number">9</div>
-                  <img
-                    src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
-                    alt=""
-                  />
-                  <p class="P_dc_text">
-                    <span class="P_dc_title">비브라 닭정육 브라질산12Kg</span>
-                    <br />
-                    <span class="P_dc_per">8%</span>
-                    <br />
-
-                    <span class="P_dc_oriPrice">48,900원</span>
-                    <span class="P_dc_price">44,900원</span>
-                  </p>
-                </div>
-              </div>
-              <div class="swiper-button-next"></div>
-              <div class="swiper-button-prev"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-	<!-- ===============캐로셀================ -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script>
+						</div>
+						<!-- Swiper -->
+						<div class="swiper mySwiper">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<div class="P_number">1</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="material-symbols-outlined cart">
+											shopping_cart </span> <br /> <span class="P_dc_title">비브라
+											닭정육 브라질산12Kg</span> <br /> <span class="P_dc_per">8%</span> <br />
+										<span class="P_dc_oriPrice">48,900원</span> <span
+											class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">2</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">3</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">4</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">5</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">6</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">7</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">8</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+								<div class="swiper-slide">
+									<div class="P_number">9</div>
+									<img
+										src="https://cdn-mart.baemin.com/sellergoods/main/63f63439-a939-4369-8bd5-53c0f4f2ca24.jpg?h=300&w=300"
+										alt="" />
+									<p class="P_dc_text">
+										<span class="P_dc_title">비브라 닭정육 브라질산12Kg</span> <br /> <span
+											class="P_dc_per">8%</span> <br /> <span
+											class="P_dc_oriPrice">48,900원</span> <span class="P_dc_price">44,900원</span>
+									</p>
+								</div>
+							</div>
+							<div class="swiper-button-next"></div>
+							<div class="swiper-button-prev"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- ===============캐로셀================ -->
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script>
       var swiper = new Swiper(".MainSwiper", {
         loop: true,
         pagination: {
@@ -1289,7 +514,7 @@
         },
       });
     </script>
-    <script>
+		<script>
       var swiper = new Swiper(".mySwiper", {
         slidesPerView: 5,
         spaceBetween: 30,
@@ -1321,17 +546,11 @@
         },
       });
     </script>
-	    <!-- <script
-      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-      integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
-      integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
-      crossorigin="anonymous"
-    ></script> -->
-    	<script th:src="@{/js/product_index.js}"></script>
-   </div>
-  </body>
+
+
+
+
+		<script th:src="@{/js/product_index.js}"></script>
+	</div>
+</body>
 </html>
