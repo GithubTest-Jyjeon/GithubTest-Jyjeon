@@ -18,6 +18,7 @@ import com.ex.springboot.interfaces.IuserDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping
@@ -44,26 +45,28 @@ public class UserController {
 	
 	}
 
-	@Autowired
-	private SessionDAO sessionDAO;
-
 	@GetMapping("/user/myInfoUpdate")
-	public String myInfoUpdatePage(HttpServletRequest request, Model model) {
-		String userId = (String) session.getAttribute("userId"); // 세션에서 userId 가져오기
-		String sessionId = sessionDAO.getSessionIdByUserId(userId); // SessionDAO를 통해 sessionId 가져오기
-
-		UserDTO userDTO = userDAO.getUserInfoBySessionId(sessionId); // UserDAO를 사용하여 사용자 정보 조회
-		model.addAttribute("user", userDTO); // 조회된 사용자 정보를 모델에 추가
-		return "myInfoUpdate"; // 정보를 표시할 HTML 파일 이름 반환
+	public String myInfoUpdate(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
+		System.out.println("testing "+userSeq);
+		if (userSeq != null) {
+			UserDTO userInfo = dao.getUserInfo(userSeq);
+			model.addAttribute("userInfo", userInfo);
+			return "user/myInfoUpdate";
+		} else {
+			return "redirect:/user/login";
+		}
 	}
 
-	@PostMapping("/user/updateUserInfo")
-	public String updateUserInfo(UserDTO user, HttpServletRequest request) {
-		boolean updateResult = dao.updateUserInfoProcess(user);
-		if(updateResult) {
-			return "redirect:/user/profile"; // 업데이트 성공시 리다이렉트 할 페이지
+	@PostMapping("/user/myInfoUpdateProcess")
+	public String myInfoUpdateProcess(UserDTO userDTO, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
+		if (userSeq != null && dao.updateUserInfoProcess(userDTO)) {
+			return "redirect:/";
 		} else {
-			return "redirect:/user/myInfoUpdate"; // 실패시 다시 수정 페이지로
+			return "redirect:/user/myInfoUpdate";
 		}
 	}
 	
@@ -79,6 +82,7 @@ public class UserController {
 		if(userInfo != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("ss_u_seq", userInfo.getU_seq());
+			System.out.println(session.getAttribute("ss_u_seq"));
 			System.out.println("로그인 성공");
 			return "redirect:/";
 		} else {
@@ -94,5 +98,25 @@ public class UserController {
 		System.out.println("로그아웃 성공");
 		return "redirect:/";
 	}
-	
+
+	@PostMapping("/user/deleteUserProcess")
+	public String deleteUserProcess(@RequestParam(value = "u_seq") Integer u_seq, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		HttpSession session = request.getSession();
+		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
+
+		if (userSeq != null && userSeq.equals(u_seq)) {
+			boolean isDeleted = dao.deleteUser(u_seq);
+			if (isDeleted) {
+				session.invalidate(); // 세션 무효화
+				redirectAttributes.addFlashAttribute("message", "성공적으로 탈퇴되었습니다.");
+				return "redirect:/user/login"; // 로그인 페이지로 리다이렉트
+			} else {
+				redirectAttributes.addFlashAttribute("error", "회원 탈퇴에 실패하였습니다.");
+				return "redirect:/user/mypage"; // 마이페이지 또는 이전 페이지로 리다이렉트
+			}
+		} else {
+			redirectAttributes.addFlashAttribute("error", "잘못된 접근입니다.");
+			return "redirect:/user/mypage"; // 마이페이지 또는 이전 페이지로 리다이렉트
+		}
+	}
 }
