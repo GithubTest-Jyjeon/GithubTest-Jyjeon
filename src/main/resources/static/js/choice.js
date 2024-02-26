@@ -93,4 +93,5 @@ $( function(){
 	$("#selectAll").on("click", function(){
 		$(".checkbox-input").prop("checked", true);
 	})
+	
 })

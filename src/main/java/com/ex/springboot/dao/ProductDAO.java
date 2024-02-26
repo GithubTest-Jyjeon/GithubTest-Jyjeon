@@ -38,6 +38,14 @@ public class ProductDAO implements IproductDAO {
 	}
 	
 	@Override
+	public List<ProductDTO> productNewList(){
+
+		String selectQuery = "select * from cg_product where p_new_yn = 'Y'";
+		
+		return template.query(selectQuery, new BeanPropertyRowMapper<ProductDTO>(ProductDTO.class));
+	}
+	
+	@Override
 	public String productListQuery(String p_category, int page, int limit, String word){
 		int startRow = (page - 1) * limit;
 		String searchQuery = "and p_category = '"+p_category+"'";
@@ -60,6 +68,13 @@ public class ProductDAO implements IproductDAO {
 	public ProductDTO productView(int p_seq) {
 		String selectQuery = "select * from cg_product where p_seq = "+p_seq;
 			
+		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<ProductDTO>(ProductDTO.class));
+	}
+	
+	@Override
+	public ProductDTO productInfo(String p_code) {
+		String selectQuery = "select * from cg_product where p_code = '"+p_code+"'";
+		
 		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<ProductDTO>(ProductDTO.class));
 	}
 

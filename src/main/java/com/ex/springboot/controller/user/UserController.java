@@ -1,8 +1,5 @@
 package com.ex.springboot.controller.user;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +17,7 @@ import jakarta.servlet.http.HttpSession;
 @Controller
 @RequestMapping
 public class UserController {
-
+	
 	@Autowired
 	IuserDAO dao;
 	
@@ -32,7 +29,7 @@ public class UserController {
 	@PostMapping("/user/joinProcess")
 	public String joinProcess(UserDTO userDTO) {
 	
-		if(dao.joinDAO(userDTO)) {
+		if(dao.joinProcess(userDTO)) {
 			System.out.println("회원가입 성공");
 			return "redirect:/user/login";
 		} else{
@@ -43,19 +40,23 @@ public class UserController {
 	}
 	
 	@GetMapping("/user/myInfoUpdate")
-	public String myInfoUpdatePage(HttpServletRequest request, Model model) {
-		List<UserDTO> userDTO = new ArrayList<>();
-		
-		HttpSession session = request.getSession();
-		int u_seq = (int) session.getAttribute("ss_u_seq");
+	public String myInfoUpdatePage(UserDTO userDTO, Model model) {
+		int u_seq = userDTO.getU_seq();
 		
 		if(u_seq > 0) {
-			userDTO = dao.myInfoDAO(u_seq);
-			UserDTO userInfo = userDTO.get(0);
-			model.addAttribute("userInfo", userInfo);
+			model.addAttribute("userInfo", userDTO);
 			return "/user/myInfoUpdate";
 		} else {
 			return "/user/login";
+		}
+	}
+	
+	@PostMapping("/user/myInfoUpdateProcess")
+	public String myInfoUpdateProcess(UserDTO userDTO) {
+		if (dao.updateUserInfoProcess(userDTO)) {
+			return "redirect:/";
+		} else {
+			return "redirect:/user/myInfoUpdate";
 		}
 	}
 	
@@ -66,19 +67,20 @@ public class UserController {
 	
 	@PostMapping("/user/loginProcess")
 	public String loginProcess(@RequestParam(value = "u_id") String u_id, @RequestParam(value = "u_pw") String u_pw, HttpServletRequest request) {
-		List<UserDTO> userDTO = new ArrayList<>();
+		UserDTO userDTO = new UserDTO();
 		
 		System.out.println("U_ID : "+u_id);
 		System.out.println("U_PW : "+u_pw);
 		
-		userDTO = dao.loginDAO(u_id, u_pw);
+		userDTO = dao.loginProcess(u_id, u_pw);
 		
-		UserDTO userInfo = userDTO.get(0);
+		System.out.println(userDTO);
 		
-		if(userDTO.size() > 0) {
+		if(userDTO != null) {
 			HttpSession session = request.getSession();
+			session.setAttribute("userSession", userDTO);
+			session.setMaxInactiveInterval(60 * 30);
 			
-			session.setAttribute("ss_u_seq", userInfo.getU_seq());
 			System.out.println("로그인 성공");
 			return "redirect:/";
 		}else {

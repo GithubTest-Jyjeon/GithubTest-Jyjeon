@@ -16,17 +16,22 @@ public class ProductController {
 	@Autowired
 	IproductDAO dao;
 	
-	String[] category_arr = {"야채/채소", "축산/계란", "수산/건어물", "양념/조미료", "가공식품"};
+	String[] category_arr = {"야채/채소", "축산/계란", "수산/건어물", "소스/양념/조미료", "곡류/견과류", "가공식품", "유제품", "과일류"};
 	
 	@GetMapping("/product")
 	public String product(Model model) {
 		model.addAttribute("category_arr", category_arr);
+		int limit = 20;
+		
+		// model.addAttribute("list", dao.productNewList(limit));
+		model.addAttribute("limit", limit);
 		return "/product/index";
 	}
 	
 	@GetMapping("/product/index")
 	public String productIndex(Model model) {
 		model.addAttribute("category_arr", category_arr);
+		model.addAttribute("newList", dao.productNewList());
 		return "/product/index";
 	}
 	
@@ -55,8 +60,9 @@ public class ProductController {
 		return "/product/list";
 	}
 	
+	
 	@GetMapping("/product/view")
-	public String productViewPage(@RequestParam(value = "p_seq") int p_seq, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="word", defaultValue="1") String word, Model model) {
+	public String productViewPage(@RequestParam(value = "p_seq") int p_seq, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="word", defaultValue="") String word, Model model) {
 		model.addAttribute("productInfo", dao.productView(p_seq));
 		model.addAttribute("page", page);
 		model.addAttribute("word", word);

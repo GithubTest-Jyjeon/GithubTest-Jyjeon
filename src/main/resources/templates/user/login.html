@@ -12,12 +12,36 @@
 	
 	<body>
 		<div layout:fragment="content" class="content content1">
-			<h1>로그인 페이지</h1>
-			<form th:action=@{/user/loginProcess} method="post">
-				<p>아이디 : <input type="text" name="u_id" /></p>
-				<p>패스워드 : <input type="password" name="u_pw" /></p>
-				<p><input type="submit" value="로그인" /></p>
-			</form>
+			<div class="container position-absolute top-50 start-50 translate-middle">
+				<div class="row jusify-content-center">
+					<div class="col-12 col-md-6 offset-md-3">
+						<h1 class="display-6">환영합니다!</h1>
+						<p>로그인 해주세요!</p>
+						
+						<form id="frmUserLogin" th:action="@{/user/loginProcess}" method="post">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control" id="u_id" name="u_id" placeholder="아이디">
+								<label for="u_id">아이디</label>
+							</div>
+							
+							<div class="form-floating mb-2">
+								<input type="password" class="form-control" id="u_pw" name="u_pw" placeholder="패스워드">
+								<label for="u_pw">패스워드</label>
+							</div>
+							
+							<div>
+								<input type="submit" class="btn btn-primary w-100 mb-2" value="Login" />
+								<a th:href="@{/user/join}" class="btn btn-light w-100">Join</a>
+							</div>
+							
+							<p class="text-muted small text-center my-3">
+								<span class="mx-3" role="button">아이디 찾기</span> /
+								<span class="mx-3" role="button">비밀번호 찾기</span> 
+							</p>
+						</form>
+					</div>
+				</div>
+			</div>
 		</div>
 	</body>
 </html>
