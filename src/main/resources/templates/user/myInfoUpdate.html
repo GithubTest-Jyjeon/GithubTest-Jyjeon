@@ -8,68 +8,23 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원 정보</title>
-	<style>
 
-		html, body {
-			height: 100vh;
-			min-height: 100vh;
-		}
-
-		@media screen and (min-width: 991px) {
-			header > .mo, .container > .mo {
-				display: none;
-			}
-
-			.mob {
-				display: none;
-			}
-		}
-
-		@media screen and (max-width: 991px) {
-			header > .mo, .container > .mo, .mob {
-				display: block;
-			}
-
-			header > .pc, .container > .pc {
-				display: none;
-			}
-
-			.container {
-				width: 100%;
-			}
-
-
-		}
-
-		.end {
-			justify-content: end;
-		}
-
-		.container {
-			width: 100% !important;
-			min-height: 100vh; /* 이 부분 추가 */
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.card {
-			align-items: center;
-		}
-
-		.cg-primary { background-color: #f74747; }
-		.cg-secondary { background-color: #a4aaa7; }
-		.cg-success { background-color: #16aa52; }
-		.cg-info { background-color: #5ac6d0; }
-		.cg-warning { background-color: #ffd700; }
-		.cg-danger { background-color: #ff4444;	}
-		.cg-light { background-color: #f0f2f4; }
-		.cg-dark { background-color: #1d1e23; }
-	</style>
 </head>
 
 <body>
 <div layout:fragment="content" class="content content1">
+	<style>
+		.error {
+			font-size: 0.7em;
+			color: red;
+			display: inline-block;
+		}
+
+		.form-floating {
+			min-width: 400px;
+		}
+	</style>
+
 	<div id="wrapper">
 		<div class="container d-flex justify-content-center align-items-center my-5">
 			<div class="row justify-content-center">
@@ -81,23 +36,26 @@
 								<p>회원가입을 진행해주세요!</p>
 							</div>
 						</div>
-						<form th:action=@{/user/myInfoUpdateProcess} method="post">
+						<form th:action=@{/user/myInfoUpdateProcess} method="post" id="frmUserUpdate">
 							<div class="row">
 								<div class="col-lg-6 mt-4">
 									<div class="input-group mb-2">
 										<div class="form-floating">
-											<input type="text" class="form-control" id="u_id" name="u_id" placeholder="아이디" th:value="${userInfo.u_id}">
+											<input type="text" readonly disabled style="cursor: default" class="form-control" id="u_id" name="u_id" placeholder="아이디" th:value="${userInfo.u_id}">
 											<label for="u_id">아이디</label>
+											<span class="error" id="u_id_error"></span>
 										</div>
 									</div>
 
 									<div class="form-floating mb-2">
 										<input type="password" class="form-control" id="u_pw" name="u_pw" placeholder="패스워드" th:value="${userInfo.u_pw}">
 										<label for="u_pw">패스워드</label>
+										<span class="error" id="u_pw_error"></span>
 									</div>
 									<div class="form-floating mb-2">
 										<input type="password" class="form-control" id="u_pw_chk" name="u_pw_chk" placeholder="패스워드 확인" th:value="${userInfo.u_pw}">
 										<label for="u_pw_chk">패스워드 확인</label>
+										<span class="error" id="u_pw_chk_error"></span>
 									</div>
 									<div class="input-group mb-2">
 										<div class="form-floating">
@@ -106,14 +64,18 @@
 										</div>
 										<span class="input-group-text bg-light" role="button" id="btnNickNameExistCheck">중복확인</span>
 									</div>
+									<span class="error" id="u_nickname_error"></span>
+
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름"  th:value="${userInfo.u_name}">
 										<label for="u_nickname">이름</label>
+										<span class="error" id="u_name_error"></span>
 									</div>
 									<div class="input-group mb-2">
 										<div class="form-floating">
 											<input type="text" class="form-control" placeholder="이메일" name="u_email" id="u_email"  th:value="${userInfo.u_email}">
 											<label for="u_email">이메일(example@naver.com)</label>
+											<span class="error" id="u_email_error"></span>
 										</div>
 									</div>
 								</div>
@@ -123,6 +85,7 @@
 									<div class="form-floating mb-2">
 										<input type="date" class="form-control" id="u_birth" name="u_birth" placeholder="생일"  th:value="${userInfo.u_birth}">
 										<label for="u_birth">생일</label>
+										<span class="error" id="u_birth_error"></span>
 									</div>
 
 									<div class="my-3">
@@ -131,27 +94,32 @@
 
 										<input type="radio" class="btn-check" name="u_gender" id="option6" autocomplete="off" th:checked="${userInfo.u_gender == '여'}">
 										<label class="btn" for="option6">여자</label>
+										<span class="error" id="u_gender_error"></span>
 									</div>
 
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="이름" th:value="${userInfo.u_phone}">
 										<label for="u_phone">연락처</label>
+										<span class="error" id="u_phone_error"></span>
 									</div>
 
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_postcode" name="u_postcode" placeholder="우편번호"  th:value="${userInfo.u_postcode}">
 										<label for="u_postcode">우편번호</label>
+										<span class="error" id="u_postcode_error"></span>
 									</div>
 
 
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_address" name="u_address" placeholder="주소" th:value="${userInfo.u_address}">
 										<label for="u_address">주소</label>
+										<span class="error" id="u_address_error"></span>
 									</div>
 
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_address_detail" name="u_address_detail" placeholder="상세주소" th:value="${userInfo.u_address_detail}">
 										<label for="u_address_detail">상세주소</label>
+										<span class="error" id="u_address_detail_error"></span>
 									</div>
 
 									<div class="form-floating mb-2">
@@ -164,7 +132,7 @@
 									<input type="submit" class="btn bg-primary text-white mb-3 me-2" value="회원수정"/>
 									<button type="reset" class="btn bg-secondary mb-3 ms-2">취소하기</button>
 									<button type="button" class="btn bg-secondary mb-3 ms-2" onclick="confirmDelete()">회원 탈퇴</button>
-									<!--									커밋용 주석-->
+
 									<script>
 										function confirmDelete() {
 											var result = confirm("정말로 탈퇴하시겠습니까?");
@@ -172,6 +140,11 @@
 												window.location.href = "/user/deleteUserProcess"; // 사용자가 '확인'을 누르면 이동
 											}
 										}
+										document.querySelector('button[type="reset"]').addEventListener('click', function() {
+											document.querySelectorAll('span.error').forEach(function(span) {
+												span.innerText = '';
+											});
+										});
 									</script>
 								</div>
 							</div>
@@ -181,6 +154,91 @@
 			</div>
 		</div>
 	</div>
+	<script>
+		document.getElementById('frmUserUpdate').addEventListener('submit', function(e) {
+			var u_pw = document.getElementById('u_pw');
+			var u_pw_chk = document.getElementById('u_pw_chk')
+			var u_nickname = document.getElementById('u_nickname');
+			var u_name = document.getElementById('u_name');
+			var u_email = document.getElementById('u_email');
+			var u_birth = document.getElementById('u_birth');
+			var u_postcode = document.getElementById('u_postcode');
+			var u_address = document.getElementById('u_address');
+			var u_address_detail = document.getElementById('u_address_detail');
+			var u_phone = document.getElementById('u_phone');
+			var u_gender_male = document.getElementById('option5').checked;
+			var u_gender_female = document.getElementById('option6').checked;
+
+			var pwRegex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}$/;
+			var nicknameRegex = /^[ㄱ-ㅎ가-힣a-z0-9-_]{2,10}$/;
+			var emailRegex = /^(?:\w+\.?)*\w+@(?:\w+\.)+\w+$/;
+			var phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
+
+			clearErrors(); // 기존 에러 메시지 초기화 함수
+
+			if (checkEmpty(u_pw, 'u_pw_error', '비밀번호를 입력해주세요.') ||
+					checkRegex(u_pw, pwRegex, 'u_pw_error', '비밀번호는 8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.')) {
+				e.preventDefault();
+				return;
+			}
+
+			if (u_pw.value !== u_pw_chk.value) {
+				document.getElementById('u_pw_chk_error').innerText = '비밀번호와 비밀번호 확인이 일치하지 않습니다.';
+				e.preventDefault(); // 폼 제출 방지
+				return;
+			}
+
+			if (checkEmpty(u_nickname, 'u_nickname_error', '닉네임을 입력해주세요.') ||
+					checkRegex(u_nickname, nicknameRegex, 'u_nickname_error', '닉네임은 특수문자를 제외한 2~10자리여야 합니다.') ||
+					checkEmpty(u_name, 'u_name_error', '이름을 입력해주세요.') ||
+					checkEmpty(u_email, 'u_email_error', '이메일을 입력해주세요.') ||
+					checkRegex(u_email, emailRegex, 'u_email_error', '이메일 형식이 올바르지 않습니다.') ||
+					checkEmpty(u_birth, 'u_birth_error', '생일을 입력해주세요.') ||
+					checkGender(u_gender_male, u_gender_female, 'u_gender_error', '성별을 선택해주세요.') ||
+					checkEmpty(u_phone, 'u_phone_error', '연락처를 입력해주세요.') ||
+					checkRegex(u_phone, phoneRegex, 'u_phone_error', '연락처 형식이 올바르지 않습니다. 000-0000-0000 형식으로 입력해주세요.') ||
+					checkEmpty(u_postcode, 'u_postcode_error', '우편번호를 입력해주세요.') ||
+					checkEmpty(u_address, 'u_address_error', '주소를 입력해주세요.') ||
+					checkEmpty(u_address_detail, 'u_address_detail_error', '상세주소를 입력해주세요.')) {
+				e.preventDefault();
+				return;
+			}
+			return false; // 에러가 없음
+			// 폼 제출
+		});
+
+		function checkEmpty(input, errorId, message) {
+			if (!input.value.trim()) {
+				document.getElementById(errorId).innerText = message;
+				input.focus();
+				return true;
+			}
+			return false;
+		}
+
+		function checkRegex(input, regex, errorId, message) {
+			if (!regex.test(input.value)) {
+				document.getElementById(errorId).innerText = message;
+				input.focus();
+				return true;
+			}
+			return false;
+		}
+
+		function checkGender(male, female, errorId, message) {
+			if (!male && !female) {
+				document.getElementById(errorId).innerText = message;
+				return true;
+			}
+			return false;
+		}
+
+		function clearErrors() {
+			document.querySelectorAll('.error').forEach(function(el) {
+				el.innerText = '';
+			});
+		}
+	</script>
 </div>
 </body>
 </html>

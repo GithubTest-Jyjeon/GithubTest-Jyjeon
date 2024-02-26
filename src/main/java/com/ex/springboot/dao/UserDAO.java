@@ -87,5 +87,4 @@ public class UserDAO {
         int result = jdbcTemplate.update(sql, u_seq);
         return result > 0;
     }
-    //커밋용 주석
 }

@@ -33,10 +33,10 @@ public class UserController {
 	public String join() {
 		return "/user/join";
 	}
-	
+
 	@PostMapping("/user/joinProcess")
 	public String joinProcess(UserDTO userDTO) {
-	
+
 		if(dao.joinProcess(userDTO)) {
 			System.out.println("회원가입 성공");
 			return "redirect:/user/login";
@@ -44,7 +44,21 @@ public class UserController {
 			System.out.println("회원가입 실패");
 			return "/user/join";
 		}
-	
+
+	}
+
+	@GetMapping("/user/myInfo")
+	public String myInfo(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
+		System.out.println("testing " + userSeq);
+		if (userSeq != null) {
+			UserDTO userInfo = dao.getUserInfo(userSeq);
+			model.addAttribute("userInfo", userInfo);
+			return "user/myInfo"; // `user/myInfo` 뷰를 반환합니다.
+		} else {
+			return "redirect:/user/login";
+		}
 	}
 
 	@GetMapping("/user/myInfoUpdate")
@@ -71,7 +85,7 @@ public class UserController {
 			return "redirect:/user/myInfoUpdate";
 		}
 	}
-	
+
 	@GetMapping("/user/login")
 	public String login() {
 		return "/user/login";
@@ -92,7 +106,7 @@ public class UserController {
 			return "/user/login";
 		}
 	}
-	
+
 	@GetMapping("/user/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
