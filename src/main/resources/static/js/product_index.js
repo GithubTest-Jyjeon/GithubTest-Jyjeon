@@ -60,4 +60,25 @@ $(document).ready(function () {
 	  return false;
 	  
   })
+  
+  $("#btnInsertCart").on("click", function(){
+	  
+	  let params = {
+		  p_code : $("#input_p_code").val(), // 상품코드 0001
+		  p_count : $("#input_p_count").val()
+	  }
+	  
+	  console.log(params.p_code);
+	  console.log(params.p_count);
+	  
+	  $.ajax({
+		  url : "/cart/insertProduct",
+		  data : params,
+		  type : "post",
+		  dataType : "text",
+		  success : function(resultData){
+			  console.log("장바구니에 담기 성공!");
+		  }
+	  })  
+  })
 });
