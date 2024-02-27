@@ -4,12 +4,12 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 	
-	<head th:replace="fragments/head::head"></head>
+	<head th:replace="common/head::head"></head>
 	<body>
-		<div th:replace="fragments/header::header"></div>
-		<div th:replace="fragments/sidebar::sidebar"></div>
-		<!-- 페이지s 레이아웃에서 다른 내용으로 계속 변경되는 영역을 설정 -->
-		<div layout:fragment="content"></div>
-		<div th:replace="fragments/footer::footer"></div>
+		<div th:replace="common/header::header"></div>
+		<div layout:fragment="content" style="padding-bottom: 3rem;"></div>
+		<div th:replace="common/footer::footer"></div>
 	</body>
+	
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 </html>
