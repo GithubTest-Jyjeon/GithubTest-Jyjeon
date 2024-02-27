@@ -7,10 +7,7 @@ import com.ex.springboot.dao.SessionDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import com.ex.springboot.dao.UserDAO;
 import com.ex.springboot.dto.UserDTO;
@@ -51,7 +48,6 @@ public class UserController {
 	public String myInfo(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
-		System.out.println("testing " + userSeq);
 		if (userSeq != null) {
 			UserDTO userInfo = dao.getUserInfo(userSeq);
 			model.addAttribute("userInfo", userInfo);
@@ -61,11 +57,10 @@ public class UserController {
 		}
 	}
 
-	@GetMapping("/user/myInfoUpdate")
+	@PostMapping("/user/myInfoUpdate")
 	public String myInfoUpdate(HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
-		System.out.println("testing "+userSeq);
 		if (userSeq != null) {
 			UserDTO userInfo = dao.getUserInfo(userSeq);
 			model.addAttribute("userInfo", userInfo);
@@ -76,12 +71,14 @@ public class UserController {
 	}
 
 	@PostMapping("/user/myInfoUpdateProcess")
-	public String myInfoUpdateProcess(UserDTO userDTO, HttpServletRequest request) {
+	public String myInfoUpdateProcess(UserDTO userDTO, HttpServletRequest request, Model model) {
 		HttpSession session = request.getSession();
 		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
 		if (userSeq != null && dao.updateUserInfoProcess(userDTO)) {
 			return "redirect:/";
 		} else {
+			model.addAttribute("userInfo", userDTO);
+			System.out.println(userDTO);
 			return "redirect:/user/myInfoUpdate";
 		}
 	}
@@ -115,6 +112,21 @@ public class UserController {
 		return "redirect:/";
 	}
 
+	@GetMapping("/user/delete")
+	public String delete(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+		Integer userSeq = (Integer) session.getAttribute("ss_u_seq");
+		System.out.println("testing "+userSeq);
+		if (userSeq != null) {
+			UserDTO userInfo = dao.getUserInfo(userSeq);
+			model.addAttribute("userInfo", userInfo);
+			return "user/delete";
+		} else {
+			return "redirect:/user/login";
+		}
+	}
+
+
 	@PostMapping("/user/deleteUserProcess")
 	public String deleteUserProcess(@RequestParam(value = "u_seq") Integer u_seq, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		HttpSession session = request.getSession();
@@ -134,5 +146,20 @@ public class UserController {
 			redirectAttributes.addFlashAttribute("error", "잘못된 접근입니다.");
 			return "redirect:/user/mypage"; // 마이페이지 또는 이전 페이지로 리다이렉트
 		}
+	}
+
+	@Autowired
+	private UserDAO userDAO;
+
+	@RequestMapping(value = "/checkUserIdExist", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean checkUserIdExist(@RequestParam("u_id") String u_id) {
+		return userDAO.isUserIdExist(u_id);
+	}
+
+	@RequestMapping(value = "/checkUserNicknameExist", method = RequestMethod.GET)
+	@ResponseBody
+	public boolean checkUserNicknameExist(@RequestParam("u_nickname") String userNickname) {
+		return userDAO.isUserNicknameExist(userNickname);
 	}
 }

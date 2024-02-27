@@ -3,10 +3,12 @@ package com.ex.springboot.dao;
 import com.ex.springboot.dto.UserDTO;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @Primary
@@ -86,5 +88,18 @@ public class UserDAO {
         String sql = "DELETE FROM c##dbexam.cg_user WHERE u_seq = ?";
         int result = jdbcTemplate.update(sql, u_seq);
         return result > 0;
+    }
+
+    public boolean isUserIdExist(String userId) {
+        String sql = "select count(*) from c##dbexam.cg_user where u_id = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userId}, Integer.class);
+        System.out.println(count);
+        return count != null && count > 0;
+    }
+
+    public boolean isUserNicknameExist(String userNickname) {
+        String sql = "select count(*) from c##dbexam.cg_user where u_nickname = ?";
+        Integer count = jdbcTemplate.queryForObject(sql, new Object[]{userNickname}, Integer.class);
+        return count != null && count > 0;
     }
 }

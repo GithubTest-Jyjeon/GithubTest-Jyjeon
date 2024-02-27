@@ -70,6 +70,11 @@
 
 <body>
 <div layout:fragment="content" class="content content1">
+    <style>
+        input {
+            cursor: default;
+        }
+    </style>
     <div id="wrapper">
         <div class="container d-flex justify-content-center align-items-center my-5">
             <div class="row justify-content-center">
@@ -77,11 +82,11 @@
                     <div class="col-md">
                         <div class="d-flex justify-content-center align-items-center mt-5 mb-3">
                             <div class="text-center">
-                                <h1 class="display-6">환영합니다!</h1>
-                                <p>회원가입을 진행해주세요!</p>
+                                <h1 class="display-6" th:text="${userInfo.u_nickname} + '님, 환영합니다!'">환영합니다!</h1>
+                                <p>회원정보를 보실 수 있습니다.</p>
                             </div>
                         </div>
-                        <form th:action=@{/user/myInfoUpdateProcess} method="post">
+                        <form th:action="@{/user/myInfoUpdate}" method="post">
                             <div class="row">
                                 <div class="col-lg-6 mt-4">
                                     <div class="input-group mb-2">
@@ -104,7 +109,6 @@
                                             <input type="text" class="form-control" id="u_nickname" name="u_nickname" placeholder="닉네임"  th:value="${userInfo.u_nickname}" readonly>
                                             <label for="u_nickname">닉네임</label>
                                         </div>
-                                        <span class="input-group-text bg-light" role="button" id="btnNickNameExistCheck">중복확인</span>
                                     </div>
                                     <div class="form-floating mb-2">
                                         <input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름"  th:value="${userInfo.u_name}" readonly>
@@ -157,6 +161,10 @@
                                         <input type="text" class="form-control" id="u_address_extra" name="u_address_extra" placeholder="기타" th:value="${userInfo.u_address_extra}" readonly>
                                         <label for="u_address_extra">기타</label>
                                     </div>
+
+                                </div>
+                                <div class="d-flex justify-content-center col mt-5">
+                                    <input type="submit" class="btn bg-primary text-white mb-3 me-2" value="회원수정"/>
                                 </div>
                             </div>
                         </form>

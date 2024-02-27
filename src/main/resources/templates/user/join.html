@@ -92,7 +92,7 @@
 								<p>회원가입을 진행해주세요!</p>
 							</div>
 						</div>
-						<form th:action=@{/user/joinProcess} method="post" id="frmUserJoin">
+						<form th:action="@{/user/joinProcess}" method="post" id="frmUserJoin">
 							<div class="row">
 								<div class="col-lg-6 mt-4">
 									<div class="input-group mb-2">
@@ -103,6 +103,23 @@
 										<span class="input-group-text bg-light" role="button" id="btnIdExistCheck">중복확인</span>
 									</div>
 									<span class="error" id="u_id_error"></span>
+<!--									<span class="error" id="u_id_check"></span>-->
+
+									<script>
+										document.getElementById('u_id').addEventListener('blur', function() {
+											var userId = this.value;
+											fetch('/checkUserIdExist?userId=' + userId)
+													.then(response => response.json())
+													.then(data => {
+														// alert(data.result)
+														if(data) {
+															document.getElementById('u_id_check').innerText = '중복된 아이디입니다.';
+														} else {
+															document.getElementById('u_id_check').innerText = '사용 가능한 아이디입니다.';
+														}
+													});
+										});
+									</script>
 
 									<div class="form-floating mb-2">
 										<input type="password" class="form-control" id="u_pw" name="u_pw" placeholder="패스워드">
@@ -122,6 +139,21 @@
 										<span class="input-group-text bg-light" role="button" id="btnNickNameExistCheck">중복확인</span>
 									</div>
 									<span class="error" id="u_nickname_error"></span>
+									<span class="error" id="u_nickname_check"></span>
+									<script>
+										document.getElementById('u_nickname').addEventListener('blur', function() {
+											var userNickname = this.value;
+											fetch('/checkUserNicknameExist?userNickname=' + userNickname)
+													.then(response => response.json())
+													.then(data => {
+														if(data) {
+															document.getElementById('u_nickname_check').innerText = '중복된 닉네임입니다.';
+														} else {
+															document.getElementById('u_nickname_check').innerText = '사용 가능한 닉네임입니다.';
+														}
+													});
+										});
+									</script>
 
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름">
