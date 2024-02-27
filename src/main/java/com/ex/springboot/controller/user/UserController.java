@@ -82,7 +82,7 @@ public class UserController {
 			session.setMaxInactiveInterval(60 * 30);
 			
 			System.out.println("로그인 성공");
-			return "redirect:/";
+			return "/common/main";
 		}else {
 			System.out.println("로그인 실패");
 			return "/user/login";

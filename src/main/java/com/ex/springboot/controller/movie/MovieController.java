@@ -1,4 +1,4 @@
-package com.ex.springboot.controller.show;
+package com.ex.springboot.controller.movie;
 
 import java.util.ArrayList;
 import java.util.List;

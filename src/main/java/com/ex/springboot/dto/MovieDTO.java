@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class MovieDTO {
 	private int m_seq;
+	private String m_code;
 }

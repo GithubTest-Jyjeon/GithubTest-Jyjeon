@@ -4,14 +4,14 @@ import java.util.ArrayList;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.ex.springboot.dto.GenreDTO;
 import com.ex.springboot.dto.KeywordDTO;
-import com.ex.springboot.dto.MovieDTO;
-import com.ex.springboot.dto.ShowDTO;
 
 @Mapper
 public interface IkeywordDAO {
 	KeywordDTO keywordDTO = new KeywordDTO();
+	GenreDTO genreDTO = new GenreDTO();
 	
-	public ArrayList<MovieDTO> keywordListMovie(int step);
-	public ArrayList<ShowDTO> keywordListShow(int step);
+	public ArrayList<GenreDTO> genreListMovie();
+	public ArrayList<GenreDTO> genreListShow();
 }

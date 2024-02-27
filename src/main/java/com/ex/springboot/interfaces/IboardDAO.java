@@ -17,7 +17,7 @@ public interface IboardDAO {
 	ResultDTO resultDTO = new ResultDTO();
 	
 	public BoardDTO boardView(int b_seq);
-	public int boardWrite(BoardDTO boardDTO);
+	public int boardWrite(BoardDTO boardDTO, String b_category);
 	public int boardUpdate(BoardDTO boardDTO);
 	public int boardDelete(int b_seq);
 	

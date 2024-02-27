@@ -5,4 +5,5 @@ import lombok.Data;
 @Data
 public class ShowDTO {
 	private int s_seq;
+	private String s_code;
 }

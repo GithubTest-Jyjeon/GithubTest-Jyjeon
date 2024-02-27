@@ -35,9 +35,16 @@ public class BoardDAO implements IboardDAO {
 	}
 
 	@Override
-	public int boardWrite(BoardDTO boardDTO) {
+	public int boardWrite(BoardDTO boardDTO, String b_category) {
 		UserDTO userDTO = new UserDTO();
 		int u_seq = userDTO.getU_seq();
+		
+		String b_title = userDTO.getU_nickname()+" 님의 "+b_category+" 결과 공유";
+		
+		String insertQuery = "insert into cg_board ("
+				+ "b_seq, u_seq, b_title, b_hit, b_keywords, b_content, b_reg_date, b_upd_date, b_share_yn, b_category, u_nickname"
+				+ ") values ("
+				+ "BOARD_SEQ.nextval, "+userDTO.getU_seq()+", 0, )";
 
 		return u_seq;
 	}
