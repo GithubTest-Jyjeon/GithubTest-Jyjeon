@@ -1,7 +1,5 @@
 package com.ex.springboot.interfaces;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ex.springboot.dto.UserDTO;
@@ -10,7 +8,7 @@ import com.ex.springboot.dto.UserDTO;
 public interface IuserDAO {
 	UserDTO userDTO = new UserDTO();
 	
-	public List<UserDTO> loginDAO(String u_id, String u_pw);
-	public boolean joinDAO(UserDTO userDTO);
-	public List<UserDTO> myInfoDAO(int u_seq);
+	public UserDTO loginProcess(String u_id, String u_pw);
+	public boolean joinProcess(UserDTO userDTO);
+	public boolean updateUserInfoProcess(UserDTO userDTO);
 }

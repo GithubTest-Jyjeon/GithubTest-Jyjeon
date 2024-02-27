@@ -14,7 +14,7 @@ import com.ex.springboot.dto.BoardDTO;
 import com.ex.springboot.dto.GenreDTO;
 import com.ex.springboot.dto.KeywordDTO;
 import com.ex.springboot.dto.ResultDTO;
-import com.ex.springboot.dto.SessionDTO;
+import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IboardDAO;
 
 @Primary
@@ -36,24 +36,18 @@ public class BoardDAO implements IboardDAO {
 
 	@Override
 	public int boardWrite(BoardDTO boardDTO) {
-		SessionDTO sessionInfo = new SessionDTO();
-		int u_seq = (int) sessionInfo.getSs_u_seq();
+		UserDTO userDTO = new UserDTO();
+		int u_seq = userDTO.getU_seq();
 
-		String insertQuery = "insert into CG_BOARD (" + "B_SEQ, " + "U_SEQ, " + "B_TITLE, " + "B_HIT, " + "B_KEYWORDS, "
-				+ "B_RESULTS, " + "B_CONTENT, " + "B_REG_DATE, " + "B_UPD_DATE, " + "B_SHARE_YN, " + "B_CATEGORY"
-				+ ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		template.update(insertQuery, "BOARD_SEQ.nextval", u_seq, boardDTO.getB_title(), boardDTO.getB_hit(),
-				boardDTO.getB_keywords(), boardDTO.getB_results(), boardDTO.getB_content(), "sysdate", "sysdate",
-				boardDTO.getB_share_yn(), boardDTO.getB_category());
-		return 0;
+		return u_seq;
 	}
 
 	@Override
 	public int boardUpdate(BoardDTO boardDTO) {
 		int b_seq = boardDTO.getB_seq();
 
-		SessionDTO sessionInfo = new SessionDTO();
-		int u_seq = (int) sessionInfo.getSs_u_seq();
+		UserDTO userDTO = new UserDTO();
+		int u_seq = userDTO.getU_seq();
 
 		String b_content = boardDTO.getB_content();
 
@@ -64,8 +58,8 @@ public class BoardDAO implements IboardDAO {
 
 	@Override
 	public int boardDelete(int b_seq) {
-		SessionDTO sessionInfo = new SessionDTO();
-		int u_seq = (int) sessionInfo.getSs_u_seq();
+		UserDTO userDTO = new UserDTO();
+		int u_seq = userDTO.getU_seq();
 
 		String deleteQuery = "delete from CG_BOARD where b_seq = ? and u_seq = ?";
 		template.update(deleteQuery, b_seq, u_seq);
