@@ -84,6 +84,7 @@ public class UserDAO {
         return users.isEmpty() ? null : users.get(0);
     }
 
+
     public boolean deleteUser(int u_seq) {
         String sql = "DELETE FROM c##dbexam.cg_user WHERE u_seq = ?";
         int result = jdbcTemplate.update(sql, u_seq);
