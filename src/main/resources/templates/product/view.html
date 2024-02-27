@@ -1,37 +1,404 @@
 <!DOCTYPE html>
-<html
-	lang="ko"
-	xmlns:th="http://www.thymeleaf.org"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}">
-	
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
-	
-	<body>
-		<div layout:fragment="content" class="content content1">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<h5 class="card-title" th:text="${productInfo.p_name}"></h5>
-						<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'Y'}">
-							<span th:text="|${productInfo.p_dc_percent}%|" class="text-danger"></span>
-							<span th:text="|${((productInfo.p_price * 100) - (productInfo.p_price * productInfo.p_dc_percent)) / 100}원|"></span><br />
-							<span th:text="|${productInfo.p_price}원|" class="text-muted small" style="text-decoration: line-through;"></span>
-						</p>
-						<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'N'}">
-							<span th:text="|${productInfo.p_price}원|"></span>
-						</p>
-					</div>
+
+<head>
+<meta charset="UTF-8">
+<title>상품상세페이지</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="content content1">
+<style>
+/* ======================메인 케로셀============================== */
+.MainSwiper .swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.MainSwiper .swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.MainSwiper .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	min-height: 300px;
+	object-fit: cover;
+}
+/* .MainSwiper .swiper-button-next {
+      left: 1200px;
+    }
+    .MainSwiper .swiper-button-prev {
+      right: 300px;
+    } */
+.Maincs {
+	width: 100%;
+}
+
+.flexcentercol {
+	display: flex;
+	justify-content: center;
+}
+
+.image-container {
+	max-height: 900px;
+	overflow: hidden;
+	transition: max-height 0.5s ease;
+}
+
+.expanded {
+	max-height: none;
+}
+
+/* ====================다열 캐로셀================= */
+.mySwiper {
+	margin-bottom: 100px;
+}
+
+.mySwiper .swiper {
+	width: 80%;
+	height: auto;
+	min-width: 280px;
+	margin-bottom: 100px;
+}
+
+.mySwiper .swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border: 1px solid #dcdcdc;
+	padding: 10px;
+	border-radius: 10px;
+}
+
+.mySwiper .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: auto;
+	object-fit: contain;
+	min-width: 100px;
+}
+
+.mySwiper .swiper-button-next, .mySwiper .swiper-button-prev {
+	color: lightgray;
+}
+
+@media screen and (max-width: 1050px) {
+	.mySwiper .swiper {
+		width: 95%;
+	}
+	.swp_title h3 {
+		margin-left: 2.5%;
+	}
+}
+
+.P_dc_text {
+	width: 100%;
+	line-height: 20px;
+	margin-top: 10px;
+	text-align: left;
+}
+
+.cart {
+	width: 90%;
+	text-align: right;
+}
+
+/* ==========================스위퍼 끝========================== */
+@media screen and (max-width: 768px) {
+	.row {
+		padding: 0;
+	}
+	.card h5, .card1 h5 {
+		font-size: 3vw;
+	}
+	.card-price {
+		font-size: 3.5vw;
+		font-weight: bold;
+	}
+	.mySwiper {
+		margin-bottom: 30px;
+	}
+}
+
+@media screen and (min-width: 991px) {
+	.mo {
+		display: none;
+	}
+	#wrapper {
+		position: relative;
+	}
+}
+
+@media screen and (max-width: 991px) {
+	.mo {
+		display: block;
+	}
+	.pc {
+		display: none;
+	}
+}
+
+.end {
+	justify-content: end;
+}
+</style>
+
+
+<!-- 		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h5 class="card-title" th:text="${productInfo.p_name}"></h5>
+					<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'Y'}">
+						<span th:text="|${productInfo.p_dc_percent}%|" class="text-danger"></span>
+						<span
+							th:text="|${((productInfo.p_price * 100) - (productInfo.p_price * productInfo.p_dc_percent)) / 100}원|"></span><br />
+						<span th:text="|${productInfo.p_price}원|" class="text-muted small"
+							style="text-decoration: line-through;"></span>
+					</p>
+					<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'N'}">
+						<span th:text="|${productInfo.p_price}원|"></span>
+					</p>
 				</div>
-				<div class="row">
-					<div class="col">
-						<a th:href="@{/product/list(page=${page}, word=${word}, p_category=${productInfo.p_category})}" class="btn btn-sm btn-light" th:text="@{목록으로}" /></a>
-					</div>
+			</div>
+			<div class="row">
+				<div class="col">
+					<a
+						th:href="@{/product/list(page=${page}, word=${word}, p_category=${productInfo.p_category})}"
+						class="btn btn-sm btn-light" th:text="@{목록으로}" /></a>
 				</div>
 			</div>
 		</div>
-	</body>
+ -->
+
+
+		<!-- ==================================================================================쳌쳌쳌=================================================================================== -->
+
+		<div class="container">
+			<div class="row">
+				<div class="col pt-5">
+					<input type="hidden" id="input_p_code"
+						th:value="${productInfo.p_code}" />
+
+					<h5 class="card-title" th:text="${productInfo.p_name}"></h5>
+					<hr />
+					<a
+						th:href="@{/product/list(page=${page}, word=${word}, p_category=${productInfo.p_category})}"
+						class="btn btn-sm btn-light float-end" th:text="@{목록으로}" /></a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-4 col-12 text-center">
+					<img th:src="${productInfo.p_image}" class="card-img-top" alt="..."
+						style="object-fit: cover;" />
+
+				</div>
+				<div class="col-md-8 col-12 mt-5">
+					<h5 class="card-title" th:text="${productInfo.p_name}"></h5>
+					<hr />
+					<h4>원산지: 상품 상세설명 참조</h4>
+					<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'Y'}">
+						<span th:text="|${productInfo.p_dc_percent}%|" class="text-danger"></span>
+						<span
+							th:text="|${((productInfo.p_price * 100) - (productInfo.p_price * productInfo.p_dc_percent)) / 100}원|"></span><br />
+						<span th:text="|${productInfo.p_price}원|" class="text-muted small"
+							style="text-decoration: line-through;"></span>
+					</p>               
+					<p class="card-text fw-bold" th:if="${productInfo.p_dc_yn == 'N'}">
+						<span th:text="|${productInfo.p_price}원|"></span>
+					</p>
+
+					<br />
+					<!-- =====================주문하기랑 장바구니======================================== -->
+
+
+
+
+
+
+					<div class="row">
+						<div class="col">
+							<div class="card" style="width: 100%">
+								<div class="card-body">
+									<h5 class="card-title" th:text="${productInfo.p_name}"></h5>
+									<div class="row mx-3">
+										<div class="col-sm-4 mt-4">
+											<form>
+												<div class="mb-3">
+													<h2 class="fs-5">수량</h2>
+													<div class="input-group">
+														<div class="input-group-prepend">
+															<button class="btn btn-outline-secondary" type="button"
+																id="minusBtn">-</button>
+														</div>
+														<input type="text" class="form-control text-center"
+															id="input_p_count" value="1">
+														<div class="input-group-append">
+															<button class="btn btn-outline-secondary" type="button"
+																id="plusBtn">+</button>
+														</div>
+													</div>
+												</div>
+											</form>
+										</div>
+										<div class="col mt-5">
+											<input type="hidden" th:value="${((productInfo.p_price * 100) - (productInfo.p_price * productInfo.p_dc_percent)) / 100}" id="priceUnit" />
+											<p><span th:text="${((productInfo.p_price * 100) - (productInfo.p_price * productInfo.p_dc_percent)) / 100}" class="price"></span>원</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="row btnrow">
+						<div class="col-6 flexcentercol">
+							<button type="button" class="btn btn-outline-secondary">
+								바로 구매</button>
+						</div>
+						<div class="col-6 flexcentercol">
+							<button type="button" class="btn btn-primary btnCart"
+								id="btnInsertCart">장바구니에 추가</button>
+						</div>
+					</div>
+
+					<!-- =====================주문하기랑 장바구니======================================== -->
+					<br /> <br />
+					<hr />
+					<div id="image-container" class="col image-container">
+						<img th:src="${productInfo.p_content}" class="card-img-top"
+							alt="..." style="object-fit: cover;" />
+					</div>
+
+					<div class="flexcentercol">
+						<button id="show-more" onclick="toggleImageVisibility()"
+							class="btn btn-primary mt-3">더보기</button>
+					</div>
+				</div>
+
+				<br /> <br /> <br /> <br /> <br /> <br />
+			</div>
+		</div>
+		<div class="row swp">
+			<div class="col swp_title">
+				<h3>할인 상품</h3>
+				<hr />
+				<!-- Swiper -->
+				<div class="swiper mySwiper">
+					<div class="swiper-wrapper">
+
+						<!-- 상품 리스트 반복 시작 -->
+						<div th:each="dto : ${dcList}" class="swiper-slide">
+							<div class="card1 border border-light h-100">
+								<a
+									th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}"
+									class="stretched-link"> <img th:src="${dto.p_image}"
+									class="card-img-top" alt="..." style="object-fit: cover;" />
+								</a> <span
+									class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 z-3 btnCart"
+									data-bs-toggle="modal" data-bs-target="#exampleModal"
+									th:data-bs-pcode="${dto.p_code}"> <i
+									class="fa-solid fa-cart-shopping"></i>
+								</span>
+								<div class="card-body">
+									<h5 class="card-title" th:text="${dto.p_name}"></h5>
+									<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
+										<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
+										<span
+											th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
+										<span th:text="|${dto.p_price}원|" class="text-muted small"
+											style="text-decoration: line-through;"></span>
+									</p>
+									<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
+										<span th:text="|${dto.p_price}원|"></span>
+									</p>
+								</div>
+							</div>
+						</div>
+						<!-- 상품 리스트 반복 종료 -->
+					</div>
+					<div class="swiper-button-next"></div>
+					<div class="swiper-button-prev"></div>
+				</div>
+				<hr />
+			</div>
+		</div>
+
+
+		<!-- ===============캐로셀================ -->
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script>
+			var swiper = new Swiper(".MainSwiper", {
+				loop : true,
+				pagination : {
+					el : ".swiper-pagination",
+					clickable : true,
+				},
+				navigation : {
+					nextEl : ".swiper-button-next",
+					prevEl : ".swiper-button-prev",
+				},
+			});
+		</script>
+		<script>
+			var swiper = new Swiper(".mySwiper", {
+				slidesPerView : 5,
+				spaceBetween : 30,
+				loop : true,
+				pagination : {
+					el : ".swiper-pagination",
+					clickable : true,
+				},
+				navigation : {
+					nextEl : ".swiper-button-next",
+					prevEl : ".swiper-button-prev",
+				},
+				// 너비에 따른 설정을 추가하는 breakpoints 옵션
+				breakpoints : {
+					// 너비가 1100px 이하일 때
+					1200 : {
+						slidesPerView : 5,
+						spaceBetween : 20,
+					},
+					768 : {
+						slidesPerView : 4,
+						spaceBetween : 10,
+					},
+					// 너비가 780px 이하일 때
+					100 : {
+						slidesPerView : 3,
+						spaceBetween : 5,
+					},
+				},
+			});
+		</script>
+
+
+
+
+
+
+
+
+
+		<script th:src="@{/js/product_view.js}"></script>
+
+	</div>
+</body>
 </html>

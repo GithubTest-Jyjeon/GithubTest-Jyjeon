@@ -26,7 +26,7 @@ $(document).ready(function () {
   });
 
   // "더보기" 버튼 로직
-  var initialCards = 4;
+  var initialCards = 12;
   var cards = $(".card");
   var totalCards = cards.length;
 
@@ -36,7 +36,7 @@ $(document).ready(function () {
   $("#loadMore").click(function (e) {
     e.preventDefault();
     var visibleCards = $(".card:visible").length;
-    var next = visibleCards + 4; // 다음에 보여질 카드 수
+    var next = visibleCards + 12; // 다음에 보여질 카드 수
 
     cards.slice(visibleCards, next).show();
 
@@ -77,8 +77,33 @@ $(document).ready(function () {
 		  type : "post",
 		  dataType : "text",
 		  success : function(resultData){
-			  console.log("장바구니에 담기 성공!");
+			  if(resultData == 0){
+				  console.log("로그인 해야함");
+			  }else{
+				  console.log("장바구니에 담기 성공!");  
+			  }
 		  }
 	  })  
   })
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const minusBtn = document.getElementById('minusBtn');
+  const plusBtn = document.getElementById('plusBtn');
+  const quantityInput = document.getElementById('input_p_count');
+
+  minusBtn.addEventListener('click', function () {
+    const currentValue = parseInt(quantityInput.value, 10);
+    if (currentValue > 1) { // 최소 수량을 1로 설정
+      quantityInput.value = currentValue - 1;
+    }
+  });
+
+  plusBtn.addEventListener('click', function () {
+    const currentValue = parseInt(quantityInput.value, 10);
+    quantityInput.value = currentValue + 1;
+  });
+});
+
+
+

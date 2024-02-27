@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ex.springboot.dto.UserDTO;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @Mapper
 public interface IuserDAO {
 	UserDTO userDTO = new UserDTO();

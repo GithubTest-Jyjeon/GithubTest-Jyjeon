@@ -32,12 +32,13 @@ public class ProductController {
 	public String productIndex(Model model) {
 		model.addAttribute("category_arr", category_arr);
 		model.addAttribute("newList", dao.productNewList());
+		model.addAttribute("dcList", dao.productDcList());
 		return "/product/index";
 	}
 	
 	@GetMapping("/product/list")
 	public String productListPage(@RequestParam(value="p_category") String p_category, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="word", defaultValue="") String word, Model model) {
-		int limit = 20;
+		int limit = 24;
 		int totalCount = dao.productTotal(p_category, word);
 		int totalPage = (int) Math.ceil((double)totalCount / limit);
 		int startPage = ((page - 1) / 10) * 10 + 1;
@@ -46,6 +47,7 @@ public class ProductController {
 			endPage = totalPage;
 		}
 		
+		model.addAttribute("category_arr", category_arr);
 		model.addAttribute("list", dao.productList(p_category, page, limit, word));
 		model.addAttribute("query", dao.productListQuery(p_category, page, limit, word));
 		model.addAttribute("p_category", p_category);
@@ -66,8 +68,12 @@ public class ProductController {
 		model.addAttribute("productInfo", dao.productView(p_seq));
 		model.addAttribute("page", page);
 		model.addAttribute("word", word);
+		model.addAttribute("newList", dao.productNewList());
+		model.addAttribute("dcList", dao.productDcList());
 		
 		return "/product/view";
 	}
+	
+	
 	
 }

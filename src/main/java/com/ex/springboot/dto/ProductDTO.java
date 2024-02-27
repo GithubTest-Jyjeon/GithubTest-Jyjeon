@@ -15,4 +15,5 @@ public class ProductDTO {
 	private String p_dc_yn;
 	private int p_dc_percent;
 	private String p_new_yn;
+	private int p_count;
 }
