@@ -16,4 +16,5 @@ public class BoardDTO {
 	private String b_share_yn;
 	private String b_category;
 	private String u_nickname;
+	private int b_total_count;
 }

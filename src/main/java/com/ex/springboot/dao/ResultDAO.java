@@ -259,6 +259,8 @@ public class ResultDAO implements IresultDAO {
 			cnt++;
 		}
 		
+		template.update("update cg_board set b_total_count = "+cnt+" where b_seq = "+b_seq);
+		
 		return 0;
 	}
 
@@ -411,6 +413,8 @@ public class ResultDAO implements IresultDAO {
 			
 			cnt++;
 		}
+		
+		template.update("update cg_board set b_total_count = "+cnt+" where b_seq = "+b_seq);
 		
 		return 0;
 	}

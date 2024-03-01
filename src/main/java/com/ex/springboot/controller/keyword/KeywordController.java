@@ -50,10 +50,10 @@ public class KeywordController {
 		
 		return "/keyword/choice";
 	}
-	
-	
+
+	@ResponseBody
 	@PostMapping("/keyword/makeResult")
-	public @ResponseBody String keywordMakeResult(
+	public String keywordMakeResult(
 			@RequestParam(value="targetTable") String targetTable,
 			@RequestParam(value="theme", defaultValue="all") String theme,
 			@RequestParam(value="main", defaultValue="all") String main,
@@ -87,29 +87,32 @@ public class KeywordController {
 		boardDTO.setU_nickname(userDTO.getU_nickname());
 		
 		int b_seq = daoBoard.boardWrite(boardDTO);
-		System.out.println("b_seq : "+b_seq);
+		
+		String url = "";
 		
 		if(b_seq > 0) {
+			
+			boardDTO.setB_seq(b_seq);
+			boardDTO.setU_seq(u_seq);
+			
 			switch(targetTable) {
 				case "CG_MOVIE" :
 					daoResult.makeMovieResult(b_seq, targetTable, genre, nation, year);
+					url = "/movie/list";
 					break;
 				case "CG_SHOW" :
 					daoResult.makeShowResult(b_seq, targetTable, genre, region);
+					url = "/show/list";
 					break;
 				case "CG_FOOD" :
 					daoResult.makeFoodResult(b_seq, targetTable, theme, main, soup, spicy);
+					url = "/food/list";
 					break;
 			}
-		
-			boardDTO.setB_seq(b_seq);
-			boardDTO.setU_seq(u_seq);
+			
+			daoBoard.boardResultUpdate(b_seq);
 		}
 		
-		daoBoard.boardResultUpdate(b_seq);
-		
-		return null;
+		return url+"?b_seq="+b_seq;
 	}
-	
-	
 }

@@ -12,7 +12,179 @@
 	
 	<body>
 		<div layout:fragment="content" class="content content1">
-			<h1>음식 결과 목록 페이지</h1>
+			<style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      box-sizing: border-box;
+    }
+    html,
+    body {
+      position: relative;
+      height: 100%;
+      background-color: white;
+      overflow-x: hidden;
+    }
+
+    .R_row,
+    .btnDiv {
+      position: relative;
+      padding: 0;
+    }
+    .R_category {
+      border: 1px solid lightgray;
+      padding: 5px;
+      border-radius: 10px;
+      margin: 2px 2px;
+      display: inline-block;
+    }
+    .card {
+      display: none;
+      min-height: auto;
+    }
+    .card-text {
+      white-space: nowrap;
+      overflow-x: auto;
+    }
+    .card-text::-webkit-scrollbar {
+      width: 5px; /* 스크롤바의 너비 */
+      height: 3px; /* 수평 스크롤바의 높이 */
+    }
+
+    .card-text::-webkit-scrollbar-track {
+      background: #f1f1f1; /* 스크롤바 트랙의 배경색 */
+    }
+
+    .card-text::-webkit-scrollbar-thumb {
+      background: #888; /* 스크롤바 썸의 배경색 */
+    }
+
+    .card-text::-webkit-scrollbar-thumb:hover {
+      background: #555; /* 스크롤바 썸에 마우스를 올렸을 때의 배경색 */
+    }
+
+    .card.show {
+      display: block;
+    }
+    .card-title {
+      font-weight: bold;
+    }
+    .card-img-top {
+      width: 100%; /* 이미지를 부모 요소의 가로 폭에 맞춤 */
+      height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+      object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채움 */
+      aspect-ratio: 4 / 3; /* 이미지의 가로세로 비율을 4:3으로 설정 */
+    }
+
+    .R_btn {
+      margin-top: 50px;
+      font-weight: bold;
+      font-size: 20px;
+      width: 200px;
+      height: 50px;
+      border-radius: 10px;
+    }
+    .R_btn:hover {
+      background-color: black;
+      color: white;
+    }
+    .btnDiv {
+      display: flex;
+      justify-content: flex-end;
+      margin-right: 5%;
+    }
+    @media screen and (max-width: 768px) {
+      .btnDiv {
+        justify-content: center;
+        margin: 0;
+      }
+      .card {
+        display: none;
+        min-height: auto;
+      }
+      .card-title {
+        font-size: 14px;
+      }
+      .card-text {
+        white-space: nowrap;
+        overflow-x: auto;
+      }
+      .card-text,
+      .see-more {
+        font-size: 8px;
+        margin: 0;
+      }
+    }
+  </style>
+  
+   <div class="container">
+      <div class="row R_row">
+        <h1>먹거리를 추천해드려요~~!</h1>
+        <hr />
+        <!-- =======================================카드하나=============================================== -->
+        <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="list : ${foodList}">
+          <div class="card border">
+            <a href="R_result.html">
+              <img
+                src="https://recipe1.ezmember.co.kr/cache/recipe/2015/08/25/a01d013a6b6f9d526c43f4659db2cd61.jpg"
+                class="card-img-top"
+                alt="..."
+              />
+            </a>
+            <div class="card-body">
+              <h5 class="card-title">돼지고기 김치찌개</h5>
+              <p class="card-text text-muted small">
+                <span class="R_category">한식</span
+                ><span class="R_category">국물</span
+                ><span class="R_category">매운거</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row btnDiv">
+        <div class="col text-center">
+          <button class="btn btn-sm btn-outline-secondary mb-5" id="loadMore">
+            더보기
+          </button>
+        </div>
+      </div>
+    </div>
+    <script>
+      $(document).ready(function () {
+        // 초기에 표시할 카드 수
+        var initialCards = 8;
+        var cards = $(".card");
+        var totalCards = cards.length;
+
+        // 초기 카드 표시
+        cards.slice(0, initialCards).addClass("show");
+
+        // "더보기" 버튼 클릭 이벤트
+        $("#loadMore").click(function (e) {
+          e.preventDefault();
+          var visibleCards = $(".card.show").length;
+          // 추가로 보여줄 카드 수
+          var next = visibleCards + 8; // 다음에 보여질 카드 수, 조정 가능
+          cards.slice(visibleCards, next).addClass("show");
+          // 모든 카드가 표시된 경우 "더보기" 버튼 숨김
+          if (next >= totalCards) {
+            $(this).hide();
+          }
+        });
+
+        // 모든 카드가 처음부터 보이면 "더보기" 버튼 숨김
+        if (totalCards <= initialCards) {
+          $("#loadMore").hide();
+        }
+      });
+    </script>
+			
+			
+			
+			
 		</div>
 	</body>
 </html>

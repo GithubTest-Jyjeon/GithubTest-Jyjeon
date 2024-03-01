@@ -525,9 +525,9 @@ $( function(){
 			data : keywordResult,
 			traditional: true,
 			type : "post",
-			dataType :"json",
 			success : function(returnData){
 				console.log(returnData);
+				location.href=returnData;
 			},
 			error : function(error){
 				console.log(error);

@@ -12,7 +12,450 @@
 	
 	<body>
 		<div layout:fragment="content" class="content content1">
-			<h1>공연 정보 상세보기 페이지</h1>
+			<!-- ===============캐로셀================ -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    
+    <style>
+    * {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      box-sizing: border-box;
+    }
+    html,
+    body {
+      position: relative;
+      height: 100%;
+      background-color: #f1f1f2;
+    }
+
+    /* =======네브바======== */
+    .navbar {
+      position: fixed;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      z-index: 99999;
+    }
+    .mainnav {
+      width: 90%;
+    }
+    .navbar-brand {
+      color: #f67676;
+      font-weight: bold;
+    }
+
+    /* =======포스터======== */
+    .M_row,
+    .swp {
+      position: relative;
+      top: 100px;
+    }
+    .Maintit {
+      margin-bottom: 50px;
+    }
+    .M_poster img {
+      width: 100%;
+      top: auto;
+      min-width: 200px;
+      margin-bottom: 30px;
+      padding: 30px;
+    }
+    .S_mapButton {
+      width: 80px;
+      height: 30px;
+      background-color: lightgray;
+      margin: 5px 10px 0 10px;
+      border-radius: 10px;
+    }
+    .S_mapButton:hover {
+      background-color: wheat;
+    }
+
+    /* ==============콘텐츠 */
+
+    .maintext {
+      line-height: 15px;
+      padding: 10px;
+    }
+    .maintext h1 {
+      font-size: 30px;
+      font-weight: bold;
+    }
+    .makerList h3 {
+      font-size: 25px;
+    }
+    .M_content {
+      margin-bottom: 50px;
+    }
+    .story img {
+      width: 100%;
+    }
+
+    /* ====================스위퍼================= */
+
+    .swp {
+      margin-top: 50px;
+    }
+    .swiper {
+      width: 100%;
+      height: auto;
+      min-width: 280px;
+    }
+
+    .swiper-slide {
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border-radius: 10px;
+    }
+
+    .swiper-slide img {
+      display: block;
+      width: 100%;
+      height: 300px auto;
+      object-fit: cover;
+      min-width: 100px;
+      border-radius: 10px;
+      aspect-ratio: 4 /6;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: lightgray;
+    }
+    @media screen and (max-width: 1050px) {
+      .M_poster img {
+        padding: 0;
+      }
+      .swiper {
+        width: 100%;
+      }
+      .swp_title h3 {
+        margin-left: 2.5%;
+      }
+    }
+
+    .m_text {
+      width: 100%;
+      line-height: 20px;
+      margin-top: 10px;
+    }
+    .m_title {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .m_year {
+      font-size: 15px;
+    }
+    .m_viewCnt {
+      font-size: 15px;
+      color: dimgray;
+    }
+    .m_rank {
+      width: 30px;
+      height: 30px;
+      text-align: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #1a1919;
+      color: white;
+      font-weight: bold;
+      opacity: 0.8;
+    }
+    /* ==========================스위퍼 끝========================== */
+  </style>
+  
+  <div th:text="${showInfo}"></div>
+  
+   <div class="container">
+      <div class="row M_row">
+        <h1 class="Maintit">당신의 취향에 맞는 공연를 추천!</h1>
+        <hr />
+        <div class="col-md-4 col-12 M_poster">
+          <img
+            src="https://www.kopis.or.kr/upload/pfmPoster/PF_PF234756_240131_111042.jpg"
+            alt=""
+          />
+        </div>
+        <div class="col-md-8 col-12 M_content">
+          <div class="row">
+            <div class="col-12 maintext">
+              <h1 class="tit">
+                체코 브르노 국립 주니어 발레단 내한공연: Balet NdB 2 [강릉]
+              </h1>
+              <hr />
+              <p class="p1">2024.03.19(화) ~ 2024.03.19(화) / 화요일(19:30)</p>
+              <p class="p2">
+                강릉아트센터(구. 강릉문화예술관) 소공연장
+                <button
+                  type="button"
+                  class="S_mapButton border-0"
+                  data-bs-toggle="modal"
+                  data-bs-target="#MapViewModal"
+                >
+                  지도
+                </button>
+                / 만 7세 이상
+              </p>
+              <p class="p3">R석 50,000원 S석 30,000원</p>
+            </div>
+            <hr />
+            <div class="col-12 makerList">
+              <h3>출연/제작</h3>
+              <hr />
+              <p>
+                출연진 : 아담 바슈타르, 발렌틴 돔사, 마누엘 로메로 데 아로,
+                조슈아 윌리엄즈, 니콜라스 산 힐 무노스, 이자벨라 그라치코바,
+                아델라 쿨리셰크 등
+              </p>
+              <p>
+                제작진 : 야쿠브 율리네크, 바르보라 라슈코바, 마리오 라다초프스키
+                등
+              </p>
+              <p>주최 및 주관 : 강릉아트센터(주최·주관)</p>
+            </div>
+            <hr />
+            <div class="col-12 story">
+              <img
+                src="https://www.kopis.or.kr/upload/pfmIntroImage/PF_PF234756_240131_1110421.jpg"
+                alt=""
+              />
+              <img
+                src="https://www.kopis.or.kr/upload/pfmIntroImage/PF_PF234756_240131_1110420.jpg"
+                alt=""
+              />
+              <img src="" alt="" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================지도 보이는 모달====================== -->
+      <div
+        class="modal fade"
+        id="MapViewModal"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="MapViewModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="MapViewModalLabel">지도보기</h1>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">지도자리</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                취소
+              </button>
+              <button type="button" class="btn btn-primary">
+                사이트 바로가기
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row swp">
+        <div class="col swp_title">
+          <h3>추천 공연</h3>
+          <hr />
+          <!-- Swiper -->
+          <div class="swiper mySwiper">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <div class="m_rank">1</div>
+                <a href="TestPage1.html">
+                  <img
+                    src="https://an2-img.amz.wtchn.net/image/v2/Vnn_KYM-QxlK00ydZiSpKA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFM01ESXdNakl6TURJek1qQXdOVGs1TnpFaWZRLnZXakM5cEZMT2hzLXhnOXl3dGpsdU1RVHpZSUw2NFRBazRsZ3RiUFdhdXc"
+                    alt=""
+                  />
+                </a>
+                <p class="m_text">
+                  <span class="m_title">웡카</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객 1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">2</div>
+
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/COd36HmqB364TA0ZDzcWGQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJM01qYzFNakEzTlRNeE1qQXdNaUo5LklhOFRMc2hOdzh3dGRob3d2NEFmTVdDdlUxanUzVlhxWGt3cG9ja2gzdHc"
+                  alt=""
+                />
+
+                <p class="m_text">
+                  <span class="m_title">데드맨</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객 1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">3</div>
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/wbNmMNrrIIoy-nBkqUDNzw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFek5qVTVPRGcxTkRreE1EVXdPRFlpZlEudkdSQWd6VFcySXZPY0oweFN4SmxYLUYtcGl5cnV2V19GbHVuQlZpWDRZNA"
+                  alt=""
+                />
+                <p class="m_text">
+                  <span class="m_title">추락의해부</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객 1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">4</div>
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/yKEAmMlocs_b3SPRae-7Wg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpZeE1qWTNOVEk0TmpFek1qazVNQ0o5LkU1ejFkU0hEeFVKNGFnaW1kODVfSFZlR0ducEZUYUhUaDBUZFA3TlFQdFU"
+                  alt=""
+                />
+                <p class="m_text">
+                  <span class="m_title">도그데이즈</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">5</div>
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/j0Spcq9Q3BOfW5_V1x_VYg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpRd09EZ3pNakkxT0RNMU5EZzRNeUo5Lk5XalNwVXk2enV6ZElVemN5NUdYbGlHWndxTFpENTJoZ1ZyU1ozM2hwN00"
+                  alt=""
+                />
+                <p class="m_text">
+                  <span class="m_title">귀멸의카라날</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">6</div>
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/W7kXcsp1BfeVwgU3s1hnLA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpjME1EQXhOemc0T0RFMU5Ea2lmUS5sRmlMb2tnT2JEVGlhMl9CdGpFN0ViLVlJT0xqUGg5WDllcmZSdWE5YmRn"
+                  alt=""
+                />
+                <p class="m_text">
+                  <span class="m_title">소풍</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">7</div>
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/BVr3Ql2nPNTB6VZ28SdeTw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpVMU9ETTJOakExT0RFME1qZzNNU0o5LnAzR05NcDhXRktJRTdQUlpTVnF4UUlZdm5PbHRUQi1ZQWtkaXc4djRaYU0"
+                  alt=""
+                />
+                <p class="m_text">
+                  <span class="m_title">아가리</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">8</div>
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/w4Bb2H7qW3eVsRBpvGcBug.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFM01ETXdOamN4TlRnMk1qWXlNVEUxTnpJaWZRLm16OGZ4RUxaYlkyV3docDlnTzh3UHFMUUd2ejQ2bDhXaFZ6VjhrXzJuSWs"
+                  alt=""
+                />
+                <p class="m_text">
+                  <span class="m_title">시민더끼</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객1000만명</span>
+                </p>
+              </div>
+              <div class="swiper-slide">
+                <div class="m_rank">9</div>
+                <img
+                  src="https://an2-img.amz.wtchn.net/image/v2/UyrD7ZTYIccE-ifGQB-SgQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFd05qRTNNakV6T0RreU1qYzRPQ0o5Lm90YzA3YTR2ZGo3ZjFYSi16Wm1iWkdULVp1bmFDYk1GVThfZTJPRnFTT0E"
+                  alt=""
+                />
+                <p class="m_text">
+                  <span class="m_title">아빠상어도 청춘이있어</span>
+                  <br />
+                  <span class="m_year">2023</span>
+                  <br />
+                  <span class="m_viewCnt">누적관객1000만명</span>
+                </p>
+              </div>
+            </div>
+            <div class="swiper-button-next"></div>
+            <div class="swiper-button-prev"></div>
+          </div>
+          <hr />
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 5,
+        spaceBetween: 30,
+        loop: true,
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+        navigation: {
+          nextEl: ".swiper-button-next",
+          prevEl: ".swiper-button-prev",
+        },
+        // 너비에 따른 설정을 추가하는 breakpoints 옵션
+        breakpoints: {
+          // 너비가 1100px 이하일 때
+          1200: {
+            slidesPerView: 5,
+            spaceBetween: 30,
+          },
+          768: {
+            slidesPerView: 4,
+            spaceBetween: 20,
+          },
+          // 너비가 780px 이하일 때
+          100: {
+            slidesPerView: 3,
+            spaceBetween: 10,
+          },
+        },
+      });
+    </script>
 		</div>
 	</body>
 </html>

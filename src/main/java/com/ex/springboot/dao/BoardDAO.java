@@ -30,20 +30,18 @@ public class BoardDAO implements IboardDAO {
 		template.update(updateQuery, b_seq);
 
 		String selectQuery = "select * from cg_board where b_seq = "+b_seq;
-		System.out.println(selectQuery);
+		
 		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<BoardDTO>(BoardDTO.class));
 	}
 
 	@Override
 	public int boardWrite(BoardDTO boardDTO) {
-		System.out.println("BoardDTO : "+boardDTO);
 		String insertQuery = "insert into cg_board ("
-				+ "b_seq, u_seq, b_title, b_hit, b_keywords, b_content, b_reg_date, b_upd_date, b_share_yn, b_category, u_nickname"
+				+ "b_seq, u_seq, b_title, b_hit, b_keywords, b_content, b_reg_date, b_upd_date, b_share_yn, b_category, u_nickname, b_total_count"
 				+ ") values ("
-				+ "BOARD_SEQ.nextval, "+boardDTO.getU_seq()+", '"+boardDTO.getB_title()+"', 0, null, null, sysdate, sysdate, 'N', '"+boardDTO.getB_category()+"', '"+boardDTO.getU_nickname()+"')";
-		System.out.println("insertQuery : "+insertQuery);
+				+ "BOARD_SEQ.nextval, "+boardDTO.getU_seq()+", '"+boardDTO.getB_title()+"', 0, null, null, sysdate, sysdate, 'N', '"+boardDTO.getB_category()+"', '"+boardDTO.getU_nickname()+"', 0)";
+		
 		int insertResult = template.update(insertQuery);
-		System.out.println("insertResult : "+insertResult);
 		
 		int b_seq = 0;
 		
@@ -65,14 +63,16 @@ public class BoardDAO implements IboardDAO {
 		String b_result = "";
 		
 		for(int i = 0; i < list.size(); i++) {
-			System.out.println("list.size() : "+list.size());
 			b_result += list.get(i).getR_seq()+"|";
 		}
 		
-		b_result = b_result.substring(0, b_result.length() - 1);
-		
-		String updateQuery = "update cg_board set b_results = '"+b_result+"' where b_seq = "+b_seq;
-		template.update(updateQuery);
+		if(list.size() > 0) {
+			b_result = b_result.substring(0, b_result.length() - 1);
+			
+			String updateQuery = "update cg_board set b_results = '"+b_result+"' where b_seq = "+b_seq;
+			
+			template.update(updateQuery);
+		}
 	}
 
 	@Override
