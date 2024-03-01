@@ -12,7 +12,87 @@
 	
 	<body>
 		<div layout:fragment="content" class="content content1">
-			<h1>장바구니 목록 페이지</h1>
+			<div class="container">
+				<div class="row">
+					<div class="col-12 col-lg-10 offset-lg-1">
+						
+						<h1 class="flaot-end">장바구니에 쏙쏙</h1>
+						
+						<div class="row g-0 py-3 mb-2 bg-light rounded-3">
+							<div class="col-1 d-flex justify-content-center align-items-center">
+								<input type="checkbox" class="form-check-input me-2" id="chkboxAll" />
+							</div>
+							<div class="col-11">
+								<label for="chkboxAll" class="text-muted small">상품 전체선택</label>
+							</div>
+						</div>
+						
+						<div class="row">
+							<div class="col text-center py-5" th:if="${cartList.size == 0}">
+								<p>장바구니에 담긴 상품이 없습니다</p>
+								<a href="#" class="btn btn-secondary m-2">쇼핑하러가기</a>
+							</div>
+						</div>
+						
+						<div class="row productItem g-0 mb-2" th:each="product, productStat : ${cartList}" th:p_code="${product.p_code}">
+						
+							<input type="hidden" class="productPrice" th:value="${product.p_price}" />
+							<input type="hidden" class="productDcYn" th:value="${product.p_dc_yn}" />
+							<input type="hidden" class="productDcPercent" th:value="${product.p_dc_percent}" />
+							
+							<div class="col-1 d-flex justify-content-center align-items-center">
+								<input type="checkbox" class="form-check-input chkboxItem me-2" />
+							</div>
+							<div class="col-3 col-md-2 col-lg-3 col-xl-3 d-flex justify-content-center align-items-center">
+								<img th:src="${product.p_image}" class="img-thumbnail me-2" alt="상품 이미지"/>
+							</div>
+							<div class="col-8 col-md-9 col-lg-8 col-xl-7 ps-1">
+								<div class="row g-0">
+									<div class="col-12 d-flex">
+										<span th:text="${product.p_name}" class="fs-3"></span>
+									</div>
+									<div class="col-12 col-md-5 col-lg-5">
+										<!-- 단가 -->
+										<span th:if="${product.p_dc_yn == 'Y'}" th:text="|${#numbers.formatInteger(product.p_price, 3, 'COMMA')}원|" class="text-decoration-line-through text-muted small"></span>
+										<span th:if="${product.p_dc_yn == 'Y'}" th:text="|${product.p_dc_percent}%|" class="text-primary"></span>
+										<span th:text="|${#numbers.formatInteger((((product.p_price * 100) - (product.p_price * product.p_dc_percent)) / 100), 3, 'COMMA')}원|"></span>
+									</div>
+									<div class="col-5 col-md-3 col-lg-3">
+										<!-- 수량 -->
+										<div class="input-group" th:data-idx="${productStat.index}">
+											<button class="btn btn-sm btn-outline-secondary minusBtn" type="button">-</button>
+											<input type="text" class="form-control form-control-sm text-center quantityInput" th:value="${product.p_count}">
+											<button class="btn btn-sm btn-outline-secondary plusBtn" type="button">+</button>
+										</div>
+									</div>
+									<div class="col-7 col-md-4 col-lg-4 text-end">
+										<!-- 최종 -->
+										<span th:text="|${#numbers.formatInteger(((product.p_price * 100) - (product.p_price * product.p_dc_percent)) * product.p_count / 100, 3, 'COMMA')}원|" class="total-price mb-2 me-1 fs-5"></span>
+										<a class="text-primary btnProductDelete text-decoration-none fw-bold" th:data-pCode="${product.p_code}" role="button">X</a>
+									</div>
+								</div>
+							</div>
+							<hr class="my-2" />
+						</div>
+						
+	
+						<div class="row g-0 py-3 mb-2 bg-light rounded-3">
+							<div class="col text-center">
+							<p>총 주문금액 </p>
+							<p class="display-6" id="sumTotalPrice">0원</p>
+							</div>
+						</div>
+	
+						<div class="row">
+							<div class="col d-flex justify-content-center">
+								<a href="#" class="btn btn-primary m-2">주문하기</a>
+							</div>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			<script th:src="@{/js/cart.js}"></script>
 		</div>
 	</body>
 </html>

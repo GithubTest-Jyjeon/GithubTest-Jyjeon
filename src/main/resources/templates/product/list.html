@@ -13,66 +13,178 @@
 	<body>
 		<div layout:fragment="content">
 		
+		<style>
+* {
+	list-style: none;
+}
+
+#wrapper {
+	position: relative;
+	padding-bottom: 50px;
+}
+
+.P_CATEGORY {
+	display: flex;
+	flex-wrap: wrap; /* 항목들이 줄바꿈될 수 있도록 설정 */
+	width: 100%;
+	justify-content: space-evenly;
+	font-size: 15px;
+	font-weight: bold;
+	color: #8c8c8c;
+	margin-bottom: 10px;
+}
+
+.P_CATEGORY a:hover {
+	color: black;
+}
+
+.P_CATEGORY a {
+	text-decoration: none;
+	color: #8c8c8c;
+	white-space: nowrap;
+	font-weight: bold;
+}
+
+.P_CATEGORY col {
+	text-align: center;
+}
+
+
+.card-title{
+font-size: 15px;}
+/* 화면 너비가 990px 이하일 때 스타일 */
+@media ( max-width : 990px) {
+	.P_CATEGORY>div {
+		flex: 0 0 25%; /* 각 항목이 전체 너비의 25%를 차지하도록 설정 */
+		max-width: 25%; /* 최대 너비도 25%로 설정하여 한 줄에 4개씩 표시 */
+	}
+	.P_CATEGORY a {
+		font-size: 10px;
+	}
+	#wrapper {
+		padding-top: 10px;
+		padding-bottom: 50px;
+	}
+}
+</style>
+		
 			<div class="container">
-		        <!-- 게시글 작성 버튼 -->
-		        <div class="my-3">
-		            <a th:href="@{/product/write}" th:text="|${p_category} 상품 등록|" class="btn btn-primary"></a>
-		        </div>
-	        </div>
-        	<!-- 리스트 아이템 반복 -->
-	        <div class="container">
-	            <div class="row gx-2">
-	                <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="dto : ${list}">
-						<div class="card border border-light h-100">
-							<a th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}"><img th:src="${dto.p_image}" class="card-img-top" alt="..." style="object-fit: cover;" /></a>
-							<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2">
-								<i class="fa-solid fa-cart-shopping" role="button"></i>
-							</span>
-							<div class="card-body">
-								<h5 class="card-title" th:text="${dto.p_name}"></h5>
-								<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
-									<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
-									<span th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
-									<span th:text="|${dto.p_price}원|" class="text-muted small" style="text-decoration: line-through;"></span>
-								</p>
-								<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
-									<span th:text="|${dto.p_price}원|"></span>
-								</p>
+				<div class="row">
+					<div class="col P_CATEGORY">
+						<ul th:each="category : ${category_arr}">
+							<li><a th:href="@{/product/list(p_category=${category})}"
+								th:text="${category}"></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal fade" id="exampleModal" tabindex="-1"
+				aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1 class="modal-title fs-5" id="exampleModalLabel">장바구니 추가</h1>
+							<button type="button" class="btn-close" data-bs-dismiss="modal"
+								aria-label="Close"></button>
+						</div>
+						<div class="modal-body">
+							<form>
+								<div class="mb-3">
+									<label for="recipient-name" class="col-form-label">코드</label>
+									<input type="text" class="form-control" id="input_p_code" readonly>
+								</div>
+								<div class="mb-3">
+									<h2 class="fs-5">수량</h2>
+									<div class="input-group">
+										<div class="input-group-prepend">
+											<button class="btn btn-outline-secondary" type="button"
+												id="minusBtn">-</button>
+										</div>
+										<input type="text" class="form-control text-center"
+											id="input_p_count" value="1">
+										<div class="input-group-append">
+											<button class="btn btn-outline-secondary" type="button"
+												id="plusBtn">+</button>
+										</div>
+									</div>
+								</div>
+							</form>
+							<hr />
+							<p>
+								<a href="../cart/list" data-bs-toggle="tooltip" title="Tooltip">장바구니 바로가기</a>
+							</p>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+							<button type="button" class="btn btn-primary" id="btnInsertCart">장바구니 담기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 리스트 아이템 반복 -->
+			<div class="container">
+				<div class="row">
+					<div class="col-10 offset-1">
+						<div class="row gx-2">
+							<div class="col-6 col-md-6 col-lg-4 col-xl-2 mb-2" th:each="dto : ${list}">
+								<div class="card border border-light h-100">
+									<a th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}"><img th:src="${dto.p_image}" class="card-img-top" alt="..." style="object-fit: cover;" /></a> 
+									<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 z-3 btnCart" data-bs-toggle="modal" data-bs-target="#exampleModal" th:data-bs-pcode="${dto.p_code}"> <i class="fa-solid fa-cart-shopping"></i></span>
+									<div class="card-body">
+										<h5 class="card-title" th:text="${dto.p_name}"></h5>
+										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
+											<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
+											<span th:text="|${(((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100)}|"></span><br />
+											<span th:text="|${dto.p_price}원|" class="text-muted small" style="text-decoration: line-through;"></span>
+										</p>
+										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
+											<span th:text="|${dto.p_price}원|"></span>
+										</p>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-	            </div>
-	        </div>
+				</div>
+			</div>
 	
-	        <!-- 페이지 네비게이션 -->
-	        <nav aria-label="Page navigation example">
-	            <ul class="pagination justify-content-center">
-	                <li th:classappend="${page > 1} ? '' : 'disabled'">
-	                    <a class="page-link" th:href="@{/product/list(page=${page - 1}, word=${word}, p_category=${p_category})}">Prev</a>
-	                </li>
-	                <li th:each="i : ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == i} ? 'active' : ''">
-	                    <a class="page-link" th:href="@{/product/list(page=${i}, word=${word}, p_category=${p_category})}" th:text="${i}"></a>
-	                </li>
-	                <li th:classappend="${page < totalPage} ? '' : 'disabled'">
-	                    <a class="page-link" th:href="@{/product/list(page=${page + 1}, word=${word}, p_category=${p_category})}">Next</a>
-	                </li>
-	            </ul>
-	        </nav>
-	        
-	        <!-- 검색 폼 -->
-	        <div class="row">
-	            <div class="col-4 offset-4">
-	                <form th:action="@{/product/list}" method="get">
-	                	<input type="hidden" name="p_category" th:value="${p_category}" />
-	                	<input type="hidden" name="page" th:value="${page}" />
-	                	
-	                    <div class="input-group">
-	                        <input type="text" name="word" class="form-control" placeholder="상품명 입력">
-	                        <button type="submit" class="btn btn-primary">검색</button>
-	                    </div>
-	                </form>
-	            </div>
-	        </div>
+			<!-- 페이지 네비게이션 -->
+			<nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center">
+					<li th:classappend="${page > 1} ? '' : 'disabled'"><a
+						class="page-link"
+						th:href="@{/product/list(page=${page - 1}, word=${word}, p_category=${p_category})}">Prev</a>
+					</li>
+					<li th:each="i : ${#numbers.sequence(startPage, endPage)}"
+						th:classappend="${page == i} ? 'active' : ''"><a
+						class="page-link"
+						th:href="@{/product/list(page=${i}, word=${word}, p_category=${p_category})}"
+						th:text="${i}"></a></li>
+					<li th:classappend="${page < totalPage} ? '' : 'disabled'"><a
+						class="page-link"
+						th:href="@{/product/list(page=${page + 1}, word=${word}, p_category=${p_category})}">Next</a>
+					</li>
+				</ul>
+			</nav>
+	
+			<!-- 검색 폼 -->
+			<div class="row">
+				<div class="col-4 offset-4">
+					<form th:action="@{/product/list}" method="get">
+						<input type="hidden" name="p_category" th:value="${p_category}" />
+						<input type="hidden" name="page" th:value="${page}" />
+	
+						<div class="input-group">
+							<input type="text" name="word" class="form-control"
+								placeholder="상품명 입력">
+							<button type="submit" class="btn btn-primary">검색</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<script th:src="@{/js/product_index.js}"></script>
+		
 		</div>
 	</body>
 </html>

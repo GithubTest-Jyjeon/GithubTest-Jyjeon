@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.MovieDTO;
+import com.ex.springboot.dto.ResultDTO;
 import com.ex.springboot.dto.ShowDTO;
 import com.ex.springboot.interfaces.IresultDAO;
 
@@ -20,23 +21,42 @@ public class ResultDAO implements IresultDAO {
 	@Autowired
 	JdbcTemplate template;
 	
-	String whereTheme = "";
-	String whereMain = "";
-	String whereSoup = "";
-	String whereSpicy = "";
-	String whereNation = "";
-	String whereGenre = "";
-	String whereYear = "";
-	String whereRegion = "";
-	
 	String whereStart = "(";
 	String whereEnd = ")";
 	
 	@Override
 	public int makeMovieResult(int b_seq, String targetTable, String genre, String nation, String year) {
+		String whereNation = "";
+		String whereGenre = "";
+		String whereYear = "";
+		
 		ArrayList<String> keywords = new ArrayList<>();
 		
 		String selectQuery = "select "+targetTable+".* from "+targetTable;
+		
+		// 국가가 전체선택이 아닐 때
+		if(!nation.equals("all")) {
+			String[] arrNation = nation.split(",");
+			int cntNation = arrNation.length;
+			
+			whereNation += whereStart;
+			for(int i = 0; i < cntNation; i++) {
+				
+				if(arrNation[i].equals("K")) {
+					keywords.add("M101");
+				}else {
+					keywords.add("M102");
+				}
+				
+				whereNation += "cg_movie.m_nation_type = '"+arrNation[i]+"'";
+				if(i != (cntNation - 1)) {
+					whereNation += " or ";
+				}
+			}
+			whereNation += whereEnd;
+		}else {
+			keywords.add("M100");
+		}
 		
 		// 장르가 전체선택이 아닐 때
 		if(!genre.equals("all")) {
@@ -48,8 +68,8 @@ public class ResultDAO implements IresultDAO {
 			// cg_movie_genre
 			leftJoin += "cg_movie_genre on cg_movie_genre.m_code = cg_movie.m_code and (";
 			for(int i = 0; i < cntGenre; i++) {
-				String selQuery = "select k_code from cg_keyword where k_word = '"+arrGenre[i]+"'";
-				keywords.add(template.queryForObject(selQuery, String.class));
+				String kGenreCode = template.queryForObject("select k_code from cg_keyword where k_word = '"+arrGenre[i]+"'", String.class);
+				keywords.add(kGenreCode);
 				
 				leftJoin += " cg_movie_genre.g_name = '"+arrGenre[i]+"' ";
 				if(i != (cntGenre - 1)) {
@@ -62,35 +82,11 @@ public class ResultDAO implements IresultDAO {
 			
 			selectQuery += leftJoin;
 		}else {
-			keywords.add("M100");
+			keywords.add("M200");
 		}
 		
 		if(!genre.equals("all") || !nation.equals("all") || !year.equals("all")) {
 			selectQuery += " where ";
-		}
-		
-		// 국가가 전체선택이 아닐 때
-		if(!nation.equals("all")) {
-			String[] arrNation = nation.split(",");
-			int cntNation = arrNation.length;
-			
-			whereNation += whereStart;
-			for(int i = 0; i < cntNation; i++) {
-				
-				if(arrNation[i].equals("K")) {
-					keywords.add("M201");
-				}else {
-					keywords.add("M202");
-				}
-				
-				whereNation += "cg_movie.m_nation_type = '"+arrNation[i]+"'";
-				if(i != (cntNation - 1)) {
-					whereNation += " or ";
-				}
-			}
-			whereNation += whereEnd;
-		}else {
-			keywords.add("M200");
 		}
 		
 		// 년대가 전체선택이 아닐 때
@@ -128,10 +124,11 @@ public class ResultDAO implements IresultDAO {
 			keywords.add("M300");
 		}
 			
-		selectQuery += whereNation + whereYear + whereRegion + whereGenre;
+		selectQuery += whereNation + whereYear + whereGenre;
 	
 		selectQuery = selectQuery.replace(")(", ") and (");
-		System.out.println(selectQuery);
+		
+		selectQuery += " order by cg_movie.m_year desc";
 		
 		int count = 0;
 		String b_keywords = "";
@@ -142,28 +139,36 @@ public class ResultDAO implements IresultDAO {
 	    
 	    String b_results = "";
 	    b_keywords = b_keywords.substring(0, b_keywords.length() - 1);
-	    System.out.println("b_keywords : "+b_keywords);
+	    String updateQuery = "update cg_board set b_keywords = '"+b_keywords+"' where b_seq = "+b_seq;
+	    template.update(updateQuery);
 		
-		ArrayList<MovieDTO> movieArrayList = (ArrayList<MovieDTO>) template.query(selectQuery, new BeanPropertyRowMapper<MovieDTO>(MovieDTO.class));
+		ArrayList<MovieDTO> showArrayList = (ArrayList<MovieDTO>) template.query(selectQuery, new BeanPropertyRowMapper<MovieDTO>(MovieDTO.class));
 		
-		int cnt = 0; 
-		while(movieArrayList.size() > cnt) {
-			b_results += movieArrayList.get(cnt).getM_code()+"|";
+		String insertQuery = "";
+		int cnt = 0;
+		
+		while(showArrayList.size() > cnt) {
+			b_results += showArrayList.get(cnt).getM_code()+"|";
 			
-			if((cnt % 100 == 0) || ((movieArrayList.size() - 1) == (cnt - 1))) {
+			if((cnt+1) % 100 == 0 || (showArrayList.size()-1) == cnt) {
 				b_results = b_results.substring(0, b_results.length() - 1);
+				insertQuery = "insert into cg_result (r_seq, b_seq, t_code_arr) values (RESULT_SEQ.nextval, "+b_seq+", '"+b_results+"')";
+				template.update(insertQuery);
+				
+				b_results = "";
 			}
 			
 			cnt++;
 		}
-		
-		System.out.println("b_results : "+b_results);
 		
 		return 0;
 	}
 
 	@Override
 	public int makeShowResult(int b_seq, String targetTable, String genre, String region) {
+		String whereGenre = "";
+		String whereRegion = "";
+		
 		ArrayList<String> keywords = new ArrayList<>();
 		
 		String selectQuery = "select "+targetTable+".* from "+targetTable;
@@ -177,8 +182,8 @@ public class ResultDAO implements IresultDAO {
 			// cg_show_genre
 			leftJoin += "cg_show_genre on cg_show_genre.s_code = cg_show.s_code and (";
 			for(int i = 0; i < cntGenre; i++) {
-				String selQuery = "select k_code from cg_keyword where k_word = '"+arrGenre[i]+"'";
-				keywords.add(template.queryForObject(selQuery, String.class));
+				String kGenreCode = template.queryForObject("select k_code from cg_keyword where k_word = '"+arrGenre[i]+"'", String.class);
+				keywords.add(kGenreCode);
 				
 				leftJoin += " cg_show_genre.g_name = '"+arrGenre[i]+"' ";
 				if(i != (cntGenre - 1)) {
@@ -218,7 +223,7 @@ public class ResultDAO implements IresultDAO {
 			keywords.add("S200");
 		}
 		
-		selectQuery += whereNation + whereYear + whereRegion + whereGenre;
+		selectQuery += whereRegion + whereGenre;
 	
 		selectQuery = selectQuery.replace(")(", ") and (");
 		System.out.println(selectQuery);
@@ -232,28 +237,38 @@ public class ResultDAO implements IresultDAO {
 	    
 	    String b_results = "";
 	    b_keywords = b_keywords.substring(0, b_keywords.length() - 1);
-	    System.out.println("b_keywords : "+b_keywords);
+	    String updateQuery = "update cg_board set b_keywords = '"+b_keywords+"' where b_seq = "+b_seq;
+	    template.update(updateQuery);
 		
 		ArrayList<ShowDTO> showArrayList = (ArrayList<ShowDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ShowDTO>(ShowDTO.class));
 		
-		int cnt = 0; 
+		String insertQuery = "";
+		int cnt = 0;
+		
 		while(showArrayList.size() > cnt) {
 			b_results += showArrayList.get(cnt).getS_code()+"|";
 			
-			if((cnt % 100 == 0) || ((showArrayList.size() - 1) == (cnt - 1))) {
+			if((cnt+1) % 100 == 0 || (showArrayList.size()-1) == cnt) {
 				b_results = b_results.substring(0, b_results.length() - 1);
+				insertQuery = "insert into cg_result (r_seq, b_seq, t_code_arr) values (RESULT_SEQ.nextval, "+b_seq+", '"+b_results+"')";
+				template.update(insertQuery);
+				
+				b_results = "";
 			}
 			
 			cnt++;
 		}
-		
-		System.out.println("b_results : "+b_results);
 		
 		return 0;
 	}
 
 	@Override
 	public int makeFoodResult(int b_seq, String targetTable, String theme, String main, String soup, String spicy) {
+		String whereTheme = "";
+		String whereMain = "";
+		String whereSoup = "";
+		String whereSpicy = "";
+		
 		ArrayList<String> keywords = new ArrayList<>();
 		
 		String selectQuery = "select cg_food.f_code from "+targetTable;
@@ -363,8 +378,8 @@ public class ResultDAO implements IresultDAO {
 		selectQuery += whereTheme + whereMain + whereSoup + whereSpicy;
 		
 		selectQuery = selectQuery.replace(")(", ") and (");
-		System.out.println("query : "+selectQuery);
-		System.out.println("keywords : "+keywords);
+		
+		selectQuery += " order by cg_food.f_name desc";
 		
 		int count = 0;
 		String b_keywords = "";
@@ -375,24 +390,36 @@ public class ResultDAO implements IresultDAO {
 	    
 	    String b_results = "";
 	    b_keywords = b_keywords.substring(0, b_keywords.length() - 1);
-	    System.out.println("b_keywords : "+b_keywords);
+	    String updateQuery = "update cg_board set b_keywords = '"+b_keywords+"' where b_seq = "+b_seq;
+	    template.update(updateQuery);
 		
 		ArrayList<FoodDTO> foodArrayList = (ArrayList<FoodDTO>) template.query(selectQuery, new BeanPropertyRowMapper<FoodDTO>(FoodDTO.class));
 		
-		int cnt = 0; 
+		String insertQuery = "";
+		int cnt = 0;
+		
 		while(foodArrayList.size() > cnt) {
 			b_results += foodArrayList.get(cnt).getF_code()+"|";
 			
-			if((cnt % 100 == 0) || ((foodArrayList.size() - 1) == (cnt - 1))) {
+			if((cnt+1) % 100 == 0 || (foodArrayList.size()-1) == cnt) {
 				b_results = b_results.substring(0, b_results.length() - 1);
+				insertQuery = "insert into cg_result (r_seq, b_seq, t_code_arr) values (RESULT_SEQ.nextval, "+b_seq+", '"+b_results+"')";
+				template.update(insertQuery);
+				
+				b_results = "";
 			}
 			
 			cnt++;
 		}
 		
-		System.out.println("b_results : "+b_results);
-		
 		return 0;
+	}
+	
+	
+	public ArrayList<ResultDTO> resultList(int b_seq){
+		String selectQuery = "select * from cg_result where b_seq = "+b_seq;
+		
+		return null;
 	}
 
 }

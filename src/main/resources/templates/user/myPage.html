@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8">
+    <title>회원 정보</title>
+</head>
+
+<body>
+<div layout:fragment="content" class="content content1">
+    <div class="container d-flex justify-content-center align-items-center my-5">
+        <div class="row">
+        	<div class="col-md">
+        		<form th:action="@{/user/myInfoUpdate}" method="get">
+        			<input type="submit" class="btn btn-primary" />
+        		</form>
+        	</div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table" id="board">
+                    <thead>
+                    <tr>
+                        <th scope="col">키워드</th>
+                        <th scope="col">제목</th>
+                        <th scope="col">날짜</th>
+                        <th scope="col">공유 유무</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    <tr>
+                        <th scope="row">#keyword #keyword #keyword</th>
+                        <td>제목1234</td>
+                        <td>2020.02.02</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">공유 됨</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#keyword #keyword</th>
+                        <td>제목4321</td>
+                        <td>2020.05.02</td>
+                        <td><button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">공유 안됨</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#keyword #keyword #keyword #keyword ...</th>
+                        <td>제목1234</td>
+                        <td>2020.02.02</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">공유 됨</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#keyword #keyword</th>
+                        <td>제목4321</td>
+                        <td>2020.05.02</td>
+                        <td><button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">공유 안됨</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#keyword #keyword #keyword #keyword ...</th>
+                        <td>제목1234</td>
+                        <td>2020.02.02</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">공유 됨</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#keyword #keyword</th>
+                        <td>제목4321</td>
+                        <td>2020.05.02</td>
+                        <td><button type="button" class="btn btn-secondary" data-bs-toggle="button" autocomplete="off">공유 안됨</button></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">#keyword #keyword #keyword #keyword ...</th>
+                        <td>제목1234</td>
+                        <td>2020.02.02</td>
+                        <td><button type="button" class="btn btn-primary" data-bs-toggle="button" autocomplete="off">공유 됨</button></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row btnDiv">
+            <button class="btn btn-primary R_btn" id="loadMore">더보기</button>
+        </div>
+        <script>
+            $(document).ready(function () {
+                // 초기에 표시할 카드 수
+                var initialTables = 3;
+                var tables = $("#board > tbody tr");
+                var totalTables = tables.length;
+
+
+                tables.hide();
+
+                // 초기 카드 표시
+                tables.slice(0, initialTables).show();
+
+                // "더보기" 버튼 클릭 이벤트
+                $("#loadMore").click(function (e) {
+                    e.preventDefault();
+                    var visibleTables = $("#board > tbody tr:visible").length;
+                    // 추가로 보여줄 카드 수
+                    var next = visibleTables + 2; // 다음에 보여질 카드 수, 조정 가능
+                    tables.slice(visibleTables, next).show()
+
+                    ;
+                    // 모든 카드가 표시된 경우 "더보기" 버튼 숨김
+                    if (next >= totalTables) {
+                        $(this).hide();
+                    }
+                });
+
+                // 모든 카드가 처음부터 보이면 "더보기" 버튼 숨김
+                if (totalTables <= initialTables) {
+                    $("#loadMore").hide();
+                }
+            });
+        </script>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <table class="table" id="cart">
+                    <thead>
+                    <tr>
+                        <th scope="col">상품명</th>
+                        <th scope="col">가격</th>
+                        <th scope="col">날짜</th>
+                        <th scope="col">넣을게 있나?</th>
+                    </tr>
+                    </thead>
+                    <tbody class="table-group-divider">
+                    <tr>
+                        <th scope="row">상품명1 외 1건</th>
+                        <td>9,720원</td>
+                        <td>2020.02.02</td>
+                        <td>20202</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상품명232323 외...</th>
+                        <td>32,900원</td>
+                        <td>2020.05.02</td>
+                        <td>77585</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상품명1 외 1건</th>
+                        <td>9,720원</td>
+                        <td>2020.02.02</td>
+                        <td>20202</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상품명232323 외...</th>
+                        <td>32,900원</td>
+                        <td>2020.05.02</td>
+                        <td>77585</td>
+                    </tr> <tr>
+                        <th scope="row">상품명1 외 1건</th>
+                        <td>9,720원</td>
+                        <td>2020.02.02</td>
+                        <td>20202</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상품명232323 외...</th>
+                        <td>32,900원</td>
+                        <td>2020.05.02</td>
+                        <td>77585</td>
+                    </tr> <tr>
+                        <th scope="row">상품명1 외 1건</th>
+                        <td>9,720원</td>
+                        <td>2020.02.02</td>
+                        <td>20202</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">상품명232323 외...</th>
+                        <td>32,900원</td>
+                        <td>2020.05.02</td>
+                        <td>77585</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row btnDiv">
+            <button class="btn btn-primary R_btn" id="loadMoreCart">더보기</button>
+        </div>
+        <script>
+            $(document).ready(function () {
+                // 초기에 표시할 카드 수
+                var initialTables = 2;
+                var tables = $("#cart > tbody tr");
+                var totalTables = tables.length;
+
+                tables.hide();
+
+                // 초기 카드 표시
+                tables.slice(0, initialTables).show();
+
+                // "더보기" 버튼 클릭 이벤트
+                $("#loadMoreCart").click(function (e) {
+                    e.preventDefault();
+                    var visibleTables = $("#cart tbody tr:visible").length;
+                    // 추가로 보여줄 카드 수
+                    var next = visibleTables + 2; // 다음에 보여질 카드 수, 조정 가능
+                    tables.slice(visibleTables, next).show()
+
+                    ;
+                    // 모든 카드가 표시된 경우 "더보기" 버튼 숨김
+                    if (next >= totalTables) {
+                        $(this).hide();
+                    }
+                });
+
+                // 모든 카드가 처음부터 보이면 "더보기" 버튼 숨김
+                if (totalTables <= initialTables) {
+                    $("#loadMore").hide();
+                }
+            });
+        </script>
+    </div>
+</div>
+</body>
+</html>

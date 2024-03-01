@@ -17,15 +17,16 @@ public interface IboardDAO {
 	ResultDTO resultDTO = new ResultDTO();
 	
 	public BoardDTO boardView(int b_seq);
-	public int boardWrite(BoardDTO boardDTO, String b_category);
+	public int boardWrite(BoardDTO boardDTO);
+	public void boardResultUpdate(int b_seq);
 	public int boardUpdate(BoardDTO boardDTO);
 	public int boardDelete(int b_seq);
 	
 	public String boardListQuery(int page, int limit, String type, String word);
-	public List<BoardDTO> boardList(int page, int limit, String type, String word);
+	public ArrayList<BoardDTO> boardList(int page, int limit, String type, String word);
 	public int boardTotal(String type, String word);
 	
 	public ArrayList<KeywordDTO> keywordList(String b_keywords);
-	public ArrayList<ResultDTO> resultList(String b_category, String b_results);
+	public ArrayList<ResultDTO> resultList(String b_category, int b_seq);
 	public ArrayList<GenreDTO> genreList(Object code);
 }

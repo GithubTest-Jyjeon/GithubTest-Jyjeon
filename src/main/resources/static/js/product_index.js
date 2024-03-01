@@ -12,19 +12,6 @@ $(document).ready(function () {
     }
   });
 
-  // 카드 클릭 이벤트
-  $(".card").click(function (e) {
-    // 이동을 원하는 조건을 여기에 명시
-    if (!$("#staticBackdrop").hasClass("show")) {
-      window.location.href = $(this).data("href");
-    }
-  });
-
-  // 버튼 클릭 이벤트 중지
-  $(".btn-primary, .btn-close, .btn-secondary").click(function (event) {
-    event.stopPropagation();
-  });
-
   // "더보기" 버튼 로직
   var initialCards = 4;
   var cards = $(".card");
@@ -68,16 +55,13 @@ $(document).ready(function () {
 		  p_count : $("#input_p_count").val()
 	  }
 	  
-	  console.log(params.p_code);
-	  console.log(params.p_count);
-	  
 	  $.ajax({
 		  url : "/cart/insertProduct",
 		  data : params,
 		  type : "post",
 		  dataType : "text",
 		  success : function(resultData){
-			  console.log("장바구니에 담기 성공!");
+			  
 		  }
 	  })  
   })

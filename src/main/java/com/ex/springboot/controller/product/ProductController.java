@@ -32,6 +32,7 @@ public class ProductController {
 	public String productIndex(Model model) {
 		model.addAttribute("category_arr", category_arr);
 		model.addAttribute("newList", dao.productNewList());
+		model.addAttribute("dcList", dao.productDcList());
 		return "/product/index";
 	}
 	
@@ -47,7 +48,7 @@ public class ProductController {
 		}
 		
 		model.addAttribute("list", dao.productList(p_category, page, limit, word));
-		model.addAttribute("query", dao.productListQuery(p_category, page, limit, word));
+		model.addAttribute("category_arr", category_arr);
 		model.addAttribute("p_category", p_category);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("totalPage", totalPage);
@@ -66,6 +67,8 @@ public class ProductController {
 		model.addAttribute("productInfo", dao.productView(p_seq));
 		model.addAttribute("page", page);
 		model.addAttribute("word", word);
+		model.addAttribute("newList", dao.productNewList());
+		model.addAttribute("dcList", dao.productDcList());
 		
 		return "/product/view";
 	}

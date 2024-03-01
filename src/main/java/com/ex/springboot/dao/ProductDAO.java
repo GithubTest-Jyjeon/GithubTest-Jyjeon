@@ -46,6 +46,14 @@ public class ProductDAO implements IproductDAO {
 	}
 	
 	@Override
+	public List<ProductDTO> productDcList(){
+
+		String selectQuery = "select * from cg_product where p_dc_yn = 'Y'";
+		
+		return template.query(selectQuery, new BeanPropertyRowMapper<ProductDTO>(ProductDTO.class));
+	}
+	
+	@Override
 	public String productListQuery(String p_category, int page, int limit, String word){
 		int startRow = (page - 1) * limit;
 		String searchQuery = "and p_category = '"+p_category+"'";

@@ -52,12 +52,8 @@
 					<div class="col-12">
 						<p>
 							<span class="fw-bold" th:text="${boardInfo.u_nickname}"></span> 님이
-							<th:block th:switch="${boardInfo.b_category}">
-							    <span class="fw-bold" th:case="M">영화</span>
-							    <span class="fw-bold" th:case="S">공연</span>
-							    <span class="fw-bold" th:case="F">음식</span>
-							    테마에서 선택 한 키워드에요
-							</th:block>
+						    <span class="fw-bold" th:text="${boardInfo.b_category}"></span>
+							테마에서 선택 한 키워드에요
 						</p>
 						<p>
 							<span th:each="keyword : ${keywordList}" th:text="${keyword.k_word}" class="btn btn-sm btn-keyword me-1" ></span>
@@ -71,7 +67,7 @@
 						</p>
 						
 						<th:block th:switch="${boardInfo.b_category}">
-							<div th:case="M" class="row mb-3">
+							<div th:case="영화" class="row mb-3">
 								<div class="col-12 col-md-6 col-xl-4 mb-1" th:each="result : ${resultList}">
 									<div class="row">
 										<div class="col-4">
@@ -94,7 +90,7 @@
 								</div>
 							</div>
 							
-							<div th:case="S" class="row mb-3">
+							<div th:case="공연" class="row mb-3">
 								<div class="col-3">
 									<a th:href="@{/movie/view(s_seq=${result.seq})}" class="text-dark text-decoration-none">
 										<img th:src="${result.image}" class="img-fluid" />
@@ -113,7 +109,7 @@
 								</div>
 							</div>
 							
-							<div th:case="F" class="row mb-3">
+							<div th:case="음식" class="row mb-3">
 								<div class="col-3">
 									<a th:href="@{/movie/view(f_seq=${result.seq})}" class="text-dark text-decoration-none"><img th:src="${result.image}" class="img-fluid" /></a>
 								</div>

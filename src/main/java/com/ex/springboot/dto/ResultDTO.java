@@ -1,7 +1,5 @@
 package com.ex.springboot.dto;
 
-import java.util.ArrayList;
-
 import lombok.Data;
 
 @Data

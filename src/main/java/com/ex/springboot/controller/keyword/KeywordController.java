@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ex.springboot.dto.BoardDTO;
 import com.ex.springboot.dto.GenreDTO;
+import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IboardDAO;
 import com.ex.springboot.interfaces.IkeywordDAO;
 import com.ex.springboot.interfaces.IresultDAO;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping
@@ -59,42 +63,51 @@ public class KeywordController {
 			@RequestParam(value="genre", defaultValue="all") String genre,
 			@RequestParam(value="year", defaultValue="all") String year,
 			@RequestParam(value="region", defaultValue="all") String region,
+			HttpServletRequest request,
 			Model model
 		){
 		
-		int b_seq = 0;
 		BoardDTO boardDTO = new BoardDTO();
-		String b_category = "";
+		
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		int u_seq = userDTO.getU_seq();
 		
 		switch(targetTable) {
-			case "cg_movie" : b_category = "영화"; break;
-			case "cg_show" : b_category = "공연"; break;
-			case "cg_food" : b_category = "음식"; break;
+			case "CG_MOVIE" : boardDTO.setB_category("영화"); break;
+			case "CG_SHOW" : boardDTO.setB_category("공연"); break;
+			case "CG_FOOD" : boardDTO.setB_category("음식"); break;
 		}
 		
-		b_seq = daoBoard.boardWrite(boardDTO, b_category);
+		String b_title = userDTO.getU_nickname()+" 님의 "+boardDTO.getB_category()+" 결과 공유";
 		
-		switch(targetTable) {
-			case "CG_MOVIE" :
-				daoResult.makeMovieResult(b_seq, targetTable, genre, nation, year);
-				break;
-			case "CG_SHOW" :
-				daoResult.makeShowResult(b_seq, targetTable, genre, region);
-				break;
-			case "CG_FOOD" :
-				b_seq = daoResult.makeFoodResult(b_seq, targetTable, theme, main, soup, spicy);
-				break;
+		boardDTO.setU_seq(u_seq);
+		boardDTO.setB_title(b_title);
+		boardDTO.setB_hit(0);
+		boardDTO.setU_nickname(userDTO.getU_nickname());
+		
+		int b_seq = daoBoard.boardWrite(boardDTO);
+		System.out.println("b_seq : "+b_seq);
+		
+		if(b_seq > 0) {
+			switch(targetTable) {
+				case "CG_MOVIE" :
+					daoResult.makeMovieResult(b_seq, targetTable, genre, nation, year);
+					break;
+				case "CG_SHOW" :
+					daoResult.makeShowResult(b_seq, targetTable, genre, region);
+					break;
+				case "CG_FOOD" :
+					daoResult.makeFoodResult(b_seq, targetTable, theme, main, soup, spicy);
+					break;
+			}
+		
+			boardDTO.setB_seq(b_seq);
+			boardDTO.setU_seq(u_seq);
 		}
 		
-		// model.addAttribute("resultList", daoBoard.boardWrite(null));
+		daoBoard.boardResultUpdate(b_seq);
 		
-		
-//		model.addAttribute("foodResult", dao.foodResult(list));
-//		model.addAttribute("page", 1);
-//		
-//		return "/food/list";
-		
-		// return targetTable;
 		return null;
 	}
 	

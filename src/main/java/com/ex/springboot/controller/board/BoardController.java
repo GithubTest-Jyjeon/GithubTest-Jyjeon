@@ -34,6 +34,8 @@ public class BoardController {
 			endPage = totalPage;
 		}
 		
+		System.out.println(dao.boardList(page, limit, type, word));
+		
 		model.addAttribute("list", dao.boardList(page, limit, type, word));
 		model.addAttribute("query", dao.boardListQuery(page, limit, type, word));
 		model.addAttribute("totalCount", totalCount);
@@ -57,18 +59,18 @@ public class BoardController {
 	public String BoardViewPage(@RequestParam(value="b_seq") int b_seq, Model model) {
 		BoardDTO boardInfo = dao.boardView(b_seq);
 		ArrayList<KeywordDTO> keywordList = dao.keywordList(boardInfo.getB_keywords());
-		ArrayList<ResultDTO> resultList = dao.resultList(boardInfo.getB_category(), boardInfo.getB_results());
-		ArrayList<GenreDTO> genreList = new ArrayList<>();
+		ArrayList<ResultDTO> resultList = dao.resultList(boardInfo.getB_category(), boardInfo.getB_seq());
+//		ArrayList<GenreDTO> genreList = new ArrayList<>();
 		
-		StringTokenizer code = new StringTokenizer(boardInfo.getB_results(), "|");
-		while(code.hasMoreElements()) {
-			genreList.addAll(dao.genreList(code.nextElement()));
-		}
+//		StringTokenizer code = new StringTokenizer(boardInfo.getB_results(), "|");
+//		while(code.hasMoreElements()) {
+//			genreList.addAll(dao.genreList(code.nextElement()));
+//		}
 		
 		model.addAttribute("boardInfo", boardInfo);
 		model.addAttribute("keywordList", keywordList);
 		model.addAttribute("resultList", resultList);
-		model.addAttribute("genreList", genreList);
+//		model.addAttribute("genreList", genreList);
 		
 		return "board/view";
 	}

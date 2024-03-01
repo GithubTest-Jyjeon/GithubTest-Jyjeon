@@ -1,7 +1,6 @@
 package com.ex.springboot.dao;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +9,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.ex.springboot.dto.BResultDTO;
 import com.ex.springboot.dto.BoardDTO;
 import com.ex.springboot.dto.GenreDTO;
 import com.ex.springboot.dto.KeywordDTO;
@@ -30,23 +30,49 @@ public class BoardDAO implements IboardDAO {
 		template.update(updateQuery, b_seq);
 
 		String selectQuery = "select * from cg_board where b_seq = "+b_seq;
-		
+		System.out.println(selectQuery);
 		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<BoardDTO>(BoardDTO.class));
 	}
 
 	@Override
-	public int boardWrite(BoardDTO boardDTO, String b_category) {
-		UserDTO userDTO = new UserDTO();
-		int u_seq = userDTO.getU_seq();
-		
-		String b_title = userDTO.getU_nickname()+" 님의 "+b_category+" 결과 공유";
-		
+	public int boardWrite(BoardDTO boardDTO) {
+		System.out.println("BoardDTO : "+boardDTO);
 		String insertQuery = "insert into cg_board ("
 				+ "b_seq, u_seq, b_title, b_hit, b_keywords, b_content, b_reg_date, b_upd_date, b_share_yn, b_category, u_nickname"
 				+ ") values ("
-				+ "BOARD_SEQ.nextval, "+userDTO.getU_seq()+", 0, )";
-
-		return u_seq;
+				+ "BOARD_SEQ.nextval, "+boardDTO.getU_seq()+", '"+boardDTO.getB_title()+"', 0, null, null, sysdate, sysdate, 'N', '"+boardDTO.getB_category()+"', '"+boardDTO.getU_nickname()+"')";
+		System.out.println("insertQuery : "+insertQuery);
+		int insertResult = template.update(insertQuery);
+		System.out.println("insertResult : "+insertResult);
+		
+		int b_seq = 0;
+		
+		if(insertResult > 0) {
+			String bSeqQuery = "select BOARD_SEQ.CURRVAL from DUAL";
+			b_seq = template.queryForObject(bSeqQuery, Integer.class);
+		}
+		
+		return b_seq;
+	}
+	
+	@Override
+	public void boardResultUpdate(int b_seq) {
+		ArrayList<BResultDTO> list = new ArrayList<>();
+		
+		String selectQuery = "select * from cg_result where b_seq = "+b_seq;
+		list = (ArrayList<BResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<BResultDTO>(BResultDTO.class));
+		
+		String b_result = "";
+		
+		for(int i = 0; i < list.size(); i++) {
+			System.out.println("list.size() : "+list.size());
+			b_result += list.get(i).getR_seq()+"|";
+		}
+		
+		b_result = b_result.substring(0, b_result.length() - 1);
+		
+		String updateQuery = "update cg_board set b_results = '"+b_result+"' where b_seq = "+b_seq;
+		template.update(updateQuery);
 	}
 
 	@Override
@@ -75,7 +101,7 @@ public class BoardDAO implements IboardDAO {
 	}
 
 	@Override
-	public List<BoardDTO> boardList(int page, int limit, String type, String word) {
+	public ArrayList<BoardDTO> boardList(int page, int limit, String type, String word) {
 		int startRow = (page - 1) * limit;
 		String searchQuery = "";
 
@@ -101,7 +127,7 @@ public class BoardDAO implements IboardDAO {
                 + "WHERE ROWNUM <= ? "+searchQuery
                 + ") WHERE rnum > ?";
 
-		return template.query(selectQuery, new Object[] { startRow + limit, startRow },
+		return (ArrayList<BoardDTO>) template.query(selectQuery, new Object[] { startRow + limit, startRow },
 				new BeanPropertyRowMapper<BoardDTO>(BoardDTO.class));
 		// return null;
 	}
@@ -152,37 +178,43 @@ public class BoardDAO implements IboardDAO {
 	}
 	
 	@Override
-	public ArrayList<ResultDTO> resultList(String b_category, String b_results) {
+	public ArrayList<ResultDTO> resultList(String b_category, int b_seq) {
 		ArrayList<ResultDTO> list = new ArrayList<>();
-		ArrayList<ResultDTO> item = new ArrayList<>();
+		ArrayList<BResultDTO> item = new ArrayList<>();
 		
-		StringTokenizer result = new StringTokenizer(b_results, "|");
-		String selectQuery = "";
+		String selectQuery = "select * from cg_result where b_seq = "+b_seq;
+		item = (ArrayList<BResultDTO>)template.query(selectQuery, new BeanPropertyRowMapper<BResultDTO>(BResultDTO.class));
 		
-		switch(b_category) {
-			case "M" :
-				while(result.hasMoreElements()) {
-					selectQuery = "select m_seq as seq, m_code as code, m_title_kor as title, m_image_post as image, m_year as year, m_nation as nation, m_running_time as time from cg_movie where m_code = '"+result.nextElement()+"'";
-					item = (ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class));
-					list.addAll(item);
-				}
-				break;
-				
-			case "S" :
-				while(result.hasMoreElements()) {
-					selectQuery = "select s_seq as seq, s_code as code, s_title as title, s_image_post as image from cg_movie where m_code = '"+result.nextElement()+"'";
-					item = (ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class));
-					list.addAll(item);
-				}
-				break;
-				
-			case "F" :
-				while(result.hasMoreElements()) {
-					selectQuery = "select f_seq as seq, f_code as code, f_name as title, f_image as image from cg_movie where m_code = '"+result.nextElement()+"'";
-					item = (ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class));
-					list.addAll(item);
-				}
-				break;
+		int cnt = 0;
+		System.out.println("b_category : "+b_category);
+		while(item.size() > cnt) {
+			StringTokenizer result = new StringTokenizer(item.get(cnt).getT_code_arr(), "|");
+			
+			switch(b_category) {
+				case "영화" :
+					while(result.hasMoreElements()) {
+						selectQuery = "select m_seq as seq, m_code as code, m_title_kor as title, m_image_post as image, m_year as year, m_nation as nation, m_running_time as time from cg_movie where m_code = '"+result.nextElement()+"'";
+						list.addAll((ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class)));
+						System.out.println("selectQuery : "+selectQuery);
+					}
+					break;
+					
+				case "공연" :
+					while(result.hasMoreElements()) {
+						selectQuery = "select s_seq as seq, s_code as code, s_title as title, s_image_post as image from cg_movie where m_code = '"+result.nextElement()+"'";
+						list.addAll((ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class)));
+					}
+					break;
+					
+				case "음식" :
+					while(result.hasMoreElements()) {
+						selectQuery = "select f_seq as seq, f_code as code, f_name as title, f_image as image from cg_movie where m_code = '"+result.nextElement()+"'";
+						list.addAll((ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class)));
+					}
+					break;
+			}
+			
+			cnt++;
 		}
 		return list;
 	}

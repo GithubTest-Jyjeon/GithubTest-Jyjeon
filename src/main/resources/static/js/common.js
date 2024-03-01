@@ -2,6 +2,10 @@
  * 
  */
 
+function addComma(val){
+	return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+
 $( function(){
 	console.log("common.js load");
 	
@@ -15,4 +19,6 @@ $( function(){
 			globalNav.addClass("fixed-top");
 		}
 	})
+	
+	
 })

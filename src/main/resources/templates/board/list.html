@@ -36,13 +36,7 @@
 	                                <div class="col-10">
 	                                    <div class="row h-100">
 	                                        <div class="col-12 col-md-8 d-flex align-items-center"> 
-	                                            <a th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}" class="fs-4 text-dark text-decoration-none">
-	                                            	<span th:text="${dto.u_nickname}"></span> 님의
-	                                            	<span th:if="${dto.b_category == 'M'}" th:text="영화"></span>
-	                                            	<span th:if="${dto.b_category == 'S'}" th:text="공연"></span>
-	                                            	<span th:if="${dto.b_category == 'F'}" th:text="음식"></span>
-	                                            	결과 공유
-	                                            </a>
+	                                            <a th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}" class="fs-4 text-dark text-decoration-none" th:text="${dto.b_title}"></a>
 	                                        </div>
 	                                        <div class="col-12 col-md-4 d-flex align-items-center justify-content-between">
 	                                            <span class="text-muted small">조회수 : <span th:text="${dto.b_hit}"></span></span>
