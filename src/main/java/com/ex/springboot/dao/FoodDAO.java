@@ -47,7 +47,7 @@ public class FoodDAO implements IfoodDAO {
 	}
 
 	@Override
-	public FoodDTO foodView(int f_code) {
+	public FoodDTO foodView(String f_code) {
 		String selectQuery = "select * from cg_food where f_code = '"+f_code+"'";
 		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<FoodDTO>(FoodDTO.class));
 	}

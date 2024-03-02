@@ -123,7 +123,7 @@
         <h1>먹거리를 추천해드려요~~!</h1>
         <hr />
         <!-- =======================================카드하나=============================================== -->
-        <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="list : ${foodList}">
+        <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="list : ${list}">
           <div class="card border">
             <a href="R_result.html">
               <img
@@ -133,7 +133,7 @@
               />
             </a>
             <div class="card-body">
-              <h5 class="card-title">돼지고기 김치찌개</h5>
+              <h5 class="card-title" th:text="${list.f_name}"></h5>
               <p class="card-text text-muted small">
                 <span class="R_category">한식</span
                 ><span class="R_category">국물</span

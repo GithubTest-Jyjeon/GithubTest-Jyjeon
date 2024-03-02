@@ -9,7 +9,7 @@ public class FoodDTO {
 	private String f_name;
 	private String f_image;
 	private String f_code_arr;
-	private String f_voulum_arr;
+	private String f_volume_arr;
 	private String f_recipe;
 	private String f_type_theme;
 	private String f_type_main;

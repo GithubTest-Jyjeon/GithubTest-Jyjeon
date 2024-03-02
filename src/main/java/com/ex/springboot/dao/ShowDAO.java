@@ -47,7 +47,7 @@ public class ShowDAO implements IshowDAO {
 	}
 
 	@Override
-	public ShowDTO showView(int s_code) {
+	public ShowDTO showView(String s_code) {
 		String selectQuery = "select * from cg_show where f_code = '"+s_code+"'";
 		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<ShowDTO>(ShowDTO.class));
 	}

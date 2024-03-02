@@ -55,7 +55,7 @@ public class MovieController {
 	}
 	
 	@GetMapping("/movie/view")
-	public String movieView(@RequestParam(value = "m_code") int m_code, Model model) {
+	public String movieView(@RequestParam(value = "m_code") String m_code, Model model) {
 		
 		model.addAttribute("movieInfo", dao.movieView(m_code));
 		model.addAttribute("m_code", m_code);

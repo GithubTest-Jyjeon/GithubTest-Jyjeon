@@ -40,7 +40,6 @@ public class BoardDAO implements IboardDAO {
 				+ "b_seq, u_seq, b_title, b_hit, b_keywords, b_content, b_reg_date, b_upd_date, b_share_yn, b_category, u_nickname, b_total_count"
 				+ ") values ("
 				+ "BOARD_SEQ.nextval, "+boardDTO.getU_seq()+", '"+boardDTO.getB_title()+"', 0, null, null, sysdate, sysdate, 'N', '"+boardDTO.getB_category()+"', '"+boardDTO.getU_nickname()+"', 0)";
-		
 		int insertResult = template.update(insertQuery);
 		
 		int b_seq = 0;

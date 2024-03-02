@@ -11,6 +11,6 @@ public interface IshowDAO {
 	ShowDTO showDTO = new ShowDTO();
 	
 	public ArrayList<ShowDTO> showList(int page, int b_seq, int u_seq);
-	public ShowDTO showView(int b_seq);
+	public ShowDTO showView(String s_code);
 	public int showTotal(int b_seq, int u_seq);
 }

@@ -53,7 +53,7 @@ public class ShowController {
 	}
 	
 	@GetMapping("/show/view")
-	public String showView(@RequestParam(value = "s_code") int s_code, Model model) {
+	public String showView(@RequestParam(value = "s_code") String s_code, Model model) {
 		
 		model.addAttribute("showInfo", dao.showView(s_code));
 		model.addAttribute("s_code", s_code);

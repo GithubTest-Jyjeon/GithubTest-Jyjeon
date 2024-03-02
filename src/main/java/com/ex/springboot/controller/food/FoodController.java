@@ -54,10 +54,14 @@ public class FoodController {
 	}
 	
 	@GetMapping("/food/view")
-	public String foodView(@RequestParam(value = "f_code") int f_code, Model model) {
+	public String foodView(@RequestParam(value = "f_code") String f_code, Model model) {
 		
 		model.addAttribute("foodInfo", dao.foodView(f_code));
 		model.addAttribute("f_code", f_code);
+		
+		System.out.println("f_code : "+f_code);
+		System.out.println("foodInfo : ");
+		System.out.println(dao.foodView(f_code));
 		
 		return "/food/view";
 	}

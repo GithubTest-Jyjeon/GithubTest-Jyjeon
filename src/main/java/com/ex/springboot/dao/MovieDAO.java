@@ -48,7 +48,7 @@ public class MovieDAO implements ImovieDAO {
 	}
 
 	@Override
-	public MovieDTO movieView(int m_code) {
+	public MovieDTO movieView(String m_code) {
 		String selectQuery = "select * from cg_movie where m_code = '"+m_code+"'";
 		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<MovieDTO>(MovieDTO.class));
 	}

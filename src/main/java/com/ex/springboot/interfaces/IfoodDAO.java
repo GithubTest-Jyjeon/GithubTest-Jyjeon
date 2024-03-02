@@ -13,6 +13,6 @@ public interface IfoodDAO {
 	FoodDTO foodDTO = new FoodDTO();
 	
 	public ArrayList<FoodDTO> foodList(int page, int b_seq, int u_seq);
-	public FoodDTO foodView(int f_seq);
+	public FoodDTO foodView(String f_code);
 	public int foodTotal(int b_seq, int u_seq);
 }

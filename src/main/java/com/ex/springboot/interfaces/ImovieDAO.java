@@ -11,6 +11,6 @@ public interface ImovieDAO {
 	MovieDTO movieDTO = new MovieDTO();
 	
 	public ArrayList<MovieDTO> movieList(int page, int b_seq, int u_seq);
-	public MovieDTO movieView(int b_seq);
+	public MovieDTO movieView(String m_code);
 	public int movieTotal(int b_seq, int u_seq);
 }
