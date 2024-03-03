@@ -11,4 +11,8 @@ public class ResultDTO {
 	private int year;
 	private String nation;
 	private String time;
+	private String region;
+	private String date_s;
+	private String date_e;
+	private String recipe;
 }

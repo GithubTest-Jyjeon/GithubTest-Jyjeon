@@ -266,7 +266,6 @@ h1 span:nth-child(8) {
 	}
 	.row {
 		height: 100%;
-		gap: 10px;
 	}
 	.main h1 {
 		font-weight: bold;
@@ -348,61 +347,52 @@ h1 span:nth-child(8) {
 				</div>
 			</div>
 		</div>
-
+		
 		<script>
-      document
-        .querySelector(".TopChoiceBtn")
-        .addEventListener("click", function () {
-          // 현재 활성화된 섹션을 찾음
-          let currentSection = document.elementFromPoint(
-            0,
-            window.innerHeight / 2
-          );
-          // 다음 섹션으로 스크롤하기
-          let nextSection =
-            currentSection.closest(".container-fluid").nextElementSibling;
-          if (nextSection) {
-            nextSection.scrollIntoView({ behavior: "smooth" });
-          }
-        });
-    </script>
-		<script>
-      document.addEventListener(
-        "wheel",
-        function (e) {
-          e.preventDefault(); // 기본 스크롤 동작 방지
-
-          let currentSection = document.elementFromPoint(
-            0,
-            window.innerHeight / 2
-          );
-          let nextSection = null;
-
-          if (e.deltaY > 0) {
-            // 아래로 스크롤할 경우, 다음 섹션을 찾음
-            nextSection =
-              currentSection.closest(".container-fluid").nextElementSibling;
-          } else {
-            // 위로 스크롤할 경우, 이전 섹션을 찾음
-            nextSection =
-              currentSection.closest(".container-fluid").previousElementSibling;
-          }
-
-          if (nextSection) {
-            nextSection.scrollIntoView({ behavior: "smooth" });
-          }
-        },
-        { passive: false }
-      ); // passive: false 옵션으로 기본 이벤트를 방지
-    </script>
-
-
-
-
-
-
-
-		<script th:src="@{/js/myScript.js}"></script>
+	      document
+	        .querySelector(".TopChoiceBtn")
+	        .addEventListener("click", function () {
+	          // 현재 활성화된 섹션을 찾음
+	          let currentSection = document.elementFromPoint(
+	            0,
+	            window.innerHeight / 2
+	          );
+	          // 다음 섹션으로 스크롤하기
+	          let nextSection =
+	            currentSection.closest(".container-fluid").nextElementSibling;
+	          if (nextSection) {
+	            nextSection.scrollIntoView({ behavior: "smooth" });
+	          }
+	        });
+	      
+	      document.addEventListener(
+	        "wheel",
+	        function (e) {
+	          e.preventDefault(); // 기본 스크롤 동작 방지
+	
+	          let currentSection = document.elementFromPoint(
+	            0,
+	            window.innerHeight / 2
+	          );
+	          let nextSection = null;
+	
+	          if (e.deltaY > 0) {
+	            // 아래로 스크롤할 경우, 다음 섹션을 찾음
+	            nextSection =
+	              currentSection.closest(".container-fluid").nextElementSibling;
+	          } else {
+	            // 위로 스크롤할 경우, 이전 섹션을 찾음
+	            nextSection =
+	              currentSection.closest(".container-fluid").previousElementSibling;
+	          }
+	
+	          if (nextSection) {
+	            nextSection.scrollIntoView({ behavior: "smooth" });
+	          }
+	        },
+	        { passive: false }
+	      ); // passive: false 옵션으로 기본 이벤트를 방지
+	    </script>
 	</div>
 </body>
 </html>

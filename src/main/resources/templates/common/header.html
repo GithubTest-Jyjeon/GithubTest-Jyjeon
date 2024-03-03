@@ -1,195 +1,169 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <header th:fragment="header">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
-
-	<link
-		href="https://webfontworld.github.io/DdangFonts/TangsBudaeJjigae.css"
-		rel="stylesheet" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css" />
+	<link href="https://webfontworld.github.io/DdangFonts/TangsBudaeJjigae.css" rel="stylesheet" />
 
 	<style>
-* {
-	padding: 0;
-}
-
-html, body {
-	overflow-x: hidden;
-}
-
-.nav_pc, .nav_mo {
-	background-color: #f5f0f0;
-	font-family: "TangsBudaeJjigae";
-	position: fixed;
-	width: 100%;
-	z-index: 9990009;
-}
-
-.nav_mo {
-	background-color: #f74b4b;
-}
-
-.mo_menu {
-	border: 1px solide white;
-	border-radius: 20px;
-	background-color: white;
-}
-
-
-.logo {
-	font-family: "TangsBudaeJjigae";
-	color: #ff4757;
-	font-weight: bold;
-	font-size: 30px;
-}
-
-.selector {
-	padding: 0.25rem;
-	background-color: #f5f0f0;
-	width: min-content;
-	border-radius: 12px;
-	position: relative;
-	z-index: 9990009;
-}
-
-.selector-item {
-	white-space: nowrap;
-	/* padding: 0.75rem 1.5rem; */
-	cursor: pointer;
-	z-index: 9990009;
-	user-select: none;
-	transition: color 0.2s ease;
-	position: relative;
-}
-
-.selector-item--active {
-	color: rgb(255, 255, 255);
-}
-
-.highlight {
-	background-color: #ff4757;
-	border-radius: 8px;
-	position: absolute;
-	left: 0.25rem;
-	width: 4.75rem;
-	height: 2.6rem;
-	z-index: 1;
-	box-shadow: 0px 0px 12px -2px rgba(255, 71, 86, 0.9);
-	transition: left 0.2s ease, width 0.2s ease;
-	opacity: 0; /* 초기에는 투명하게 설정 */
-	transition: opacity 0.2s ease, left 0.2s ease, width 0.2s ease;
-	/* opacity 변경에 대한 트랜지션 추가 */
-}
-
-/* 아이콘 기본 설정 */
-.navbar-toggler:focus {
-	box-shadow: none;
-}
-
-.icon {
-	margin: 20px;
-}
-
-/* nav-icon-5 설정 조정 */
-.nav-icon-5 {
-	width: 20px; /* 가로 크기를 20px로 변경 */
-	height: 17px; /* 비율에 맞춰 높이 조정 */
-	margin: 10px 10px;
-	position: relative;
-	cursor: pointer;
-	display: inline-block;
-}
-
-.nav-icon-5 span {
-	background-color: #fff;
-	position: absolute;
-	border-radius: 2px;
-	transition: .3s cubic-bezier(.8, .5, .2, 1.4);
-	width: 100%;
-	height: 2px; /* 선의 두께 조정 */
-	transition-duration: 500ms;
-}
-
-.nav-icon-5 span:nth-child(1) {
-	top: 0px;
-	left: 0px;
-}
-
-.nav-icon-5 span:nth-child(2) {
-	top: 7px; /* 비율에 맞춰 중간 선의 위치 조정 */
-	left: 0px;
-	opacity: 1;
-}
-
-.nav-icon-5 span:nth-child(3) {
-	bottom: 0px;
-	left: 0px;
-}
-
-/* 호버 및 열림 상태의 스타일 조정 */
-/* .nav-icon-5:not(.open):hover span:nth-child(1), .nav-icon-5:not(.open):hover span:nth-child(3) {
-  transform: rotate(-3deg) scaleY(1.1);
-}
-
-.nav-icon-5:not(.open):hover span:nth-child(2){
-  transform: rotate(3deg) scaleY(1.1);
-} */
-.nav-icon-5.open span:nth-child(1) {
-	transform: rotate(45deg);
-	top: 7px; /* 비율에 맞춰 조정 */
-}
-
-.nav-icon-5.open span:nth-child(2) {
-	opacity: 0;
-}
-
-.nav-icon-5.open span:nth-child(3) {
-	transform: rotate(-45deg);
-	top: 7px; /* 비율에 맞춰 조정 */
-}
-
-.cBtn{
-background-color:#f74b4b;
-border:none;
-height:30px;
-
-}
-
-
-</style>
+	.nav_pc, .nav_mo {
+		background-color: #f5f0f0;
+		font-family: "TangsBudaeJjigae";
+		z-index: 9998;
+	}
+	
+	.nav_mo {
+		background-color: #f74b4b;
+	}
+	
+	.mo_menu {
+		border: 1px solide white;
+		border-radius: 1rem;
+		background-color: white;
+	}
+	
+	
+	.logo {
+		font-family: "TangsBudaeJjigae";
+		color: #ff4757;
+		font-weight: bold;
+		font-size: 30px;
+	}
+	
+	.selector {
+		padding: 0.25rem;
+		background-color: #f5f0f0;
+		width: min-content;
+		border-radius: 12px;
+		position: relative;
+		z-index: 9998;
+	}
+	
+	.selector-item {
+		white-space: nowrap;
+		/* padding: 0.75rem 1.5rem; */
+		cursor: pointer;
+		z-index: 9990009;
+		user-select: none;
+		transition: color 0.2s ease;
+		position: relative;
+	}
+	
+	.selector-item--active {
+		color: rgb(255, 255, 255);
+	}
+	
+	.highlight {
+		background-color: #ff4757;
+		border-radius: 8px;
+		position: absolute;
+		left: 0.25rem;
+		width: 4.75rem;
+		height: 2.6rem;
+		z-index: 1;
+		transition: left 0.2s ease, width 0.2s ease;
+		opacity: 0; /* 초기에는 투명하게 설정 */
+		transition: opacity 0.2s ease, left 0.2s ease, width 0.2s ease;
+		/* opacity 변경에 대한 트랜지션 추가 */
+	}
+	
+	/* 아이콘 기본 설정 */
+	.navbar-toggler:focus {
+		box-shadow: none;
+	}
+	
+	.icon {
+		margin: 20px;
+	}
+	
+	/* nav-icon-5 설정 조정 */
+	.nav-icon-5 {
+		width: 20px; /* 가로 크기를 20px로 변경 */
+		height: 17px; /* 비율에 맞춰 높이 조정 */
+		margin: 10px 10px;
+		position: relative;
+		cursor: pointer;
+		display: inline-block;
+	}
+	
+	.nav-icon-5 span {
+		background-color: #fff;
+		position: absolute;
+		border-radius: 2px;
+		transition: .3s cubic-bezier(.8, .5, .2, 1.4);
+		width: 100%;
+		height: 2px; /* 선의 두께 조정 */
+		transition-duration: 500ms;
+	}
+	
+	.nav-icon-5 span:nth-child(1) {
+		top: 0px;
+		left: 0px;
+	}
+	
+	.nav-icon-5 span:nth-child(2) {
+		top: 7px; /* 비율에 맞춰 중간 선의 위치 조정 */
+		left: 0px;
+		opacity: 1;
+	}
+	
+	.nav-icon-5 span:nth-child(3) {
+		bottom: 0px;
+		left: 0px;
+	}
+	
+	.nav-icon-5.open span:nth-child(1) {
+		transform: rotate(45deg);
+		top: 7px; /* 비율에 맞춰 조정 */
+	}
+	
+	.nav-icon-5.open span:nth-child(2) {
+		opacity: 0;
+	}
+	
+	.nav-icon-5.open span:nth-child(3) {
+		transform: rotate(-45deg);
+		top: 7px; /* 비율에 맞춰 조정 */
+	}
+	
+	.cBtn {
+		background-color:#f74b4b;
+		border:none;
+		height:30px;
+	}
+	</style>
 
 
 	<!-- 피씨 네브===================== -->
-	<nav class="navbar navbar-expand-lg mb-3 nav_pc d-none d-lg-block"
-		id="globalNav">
+	<nav class="navbar navbar-expand-lg nav_pc d-none d-lg-block" id="globalNav">
 		<div class="container">
 			<a class="navbar-brand logo" th:href="@{/}"> CHOOGET </a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mx-auto mb-2 mb-lg-0 selector">
-					<li class=""><a class="nav-link active highlight"
-						aria-current="page" th:href="@{/}"></a></li>
-
-					<li class="nav-item px-3"><a
-						class="nav-link active selector-item" aria-current="page"
-						th:href="@{/}">HOME</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link active selector-item" aria-current="page"
-						th:href="@{/keyword/choice?type=work}">볼거리</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link active selector-item" aria-current="page"
-						th:href="@{/keyword/choice?type=food}">먹거리</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link active selector-item" aria-current="page"
-						th:href="@{/product/index}">살거리</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link active selector-item" aria-current="page"
-						th:href="@{/board/list}">공유게시판</a></li>
+					<li class="">
+						<a class="nav-link active highlight" aria-current="page" th:href="@{/}"></a>
+					</li>
+					<li class="nav-item px-3">
+						<a class="nav-link active selector-item" aria-current="page" th:href="@{/}">HOME</a>
+					</li>
+					<li class="nav-item px-3">
+						<a class="nav-link active selector-item" aria-current="page"
+						th:href="@{/keyword/choice?type=work}">볼거리</a>
+					</li>
+					<li class="nav-item px-3">
+						<a class="nav-link active selector-item" aria-current="page"
+						th:href="@{/keyword/choice?type=food}">먹거리</a>
+					</li>
+					<li class="nav-item px-3">
+						<a class="nav-link active selector-item" aria-current="page"
+						th:href="@{/product/index}">살거리</a>
+					</li>
+					<li class="nav-item px-3">
+						<a class="nav-link active selector-item" aria-current="page"
+						th:href="@{/board/list}">게시판</a>
+					</li>
 					<li th:if="${session.userSession == null}" class="nav-item px-3">
 						<a class="nav-link active selector-item" aria-current="page"
 						th:href="@{/user/login}">로그인</a>
@@ -206,73 +180,68 @@ height:30px;
 			</div>
 		</div>
 	</nav>
+	
 	<!-- 모바일네브====================== -->
-	<nav class="navbar navbar-expand-lg d-lg-none nav_mo"
-		style="bottom: 0; position: fixed; width: 100%; z-index: 99999">
-		<div class="container-fluid d-flex justify-content-center">
-			<!-- 토글 버튼 추가 -->
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse"
-				data-bs-target="#navbarToggleMobileContent"
-				aria-controls="navbarToggleMobileContent" aria-expanded="false"
-				aria-label="Toggle navigation">
-				<div class="icon nav-icon-5">
-					<span></span> <span></span> <span></span>
-				</div>
-			</button>
+	<nav class="d-lg-none nav_mo fixed-bottom">
+		<div class="container">
 			<!-- 토글될 내용 -->
-			<div class="collapse navbar-collapse mo_menu" id="navbarToggleMobileContent">
-				<ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center mo_menu">
-					<li class="nav-item px-3"><a
-						class="nav-link"
-						aria-current="page" th:href="@{/}">HOME</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link"
-						aria-current="page" th:href="@{/keyword/choice?type=work}">볼거리</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link"
-						aria-current="page" th:href="@{/keyword/choice?type=food}">먹거리</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link"
-						aria-current="page" th:href="@{/product/index}">살거리</a></li>
-					<li class="nav-item px-3"><a
-						class="nav-link"
-						aria-current="page" th:href="@{/board/list}">공유게시판</a></li>
-					<li th:if="${session.userSession == null}" class="nav-item px-3">
-						<a class="nav-link"
-						aria-current="page" th:href="@{/user/login}">로그인</a>
-					</li>
-					<li th:if="${session.userSession != null}" class="nav-item px-3">
-						<a class="nav-link"
-						aria-current="page" th:href="@{/user/logout}">로그아웃</a>
-					</li>
-					<li th:if="${session.userSession != null}" class="nav-item px-3">
-						<a class="nav-link"
-						aria-current="page" th:href="@{/user/myPage}">마이페이지</a>
-					</li>
-					<button type="button" class="btn btn-secondary cBtn"
-						id="closeNavbarContent">닫기</button>
-
-				</ul>
+			<div class="row pt-3" id="navbarToggleMobileContent">
+				<div class="col">
+					<div class="row">
+						<div class="col-12 text-center">
+							<a class="link-dark text-decoration-none text-white py-2 fs-3" aria-current="page" th:href="@{/}">CHOOGET</a>
+						</div>
+					</div>
+					<div class="row py-3">
+						<div class="col-3">
+							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center" aria-current="page" th:href="@{/keyword/choice?type=work}">
+								<i class="fa-solid fa-video d-block my-2"></i>
+								볼거리
+							</a>
+						</div>
+						<div class="col-3">
+							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center" aria-current="page" th:href="@{/keyword/choice?type=food}">
+								<i class="fa-solid fa-utensils d-block my-2"></i>
+								먹거리
+							</a>
+						</div>
+						<div class="col-3">						
+							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center" aria-current="page" th:href="@{/product/index}">
+								<i class="fa-solid fa-cart-shopping d-block my-2"></i>
+								살거리
+							</a>
+						</div>
+						<div class="col-3">
+							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center" aria-current="page" th:href="@{/board/list}">
+								<i class="fa-regular fa-message d-block my-2"></i>
+								게시판
+							</a>
+						</div>
+					</div>
+					<div class="row text-center">
+						<div class="col-12 py-2" th:if="${session.userSession == null}">
+							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/login}">로그인</a>
+						</div>
+						
+						<div class="col-6 py-2" th:if="${session.userSession != null}">
+							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/myPage}">마이페이지</a>
+						</div>
+						<div class="col-6 py-2" th:if="${session.userSession != null}">
+							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/logout}">로그아웃</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container d-flex justify-content-center">
+			<!-- 토글 버튼 추가 -->
+			<div class="row">
+				<div class="col">
+					<i class="fa-solid fa-bars text-white p-3" id="btnMobileHamburger" role="button"></i>
+				</div>
 			</div>
 		</div>
 	</nav>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	<script id="rendered-js">
@@ -363,6 +332,12 @@ height:30px;
     	  });
     	});
 
+    </script>
+    <script>
+    	$("#navbarToggleMobileContent").hide();
+    	$("#btnMobileHamburger").on("click", function(){
+    		$("#navbarToggleMobileContent").slideToggle();
+    	})
     </script>
 </header>
 <body>

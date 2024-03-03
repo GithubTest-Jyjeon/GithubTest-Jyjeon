@@ -5,7 +5,8 @@
 $( function(){
 	console.log("choice.js load");
 	
-	$(".btnResult").hide();
+	$("#choiceArea").show();
+	$("#resultArea").hide();
 	$(".steps").eq(0).show();
 	
 	
@@ -139,7 +140,8 @@ $( function(){
 						}
 					}
 					$(this).hide();
-					$(".btnResult").show();
+					$("#choiceArea").hide();
+					$("#resultArea").show();
 					console.log(keywordResult);
 				}
 			break;
@@ -162,7 +164,8 @@ $( function(){
 							}	
 						}
 					}
-					$(".btnResult").show();
+					$("#choiceArea").hide();
+					$("#resultArea").show();
 					console.log(keywordResult);
 				}
 			break;
@@ -397,7 +400,8 @@ $( function(){
 							}	
 						}
 					}
-					$(".btnResult").show();
+					$("#choiceArea").hide();
+					$("#resultArea").show();
 					console.log(keywordResult);
 				}		
 			break;

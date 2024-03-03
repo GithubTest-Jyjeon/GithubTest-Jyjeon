@@ -11,21 +11,16 @@
 	</head>
 	
 	<body>
-		<div layout:fragment="content" class="content content1">
+		<div layout:fragment="content">
 		
 			<style>
 			.steps {
 				display: none;
+				text-align: center;
 			}
 			
-			.checkbox-group {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: center;
-				
-			}
 			.checkbox-group > * {
-				margin: 0.5rem 0.5rem;
+				margin: 0.5rem 0.25rem;
 			}
 			
 			.checkbox-group-legend {
@@ -71,22 +66,14 @@
 			.checkbox-input:checked + .checkbox-tile .checkbox-label {
 				color: #f74b4b;
 			}
-			/* .checkbox-input:focus + .checkbox-tile {
-				border-color: #f74b4b;
-				box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1), 0 0 0 4px #e7cece;
-			} */
-			
-			.checkbox-label-all {
-				width: 20rem;
-			}
 			
 			.checkbox-tile {
 				display: flex;
 				flex-direction: column;
 				align-items: center;
 				justify-content: center;
-				width: 10rem;
-				padding: .5rem 1rem;
+				width: 9rem;
+				padding: .5rem;
 				border-radius: 0.5rem;
 				border: 1px solid #b5bfd9;
 				background-color: #fff;
@@ -94,12 +81,8 @@
 				transition: 0.15s ease;
 				cursor: pointer;
 				position: relative;
-				/* padding: 10px 10px 10px 30px; */
 			}
 			
-			.checkbox-tile-all {
-				width: 21rem;
-			}
 			
 			.checkbox-tile:before {
 				content: "";
@@ -158,447 +141,467 @@
 			}
 			</style>
 		
-			<div class="container" th:if="${type == 'work'}">
-				<div class="row steps" id="formWorkType">
-					<div class="col">
-						<fieldset class="checkbox-group">
-					        <legend class="checkbox-group-legend">Choose your favorites</legend>
-					        <label class="checkbox-wrapper">
-					            <input type="checkbox" class="checkbox-input" id="checkBoxMovie" name="category" />
-					            <span class="checkbox-tile">
-					                <span class="checkbox-label">영화 보기</span>
-					            </span>
-					        </label>
-					        <label class="checkbox-wrapper">
-					            <input type="checkbox" class="checkbox-input" id="checkBoxShow" name="category" />
-					            <span class="checkbox-tile">
-					                <span class="checkbox-label">공연 보기</span>
-					            </span>
-					        </label>
-					    </fieldset>
-					    
+			<div id="choiceArea">
+				<div class="container" th:if="${type == 'work'}" style="padding-top: 8rem; padding-bottom: 10rem">
+					<div class="row steps" id="formWorkType">
+						<div class="col">
+							<fieldset class="checkbox-group">
+						        <legend class="checkbox-group-legend">Choose your favorites</legend>
+						        <label class="checkbox-wrapper">
+						            <input type="checkbox" class="checkbox-input" id="checkBoxMovie" name="category" />
+						            <span class="checkbox-tile">
+						                <span class="checkbox-label">영화 보기</span>
+						            </span>
+						        </label>
+						        <label class="checkbox-wrapper">
+						            <input type="checkbox" class="checkbox-input" id="checkBoxShow" name="category" />
+						            <span class="checkbox-tile">
+						                <span class="checkbox-label">공연 보기</span>
+						            </span>
+						        </label>
+						    </fieldset>
+						</div>
 					</div>
-				</div>
-				
-				<div class="row steps" id="formMovieNation">
-					<div class="col">
-						<!-- 영화 step 1 : 국가 선택 -->
-						<fieldset class="checkbox-group">
-						    <legend class="checkbox-group-legend">Choose your favorites</legend>
-						    
-						    <label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" value="all" id="selectAll_M1" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-						    
-						    <label class="checkbox-wrapper">
-						      <input type="checkbox" class="checkbox-input items" value="K" />
-						      <span class="checkbox-tile">
-						        <span class="checkbox-label" id="checkBoxMovie">국내 영화</span>
-						      </span>
-						    </label>
-						    
-						    <label class="checkbox-wrapper">
-						      <input type="checkbox" class="checkbox-input items" value="F" />
-						      <span class="checkbox-tile">
-						        <span class="checkbox-label" id="checkBoxShow">해외 영화</span>
-						      </span>
-						    </label>
-						  </fieldset>
+					
+					<div class="row steps" id="formMovieNation">
+						<div class="col">
+							<!-- 영화 step 1 : 국가 선택 -->
+							<fieldset class="checkbox-group">
+							    <legend class="checkbox-group-legend">Choose your favorites</legend>
+							    
+							    <label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" value="all" id="selectAll_M1" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+							    
+							    <label class="checkbox-wrapper">
+							      <input type="checkbox" class="checkbox-input items" value="K" />
+							      <span class="checkbox-tile">
+							        <span class="checkbox-label" id="checkBoxMovie">국내 영화</span>
+							      </span>
+							    </label>
+							    
+							    <label class="checkbox-wrapper">
+							      <input type="checkbox" class="checkbox-input items" value="F" />
+							      <span class="checkbox-tile">
+							        <span class="checkbox-label" id="checkBoxShow">해외 영화</span>
+							      </span>
+							    </label>
+							  </fieldset>
+						</div>
 					</div>
-				</div>
-				
-				<div class="row steps" id="formMovieGenre">
-					<div class="col">
-						<!-- 영화 step 2 : 장르 선택 -->
-						<fieldset class="checkbox-group">
-							<legend class="checkbox-group-legend">Choose your favorites</legend>
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_M2" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
+					
+					<div class="row steps" id="formMovieGenre">
+						<div class="col">
+							<!-- 영화 step 2 : 장르 선택 -->
+							<fieldset class="checkbox-group">
+								<legend class="checkbox-group-legend">Choose your favorites</legend>
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_M2" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+								
+								<label class="checkbox-wrapper" th:each="list : ${genreListMovie}" >
+									<input type="checkbox" class="checkbox-input items" th:value="${list.g_word}" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label" th:text="${list.g_word}"></span>
+									</span>
+								</label>
+							</fieldset>
+						</div>
+					</div>
+					
+					<div class="row steps" id="formMovieYear">
+						<div class="col">
+							<!-- 영화 step 3 : 년대 선택 -->
+							<fieldset class="checkbox-group">
+								<legend class="checkbox-group-legend">Choose your favorites</legend>
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_M3" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
 							
-							<label class="checkbox-wrapper" th:each="list : ${genreListMovie}" >
-								<input type="checkbox" class="checkbox-input items" th:value="${list.g_word}" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label" th:text="${list.g_word}"></span>
-								</span>
-							</label>
-						</fieldset>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="1999" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">~1999년</span>
+									</span>
+								</label>
+							
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="2000" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">2000년대</span>
+									</span>
+								</label>
+							
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="2010" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">2010년대</span>
+									</span>
+								</label>
+							
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="2020" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">2020년~</span>
+									</span>
+								</label>
+							</fieldset>
+						</div>
 					</div>
+					
+					<div class="row steps" id="formShowGenre">
+						<div class="col">
+							<!-- 공연 step 1 : 장르 선택 -->
+							<fieldset class="checkbox-group">
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_S1" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+							
+								<label class="checkbox-wrapper" th:each="list : ${genreListShow}">
+									<input type="checkbox" class="checkbox-input items" th:value="${list.g_word}" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label" th:text="${list.g_word}"></span>
+									</span>
+								</label>
+							</fieldset>
+						</div>
+					</div>
+					
+					<div class="row steps" id="formShowRegion">
+						<div class="col">
+							<fieldset class="checkbox-group">
+								<legend class="checkbox-group-legend">Choose your favorites</legend>
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_S2" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="강원" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">강원</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="경기" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">경기</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="경남" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">경남</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="경북" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">경북</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="광주" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">광주</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="대구" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">대구</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="대전" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">대전</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="부산" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">부산</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="서울" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">서울</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="세종" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">세종</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="울산" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">울산</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="인천" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">인천</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="제주" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">제주</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="전남" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">전남</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="전북" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">전북</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="충남" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">충남</span>
+									</span>
+								</label>
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="충북" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">충북</span>
+									</span>
+								</label>
+							</fieldset>
+						</div>
+					</div>
+					
+					<div class="text-center mt-3">
+						<button type="button" class="btn btn-primary btnStepWork" data-currStep="choiceWorkType">다음</button>
+					</div>
+					
 				</div>
 				
-				<div class="row steps" id="formMovieYear">
-					<div class="col">
-						<!-- 영화 step 3 : 년대 선택 -->
-						<fieldset class="checkbox-group">
-							<legend class="checkbox-group-legend">Choose your favorites</legend>
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_M3" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-						
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="1999" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">~1999년</span>
-								</span>
-							</label>
-						
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="2000" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">2000년대</span>
-								</span>
-							</label>
-						
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="2010" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">2010년대</span>
-								</span>
-							</label>
-						
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="2020" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">2020년~</span>
-								</span>
-							</label>
-						</fieldset>
+				<div class="container" th:if="${type == 'food'}" style="padding-top: 8rem; padding-bottom: 10rem">
+					<div class="row steps" id="formFoodTypeTheme">
+						<div class="col">
+							<fieldset class="checkbox-group">
+								<legend class="checkbox-group-legend">Choose your favorites</legend>
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_F1" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="K" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">한식</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="U" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">양식</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="C" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">중식</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="J" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">일식</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="D" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">간식</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="E" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">기타</span>
+									</span>
+								</label>
+							</fieldset>
+						</div>
 					</div>
-				</div>
-				
-				<div class="row steps" id="formShowGenre">
-					<div class="col">
-						<!-- 공연 step 1 : 장르 선택 -->
-						<fieldset class="checkbox-group">
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_S1" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-						
-							<label class="checkbox-wrapper" th:each="list : ${genreListShow}">
-								<input type="checkbox" class="checkbox-input items" th:value="${list.g_word}" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label" th:text="${list.g_word}"></span>
-								</span>
-							</label>
-						</fieldset>
+					
+					<div class="row steps" id="formFoodTypeMain">
+						<div class="col">
+							<fieldset class="checkbox-group">
+								<legend class="checkbox-group-legend">Choose your favorites</legend>
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_F2" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="R" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">밥</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="B" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">빵</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="N" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">면</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="M" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">고기</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="S" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">해산물</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="V" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">채식</span>
+									</span>
+								</label>
+							</fieldset>
+						</div>
 					</div>
-				</div>
-				
-				<div class="row steps" id="formShowRegion">
-					<div class="col">
-						<fieldset class="checkbox-group">
-							<legend class="checkbox-group-legend">Choose your favorites</legend>
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_S2" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="강원" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">강원</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="경기" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">경기</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="경남" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">경남</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="경북" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">경북</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="광주" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">광주</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="대구" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">대구</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="대전" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">대전</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="부산" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">부산</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="서울" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">서울</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="세종" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">세종</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="울산" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">울산</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="인천" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">인천</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="제주" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">제주</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="전남" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">전남</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="전북" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">전북</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="충남" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">충남</span>
-								</span>
-							</label>
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="충북" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">충북</span>
-								</span>
-							</label>
-						</fieldset>
+					
+					<div class="row steps" id="formFoodTypeSoup">
+						<div class="col">
+							<fieldset class="checkbox-group">
+								<legend class="checkbox-group-legend">Choose your favorites</legend>
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_F3" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="Y" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">국물있음</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="N" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">국물없음</span>
+									</span>
+								</label>
+								
+							</fieldset>
+						</div>
 					</div>
-				</div>
-				<div class="text-center mt-3 mb-5">
-					<button type="button" class="btn btn-primary btnStepWork" data-currStep="choiceWorkType">다음</button>
+					
+					<div class="row steps" id="formFoodTypeSpicy">
+						<div class="col">
+							<fieldset class="checkbox-group">
+								<legend class="checkbox-group-legend">Choose your favorites</legend>
+								<label class="checkbox-wrapper checkbox-wrapper-all">
+									<input type="checkbox" class="checkbox-input" id="selectAll_F4" />
+									<span class="checkbox-tile checkbox-tile-all">
+										<span class="checkbox-label">모두 선택</span>
+									</span>
+								</label>
+								<div></div>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="Y" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">매움</span>
+									</span>
+								</label>
+								
+								<label class="checkbox-wrapper">
+									<input type="checkbox" class="checkbox-input items" value="N" />
+									<span class="checkbox-tile">
+										<span class="checkbox-label">안매움</span>
+									</span>
+								</label>
+								
+							</fieldset>
+						</div>
+					</div>
+					
+					<div class="text-center mt-3">
+						<button type="button" class="btn btn-primary btnStepFood" data-currStep="choiceFoodTypeTheme">다음</button>
+					</div>
 				</div>
 			</div>
 			
-			<div class="container" th:if="${type == 'food'}">
-				<div class="row steps" id="formFoodTypeTheme">
-					<div class="col">
-						<fieldset class="checkbox-group">
-							<legend class="checkbox-group-legend">Choose your favorites</legend>
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_F1" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="K" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">한식</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="U" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">양식</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="C" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">중식</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="J" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">일식</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="D" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">간식</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="E" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">기타</span>
-								</span>
-							</label>
-						</fieldset>
+			<div id="resultArea">
+				<div class="container btnResultArea" style="padding-top: 8rem; padding-bottom: 10rem">
+					<div class="row text-center">
+						<div class="col-12">
+							<h1 class="display-4">모든 키워드를 선택 했습니다.</h1>
+							<h3 class="display-6">결과를 볼까요?</h3>
+						</div>
+						<div class="col-12 py-5">
+							<button type="button" class="btn btn-primary btnResult">결과보기</button>
+						</div>
 					</div>
-				</div>
-				
-				<div class="row steps" id="formFoodTypeMain">
-					<div class="col">
-						<fieldset class="checkbox-group">
-							<legend class="checkbox-group-legend">Choose your favorites</legend>
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_F2" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="R" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">밥</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="B" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">빵</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="N" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">면</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="M" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">고기</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="S" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">해산물</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="V" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">채식</span>
-								</span>
-							</label>
-						</fieldset>
-					</div>
-				</div>
-				
-				<div class="row steps" id="formFoodTypeSoup">
-					<div class="col">
-						<fieldset class="checkbox-group">
-							<legend class="checkbox-group-legend">Choose your favorites</legend>
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_F3" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="Y" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">국물있음</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="N" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">국물없음</span>
-								</span>
-							</label>
-							
-						</fieldset>
-					</div>
-				</div>
-				
-				<div class="row steps" id="formFoodTypeSpicy">
-					<div class="col">
-						<fieldset class="checkbox-group">
-							<legend class="checkbox-group-legend">Choose your favorites</legend>
-							<label class="checkbox-wrapper checkbox-wrapper-all">
-								<input type="checkbox" class="checkbox-input" id="selectAll_F4" />
-								<span class="checkbox-tile checkbox-tile-all">
-									<span class="checkbox-label">모두 선택</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="Y" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">매움</span>
-								</span>
-							</label>
-							
-							<label class="checkbox-wrapper">
-								<input type="checkbox" class="checkbox-input items" value="N" />
-								<span class="checkbox-tile">
-									<span class="checkbox-label">안매움</span>
-								</span>
-							</label>
-							
-						</fieldset>
-					</div>
-				</div>
-				
-				<div class="text-center mt-3 mb-5">
-					<button type="button" class="btn btn-primary btnStepFood" data-currStep="choiceFoodTypeTheme">다음</button>
 				</div>
 			</div>
 			
-			<button type="button" class="btn btn-primary btnResult">결과보기</button>
-			
-			<div class="row" id="resultReady" style="display: none;">
-				<div class="col">
-					선택한 키워드는 <span id="keywordArray"></span> 입니다.
-				</div>
-			</div>
 			
 			<div th:if="${type != 'work' && type != 'food'}">
 				<div class="row">
@@ -607,9 +610,7 @@
 					</div>
 				</div>
 			</div>
-			
-			
-			<script th:src="@{/js/choice.js}"></script>
-		</div>
+		<script th:src="@{/js/choice.js}"></script>
+	</div>
 	</body>
 </html>

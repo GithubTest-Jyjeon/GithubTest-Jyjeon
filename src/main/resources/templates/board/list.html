@@ -12,31 +12,20 @@
 	
 	<body>
 		<div layout:fragment="content">
-			<div class="container">
-				<div class="row">
-					<div class="col">
-						<div class="py-5 text-center">
-							<h1 class="display-2">게시판</h1>
-						</div>
-						<hr />
-					</div>
-				</div>
-			</div>
-		
         	<!-- 리스트 아이템 반복 -->
-	        <div th:each="dto : ${list}" class="container">
-	            <div class="row">
+	        <div class="container py-5">
+	            <div class="row" th:each="dto : ${list}">
 	                <div class="col">
 	                    <ul class="list-group list-group-flush">
 	                        <li class="list-group-item">
 	                            <div class="row pb-2">
-	                                <div class="col-2">
-	                                    <h1 class="display-4 text-primary" th:text="${dto.b_seq}"></h1>
+	                                <div class="col-12 col-md-2">
+	                                    <h1 class="display-6 text-primary" th:text="${dto.b_seq}"></h1>
 	                                </div>
-	                                <div class="col-10">
+	                                <div class="col-12 col-md-10">
 	                                    <div class="row h-100">
 	                                        <div class="col-12 col-md-8 d-flex align-items-center"> 
-	                                            <a th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}" class="fs-4 text-dark text-decoration-none" th:text="${dto.b_title}"></a>
+	                                            <a th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}" class="fs-5 text-dark text-decoration-none" th:text="${dto.b_title}"></a>
 	                                        </div>
 	                                        <div class="col-12 col-md-4 d-flex align-items-center justify-content-between">
 	                                            <span class="text-muted small">조회수 : <span th:text="${dto.b_hit}"></span></span>
@@ -48,6 +37,7 @@
 	                        </li>
 	                    </ul>
 	                </div>
+	                <hr class="hr2"/>
 	            </div>
 	        </div>
 	

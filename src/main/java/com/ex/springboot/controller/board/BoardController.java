@@ -24,7 +24,7 @@ public class BoardController {
 	
 	@RequestMapping("/board/list")
 	public String BoardListPage(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="type", defaultValue="") String type, @RequestParam(value="word", defaultValue="") String word, Model model) {
-		
+
 		int limit = 5;
 		int totalCount = dao.boardTotal(type, word);
 		int totalPage = (int) Math.ceil((double)totalCount / limit);
@@ -56,7 +56,7 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/board/view")
-	public String BoardViewPage(@RequestParam(value="b_seq") int b_seq, Model model) {
+	public String BoardViewPage(@RequestParam(value="b_seq") int b_seq, @RequestParam(value="page") int page, Model model) {
 		BoardDTO boardInfo = dao.boardView(b_seq);
 		ArrayList<KeywordDTO> keywordList = dao.keywordList(boardInfo.getB_keywords());
 		ArrayList<ResultDTO> resultList = dao.resultList(boardInfo.getB_category(), boardInfo.getB_seq());
@@ -70,6 +70,7 @@ public class BoardController {
 		model.addAttribute("boardInfo", boardInfo);
 		model.addAttribute("keywordList", keywordList);
 		model.addAttribute("resultList", resultList);
+		model.addAttribute("page", page);
 //		model.addAttribute("genreList", genreList);
 		
 		return "board/view";

@@ -1,0 +1,93 @@
+.card {
+   display: none; /* 초기에 모든 카드를 숨깁니다. */
+}
+
+.card.show {
+   display: block; /* "show" 클래스가 추가된 카드만 보입니다. */
+}
+
+.MainSwiper .swiper {
+   width: 100%;
+   height: 100%;
+}
+
+.MainSwiper .swiper-slide {
+   text-align: center;
+   font-size: 18px;
+   background: #fff;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+}
+
+.MainSwiper .swiper-slide img {
+   display: block;
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+}
+
+.mySwiper {
+   margin-bottom: 50px;
+}
+
+.mySwiper .swiper {
+   width: 80%;
+   height: auto;
+   min-width: 280px;
+   margin-bottom: 100px;
+}
+
+.swp_title {
+   height: 200px;
+   top: 50px;
+   position: relative;
+   background:
+      url(https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/8a99a7aedf7f5b72ed10f7ce860fa625_21311.gif)
+      no-repeat;
+   background-size: 100%;
+   background-position: center;
+}
+
+.mySwiper .swiper-slide {
+   text-align: center;
+   font-size: 18px;
+   background: #fff;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
+   border: 1px solid #dcdcdc;
+   padding: 10px;
+   border-radius: 10px;
+   width: 100px;
+}
+
+.mySwiper .swiper-slide img {
+   display: block;
+   width: 100%;
+   height: auto;
+   max-height: 220px;
+   aspect-ratio: 1/1;
+   object-fit: contain;
+   min-width: 100px;
+}
+
+.mySwiper .swiper-button-next, .mySwiper .swiper-button-prev {
+   color: lightgray;
+}
+
+@media screen and (max-width: 1050px) {
+   .mySwiper .swiper {
+      width: 95%;
+   }
+   .swp_title h3 {
+      margin-left: 2.5%;
+   }
+}
+
+#navbarToggleMobileContent {
+	position: absolute;
+	top: 100%;
+}

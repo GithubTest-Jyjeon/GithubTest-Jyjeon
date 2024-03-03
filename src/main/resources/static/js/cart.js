@@ -69,7 +69,7 @@ $( function(){
 		let chkboxTF = true;
 		
 		for(let i = 0; i < $(".chkboxItem").length; i++) {
-			if(!$(this).is(":checked")){
+			if(!$(".chkboxItem").eq(i).is(":checked")){
 				chkboxTF = false;
 			}
 		}
@@ -81,23 +81,27 @@ $( function(){
     $(".btnProductDelete").on("click", function() {
         let p_code = $(this).attr("data-pCode"); // 'data-p_code' 속성에서 상품 코드를 가져옵니다.
         
-        $.ajax({
-            url: '/cart/deleteProduct',
-            type: 'POST',
-            data: { p_code: p_code },
-            success: function(result) {
-                if(result > 0) {
-                    alert("상품이 성공적으로 삭제되었습니다.");
-                    location.reload(); // 페이지 새로고침
-                } else {
-                    alert("상품 삭제에 실패했습니다.");
-                }
-            },
-            error: function(xhr, status, error) {
-                // 오류 발생 시 오류 메시지 출력
-                alert("오류 발생: " + xhr.responseText);
-            }
-        });
+        let confirm = confirm("상품을 장바구니에서 삭제 하시겠습니까?");
+        
+        if(confirm){
+			$.ajax({
+	            url: '/cart/deleteProduct',
+	            type: 'POST',
+	            data: { p_code: p_code },
+	            success: function(result) {
+	                if(result > 0) {
+	                    alert("상품이 성공적으로 삭제되었습니다.");
+	                    location.reload(); // 페이지 새로고침
+	                } else {
+	                    alert("상품 삭제에 실패했습니다.");
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                // 오류 발생 시 오류 메시지 출력
+	                alert("오류 발생: " + xhr.responseText);
+	            }
+	        });	
+		}
     });
 
     // 수량 증가 버튼 클릭 이벤트

@@ -9,364 +9,157 @@
 </head>
 
 <body>
-	<div layout:fragment="content" class="content content1">
-
-		<style>
-.material-symbols-outlined {
-   font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-}
-/* ====================네비스타일 */
-#wrapper {
-   position: relative;
-}
-
-@media screen and (min-width: 991px) {
-   .mo {
-      display: none;
-   }
-}
-
-@media screen and (max-width: 991px) {
-   #wrapper {
-      padding-bottom: 50px;
-   }
-   .P_CATEGORY a {
-      font-size: 10px;
-   }
-}
-
-* {
-   list-style: none;
-}
-
-div.card>button, div.card1>button {
-   border-radius: 50%;
-   width: 50px;
-   height: 50px;
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   margin-top: 55px;
-   margin-left: 105px;
-}
-
-.P_CATEGORY {
-   display: flex;
-   flex-wrap: wrap; /* 항목들이 줄바꿈될 수 있도록 설정 */
-   width: 100%;
-   justify-content: space-evenly;
-   font-size: 15px;
-   font-weight: bold;
-   color: #8c8c8c;
-   margin-bottom: 10px;
-}
-
-.P_CATEGORY a:hover {
-   color: black;
-}
-
-.P_CATEGORY a {
-   text-decoration: none;
-   color: #8c8c8c;
-   white-space: nowrap;
-   font-weight: bold;
-}
-
-.P_CATEGORY col {
-   text-align: center;
-}
-
-/* 화면 너비가 990px 이하일 때 스타일 */
-@media ( max-width : 990px) {
-   .P_CATEGORY>div {
-      flex: 0 0 25%; /* 각 항목이 전체 너비의 25%를 차지하도록 설정 */
-      max-width: 25%; /* 최대 너비도 25%로 설정하여 한 줄에 4개씩 표시 */
-   }
-}
-
-.card {
-   display: none; /* 초기에 모든 카드를 숨깁니다. */
-}
-
-.card.show {
-   display: block; /* "show" 클래스가 추가된 카드만 보입니다. */
-}
-
-/* ======================메인 케로셀============================== */
-.MainSwiper .swiper {
-   width: 100%;
-   height: 100%;
-}
-
-.MainSwiper .swiper-slide {
-   text-align: center;
-   font-size: 18px;
-   background: #fff;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 100%;
-}
-
-.MainSwiper .swiper-slide img {
-   display: block;
-   width: 100%;
-   height: 100%;
-   object-fit: cover;
-}
-/* .MainSwiper .swiper-button-next {
-    left: 1200px;
-  }
-  .MainSwiper .swiper-button-prev {
-    right: 300px;
-  } */
-
-/* ====================다열 캐로셀================= */
-.mySwiper {
-   margin-bottom: 50px;
-}
-
-.mySwiper .swiper {
-   width: 80%;
-   height: auto;
-   min-width: 280px;
-   margin-bottom: 100px;
-}
-
-.swp_title {
-   height: 200px;
-   top: 50px;
-   position: relative;
-   background:
-      url(https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/8a99a7aedf7f5b72ed10f7ce860fa625_21311.gif)
-      no-repeat;
-   background-size: 100%;
-   background-position: center;
-}
-
-.mySwiper .swiper-slide {
-   text-align: center;
-   font-size: 18px;
-   background: #fff;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   flex-direction: column;
-   border: 1px solid #dcdcdc;
-   padding: 10px;
-   border-radius: 10px;
-   width: 100px;
-}
-
-.mySwiper .swiper-slide img {
-   display: block;
-   width: 100%;
-   height: auto;
-   max-height: 220px;
-   aspect-ratio: 1/1;
-   object-fit: contain;
-   min-width: 100px;
-}
-
-.mySwiper .swiper-button-next, .mySwiper .swiper-button-prev {
-   color: lightgray;
-}
-
-@media screen and (max-width: 1050px) {
-   .mySwiper .swiper {
-      width: 95%;
-   }
-   .swp_title h3 {
-      margin-left: 2.5%;
-   }
-}
-
-.P_dc_text {
-   width: 100%;
-   line-height: 20px;
-   margin-top: 10px;
-   text-align: left;
-}
-
-.cart {
-   width: 90%;
-   text-align: right;
-}
-
-.card img, card1 img {
-   width: 100%; /* 이미지의 너비를 카드의 너비와 동일하게 설정 */
-   max-height: 230px;
-   object-fit: cover; /* 이미지를 비율에 맞게 조정하되, 컨테이너를 채우기 위해 필요한 경우 자르기 */
-   aspect-ratio: 1/1;
-}
-
-/* ==========================스위퍼 끝========================== */
-@media screen and (max-width: 768px) {
-   .row {
-      padding: 0;
-   }
-   .card h5, .card1 h5 {
-      font-size: 3vw;
-   }
-   .card-price {
-      font-size: 3.5vw;
-      font-weight: bold;
-   }
-   .mySwiper {
-      margin-bottom: 30px;
-   }
-}
-
-.end {
-   justify-content: end;
-}
-</style>
-
-		<div id="wrapper">
-			<div class="container">
-	            <div class="row P_CATEGORY">
-	               <div th:each="category : ${category_arr}"
-	                  class="col-lg-1 col-md-3 col-sm-6 col-12">
-	                  <a th:href="@{/product/list(p_category=${category})}"
-	                     th:text="${category}"></a>
-	               </div>
-	            </div>
-	         </div>
-	         
-			<!-- Swiper -->
-	         <div class="swiper MainSwiper mb-2">
-	            <div class="swiper-wrapper">
-	               <div class="swiper-slide">
-	                  <img
-	                     src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/1714/20230310133315-41b-e6bcdaa69822.jpg"
-	                     alt="" class="img-fluid pc_banner d-none d-lg-block" /> <img
-	                     src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/1714/20230310133329-705-8283d79a562c.jpg"
-	                     alt="" class="img-fluid m_banner d-lg-none" />
-	               </div>
-	               <div class="swiper-slide">
-	                  <img
-	                     src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/915/20210308154508-539-ca314cb7f37c.jpg"
-	                     alt="" class="img-fluid pc_banner d-none d-lg-block" /> <img
-	                     src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/915/20210308145154-69f-503a6bb92883.jpg"
-	                     alt="" class="img-fluid m_banner d-lg-none" />
-	               </div>
-	               <div class="swiper-slide">
-	                  <img
-	                     src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/914/20230310125548-f87-9dde5dcb79c5.jpg"
-	                     alt="" class="img-fluid pc_banner d-none d-lg-block" /> <img
-	                     src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/914/20230310125607-cbd-a95e65edd7e8.jpg"
-	                     alt="" class="img-fluid m_banner d-lg-none" />
-	               </div>
-	            </div>
-	            <div class="swiper-button-next"></div>
-	            <div class="swiper-button-prev"></div>
-	         </div>
-			<!-- ============================캐로셀 끝================================ -->
-			
-			<div class="modal fade" id="cartModal" tabindex="-1"
-				aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<h1 class="modal-title fs-5" id="exampleModalLabel">장바구니 추가</h1>
-							<button type="button" class="btn-close" data-bs-dismiss="modal"
-								aria-label="Close"></button>
-						</div>
-						<div class="modal-body text-center">
-							<form>
-								<input type="hidden" class="form-control" id="input_p_code">
-								<div class="row">
-									<div class="col-12 mb-3">상품을 몇 개 담으시겠어요?</div>
-									<div class="col-6 offset-3 mb-3">
-										<div class="input-group">
-											<button class="btn btn-outline-secondary" type="button"
-												id="minusBtn">-</button>
-											<input type="text" class="form-control text-center"
-												id="input_p_count" value="1">
-											<button class="btn btn-outline-secondary" type="button"
-												id="plusBtn">+</button>
-										</div>
-									</div>
-									<div class="col-12">
-										<button type="button" class="btn btn-primary" id="btnInsertCart" data-bs-target="#cartModal2" data-bs-toggle="modal">담기</button>
+	<div layout:fragment="content">
+	
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<link rel="stylesheet" type="text/css" href="/css/product_index.css" />
+	
+		<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h1 class="modal-title fs-5" id="exampleModalLabel">장바구니 추가</h1>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body text-center">
+						<form>
+							<input type="hidden" class="form-control" id="input_p_code">
+							<div class="row">
+								<div class="col-12 mb-3">상품을 몇 개 담으시겠어요?</div>
+								<div class="col-6 offset-3 mb-3">
+									<div class="input-group">
+										<button class="btn btn-outline-secondary" type="button"
+											id="minusBtn">-</button>
+										<input type="text" class="form-control text-center"
+											id="input_p_count" value="1">
+										<button class="btn btn-outline-secondary" type="button"
+											id="plusBtn">+</button>
 									</div>
 								</div>
-							</form>
-						</div>
+								<div class="col-12">
+									<button type="button" class="btn btn-primary" id="btnInsertCart" data-bs-target="#cartModal2" data-bs-toggle="modal">담기</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
+		</div>
 			
-			<div class="modal fade" id="cartModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-						</div>
-						<div class="modal-body text-center">
-							<p>상품을 장바구니에 담았습니다.</p>
-							<p>계속 쇼핑할까요?</p>
-							<a href="" class="btn btn-primary" data-bs-dismiss="modal">쇼핑 계속하기</a>
-							<a th:href="@{/cart/list}" class="btn btn-secondary">장바구니로 이동</a>
-						</div>
+		<div class="modal fade" id="cartModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body text-center">
+						<p>상품을 장바구니에 담았습니다.</p>
+						<p>계속 쇼핑할까요?</p>
+						<a href="" class="btn btn-primary" data-bs-dismiss="modal">쇼핑 계속하기</a>
+						<a th:href="@{/cart/list}" class="btn btn-secondary">장바구니로 이동</a>
 					</div>
 				</div>
 			</div>
-			
-			
-			<div class="container">
-				<div class="row">
-					<div class="col-10 offset-1">
-						<h1 class="display-6">신상품</h1>
-						<hr />
-						<!-- 리스트 아이템 반복 -->
-						<div class="container">
-							<div class="row gx-2">
-								<div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="dto : ${newList}">
-									<div class="card border border-light h-100">
-										<a th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}" class="stretched-link">
-											<img th:src="${dto.p_image}" class="card-img-top" alt="..." style="object-fit: cover;" />
-										</a>
-										<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 z-3 btnCart" data-bs-toggle="modal" data-bs-target="#cartModal" th:data-bs-pcode="${dto.p_code}">
-										<i class="fa-solid fa-cart-shopping"></i>
-										</span>
-										<div class="card-body">
-											<h5 class="card-title" th:text="${dto.p_name}"></h5>
-											<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
-												<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
-												<span
-													th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
-												<span th:text="|${dto.p_price}원|" class="text-muted small"
-													style="text-decoration: line-through;"></span>
-											</p>
-											<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
-												<span th:text="|${dto.p_price}원|"></span>
-											</p>
-										</div>
+		</div>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 py-5">
+					<form th:action="@{product/list}">
+					<div class="input-group mb-2">
+						<div class="form-floating">
+							<input type="text" class="form-control border-3 border-primary" id="searchText" name="searchText" placeholder="상품명으로 검색하세요">
+							<label for="searchText">상품명으로 검색하세요</label>
+						</div>
+						<span class="input-group-text bg-primary border-3 border-primary text-white" role="button" id="btnIdExistCheck">상품 검색</span>
+					</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-10 offset-lg-1">
+					<div class="row border-top border-start">
+		            	<div class="col-6 col-md-3 border-end border-bottom" th:each="category : ${category_arr}">
+		            		<a th:href="@{/product/list(p_category=${category})}" th:text="${category}" class="text-decoration-none text-secondary d-flex py-2 justify-content-center"></a>
+		           		</div>
+		         	</div>
+				</div>
+			</div>
+         </div>
+         
+         <div class="swiper MainSwiper mb-5">
+         	<div class="swiper-wrapper">
+         		<div class="swiper-slide">
+         			<img src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/1714/20230310133315-41b-e6bcdaa69822.jpg" alt="" class="img-fluid pc_banner d-none d-sm-block" />
+         			<img src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/1714/20230310133329-705-8283d79a562c.jpg" alt="" class="img-fluid m_banner d-sm-none" />
+       			</div>
+       			<div class="swiper-slide">
+       				<img src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/915/20210308154508-539-ca314cb7f37c.jpg" alt="" class="img-fluid pc_banner d-none d-sm-block" />
+       				<img src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/915/20210308145154-69f-503a6bb92883.jpg" alt="" class="img-fluid m_banner d-sm-none" />
+				</div>
+				<div class="swiper-slide">
+					<img src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/914/20230310125548-f87-9dde5dcb79c5.jpg" alt="" class="img-fluid pc_banner d-none d-sm-block" />
+					<img src="https://jangfood1.hgodo.com/shop/external/fix/IMG_BANNER/914/20230310125607-cbd-a95e65edd7e8.jpg" alt="" class="img-fluid m_banner d-sm-none" />
+				</div>
+			</div>
+			<div class="swiper-button-next"></div>
+			<div class="swiper-button-prev"></div>
+		</div>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-lg-10 offset-lg-1">
+					<h1 class="display-6">신상품</h1>
+					<hr />
+					<!-- 리스트 아이템 반복 -->
+					<div class="container">
+						<div class="row">
+							<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-2" th:each="dto : ${newList}">
+								<div class="card border border-light h-100">
+									<a th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}" class="stretched-link">
+										<img th:src="${dto.p_image}" class="card-img-top" alt="..." style="object-fit: cover;" />
+									</a>
+									<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 z-3 btnCart" data-bs-toggle="modal" data-bs-target="#cartModal" th:data-bs-pcode="${dto.p_code}">
+									<i class="fa-solid fa-cart-shopping"></i>
+									</span>
+									<div class="card-body">
+										<h5 class="card-title" th:text="${dto.p_name}"></h5>
+										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
+											<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
+											<span
+												th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
+											<span th:text="|${dto.p_price}원|" class="text-muted small"
+												style="text-decoration: line-through;"></span>
+										</p>
+										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
+											<span th:text="|${dto.p_price}원|"></span>
+										</p>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
-				<div class="row btnDiv">
-					<button class="btn btn-primary R_btn col-4 offset-4" id="loadMore">더보기</button>
-				</div>
 			</div>
+
+			<div class="row btnDiv">
+				<button class="btn btn-primary R_btn col-4 offset-4" id="loadMore">더보기</button>
+			</div>
+		</div>
 			
-			<div class="container mt-5">
+			<div class="container my-5" style="padding-bottom:10rem;">
 	            <div class="row">
-	               <div class="col">
+	            	<div class="col-12 col-lg-10 offset-lg-1">
 	                  <h3 class="display-6">할인상품</h3>
 	                  <hr>
 	
 	
 	                  <!-- Swiper -->
 	                  <div class="swiper mySwiper">
-	
 	                     <div class="swiper-wrapper">
-	
 	                        <!-- 상품 리스트 반복 시작 -->
 	                        <div th:each="dto : ${dcList}" class="swiper-slide">
 	                           <div class="card1 border border-light h-100">
@@ -403,59 +196,12 @@ div.card>button, div.card1>button {
 	               </div>
 	            </div>
 	         </div>
-		</div>
-		<!-- ===============캐로셀================ -->
-		<link rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-		<script
-			src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-		<script>
-      var swiper = new Swiper(".MainSwiper", {
-        loop: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-      });
-    </script>
-		<script>
-      var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 5,
-        spaceBetween: 30,
-        loop: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        // 너비에 따른 설정을 추가하는 breakpoints 옵션
-        breakpoints: {
-          // 너비가 1100px 이하일 때
-          1200: {
-            slidesPerView: 8,
-            spaceBetween: 20,
-          },
-          768: {
-            slidesPerView: 6,
-            spaceBetween: 10,
-          },
-          // 너비가 780px 이하일 때
-          100: {
-            slidesPerView: 3,
-            spaceBetween: 5,
-          },
-        },
-      });
-    </script>
-
-
+	    
+		    <div id="btnTop">
+		    	<i class="fa-solid fa-arrow-up"></i>
+		    </div>
+		    
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 		<script th:src="@{/js/product_index.js}"></script>
 	</div>
 </body>

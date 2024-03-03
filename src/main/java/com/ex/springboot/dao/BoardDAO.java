@@ -200,14 +200,14 @@ public class BoardDAO implements IboardDAO {
 					
 				case "공연" :
 					while(result.hasMoreElements()) {
-						selectQuery = "select s_seq as seq, s_code as code, s_title as title, s_image_post as image from cg_movie where m_code = '"+result.nextElement()+"'";
+						selectQuery = "select s_seq as seq, s_code as code, s_title as title, s_image_post as image, s_region as region, s_date_s as date_s, s_date_e as date_e from cg_show where s_code = '"+result.nextElement()+"'";
 						list.addAll((ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class)));
 					}
 					break;
 					
 				case "음식" :
 					while(result.hasMoreElements()) {
-						selectQuery = "select f_seq as seq, f_code as code, f_name as title, f_image as image from cg_movie where m_code = '"+result.nextElement()+"'";
+						selectQuery = "select f_seq as seq, f_code as code, f_name as title, f_image as image, f_recipe as recipe from cg_food where f_code = '"+result.nextElement()+"'";
 						list.addAll((ArrayList<ResultDTO>) template.query(selectQuery, new BeanPropertyRowMapper<ResultDTO>(ResultDTO.class)));
 					}
 					break;
