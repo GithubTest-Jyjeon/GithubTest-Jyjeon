@@ -125,19 +125,43 @@
         <!-- =======================================카드하나=============================================== -->
         <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="list : ${list}">
           <div class="card border">
-            <a href="R_result.html">
+            <a th:href="@{/food/view(f_code=${list.f_code})}">
               <img
-                src="https://recipe1.ezmember.co.kr/cache/recipe/2015/08/25/a01d013a6b6f9d526c43f4659db2cd61.jpg"
+                th:src="${list.f_image}"
                 class="card-img-top"
                 alt="..."
               />
             </a>
             <div class="card-body">
               <h5 class="card-title" th:text="${list.f_name}"></h5>
-              <p class="card-text text-muted small">
-                <span class="R_category">한식</span
-                ><span class="R_category">국물</span
-                ><span class="R_category">매운거</span>
+              <p class="card-text text-muted small">              
+                <span class="R_category" th:if="${list.f_type_theme == 'K'}" th:text="|#한식|"></span>
+				<span class="R_category" th:if="${list.f_type_theme == 'U'}" th:text="|#양식|"></span>
+				<span class="R_category" th:if="${list.f_type_theme == 'C'}" th:text="|#중식|"></span>
+				<span class="R_category" th:if="${list.f_type_theme == 'J'}" th:text="|#일식|"></span>
+				<span class="R_category" th:if="${list.f_type_theme == 'E'}" th:text="|#기타|"></span>
+				<span class="R_category" th:if="${list.f_type_theme == 'D'}" th:text="|#디저트|"></span>
+				
+				<span class="R_category" th:if="${list.f_type_main == 'R'}" th:text="|#밥|"></span>
+				<span class="R_category" th:if="${list.f_type_main == 'B'}" th:text="|#빵|"></span>
+				<span class="R_category" th:if="${list.f_type_main == 'N'}" th:text="|#면|"></span>
+				<span class="R_category" th:if="${list.f_type_main == 'M'}" th:text="|#육류|"></span>
+				<span class="R_category" th:if="${list.f_type_main == 'S'}" th:text="|#해산물|"></span>
+				<span class="R_category" th:if="${list.f_type_main == 'V'}" th:text="|#채식|"></span>
+				
+				<span class="R_category" th:if="${list.f_type_soup == 'Y'}" th:text="|#국물있음|"></span>
+				<span class="R_category" th:if="${list.f_type_soup == 'N'}" th:text="|#국물없음|"></span>
+				
+				<span class="R_category" th:if="${list.f_type_spicy == 'Y'}" th:text="|#매움|"></span>
+				<span class="R_category" th:if="${list.f_type_spicy == 'N'}" th:text="|#안매움|"></span>
+				
+				
+				
+				
+				
+				
+				
+				
               </p>
             </div>
           </div>
