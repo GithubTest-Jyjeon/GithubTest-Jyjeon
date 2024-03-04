@@ -78,7 +78,7 @@
 								<div class="col-12 col-md-6 col-xl-4 mb-2" th:each="result : ${resultList}">
 									<div class="row h-100">
 										<div class="col-4 h-100">
-											<a th:href="@{/movie/view(m_seq=${result.seq})}" class="text-dark text-decoration-none">
+											<a th:href="@{/movie/view(m_code=${result.code})}" class="text-dark text-decoration-none">
 												<img th:if="${result.image != null}" th:src="${result.image}" class="img-fluid rounded-3" />
 												<div th:if="${result.image == null}" th:text="|이미지 없음|" class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
 											</a>
@@ -102,7 +102,7 @@
 								<div class="col-12 col-md-6 col-xl-4 mb-2" th:each="result : ${resultList}">
 									<div class="row h-100">
 										<div class="col-4 h-100">
-											<a th:href="@{/show/view(s_seq=${result.seq})}" class="text-dark text-decoration-none">
+											<a th:href="@{/show/view(s_code=${result.code})}" class="text-dark text-decoration-none">
 												<img th:if="${result.image != null}" th:src="${result.image}" class="img-fluid rounded-3" />
 												<div th:if="${result.image == null}" th:text="|이미지 없음|" class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
 											</a>
@@ -125,7 +125,7 @@
 								<div class="col-12 col-md-6 col-xl-4 mb-2" th:each="result : ${resultList}">
 									<div class="row h-100">
 										<div class="col-4 h-100">
-											<a th:href="@{/food/view(f_seq=${result.seq})}" class="text-dark text-decoration-none">
+											<a th:href="@{/food/view(f_code=${result.code})}" class="text-dark text-decoration-none">
 												<img th:if="${result.image != null}" th:src="${result.image}" class="img-fluid rounded-3" />
 												<div th:if="${result.image == null}" th:text="|이미지 없음|" class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
 											</a>

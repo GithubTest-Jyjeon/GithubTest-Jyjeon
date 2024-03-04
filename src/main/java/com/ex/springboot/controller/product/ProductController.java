@@ -38,7 +38,7 @@ public class ProductController {
 	
 	@GetMapping("/product/list")
 	public String productListPage(@RequestParam(value="p_category") String p_category, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="word", defaultValue="") String word, Model model) {
-		int limit = 20;
+		int limit = 24;
 		int totalCount = dao.productTotal(p_category, word);
 		int totalPage = (int) Math.ceil((double)totalCount / limit);
 		int startPage = ((page - 1) / 10) * 10 + 1;

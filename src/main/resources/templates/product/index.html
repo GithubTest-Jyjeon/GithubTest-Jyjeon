@@ -12,7 +12,7 @@
 	<div layout:fragment="content">
 	
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-		<link rel="stylesheet" type="text/css" href="/css/product_index.css" />
+		<link rel="stylesheet" type="text/css" th:href="@{/css/product_index.css}" />
 	
 		<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
@@ -65,13 +65,14 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-10 offset-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3 py-5">
-					<form th:action="@{product/list}">
+					<form th:action="@{/product/list}" method="get">
+					<input type="hidden" name="p_category" value="" />
 					<div class="input-group mb-2">
 						<div class="form-floating">
-							<input type="text" class="form-control border-3 border-primary" id="searchText" name="searchText" placeholder="상품명으로 검색하세요">
-							<label for="searchText">상품명으로 검색하세요</label>
+							<input type="text" class="form-control border-3 border-primary" id="word" name="word" placeholder="상품명으로 검색하세요">
+							<label for="word">상품명으로 검색하세요</label>
 						</div>
-						<span class="input-group-text bg-primary border-3 border-primary text-white" role="button" id="btnIdExistCheck">상품 검색</span>
+						<input type="submit" class="input-group-text bg-primary border-3 border-primary text-white" role="button" value="상품검색" />
 					</div>
 					</form>
 				</div>
@@ -130,12 +131,12 @@
 										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
 											<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
 											<span
-												th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
-											<span th:text="|${dto.p_price}원|" class="text-muted small"
+												th:text="|${#numbers.formatInteger(((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100, 3, 'COMMA')}원|"></span><br />
+											<span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|" class="text-muted small"
 												style="text-decoration: line-through;"></span>
 										</p>
 										<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
-											<span th:text="|${dto.p_price}원|"></span>
+											<span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|"></span>
 										</p>
 									</div>
 								</div>
@@ -174,16 +175,16 @@
 	                                 class="fa-solid fa-cart-shopping"></i>
 	                              </span>
 	                              <div class="card-body">
-	                                 <h5 class="card-title" th:text="${dto.p_name}"></h5>
-	                                 <p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
+	                                 <h5 class="card-title mt-2" th:text="${dto.p_name}"></h5>
+	                                 <p class="card-text small fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
 	                                    <span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
 	                                    <span
-	                                       th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
-	                                    <span th:text="|${dto.p_price}원|" class="text-muted small"
+	                                       th:text="|${#numbers.formatInteger(((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100, 3, 'COMMA')}원|"></span><br />
+	                                    <span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|" class="text-muted small"
 	                                       style="text-decoration: line-through;"></span>
 	                                 </p>
 	                                 <p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
-	                                    <span th:text="|${dto.p_price}원|"></span>
+	                                    <span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|"></span>
 	                                 </p>
 	                              </div>
 	                           </div>

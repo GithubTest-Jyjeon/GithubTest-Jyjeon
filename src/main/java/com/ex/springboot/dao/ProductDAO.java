@@ -21,7 +21,11 @@ public class ProductDAO implements IproductDAO {
 	@Override
 	public List<ProductDTO> productList(String p_category, int page, int limit, String word){
 		int startRow = (page - 1) * limit;
-		String searchQuery = "and P_CATEGORY = '"+p_category+"'";
+		
+		String searchQuery = "";
+		if(p_category != "") {
+			searchQuery = "and P_CATEGORY = '"+p_category+"'";
+		}
 
 		if (word.length() > 0) {
 			searchQuery += "and P_NAME LIKE '%" + word + "%'";

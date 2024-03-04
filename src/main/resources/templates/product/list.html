@@ -12,7 +12,6 @@
 	<div layout:fragment="content">
 	
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-		<link rel="stylesheet" type="text/css" href="/css/product_index.css" />
 	
 		<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-dialog-centered">
@@ -85,11 +84,11 @@
 									<h5 class="card-title" th:text="${dto.p_name}"></h5>
 									<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
 										<span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
-										<span th:text="|${(((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100)}|"></span><br />
-										<span th:text="|${dto.p_price}원|" class="text-muted small" style="text-decoration: line-through;"></span>
+										<span th:text="|${#numbers.formatInteger((((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100), 3, 'COMMA')}|"></span><br />
+										<span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|" class="text-muted small" style="text-decoration: line-through;"></span>
 									</p>
 									<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
-										<span th:text="|${dto.p_price}원|"></span>
+										<span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|"></span>
 									</p>
 								</div>
 							</div>
@@ -140,7 +139,7 @@
 	    	<i class="fa-solid fa-arrow-up"></i>
 	    </div>
 		
-		<script th:src="@{/js/product_index.js}"></script>
+		<script th:src="@{/js/product_list.js}"></script>
 	</div>
 </body>
 </html>

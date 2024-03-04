@@ -15,9 +15,10 @@ $(document).ready(function () {
 	});
 
 	// "더보기" 버튼 로직
-	var initialCards = 4;
+	var initialCards = 12;
 	var cards = $(".card");
 	var totalCards = cards.length;
+	console.log(totalCards);
 
 	// 초기 카드 표시
 	cards.slice(0, initialCards).show();
