@@ -10,7 +10,7 @@ $( function(){
 		let cntItems = $(".chkboxItem").length;
 		var priceResult = 0;
 		
-		$("#sumTotalPrice").text("0원");
+		$("#sumTotalPrice").text("0");
 		
 		for(var idx = 0; idx < cntItems; idx++){
 			if($(".chkboxItem").eq(idx).is(":checked")){
@@ -22,9 +22,10 @@ $( function(){
 			}
 		}
 		
-		let result = addComma(priceResult);
+		$("#sumTotalPrice").attr("data-val", priceResult);
 		
-		$("#sumTotalPrice").text(result+"원");
+		let result = addComma(priceResult);
+		$("#sumTotalPrice").text(result);
     }
     
     function updateSummary(idx) {
@@ -149,6 +150,100 @@ $( function(){
         updateSummary(idx);
 	})
 
+
+	$("#btnOrder").on("click", function(){
+		let chkboxItemCount = $(".chkboxItem").length;
+		
+		let params = {
+			productInfo : [],
+			totalPrice : 0
+		}
+		
+		let chkZero = $(".chkboxItem").is(":checked");
+		
+		if(chkZero == false){
+			alert("주문 할 상품을 체크 해주세요");
+			return false;
+		}
+		
+		let html  = '';
+			html += '<div class="row fw-bold">';
+			html += '<div class="col-6">상품명</div>';
+			html += '<div class="col-2">수량</div>';
+			html += '<div class="col-4 text-end">가격</div>';
+			html += '</div>';
+			html += '<hr />';
+		
+		for(let i = 0; i < chkboxItemCount; i++){
+			
+			if($(".chkboxItem").eq(i).is(":checked") == true){
+				let pCount = parseInt($(".quantityInput").eq(i).val());
+				let pCode = $(".productCode").eq(i).val();
+				let pName = $(".productName").eq(i).val();
+				let pPrice = $(".productPrice").eq(i).val();
+				let pDcPercent = $(".productDcPercent").eq(i).val();
+				
+				params.productInfo.push({pCount, pCode});
+				
+				html += '<div class="row">';
+				html += '<div class="col-6">'+pName+'</div>';
+				html += '<div class="col-2">'+pCount+'</div>';
+				html += '<div class="col-4 text-end">'+addComma((pPrice - (pPrice * pDcPercent) / 100) * pCount)+'</div>';
+				html += '</div>';
+				html += '<hr class="hr2" />';
+			}
+		}
+		
+		let totalPrice = parseInt($("#sumTotalPrice").attr("data-val"));
+		
+		html += '<div class="row">';
+		html += '<div class="col-4 offset-8 fw-bold text-end">'+addComma(totalPrice)+'</div>';
+		html += '</div>';
+		
+		params.totalPrice = addComma(totalPrice);
+		
+		$("#modalInvoice .modal-body").html(html);
+		
+		$("#modalInvoice").modal("show");
+	})
+	
+	$("#btnOrderDone").on("click", function(){
+		let chkboxItemCount = $(".chkboxItem").length;
+		
+		let params = {
+			productInfo : [],
+			totalPrice : 0
+		}
+		
+		for(let i = 0; i < chkboxItemCount; i++){
+			
+			if($(".chkboxItem").eq(i).is(":checked") == true){
+				let pCount = parseInt($(".quantityInput").eq(i).val());
+				let pCode = $(".productCode").eq(i).val();
+				let pName = $(".productName").eq(i).val();
+				let pPrice = $(".productPrice").eq(i).val();
+				let pDcPercent = $(".productDcPercent").eq(i).val();
+				let finalPrice = pPrice - (pPrice * pDcPercent) / 100;
+				
+				params.productInfo.push({pCount, pCode, finalPrice});				
+			}
+		}
+		
+		let totalPrice = parseInt($("#sumTotalPrice").attr("data-val"));
+		params.totalPrice = addComma(totalPrice);
+		
+		$.ajax({
+			url : "/order/insert",
+			/*type : "post",
+			data : {orderData : params},*/
+			success : function(returnData){
+				console.log(returnData);
+			},
+			error : function(error){
+				console.log(error);
+			}		
+		})
+	})
     
     
 })

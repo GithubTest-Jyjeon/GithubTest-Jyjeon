@@ -62,5 +62,7 @@ public class CartDAO implements IcartDAO {
     	int result = template.queryForObject(selectQuery, Integer.class);
     	return result;
     }
+    
+    
 
 }

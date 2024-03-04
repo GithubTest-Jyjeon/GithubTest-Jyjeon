@@ -12,7 +12,8 @@
 	
 	<body>
 		<div layout:fragment="content" class="content content1">
-			<div class="container">
+			
+			<div class="container py-5">
 				<div class="row">
 					<div class="col-12 col-lg-10 offset-lg-1">
 						
@@ -35,7 +36,8 @@
 						</div>
 						
 						<div class="row productItem g-0 mb-2" th:each="product, productStat : ${cartList}" th:p_code="${product.p_code}">
-						
+							<input type="hidden" class="productCode" th:value="${product.p_code}" />
+							<input type="hidden" class="productName" th:value="${product.p_name}" />
 							<input type="hidden" class="productPrice" th:value="${product.p_price}" />
 							<input type="hidden" class="productDcYn" th:value="${product.p_dc_yn}" />
 							<input type="hidden" class="productDcPercent" th:value="${product.p_dc_percent}" />
@@ -79,19 +81,40 @@
 						<div class="row g-0 py-3 mb-2 bg-light rounded-3">
 							<div class="col text-center">
 							<p>총 주문금액 </p>
-							<p class="display-6" id="sumTotalPrice">0원</p>
+							<span class="display-6" id="sumTotalPrice" data-val="0">0</span>원
 							</div>
 						</div>
 	
 						<div class="row">
 							<div class="col d-flex justify-content-center">
-								<a href="#" class="btn btn-primary m-2">주문하기</a>
+								<button class="btn btn-primary m-2" id="btnOrder">주문하기</button>
 							</div>
 						</div>
 					</div>
 					
 				</div>
 			</div>
+			
+			
+			
+			<!-- Modal -->
+			<div class="modal fade" id="modalInvoice" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="staticBackdropLabel">주문내역서</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			      </div>
+			      <div class="modal-footer d-flex justify-content-center">
+			        <button type="button" class="btn btn-primary" id="btnOrderDone">주문하기</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			
 			<script th:src="@{/js/cart.js}"></script>
 		</div>
 	</body>

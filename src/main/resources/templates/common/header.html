@@ -244,7 +244,7 @@
 	</nav>
 
 
-	<script id="rendered-js">
+	<script type="text/javascript">
       document.addEventListener("DOMContentLoaded", function () {
         const selectorItems = document.querySelectorAll(".selector-item");
         highlight = document.querySelector(".highlight");
@@ -287,53 +287,10 @@
         addClass(target);
       }
 
-      function addClass(target) {
-        target.classList.add("selector-item--active");
-      }
+		function addClass(target) {
+			target.classList.add("selector-item--active");
+		}
      
-      
-     
-      
-      document.addEventListener("DOMContentLoaded", function() {
-    	    // 닫기 버튼 선택   	   
-    	    const closeButton = document.getElementById('closeNavbarContent');
-    	    
-    	    closeButton.addEventListener('click', function() {
-    	        // Bootstrap의 collapse 메소드를 사용하여 내용 닫기
-    	        const navbarContent = new bootstrap.Collapse(document.getElementById('navbarToggleMobileContent'), {
-    	            toggle: false
-    	        });
-    	        navbarContent.hide(); // 내용 숨기기
-    	    });
-    	});
-      
-      
-      document.addEventListener("DOMContentLoaded", function () {
-    	  const navbarToggler = document.querySelector('.navbar-toggler');
-    	  const navbarContent = document.getElementById('navbarToggleMobileContent');
-    	  const closeButton = document.getElementById('closeNavbarContent'); // 닫기 버튼 선택
-    	  
-    	  // 'navbar-toggler' 버튼 클릭 이벤트 리스너 추가
-    	  navbarToggler.addEventListener('click', function () {
-    	    // 버튼이 클릭되면, 이 버튼을 숨김
-    	    navbarToggler.style.display = 'none';
-    	  });
-
-    	  // '닫기' 버튼 클릭 이벤트 리스너 추가
-    	  closeButton.addEventListener('click', function() {
-    	    // 내용이 숨겨지면 'navbar-toggler' 버튼을 다시 보이게 함
-    	    navbarToggler.style.display = 'block';
-    	  });
-
-    	  // Bootstrap의 collapse 이벤트 리스너 추가
-    	  $('#navbarToggleMobileContent').on('hidden.bs.collapse', function () {
-    	    // 내용이 숨겨지면 'navbar-toggler' 버튼을 다시 보이게 함
-    	    navbarToggler.style.display = 'block';
-    	  });
-    	});
-
-    </script>
-    <script>
     	$("#navbarToggleMobileContent").hide();
     	$("#btnMobileHamburger").on("click", function(){
     		$("#navbarToggleMobileContent").slideToggle();

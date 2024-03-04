@@ -79,7 +79,7 @@
 						<div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-2" th:each="dto : ${list}">
 							<div class="card border border-light h-100">
 								<a th:href="@{/product/view(page=${page}, word=${word}, p_category=${dto.p_category}, p_seq=${dto.p_seq})}"><img th:src="${dto.p_image}" class="card-img-top" alt="..." style="object-fit: cover;" /></a> 
-								<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 z-3 btnCart" data-bs-toggle="modal" data-bs-target="#exampleModal" th:data-bs-pcode="${dto.p_code}"> <i class="fa-solid fa-cart-shopping"></i></span>
+								<span class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 z-3 btnCart" data-bs-toggle="modal" data-bs-target="#cartModal" th:data-bs-pcode="${dto.p_code}"> <i class="fa-solid fa-cart-shopping"></i></span>
 								<div class="card-body">
 									<h5 class="card-title" th:text="${dto.p_name}"></h5>
 									<p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">

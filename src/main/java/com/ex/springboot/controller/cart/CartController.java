@@ -3,8 +3,6 @@ package com.ex.springboot.controller.cart;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IcartDAO;
+import com.ex.springboot.interfaces.IorderDAO;
 import com.ex.springboot.interfaces.IproductDAO;
 import com.ex.springboot.interfaces.IuserDAO;
 
@@ -100,4 +99,5 @@ public class CartController {
 	    
 	    return result; // 성공적으로 삭제되면 1, 아니면 0 또는 오류 코드 반환
 	}
+	
 }

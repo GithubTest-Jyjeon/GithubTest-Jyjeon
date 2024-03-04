@@ -60,12 +60,15 @@ public class BoardController {
 		BoardDTO boardInfo = dao.boardView(b_seq);
 		ArrayList<KeywordDTO> keywordList = dao.keywordList(boardInfo.getB_keywords());
 		ArrayList<ResultDTO> resultList = dao.resultList(boardInfo.getB_category(), boardInfo.getB_seq());
-//		ArrayList<GenreDTO> genreList = new ArrayList<>();
+		ArrayList<GenreDTO> genreList = new ArrayList<>();
 		
-//		StringTokenizer code = new StringTokenizer(boardInfo.getB_results(), "|");
-//		while(code.hasMoreElements()) {
-//			genreList.addAll(dao.genreList(code.nextElement()));
-//		}
+		
+		
+		StringTokenizer code = new StringTokenizer(boardInfo.getB_results(), "|");
+		while(code.hasMoreElements()) {
+			genreList.addAll(dao.genreList(code.nextElement()));
+		}
+		
 		
 		model.addAttribute("boardInfo", boardInfo);
 		model.addAttribute("keywordList", keywordList);
