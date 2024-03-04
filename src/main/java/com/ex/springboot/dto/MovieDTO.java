@@ -1,5 +1,8 @@
 package com.ex.springboot.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -15,4 +18,5 @@ public class MovieDTO {
 	private String m_image_post;
 	private String m_story;
 	private String m_nation_type;
+	private List<GenreDTO> g_name_arr;
 }

@@ -30,7 +30,7 @@
     body {
       position: relative;
       height: 100%;
-      background-color: #f1f1f2;
+  /*     background-color: #f1f1f2; */
     }
 
     /* =======네브바======== */
@@ -82,6 +82,8 @@
     }
     .M_content {
       margin-bottom: 50px;
+      display:flex;
+      align-items: center;
     }
 
     /* ====================스위퍼================= */
@@ -173,28 +175,31 @@
     /* ==========================스위퍼 끝========================== */
   </style>
   
-  <div th:text="${movieInfo}"></div>
+
   
   <div class="container">
+<!--    <div th:text="${movieInfo}"></div> -->
       <div class="row M_row">
         <h1 class="Maintit">당신의 취향에 맞는 영화를 추천!</h1>
         <hr />
         <div class="col-md-4 col-12 M_poster">
-          <img
-            src="https://an2-img.amz.wtchn.net/image/v2/Vnn_KYM-QxlK00ydZiSpKA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFM01ESXdNakl6TURJek1qQXdOVGs1TnpFaWZRLnZXakM5cEZMT2hzLXhnOXl3dGpsdU1RVHpZSUw2NFRBazRsZ3RiUFdhdXc"
-            alt=""
-          />
+          	<img
+							th:if="${movieInfo.m_image_post != null}"
+							th:src="${movieInfo.m_image_post}" class="card-img-top" alt="..." />
+							<img th:if="${movieInfo.m_image_post == null}"
+							th:src="@{/img/default_poster.png}" class="card-img-top"
+							alt="..." />
         </div>
         <div class="col-md-8 col-12 M_content">
           <div class="row">
             <div class="col-12 maintext">
-              <h1 class="tit">웡카</h1>
+              <h1 class="tit"  th:text="${movieInfo.m_title_kor}"></h1>
               <hr />
-              <p class="p1">2023 · 판타지/모험/코미디/뮤지컬/가족 · 미국</p>
-              <p class="p2">1시간 56분 · 전체</p>
-              <p class="p3">
+              <div class="mb-1"><span th:text="${movieInfo.m_year}"></span> · 판타지/모험/코미디/뮤지컬/가족 · <span th:text="${movieInfo.m_nation}"></span></div>
+              <div class="mb-1"><span th:text="${movieInfo.m_running_time}"></span>분 · <span th:text="${movieInfo.m_grade}"></span></div>
+              <div class="mb-1">
                 예매 순위 1위(36%) · 개봉 4일째 · 누적 관객 35.2만명
-              </p>
+              </div>
             </div>
             <hr />
             <div class="col-12 makerList">
@@ -205,25 +210,8 @@
               <p>조연 : 케일라 레인, 올리비아 콜맨, 톰데이비스, 휴 그랜트</p>
             </div>
             <hr />
-            <div class="col-12 story">
-              <p>
-                세상에서 가장 달콤한 여정 <br />
-                좋은 일은 모두 꿈에서부터 시작된다!
-                <br />
-                <br /><br />
-                마법사이자 초콜릿 메이커 ‘윌리 웡카’의 꿈은 디저트의 성지, ‘달콤
-                백화점’에 자신만의 초콜릿 가게를 여는 것. 가진 것이라고는 낡은
-                모자 가득한 꿈과 단돈 12소베른 뿐이지만 특별한 마법의 초콜릿으로
-                사람들을 사로잡을 자신이 있다.
-                <br /><br />
-
-                하지만 먹을 것도, 잠잘 곳도, 의지할 사람도 없는 상황 속에서 낡은
-                여인숙에 머물게 된 ‘웡카’는 ‘스크러빗 부인’과 ‘블리처’의 계략에
-                빠져 눈더미처럼 불어난 숙박비로 인해 순식간에 빚더미에 오른다.
-                게다가 밤마다 초콜릿을 훔쳐가는 작은 도둑 ‘움파 룸파’의 등장과
-                ‘달콤 백화점’을 독점한 초콜릿 카르텔의 강력한 견제까지. 세계
-                최고의 초콜릿 메이커가 되는 길은 험난하기만 한데…
-              </p>
+            <div class="col-12 story" th:text="${movieInfo.m_story}">
+             
             </div>
           </div>
         </div>

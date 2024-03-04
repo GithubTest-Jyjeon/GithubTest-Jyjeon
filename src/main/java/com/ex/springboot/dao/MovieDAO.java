@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.ex.springboot.dto.GenreDTO;
 import com.ex.springboot.dto.MovieDTO;
 import com.ex.springboot.interfaces.ImovieDAO;
 
@@ -35,10 +36,17 @@ public class MovieDAO implements ImovieDAO {
 				String selectQuery2 = "select t_code_arr from cg_result where r_seq = "+b_results_token.nextToken();
 				String t_code_arr = template.queryForObject(selectQuery2, String.class);
 				
+				int i = 0;
 				StringTokenizer t_code_arr_token = new StringTokenizer(t_code_arr, "|");
 				while(t_code_arr_token.hasMoreTokens()) {
-					String selectQuery3 = "select * from cg_movie where m_code = '"+t_code_arr_token.nextToken()+"'";
+					String m_code = t_code_arr_token.nextToken();
+					String selectQuery3 = "select * from cg_movie where m_code = '"+m_code+"'";
 					movieDTO = template.query(selectQuery3, new BeanPropertyRowMapper(MovieDTO.class));
+					
+					String selectQuery4 = "select g_name from cg_movie_genre where m_code = '"+m_code+"'";
+					List<GenreDTO> genreDTO = (ArrayList<GenreDTO>) template.query(selectQuery4, new BeanPropertyRowMapper<GenreDTO>(GenreDTO.class));
+					
+					movieDTO.get(0).setG_name_arr(genreDTO);
 					list.addAll(movieDTO);
 				}
 			}

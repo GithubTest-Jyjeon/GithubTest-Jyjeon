@@ -1,13 +1,19 @@
 package com.ex.springboot.controller.movie;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.StringTokenizer;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.ex.springboot.dto.MovieDTO;
+import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.ImovieDAO;
 
@@ -39,7 +45,9 @@ public class MovieController {
 				endPage = totalPage;
 			}
 			
-			model.addAttribute("list", dao.movieList(page, b_seq, u_seq));
+			ArrayList<MovieDTO> list = dao.movieList(page, b_seq, u_seq);
+			
+			model.addAttribute("list", list);
 			model.addAttribute("totalCount", totalCount);
 			model.addAttribute("totalPage", totalPage);
 			model.addAttribute("startPage", startPage);
