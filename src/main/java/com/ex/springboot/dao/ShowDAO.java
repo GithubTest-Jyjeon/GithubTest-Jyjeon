@@ -10,7 +10,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.ex.springboot.dto.FoodDTO;
+import com.ex.springboot.dto.GenreDTO;
 import com.ex.springboot.dto.ShowDTO;
 import com.ex.springboot.interfaces.IshowDAO;
 
@@ -34,11 +34,18 @@ public class ShowDAO implements IshowDAO {
 			while(b_results_token.hasMoreTokens()) {
 				String selectQuery2 = "select t_code_arr from cg_result where r_seq = "+b_results_token.nextToken();
 				String t_code_arr = template.queryForObject(selectQuery2, String.class);
-				
+
+				int i = 0;
 				StringTokenizer t_code_arr_token = new StringTokenizer(t_code_arr, "|");
 				while(t_code_arr_token.hasMoreTokens()) {
-					String selectQuery3 = "select * from cg_show where s_code = '"+t_code_arr_token.nextToken()+"'";
+					String s_code = t_code_arr_token.nextToken();
+					String selectQuery3 = "select * from cg_show where s_code = '"+s_code+"'";
 					showDTO = template.query(selectQuery3, new BeanPropertyRowMapper(ShowDTO.class));
+
+					String selectQuery4 = "select g_name from cg_show_genre where s_code = '"+s_code+"'";
+					List<GenreDTO> genreDTO = (ArrayList<GenreDTO>) template.query(selectQuery4, new BeanPropertyRowMapper<GenreDTO>(GenreDTO.class));
+
+					showDTO.get(0).setG_name_arr(genreDTO);
 					list.addAll(showDTO);
 				}
 			}

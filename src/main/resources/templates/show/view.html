@@ -183,20 +183,19 @@
         <hr />
         <div class="col-md-4 col-12 M_poster">
           <img
-            src="https://www.kopis.or.kr/upload/pfmPoster/PF_PF234756_240131_111042.jpg"
+            th:src="${showInfo.s_image_post}"
             alt=""
           />
         </div>
         <div class="col-md-8 col-12 M_content">
           <div class="row">
             <div class="col-12 maintext">
-              <h1 class="tit">
-                체코 브르노 국립 주니어 발레단 내한공연: Balet NdB 2 [강릉]
+              <h1 class="tit" th:text="${showInfo.s_title}">
               </h1>
               <hr />
-              <p class="p1">2024.03.19(화) ~ 2024.03.19(화) / 화요일(19:30)</p>
+              <p class="p1"><span th:text="${showInfo.s_date_s}"></span> ~ <span th:text="${showInfo.s_date_e}"></span> / <span th:text="${showInfo.s_week_time}"></span></p>
               <p class="p2">
-                강릉아트센터(구. 강릉문화예술관) 소공연장
+                <span th:text="${showInfo.s_stage}"></span>
                 <button
                   type="button"
                   class="S_mapButton border-0"
@@ -205,9 +204,9 @@
                 >
                   지도
                 </button>
-                / 만 7세 이상
+                / <span th:text="${showInfo.s_grade}"></span>
               </p>
-              <p class="p3">R석 50,000원 S석 30,000원</p>
+              <p class="p3" th:text="${showInfo.s_ticket}"></p>
             </div>
             <hr />
             <div class="col-12 makerList">
@@ -222,19 +221,14 @@
                 제작진 : 야쿠브 율리네크, 바르보라 라슈코바, 마리오 라다초프스키
                 등
               </p>
-              <p>주최 및 주관 : 강릉아트센터(주최·주관)</p>
+              <p>주최 및 주관 : <span th:text="${showInfo.s_stage}"></span>(주최·주관)</p>
             </div>
             <hr />
             <div class="col-12 story">
               <img
-                src="https://www.kopis.or.kr/upload/pfmIntroImage/PF_PF234756_240131_1110421.jpg"
+                th:src="${showInfo.s_image_content}"
                 alt=""
               />
-              <img
-                src="https://www.kopis.or.kr/upload/pfmIntroImage/PF_PF234756_240131_1110420.jpg"
-                alt=""
-              />
-              <img src="" alt="" />
             </div>
           </div>
         </div>
@@ -261,7 +255,70 @@
                 aria-label="Close"
               ></button>
             </div>
-            <div class="modal-body">지도자리</div>
+            <div class="modal-body">
+              <input type="hidden" id="searchText"
+                     th:value="${showInfo.s_stage}" />
+              <div id="map" style="width:100%;height:350px;"></div>
+
+              <script type="text/javascript"
+                      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=bde73c8b89de54b9a43958dc56ce6bc2&libraries=services"></script>
+
+              <script>
+                // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+                var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+
+                var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                        mapOption = {
+                          center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+                          level: 3 // 지도의 확대 레벨
+                        };
+
+                // 지도를 생성합니다
+                var map = new kakao.maps.Map(mapContainer, mapOption);
+
+                // 장소 검색 객체를 생성합니다
+                var ps = new kakao.maps.services.Places();
+
+                var keyword = document.getElementById("searchText").value;
+                // 키워드로 장소를 검색합니다
+                ps.keywordSearch(keyword, placesSearchCB);
+
+                // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+                function placesSearchCB (data, status, pagination) {
+                  if (status === kakao.maps.services.Status.OK) {
+
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+                    // LatLngBounds 객체에 좌표를 추가합니다
+                    var bounds = new kakao.maps.LatLngBounds();
+
+                    for (var i=0; i<data.length; i++) {
+                      displayMarker(data[i]);
+                      bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+                    }
+
+                    // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+                    map.setBounds(bounds);
+                  }
+                }
+
+                // 지도에 마커를 표시하는 함수입니다
+                function displayMarker(place) {
+
+                  // 마커를 생성하고 지도에 표시합니다
+                  var marker = new kakao.maps.Marker({
+                    map: map,
+                    position: new kakao.maps.LatLng(place.y, place.x)
+                  });
+
+                  // 마커에 클릭이벤트를 등록합니다
+                  kakao.maps.event.addListener(marker, 'click', function() {
+                    // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+                    infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+                    infowindow.open(map, marker);
+                  });
+                }
+              </script>
+            </div>
             <div class="modal-footer">
               <button
                 type="button"

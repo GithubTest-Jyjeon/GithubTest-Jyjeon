@@ -1,5 +1,7 @@
 package com.ex.springboot.dto;
 
+import java.util.List;
+
 import lombok.Data;
 
 @Data
@@ -19,4 +21,5 @@ public class ShowDTO {
 	private String s_stage;
 	private String s_week_time;
 	private String s_image_content;
+	private List<GenreDTO> g_name_arr;
 }
