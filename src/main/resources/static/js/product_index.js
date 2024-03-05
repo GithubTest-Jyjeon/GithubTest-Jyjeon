@@ -18,7 +18,6 @@ $(document).ready(function () {
 	var initialCards = 12;
 	var cards = $(".card");
 	var totalCards = cards.length;
-	console.log(totalCards);
 
 	// 초기 카드 표시
 	cards.slice(0, initialCards).show();

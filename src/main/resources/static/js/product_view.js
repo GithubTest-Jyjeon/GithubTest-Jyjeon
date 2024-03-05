@@ -37,18 +37,27 @@
 	})
 	
 	$("#btnInsertOrder").on("click", function(){
-		let params = {
-			p_code : $("#pCode").val(), // 상품코드 0001
-			p_count : $("#pCount").val()
-		}
+		let pCount = parseInt($("#pCount").val());
+		let pCode = $("#pCode").val();
+		
+		let params = [ 
+			{
+				p_count : pCount,
+				p_code : pCode
+			}
+		]
 		
 		$.ajax({
 			url : "/order/insert",
-			data : params,
+			data : {"productInfo" : JSON.stringify(params)},
 			type : "post",
-			dataType : "text",
+			traditional: true,
+			dataType : "json",
 			success : function(resultData){
-				$("#cartModal2").modal('show');
+				$("#cartModal3").modal('show');
+			},
+			error: function(error){
+				console.log(error);
 			}
 		})  
 	})

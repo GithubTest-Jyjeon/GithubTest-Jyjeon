@@ -74,9 +74,7 @@ public class CartController {
 	    
 	    if (userDTO != null) {
 	        // 사용자 ID를 기반으로 장바구니 목록 조회
-		    System.out.println("userDTO : " + userDTO);
 	        ArrayList<ProductDTO> cartList = daoCart.getCartListByUserId(userDTO.getU_seq());
-	        System.out.println("cartList : " + cartList);
 	        model.addAttribute("cartList", cartList);
 	        
 	        return "/cart/list"; // 장바구니 목록을 보여주는 뷰 페이지 경로

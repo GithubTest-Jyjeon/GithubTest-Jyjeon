@@ -213,39 +213,31 @@ $( function(){
 	$("#btnOrderDone").on("click", function(){
 		let chkboxItemCount = $(".chkboxItem").length;
 		
-		let params = {
-			productInfo : [],
-			totalPrice : 0
-		}
+		let params = [];
 		
 		for(let i = 0; i < chkboxItemCount; i++){
 			
 			if($(".chkboxItem").eq(i).is(":checked") == true){
 				let pCount = parseInt($(".quantityInput").eq(i).val());
 				let pCode = $(".productCode").eq(i).val();
-				let pName = $(".productName").eq(i).val();
-				let pPrice = $(".productPrice").eq(i).val();
-				let pDcPercent = $(".productDcPercent").eq(i).val();
-				let finalPrice = pPrice - (pPrice * pDcPercent) / 100;
 				
-				params.productInfo.push({pCount, pCode, finalPrice});				
+				params.push({p_count : pCount, p_code : pCode});
 			}
 		}
 		
-		let totalPrice = parseInt($("#sumTotalPrice").attr("data-val"));
-		params.totalPrice = addComma(totalPrice);
-		
 		$.ajax({
 			url : "/order/insert",
-			/*type : "post",
-			data : {orderData : params},*/
-			success : function(returnData){
-				console.log(returnData);
+			data : {"productInfo" : JSON.stringify(params)},
+			type : "post",
+			traditional: true,
+			dataType : "json",
+			success : function(resultData){
+				$("#cartModal3").modal('show');
 			},
-			error : function(error){
+			error: function(error){
 				console.log(error);
-			}		
-		})
+			}
+		}) 
 	})
     
     
