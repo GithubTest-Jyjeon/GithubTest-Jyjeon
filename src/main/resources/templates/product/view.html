@@ -299,18 +299,16 @@ font-size: 10px;}
        	</div>
 		
 		
-		<div class="container pb-5">
+		<div class="container my-5" style="padding-bottom:10rem;">
             <div class="row">
-               <div class="col-10 offset-1">
+            	<div class="col-12 col-lg-10 offset-lg-1">
                   <h3 class="display-6">할인상품</h3>
                   <hr>
 
 
                   <!-- Swiper -->
                   <div class="swiper mySwiper">
-
                      <div class="swiper-wrapper">
-
                         <!-- 상품 리스트 반복 시작 -->
                         <div th:each="dto : ${dcList}" class="swiper-slide">
                            <div class="card1 border border-light h-100">
@@ -320,21 +318,21 @@ font-size: 10px;}
                                  class="card-img-top" alt="..." style="object-fit: cover;" />
                               </a> <span
                                  class="position-absolute top-0 end-0 mt-2 p-2 bg-danger text-white rounded-start-2 z-3 btnCart"
-                                 data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                 data-bs-toggle="modal" data-bs-target="#cartModal"
                                  th:data-bs-pcode="${dto.p_code}"> <i
                                  class="fa-solid fa-cart-shopping"></i>
                               </span>
                               <div class="card-body">
-                                 <h5 class="card-title" th:text="${dto.p_name}"></h5>
-                                 <p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
+                                 <h5 class="card-title mt-2" th:text="${dto.p_name}"></h5>
+                                 <p class="card-text small fw-bold" th:if="${dto.p_dc_yn == 'Y'}">
                                     <span th:text="|${dto.p_dc_percent}%|" class="text-danger"></span>
                                     <span
-                                       th:text="|${((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100}원|"></span><br />
-                                    <span th:text="|${dto.p_price}원|" class="text-muted small"
+                                       th:text="|${#numbers.formatInteger(((dto.p_price * 100) - (dto.p_price * dto.p_dc_percent)) / 100, 3, 'COMMA')}원|"></span><br />
+                                    <span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|" class="text-muted small"
                                        style="text-decoration: line-through;"></span>
                                  </p>
                                  <p class="card-text fw-bold" th:if="${dto.p_dc_yn == 'N'}">
-                                    <span th:text="|${dto.p_price}원|"></span>
+                                    <span th:text="|${#numbers.formatInteger(dto.p_price, 3, 'COMMA')}원|"></span>
                                  </p>
                               </div>
                            </div>

@@ -1,179 +1,186 @@
 <!DOCTYPE html>
-<html
-	lang="ko"
-	xmlns:th="http://www.thymeleaf.org"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}">
-	
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
-	
-	<body>
-		<div layout:fragment="content" class="content content1">
-				<link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.js"
-      integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
-      crossorigin="anonymous"
-    ></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <style>
-    * {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        box-sizing: border-box;
-    }
-    html,
-    body {
-        position: relative;
-        height: 100%;
-        background-color: white;
-        overflow-x: hidden;
-    }
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 
-    R_row {
-        height: auto !important;
-    }
+<body>
+	<div layout:fragment="content" class="content content1">
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script src="https://code.jquery.com/jquery-3.7.1.js"
+			integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+			crossorigin="anonymous"></script>
 
-    .R_row,
-    .btnDiv {
-        position: relative;
-        padding: 0;
-    }
-    .R_category {
-        border: 1px solid lightgray;
-        padding: 5px;
-        border-radius: 10px;
-        margin: 2px 2px;
-        display: inline-block;
-    }
-    .card {
-        display: none;
-        min-height: auto;
-    }
-    .card-text {
-        white-space: nowrap;
-        overflow-x: auto;
-    }
-    .card-text::-webkit-scrollbar {
-        width: 5px; /* 스크롤바의 너비 */
-        height: 3px; /* 수평 스크롤바의 높이 */
+		<script
+			src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+		<style>
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+}
+
+html, body {
+	position: relative;
+	height: 100%;
+	background-color: white;
+	overflow-x: hidden;
+}
+    .container {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .card-text::-webkit-scrollbar-track {
-        background: #f1f1f1; /* 스크롤바 트랙의 배경색 */
-    }
+.R_row, .btnDiv {
+	position: relative;
+	padding: 0;
+}
 
-    .card-text::-webkit-scrollbar-thumb {
-        background: #888; /* 스크롤바 썸의 배경색 */
-    }
+.M_category {
+	border: 1px solid lightgray;
+	padding: 5px;
+	border-radius: 10px;
+	margin: 2px 2px;
+	display: inline-block;
+}
 
-    .card-text::-webkit-scrollbar-thumb:hover {
-        background: #555; /* 스크롤바 썸에 마우스를 올렸을 때의 배경색 */
-    }
+.card {
+	display: none;
+	min-height: auto;
+}
 
-    .card.show {
-        display: block;
-    }
-    .card-title {
-        font-weight: bold;
-    }
-    .card-img-top {
-        width: 100%; /* 이미지를 부모 요소의 가로 폭에 맞춤 */
-        height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
-        object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채움 */
-        aspect-ratio: 6 / 9; /* 이미지의 가로세로 비율을 4:3으로 설정 */
-    }
+.card-text {
+	white-space: nowrap;
+	overflow-x: auto;
+	display: flex;
+}
 
-    .R_btn {
-        margin-top: 50px;
-        font-weight: bold;
-        font-size: 20px;
-        width: 200px;
-        height: 50px;
-        border-radius: 10px;
-    }
-    .R_btn:hover {
-        background-color: black;
-        color: white;
-    }
-    .btnDiv {
-        display: flex;
-        justify-content: flex-end;
-        margin-right: 5%;
-    }
-    @media screen and (max-width: 768px) {
-        .btnDiv {
-            justify-content: center;
-            margin: 0;
-        }
-        .card {
-            display: none;
-            min-height: 430px !important;
-        }
-        .card-title {
-            font-size: 14px;
-        }
-        .card-text {
-            white-space: nowrap;
-            overflow-x: auto;
-        }
-        .card-text,
-        .see-more {
-            font-size: 8px;
-            margin: 0;
-        }
-    }
+.card-text::-webkit-scrollbar {
+	width: 5px; /* 스크롤바의 너비 */
+	height: 3px; /* 수평 스크롤바의 높이 */
+}
 
-    .M_trailer {
-        width: 80%;
-        border: 1px solid rgb(219, 219, 219);
-        margin: 50px 0 100px 0;
-        border-radius: 10px;
-    }
-    .M_trailer iframe {
-        border-radius: 10px;
-    }
+.card-text::-webkit-scrollbar-track {
+	background: #f1f1f1; /* 스크롤바 트랙의 배경색 */
+}
 
-    .M_trailer_text {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-    }
-    .M_trailer_text h2 {
-        font-size: 25px;
-    }
-    .M_trailer_btn {
-        width: 150px;
-        height: 40px;
-        border: none;
-        border-radius: 10px;
-        background-color: #f67676;
-        color: white;
-        font-weight: bold;
-    }
+.card-text::-webkit-scrollbar-thumb {
+	background: #888; /* 스크롤바 썸의 배경색 */
+}
 
-    @media screen and (max-width: 1050px) {
-        .swp_title h3 {
-            margin-left: 2.5%;
-        }
-        .M_trailer {
-            width: 95%;
-            padding: 5px;
-        }
-    }
+.card-text::-webkit-scrollbar-thumb:hover {
+	background: #555; /* 스크롤바 썸에 마우스를 올렸을 때의 배경색 */
+}
+
+.card.show {
+	display: block;
+}
+
+.card-title {
+	font-weight: bold;
+	white-space: nowrap;
+	overflow-x: auto;
+	font-size:15px;
+}
+
+.card-title::-webkit-scrollbar {
+	width: 0; /* 스크롤바의 너비 */
+	height: 0; /* 수평 스크롤바의 높이 */
+}
+
+.card-img-top {
+	width: 100%; /* 이미지를 부모 요소의 가로 폭에 맞춤 */
+	height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+	object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채움 */
+	aspect-ratio: 6/9; /* 이미지의 가로세로 비율을 4:3으로 설정 */
+}
+
+.R_btn {
+	margin-top: 50px;
+	font-weight: bold;
+	font-size: 20px;
+	width: 200px;
+	height: 50px;
+	border-radius: 10px;
+}
+
+.R_btn:hover {
+	background-color: black;
+	color: white;
+}
+
+.btnDiv {
+	display: flex;
+	justify-content: center;
+    align-items: center;
+}
+
+.M_trailer {
+	width: 80%;
+	border: 1px solid rgb(219, 219, 219);
+	margin: 50px 0 100px 0;
+	border-radius: 10px;
+}
+
+.M_trailer iframe {
+	border-radius: 10px;
+}
+
+.M_trailer_text {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+}
+
+.M_trailer_text h2 {
+	font-size: 25px;
+}
+
+.M_trailer_btn {
+	width: 150px;
+	height: 40px;
+	border: none;
+	border-radius: 10px;
+	background-color: #f67676;
+	color: white;
+	font-weight: bold;
+}
+
+@media screen and (max-width: 768px) {
+	.btnDiv {
+		justify-content: center;
+		margin: 0;
+	}
+	.card {
+		display: none;
+		min-height: auto;
+	}
+	.card-title {
+		font-size: 14px;
+	}
+	.card-text {
+		white-space: nowrap;
+		overflow-x: auto;
+	}
+	.card-text, .see-more {
+		font-size: 8px;
+		margin: 0;
+	}
+}
 </style>
 
+<<<<<<< HEAD
 <div class="container">
     <div class="row R_row">
         <div class="col-12">
@@ -182,40 +189,36 @@
                 <hr />
                 <div th:text="|총 갯수 : ${totalCount}|"></div>
 
-                <!-- =======================================카드하나=============================================== -->
-                <div class="col-6 col-md-6 col-lg-4 col-xl-2" th:each="list : ${list}">
-                    <div class="card border">
-                        <a th:href="@{/show/view(s_code=${list.s_code})}">
-                            <img
-                                    th:src="${list.s_image_post}"
-                                    class="card-img-top"
-                                    alt="..."
-                            />
-                        </a>
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${list.s_title}"></h5>
-                            <div class="card-text text-muted small">
-                                <div th:each="genreList : ${list.g_name_arr}">
-                                    <span class="M_category" th:text="${genreList.g_name}"></span>
-                                </div>
+						<!-- =======================================카드하나=============================================== -->
+						<div class="col-6 col-md-6 col-lg-4 col-xl-2"
+							th:each="list : ${list}">
+							<div class="card border">
+								<a th:href="@{/show/view(s_code=${list.s_code})}"> <img
+									th:src="${list.s_image_post}" class="card-img-top" alt="..." />
+								</a>
+								<div class="card-body">
+									<h5 class="card-title" th:text="${list.s_title}"></h5>
+									<div class="card-text text-muted small">
+										<div th:each="genreList : ${list.g_name_arr}">
+											<span class="M_category" th:text="${genreList.g_name}"></span>
+										</div>
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
-    <div class="row btnDiv">
-        <div class="col text-center">
-            <button class="btn btn-sm btn-outline-secondary mb-5" id="loadMore">
-                더보기
-            </button>
-        </div>
-    </div>
+			<div class="row btnDiv">
+				<div class="col text-center">
+					<button class="btn btn-sm btn-outline-secondary mb-5" id="loadMore">
+						더보기</button>
+				</div>
+			</div>
 
-    <script>
+			<script>
         $(document).ready(function () {
             // 초기에 표시할 카드 수
             var initialCards = 12;
@@ -247,73 +250,27 @@
         });
     </script>
 
-    <div class="row swp">
-        <div class="col swp_title">
-            <div class="container">
-                <div class="row M_trailer">
-                    <div class="col-md-6 col-12 p-0">
-                        <div class="ratio ratio-16x9">
-                            <iframe
-                                    src="https://www.youtube.com/embed/rjW9E1BR_30"
-                                    title="험한 것이 나왔다🔍 [파묘] 1차 예고편"
-                                    frameborder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                    allowfullscreen
-                            ></iframe>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-12 p-0 M_trailer_text">
-                        <h2>[파묘] 1차 예고편</h2>
-                        <p>
-                            &#60;검은 사제들&#62;, &#60;사바하&#62;, 그리고 신작. <br />장재현 신작은 항상
-                                기다려진다.
-                                <br />
-                                2월 22일 개봉.
-                        </p>
-                        <button class="M_trailer_btn">상세보기</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-    <!-- Swiper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
-    <script>
-      var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 5,
-        spaceBetween: 30,
-        loop: true,
-        pagination: {
-          el: ".swiper-pagination",
-          clickable: true,
-        },
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        // 너비에 따른 설정을 추가하는 breakpoints 옵션
-        breakpoints: {
-          // 너비가 1100px 이하일 때
-          1200: {
-            slidesPerView: 5,
-            spaceBetween: 30,
-          },
-          768: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-          },
-          // 너비가 780px 이하일 때
-          100: {
-            slidesPerView: 2,
-            spaceBetween: 10,
-          },
-        },
-      });
-    </script>
+			<div class="row M_trailer">
+				<div class="col-md-6 col-12 p-0">
+					<div class="ratio ratio-16x9">
+						<iframe src="https://www.youtube.com/embed/rjW9E1BR_30"
+							title="험한 것이 나왔다🔍 [파묘] 1차 예고편" frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+							allowfullscreen></iframe>
+					</div>
+				</div>
+				<div class="col-md-6 col-12 p-0 M_trailer_text">
+					<h2>[파묘] 1차 예고편</h2>
+					<p>
+						<검은 사제들>, <사바하>, 그리고 신작. <br />
+						장재현 신작은 항상 기다려진다. <br />
+						2월 22일 개봉. 
+					</p>
+					<button class="M_trailer_btn">상세보기</button>
+				</div>
+			</div>
 		</div>
-	</body>
+
+	</div>
+</body>
 </html>

@@ -41,17 +41,14 @@
     body {
       position: relative;
       height:100%;
-    }
-
-#wrapper {
-	position: relative;
-	top:-1px;
+      top:-1px;
 	width: 100%;
 	scroll-snap-type: y mandatory;
 	overflow-y: scroll;
-	height: 100vh;
-	overflow-x: hidden;
-}
+		overflow-x: hidden;
+    }
+
+
 
 .ma, .ma1, .ma2, .ma3 {
 	width: 100%;
@@ -61,6 +58,10 @@
 	align-items: center;
 	scroll-snap-align: start;
 	height: 100vh; /* 뷰포트 높이에 맞춤 */
+}
+
+.ma1{
+	height: 110vh;
 }
 
 .row {
@@ -281,7 +282,7 @@ h1 span:nth-child(8) {
 /* =================================== */
 </style>
 
-		<div id="wrapper">
+		
 			<div class="container-fluid ma">
 				<div class="row">
 					<div class="col-12 main">
@@ -312,7 +313,8 @@ h1 span:nth-child(8) {
 
 						<p>키워드를 따라 오늘의 볼거리를 추천 해드립니다</p>
 
-						<a href="MS_Choice.html"><button
+						<a aria-current="page"
+						th:href="@{/keyword/choice?type=work}"><button
 								class="choiceBtn">키워드 선택하러 가기</button></a>
 					</div>
 				</div>
@@ -326,7 +328,8 @@ h1 span:nth-child(8) {
 						<h5 class="card-title card-title_food">FOOD</h5>
 						<p>키워드를 따라 오늘의 메뉴를 추천 해드립니다</p>
 
-						<a href="R_Category.html"><button
+						<a aria-current="page"
+						th:href="@{/keyword/choice?type=food}"><button
 								class="choiceBtn">키워드 선택하러 가기</button></a>
 					</div>
 				</div>
@@ -341,12 +344,13 @@ h1 span:nth-child(8) {
 							신선하고 건강한 재료를 <br />나의 레시피에 맞게 주문!
 						</p>
 
-						<a href="shop/index.html"><button
-								class="choiceBtn">키워드 선택하러 가기</button></a>
+						<a aria-current="page"
+						th:href="@{/product/index}"><button
+								class="choiceBtn">쇼핑하러 가기</button></a>
 					</div>
 				</div>
 			</div>
-		</div>
+		
 		
 		
 		<script>
@@ -394,6 +398,8 @@ h1 span:nth-child(8) {
 	        { passive: false }
 	      ); // passive: false 옵션으로 기본 이벤트를 방지
 	    </script>
+	    
+	    
 	</div>
 </body>
 </html>
