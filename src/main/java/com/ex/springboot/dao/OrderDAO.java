@@ -1,6 +1,5 @@
 package com.ex.springboot.dao;
 
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +12,9 @@ import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IorderDAO;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Primary
 @Repository
 public class OrderDAO implements IorderDAO {
@@ -21,10 +23,7 @@ public class OrderDAO implements IorderDAO {
 	JdbcTemplate template;
 
 	@Override
-	public int orderInsertProcess(String p_code_arr, String p_count_arr) {
-		UserDTO userDTO = new UserDTO();
-		int u_seq = userDTO.getU_seq();
-		
+	public int orderInsertProcess(String p_code_arr, String p_count_arr, int u_seq) {
 		StringTokenizer tokenPcode = new StringTokenizer(p_code_arr, "|");
 		StringTokenizer tokenPcount = new StringTokenizer(p_count_arr, "|");
 		String p_price_arr = "";
@@ -45,10 +44,8 @@ public class OrderDAO implements IorderDAO {
 		String insertQuery = "insert into cg_order (o_seq, u_seq, p_code_arr, p_count_arr, p_price_arr, o_total_price, o_reg_date) values (ORDER_SEQ.nextval, "+u_seq+", '"+p_code_arr+"', '"+p_count_arr+"', '"+p_price_arr+"', "+p_total_price+", sysdate)";
 		int result = template.update(insertQuery);
 		
-		if(result > 0) {
-			String DeleteQuery = "delete from cg_cart where u_seq = "+u_seq;
-			template.update(DeleteQuery);
-		}
+		String DeleteQuery = "delete from cg_cart where u_seq = "+u_seq;
+		template.update(DeleteQuery);
 		
 		return result;
 	}

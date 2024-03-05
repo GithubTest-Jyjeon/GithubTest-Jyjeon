@@ -108,7 +108,25 @@
 			      <div class="modal-body">
 			      </div>
 			      <div class="modal-footer d-flex justify-content-center">
-			        <button type="button" class="btn btn-primary" id="btnOrderDone">주문하기</button>
+			        <button type="button" class="btn btn-primary" id="btnOrderDone" data-bs-target="#cartModal3" data-bs-toggle="modal">주문하기</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			
+			<!-- Modal -->
+			<div class="modal fade" id="cartModal3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+			  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h1 class="modal-title fs-5" id="staticBackdropLabel">주문완료</h1>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body text-center">
+			      	주문이 완료 되었습니다.
+			      </div>
+			      <div class="modal-footer d-flex justify-content-center">
+			        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">닫기</button>
 			      </div>
 			    </div>
 			  </div>
