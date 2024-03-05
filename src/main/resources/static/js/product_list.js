@@ -12,15 +12,6 @@
 		}
 	});
 	
-	$(".btnCart").on("click", function(){
-		var p_code = $(this).attr("data-bs-pcode");
-		
-		$("#input_p_code").val(p_code);
-		$("#exampleModal").show();
-		
-		return false;
-	})
-	
 	$("#btnInsertCart").on("click", function(){
 		let params = {
 			p_code : $("#input_p_code").val(), // 상품코드 0001

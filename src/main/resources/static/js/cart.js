@@ -168,9 +168,10 @@ $( function(){
 		
 		let html  = '';
 			html += '<div class="row fw-bold">';
-			html += '<div class="col-6">상품명</div>';
+			html += '<div class="col-4">상품명</div>';
+			html += '<div class="col-3">단가</div>';
 			html += '<div class="col-2">수량</div>';
-			html += '<div class="col-4 text-end">가격</div>';
+			html += '<div class="col-3 text-end">총액</div>';
 			html += '</div>';
 			html += '<hr />';
 		
@@ -180,15 +181,17 @@ $( function(){
 				let pCount = parseInt($(".quantityInput").eq(i).val());
 				let pCode = $(".productCode").eq(i).val();
 				let pName = $(".productName").eq(i).val();
-				let pPrice = $(".productPrice").eq(i).val();
+				let pPriceOrigin = $(".productPrice").eq(i).val();
 				let pDcPercent = $(".productDcPercent").eq(i).val();
+				let pPriceUnit = pPriceOrigin - (pPriceOrigin * pDcPercent) / 100;
 				
 				params.productInfo.push({pCount, pCode});
 				
 				html += '<div class="row">';
-				html += '<div class="col-6">'+pName+'</div>';
-				html += '<div class="col-2">'+pCount+'</div>';
-				html += '<div class="col-4 text-end">'+addComma((pPrice - (pPrice * pDcPercent) / 100) * pCount)+'</div>';
+				html += '<div class="col-4">'+pName+'</div>';
+				html += '<div class="col-3 text-end">'+addComma(pPriceUnit)+'</div>';
+				html += '<div class="col-2 text-center">'+pCount+'</div>';
+				html += '<div class="col-3 text-end">'+addComma(pPriceUnit * pCount)+'</div>';
 				html += '</div>';
 				html += '<hr class="hr2" />';
 			}
