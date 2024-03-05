@@ -76,7 +76,7 @@ public class UserController {
 		HttpSession session = request.getSession();
 		session.invalidate();
 		System.out.println("로그아웃 성공");
-		return "/common/main";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/user/myPage")
@@ -167,4 +167,6 @@ public class UserController {
 		System.out.println("result : "+result);
 		return result;
 	}
+	
+	
 }

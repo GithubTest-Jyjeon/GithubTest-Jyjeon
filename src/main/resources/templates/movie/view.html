@@ -1,368 +1,355 @@
 <!DOCTYPE html>
-<html
-	lang="ko"
-	xmlns:th="http://www.thymeleaf.org"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}">
-	
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
-	
-	<body>
-		<div layout:fragment="content" class="content content1">
-				<!-- ===============캐로셀================ -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-    />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    
-    <style>
-    * {
-      margin: 0;
-      padding: 0;
-      list-style: none;
-      box-sizing: border-box;
-    }
-    html,
-    body {
-      position: relative;
-      height: 100%;
-  /*     background-color: #f1f1f2; */
-    }
 
-    /* =======네브바======== */
-    .navbar {
-      position: fixed;
-      width: 100%;
-      display: flex;
-      align-items: center;
-      z-index: 99999;
-    }
-    .mainnav {
-      width: 90%;
-    }
-    .navbar-brand {
-      color: #f67676;
-      font-weight: bold;
-    }
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
 
-    /* =======포스터======== */
-    .M_row,
-    .swp {
-      position: relative;
-      top: 100px;
-    }
-    .Maintit {
-      margin-bottom: 50px;
-    }
-    .M_poster img {
-      width: 100%;
-      top: auto;
-      min-width: 200px;
-      margin-bottom: 30px;
-      padding: 30px;
-      border-radius: 30px;
-    }
+<body>
+	<div layout:fragment="content" class="content content1">
+		<!-- ===============캐로셀================ -->
+		<link rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		<script
+			src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-    /* ==============콘텐츠 */
+		<style>
+* {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	box-sizing: border-box;
+}
 
-    .maintext {
-      line-height: 15px;
-      padding: 10px;
-    }
-    .maintext h1 {
-      font-size: 30px;
-      font-weight: bold;
-    }
-    .makerList h3 {
-      font-size: 25px;
-    }
-    .M_content {
-      margin-bottom: 50px;
-      display:flex;
-      align-items: center;
-    }
+html, body {
+	position: relative;
+	height: 100%;
+	/*     background-color: #f1f1f2; */
+}
 
-    /* ====================스위퍼================= */
+/* =======네브바======== */
+.navbar {
+	position: fixed;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	z-index: 99999;
+}
 
-    .swp {
-      margin-top: 50px;
-    }
-    .swiper {
-      width: 100%;
-      height: auto;
-      min-width: 280px;
-    }
+.mainnav {
+	width: 90%;
+}
 
-    .swiper-slide {
-      text-align: center;
-      font-size: 18px;
-      background: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      border-radius: 10px;
-    }
+.navbar-brand {
+	color: #f67676;
+	font-weight: bold;
+}
 
-    .swiper-slide img {
-      display: block;
-      width: 100%;
-      height: 300px auto;
-      object-fit: cover;
-      min-width: 100px;
-      border-radius: 10px;
-      aspect-ratio: 4 /6;
-    }
+/* =======포스터======== */
+.M_row, .swp {
+	position: relative;
+	top: 100px;
+}
 
-    .swiper-button-next,
-    .swiper-button-prev {
-      color: lightgray;
-    }
+.Maintit {
+	margin-bottom: 50px;
+}
 
-    .m_text {
-      width: 100%;
-      line-height: 20px;
-      margin-top: 10px;
-    }
-    .m_title {
-      font-size: 20px;
-      font-weight: bold;
-    }
-    .m_year {
-      font-size: 15px;
-    }
-    .m_viewCnt {
-      font-size: 15px;
-      color: dimgray;
-    }
-    .m_rank {
-      width: 30px;
-      height: 30px;
-      text-align: center;
-      position: absolute;
-      top: 0;
-      left: 0;
-      background-color: #1a1919;
-      color: white;
-      font-weight: bold;
-      opacity: 0.8;
-    }
+.M_poster img {
+	width: 100%;
+	top: auto;
+	min-width: 200px;
+	margin-bottom: 30px;
+	padding: 30px;
+	border-radius: 30px;
+}
 
-    /* ==========================미디어퀑리 */
-    @media screen and (max-width: 1050px) {
-      .M_poster img {
-        padding: 0;
-      }
-      .swiper {
-        width: 100%;
-      }
-      .swp_title h3 {
-        margin-left: 2.5%;
-      }
-      .m_title {
-        font-size: 16px;
-      }
-      .m_year,
-      .m_viewCnt {
-        font-size: 12px;
-      }
-    }
+/* ==============콘텐츠 */
+.maintext {
+	line-height: 15px;
+	padding: 10px;
+}
 
-    /* ==========================스위퍼 끝========================== */
-  </style>
-  
+.maintext h1 {
+	font-size: 30px;
+	font-weight: bold;
+}
 
-  
-  <div class="container">
-<!--    <div th:text="${movieInfo}"></div> -->
-      <div class="row M_row">
-        <h1 class="Maintit">당신의 취향에 맞는 영화를 추천!</h1>
-        <hr />
-        <div class="col-md-4 col-12 M_poster">
-          	<img
-							th:if="${movieInfo.m_image_post != null}"
-							th:src="${movieInfo.m_image_post}" class="card-img-top" alt="..." />
-							<img th:if="${movieInfo.m_image_post == null}"
-							th:src="@{/img/default_poster.png}" class="card-img-top"
-							alt="..." />
-        </div>
-        <div class="col-md-8 col-12 M_content">
-          <div class="row">
-            <div class="col-12 maintext">
-              <h1 class="tit"  th:text="${movieInfo.m_title_kor}"></h1>
-              <hr />
-              <div class="mb-1"><span th:text="${movieInfo.m_year}"></span> · 판타지/모험/코미디/뮤지컬/가족 · <span th:text="${movieInfo.m_nation}"></span></div>
-              <div class="mb-1"><span th:text="${movieInfo.m_running_time}"></span>분 · <span th:text="${movieInfo.m_grade}"></span></div>
-              <div class="mb-1">
-                예매 순위 1위(36%) · 개봉 4일째 · 누적 관객 35.2만명
-              </div>
-            </div>
-            <hr />
-            <div class="col-12 makerList">
-              <h3>출연/제작</h3>
-              <hr />
-              <p>감독 : 폴 킹</p>
-              <p>주연 : 티모시 살라메</p>
-              <p>조연 : 케일라 레인, 올리비아 콜맨, 톰데이비스, 휴 그랜트</p>
-            </div>
-            <hr />
-            <div class="col-12 story" th:text="${movieInfo.m_story}">
-             
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row swp">
-        <div class="col swp_title">
-          <h3>추천 영화</h3>
-          <hr />
-          <!-- Swiper -->
-          <div class="swiper mySwiper">
-            <div class="swiper-wrapper">
-              <div class="swiper-slide">
-                <div class="m_rank">1</div>
-                <a href="TestPage1.html">
-                  <img
-                    src="https://an2-img.amz.wtchn.net/image/v2/Vnn_KYM-QxlK00ydZiSpKA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFM01ESXdNakl6TURJek1qQXdOVGs1TnpFaWZRLnZXakM5cEZMT2hzLXhnOXl3dGpsdU1RVHpZSUw2NFRBazRsZ3RiUFdhdXc"
-                    alt=""
-                  />
-                </a>
-                <p class="m_text">
-                  <span class="m_title">웡카</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객 1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">2</div>
+.makerList h3 {
+	font-size: 25px;
+}
 
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/COd36HmqB364TA0ZDzcWGQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpJM01qYzFNakEzTlRNeE1qQXdNaUo5LklhOFRMc2hOdzh3dGRob3d2NEFmTVdDdlUxanUzVlhxWGt3cG9ja2gzdHc"
-                  alt=""
-                />
+.M_content {
+	margin-bottom: 50px;
+	display: flex;
+	align-items: center;
+}
 
-                <p class="m_text">
-                  <span class="m_title">데드맨</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객 1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">3</div>
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/wbNmMNrrIIoy-nBkqUDNzw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFek5qVTVPRGcxTkRreE1EVXdPRFlpZlEudkdSQWd6VFcySXZPY0oweFN4SmxYLUYtcGl5cnV2V19GbHVuQlZpWDRZNA"
-                  alt=""
-                />
-                <p class="m_text">
-                  <span class="m_title">추락의해부</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객 1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">4</div>
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/yKEAmMlocs_b3SPRae-7Wg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpZeE1qWTNOVEk0TmpFek1qazVNQ0o5LkU1ejFkU0hEeFVKNGFnaW1kODVfSFZlR0ducEZUYUhUaDBUZFA3TlFQdFU"
-                  alt=""
-                />
-                <p class="m_text">
-                  <span class="m_title">도그데이즈</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">5</div>
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/j0Spcq9Q3BOfW5_V1x_VYg.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpRd09EZ3pNakkxT0RNMU5EZzRNeUo5Lk5XalNwVXk2enV6ZElVemN5NUdYbGlHWndxTFpENTJoZ1ZyU1ozM2hwN00"
-                  alt=""
-                />
-                <p class="m_text">
-                  <span class="m_title">귀멸의카라날</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">6</div>
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/W7kXcsp1BfeVwgU3s1hnLA.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpjME1EQXhOemc0T0RFMU5Ea2lmUS5sRmlMb2tnT2JEVGlhMl9CdGpFN0ViLVlJT0xqUGg5WDllcmZSdWE5YmRn"
-                  alt=""
-                />
-                <p class="m_text">
-                  <span class="m_title">소풍</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">7</div>
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/BVr3Ql2nPNTB6VZ28SdeTw.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpVMU9ETTJOakExT0RFME1qZzNNU0o5LnAzR05NcDhXRktJRTdQUlpTVnF4UUlZdm5PbHRUQi1ZQWtkaXc4djRaYU0"
-                  alt=""
-                />
-                <p class="m_text">
-                  <span class="m_title">아가리</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">8</div>
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/w4Bb2H7qW3eVsRBpvGcBug.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFM01ETXdOamN4TlRnMk1qWXlNVEUxTnpJaWZRLm16OGZ4RUxaYlkyV3docDlnTzh3UHFMUUd2ejQ2bDhXaFZ6VjhrXzJuSWs"
-                  alt=""
-                />
-                <p class="m_text">
-                  <span class="m_title">시민더끼</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객1000만명</span>
-                </p>
-              </div>
-              <div class="swiper-slide">
-                <div class="m_rank">9</div>
-                <img
-                  src="https://an2-img.amz.wtchn.net/image/v2/UyrD7ZTYIccE-ifGQB-SgQ.jpg?jwt=ZXlKaGJHY2lPaUpJVXpJMU5pSjkuZXlKdmNIUnpJanBiSW1SZk5Ea3dlRGN3TUhFNE1DSmRMQ0p3SWpvaUwzWXlMM04wYjNKbEwybHRZV2RsTHpFd05qRTNNakV6T0RreU1qYzRPQ0o5Lm90YzA3YTR2ZGo3ZjFYSi16Wm1iWkdULVp1bmFDYk1GVThfZTJPRnFTT0E"
-                  alt=""
-                />
-                <p class="m_text">
-                  <span class="m_title">아빠상어도 청춘이있어</span>
-                  <br />
-                  <span class="m_year">2023</span>
-                  <br />
-                  <span class="m_viewCnt">누적관객1000만명</span>
-                </p>
-              </div>
-            </div>
-            <div class="swiper-button-next"></div>
-            <div class="swiper-button-prev"></div>
-          </div>
-          <hr />
-        </div>
-      </div>
-    </div>
+/* ====================스위퍼================= */
+.swp {
+	margin-top: 50px;
+}
 
-    <script>
+.swiper {
+	width: 100%;
+	height: auto;
+	min-width: 280px;
+}
+
+.swiper-slide {
+	text-align: center;
+	font-size: 18px;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border-radius: 10px;
+}
+
+.swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 300px auto;
+	object-fit: cover;
+	min-width: 100px;
+	border-radius: 10px;
+	aspect-ratio: 4/6;
+}
+
+.swiper-button-next, .swiper-button-prev {
+	color: lightgray;
+}
+
+.m_text {
+	width: 100%;
+	line-height: 20px;
+	margin-top: 10px;
+}
+
+.m_title {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.m_year {
+	font-size: 15px;
+}
+
+.m_viewCnt {
+	font-size: 15px;
+	color: dimgray;
+}
+
+.m_rank {
+	width: 30px;
+	height: 30px;
+	text-align: center;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: #1a1919;
+	color: white;
+	font-weight: bold;
+	opacity: 0.8;
+}
+
+/* ==========================미디어퀑리 */
+@media screen and (max-width: 1050px) {
+	.M_poster img {
+		padding: 0;
+	}
+	.swiper {
+		width: 100%;
+	}
+	.swp_title h3 {
+		margin-left: 2.5%;
+	}
+	.m_title {
+		font-size: 16px;
+	}
+	.m_year, .m_viewCnt {
+		font-size: 12px;
+	}
+}
+
+/* ==========================스위퍼 끝========================== */
+</style>
+
+
+
+		<div class="container">
+			<!--    <div th:text="${movieInfo}"></div> -->
+			<div class="row M_row">
+				<h1 class="Maintit">당신의 취향에 맞는 영화를 추천!</h1>
+				<hr />
+				<div class="col-md-4 col-12 M_poster">
+					<img th:if="${movieInfo.m_image_post != null}"
+						th:src="${movieInfo.m_image_post}" class="card-img-top" alt="..." />
+					<img th:if="${movieInfo.m_image_post == null}"
+						th:src="@{/img/default_poster.png}" class="card-img-top" alt="..." />
+				</div>
+				<div class="col-md-8 col-12 M_content">
+					<div class="row">
+						<div class="col-12 maintext">
+							<h1 class="tit" th:text="${movieInfo.m_title_kor}"></h1>
+							<p th:text="${movieInfo.m_title_eng}"></p>
+							<hr />
+							<div class="mb-2">
+								<span th:text="${movieInfo.m_year}"></span> · <span
+									th:text="${genresString}"></span> · <span
+									th:text="${movieInfo.m_nation}"></span>
+							</div>
+							<div class="mb-2">
+								<span th:text="${movieInfo.m_running_time}"></span>분 · <span
+									th:text="${movieInfo.m_grade}"></span>
+							</div>
+						</div>
+						<hr />
+						<div class="col-12 makerList">
+							<h3>출연/제작</h3>
+							<hr />
+							<p>
+								감독 : <span th:text="${directorString}"></span>
+							</p>
+							<p>
+								배우: <span th:text="${actorsString}"></span>
+							</p>
+
+						</div>
+						<hr />
+						<div class="col-12 story" th:text="${movieInfo.m_story}"></div>
+					</div>
+				</div>
+			</div>
+			<div class="row swp">
+				<div class="col swp_title">
+					<h3>박스오피스 순위</h3>
+					<hr />
+					<!-- Swiper -->
+					<div class="swiper mySwiper">
+						<div class="swiper-wrapper">
+							<div class="swiper-slide">
+								<div class="m_rank">1</div>
+								<a th:href="@{/movie/view(m_code=35655)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPK021733.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">파묘</span> <br /> <span class="m_year">2024
+										· 한국</span>
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">2</div>
+								<a th:href="@{/movie/view(m_code=59455)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/99/18/33/tn_DPF028759.jpg"
+									alt="" />
+								</a>
+
+								<p class="m_text">
+									<span class="m_title">가여운 것들</span> <br /> <span class="m_year">2024
+										· 미국</span>
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">3</div>
+								<a th:href="@{/movie/view(m_code=59063)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/99/18/30/tn_DPF028589.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">웡카 · 미국</span> <br /> <span
+										class="m_year">2023</span>
+
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">4</div>
+								<a th:href="@{/movie/view(m_code='04890')}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/00/03/62/tn_DPK04890A.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">비트 · 한국</span> <br /> <span
+										class="m_year">1997</span>
+
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">5</div>
+								<a th:href="@{/movie/view(m_code=59931)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/99/18/32/tn_DPF028732.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">듄2 · 미국</span> <br /> <span
+										class="m_year">2024</span>
+
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">6</div>
+								<a th:href="@{/movie/view(m_code=53861)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/99/17/44/tn_DPF024192.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">아네트 · 프랑스</span> <br /> <span
+										class="m_year">2021</span>
+
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">7</div>
+								<a th:href="@{/movie/view(m_code=19625)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/00/04/86/tn_DPK014304.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">사바하 · 한국</span> <br /> <span
+										class="m_year">2018</span>
+
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">8</div>
+								<a th:href="@{/movie/view(m_code=35184)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/99/18/17/tn_DPK021117.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">30일 · 한국</span> <br /> <span
+										class="m_year">2023</span>
+
+								</p>
+							</div>
+							<div class="swiper-slide">
+								<div class="m_rank">9</div>
+								<a th:href="@{/movie/view(m_code=58118)}"> <img
+									src="http://file.koreafilm.or.kr/thm/02/99/18/32/tn_DPF028706.jpg"
+									alt="" />
+								</a>
+								<p class="m_text">
+									<span class="m_title">패스트 라이브스 · 미국</span> <br /> <span
+										class="m_year">2023</span>
+
+								</p>
+							</div>
+
+						</div>
+						<div class="swiper-button-next"></div>
+						<div class="swiper-button-prev"></div>
+					</div>
+					<hr />
+				</div>
+			</div>
+		</div>
+
+		<script>
       var swiper = new Swiper(".mySwiper", {
         slidesPerView: 5,
         spaceBetween: 30,
@@ -394,6 +381,6 @@
         },
       });
     </script>
-		</div>
-	</body>
+	</div>
+</body>
 </html>

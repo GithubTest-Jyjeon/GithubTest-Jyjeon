@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,13 +63,28 @@ public class MovieController {
 		}
 	}
 	
-	@GetMapping("/movie/view")
-	public String movieView(@RequestParam(value = "m_code") String m_code, Model model) {
-		
-		model.addAttribute("movieInfo", dao.movieView(m_code));
-		model.addAttribute("m_code", m_code);
-		
-		return "/movie/view";
-	}
+	 @GetMapping("/movie/view")
+	    public String movieView(@RequestParam(value = "m_code") String m_code, Model model) {
+	        MovieDTO movieInfo = dao.movieView(m_code);
+	        
+	        // 배우 목록을 쉼표로 구분된 문자열로 변환
+	        String actorsString = String.join(", ", movieInfo.getActors());
+	        // 감독 목록을 쉼표로 구분된 문자열로 변환
+	        String directorString = String.join(", ", movieInfo.getDirector());
+	        
+	        // 장르 목록을 쉼표로 구분된 문자열로 변환
+	        String genresString = movieInfo.getG_name_arr().stream()
+	                                       .map(genre -> genre.getG_name()) // GenreDTO에서 장르 이름을 추출
+	                                       .collect(Collectors.joining(", ")); // 쉼표로 구분하여 결합
+	        
+	        model.addAttribute("movieInfo", movieInfo);
+	        model.addAttribute("actorsString", actorsString);
+	        model.addAttribute("genresString", genresString); // 변환된 장르 문자열을 모델에 추가
+	        model.addAttribute("directorString", directorString);
+	        model.addAttribute("m_code", m_code);
+	        
+	        return "/movie/view";
+	    }
+
 	
 }

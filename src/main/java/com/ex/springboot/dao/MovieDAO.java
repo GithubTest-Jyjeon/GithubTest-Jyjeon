@@ -55,11 +55,30 @@ public class MovieDAO implements ImovieDAO {
 		return list;
 	}
 
-	@Override
-	public MovieDTO movieView(String m_code) {
-		String selectQuery = "select * from cg_movie where m_code = '"+m_code+"'";
-		return template.queryForObject(selectQuery, new BeanPropertyRowMapper<MovieDTO>(MovieDTO.class));
-	}
+	 @Override
+	    public MovieDTO movieView(String m_code) {
+	        // 영화 정보 조회
+	        String movieQuery = "select * from cg_movie where m_code = '" + m_code + "'";
+	        MovieDTO movie = template.queryForObject(movieQuery, new BeanPropertyRowMapper<>(MovieDTO.class));
+
+	        // 감독 정보 조회 
+	        String directorQuery = "select d_name from cg_movie_director where m_code = '" + m_code + "'";
+	        List<String> director = template.queryForList(directorQuery, String.class);
+	        movie.setDirector(director);
+
+	        // 배우 정보 조회
+	        String actorQuery = "select a_name from cg_movie_actor where m_code = '" + m_code + "'";
+	        List<String> actors = template.queryForList(actorQuery, String.class);
+	        movie.setActors(actors);
+
+	        // 장르 정보 조회 및 설정
+	        // 이 부분은 기존의 로직을 그대로 사용합니다. 필요하다면 아래와 같이 장르 정보도 조회하여 설정할 수 있습니다.
+	        String genreQuery = "select g_name from cg_movie_genre where m_code = '" + m_code + "'";
+	        List<GenreDTO> genres = template.query(genreQuery, new BeanPropertyRowMapper<>(GenreDTO.class));
+	        movie.setG_name_arr(genres);
+
+	        return movie;
+	    }
 
 	@Override
 	public int movieTotal(int b_seq, int u_seq) {
