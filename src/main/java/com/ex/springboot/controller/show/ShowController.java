@@ -13,6 +13,8 @@ import com.ex.springboot.interfaces.IshowDAO;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.util.List;
+
 @Controller
 @RequestMapping
 public class ShowController {
@@ -54,10 +56,15 @@ public class ShowController {
 	
 	@GetMapping("/show/view")
 	public String showView(@RequestParam(value = "s_code") String s_code, Model model) {
-		
 		model.addAttribute("showInfo", dao.showView(s_code));
 		model.addAttribute("s_code", s_code);
-		
+
+		// 출연진과 제작진 정보를 조회하여 모델에 추가
+		List<String> actors = dao.getActorsByS_code(s_code);
+		List<String> directors = dao.getDirectorsByS_code(s_code);
+		model.addAttribute("actors", String.join(", ", actors));
+		model.addAttribute("directors", String.join(", ", directors));
+
 		return "/show/view";
 	}
 	

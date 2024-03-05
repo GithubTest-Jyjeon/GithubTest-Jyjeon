@@ -65,6 +65,16 @@ public class ShowDAO implements IshowDAO {
 		return template.queryForObject(selectQuery, Integer.class);
 	}
 
-	
+	@Override
+	public List<String> getActorsByS_code(String s_code) {
+		String sql = "SELECT a_name FROM cg_show_actor WHERE s_code = ?";
+		return template.queryForList(sql, String.class, s_code);
+	}
+
+	@Override
+	public List<String> getDirectorsByS_code(String s_code) {
+		String sql = "SELECT d_name FROM cg_show_director WHERE s_code = ?";
+		return template.queryForList(sql, String.class, s_code);
+	}
 
 }
