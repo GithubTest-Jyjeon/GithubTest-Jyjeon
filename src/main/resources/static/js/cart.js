@@ -239,6 +239,10 @@ $( function(){
 			}
 		}) 
 	})
+	
+	$("#btnOrderExit").on("click", function(){
+		location.reload();
+	})
     
     
 })
