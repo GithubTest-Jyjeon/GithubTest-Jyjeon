@@ -14,7 +14,6 @@ import org.springframework.stereotype.Repository;
 import com.ex.springboot.dto.OrderDTO;
 import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.interfaces.IorderDAO;
-import com.ex.springboot.interfaces.IproductDAO;
 
 @Primary
 @Repository

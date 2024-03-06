@@ -99,7 +99,7 @@ public class UserController {
 			model.addAttribute("myOrderList", daoOrder.orderListForUser(userDTO.getU_seq()));
 			return "/user/myPage";
 		} else {
-			return "/user/login";
+			return "redirect:/user/login";
 		}
 	}
 	
