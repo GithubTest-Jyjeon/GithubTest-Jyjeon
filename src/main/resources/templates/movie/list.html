@@ -23,18 +23,25 @@ html, body {
 	position: relative;
 	height: 100%;
 	background-color: white;
-	overflow-x: hidden;
+	/* overflow-x: hidden; */
 }
-    .container {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-    }
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+}
 
 .R_row, .btnDiv {
 	position: relative;
 	padding: 0;
+}
+
+.Maintit {
+	margin: 30px 0;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .M_category {
@@ -81,7 +88,7 @@ html, body {
 	font-weight: bold;
 	white-space: nowrap;
 	overflow-x: auto;
-	font-size:15px;
+	font-size: 15px;
 }
 
 .card-title::-webkit-scrollbar {
@@ -113,7 +120,7 @@ html, body {
 .btnDiv {
 	display: flex;
 	justify-content: center;
-    align-items: center;
+	align-items: center;
 }
 
 .M_trailer {
@@ -147,6 +154,7 @@ html, body {
 	background-color: #f67676;
 	color: white;
 	font-weight: bold;
+	margin-bottom: 10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -175,7 +183,7 @@ html, body {
 
 		<div class="container">
 			<div class="row R_row">
-				<h3>키워드 추천 영화</h3>
+				<h3 class="Maintit">키워드 추천 영화</h3>
 				<div th:text="|총 갯수 : ${totalCount}|"></div>
 				<hr />
 				<!-- =======================================카드하나=============================================== -->
@@ -183,12 +191,11 @@ html, body {
 					th:each="list : ${list}">
 					<div class="card border">
 						<a th:href="@{/movie/view(m_code=${list.m_code})}"> 
-						
 						<img
 							th:if="${list.m_image_post != null}"
 							th:src="${list.m_image_post}" class="card-img-top" alt="..." />
 							<img th:if="${list.m_image_post == null}"
-							th:src="@{/img/default_poster.png}" class="card-img-top"
+							th:src="@{/img/noimg.jpg}" class="card-img-top"
 							alt="..." />
 						</a>
 						<div class="card-body">
@@ -196,18 +203,20 @@ html, body {
 							<div class="card-text text-muted small">
 								<span class="M_category" th:if="${list.m_nation_type == 'K'}"
 									th:text="|국내영화|"></span> <span class="M_category"
-									th:if="${list.m_nation_type == 'F'}" th:text="|해외영화|"></span> <div th:each="genreList : ${list.g_name_arr}"><span
-									class="M_category" th:text="${genreList.g_name}"></span>
-							</div>
+									th:if="${list.m_nation_type == 'F'}" th:text="|해외영화|"></span>
+								<div th:each="genreList : ${list.g_name_arr}">
+									<span class="M_category" th:text="${genreList.g_name}"></span>
+								</div>
 
-						</div></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 
 			<div class="row btnDiv">
 				<div class="col text-center">
-					<button class="btn btn-sm btn-outline-secondary mb-5 mt-5" id="loadMore">
+					<button class="btn btn-primary btn-sm mb-5 mt-5" id="loadMore">
 						더보기</button>
 				</div>
 			</div>
@@ -227,13 +236,17 @@ html, body {
 						장재현 신작은 항상 기다려진다. <br />
 						2월 22일 개봉. 
 					</p>
-					<a th:href="@{/movie/view(m_code=35655)}"> 
-					<button class="M_trailer_btn">상세보기</button>
+					<a th:href="@{/movie/view(m_code=35655)}">
+						<button class="M_trailer_btn">상세보기</button>
 					</a>
 				</div>
 			</div>
 		</div>
 
+
+				<div id="btnTop">
+	    	<i class="fa-solid fa-arrow-up"></i>
+	    </div>
 
 		<script>
       $(document).ready(function () {

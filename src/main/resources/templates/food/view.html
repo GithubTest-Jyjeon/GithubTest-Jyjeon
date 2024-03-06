@@ -40,6 +40,10 @@ html, body {
 	overflow-x: hidden;
 }
 
+.R_map {
+	justify-content: center;
+}
+
 /* =======네브바======== */
 .navbar {
 	position: fixed;
@@ -65,7 +69,9 @@ html, body {
 }
 
 .Maintit {
-	margin-bottom: 50px;
+	margin-bottom: 30px;
+	font-size: 20px;
+	font-weight: bold;
 }
 
 .M_poster img {
@@ -153,8 +159,6 @@ html, body {
 	}
 }
 
-
-
 .card-title {
 	font-size: 20px;
 	font-weight: bold;
@@ -171,8 +175,10 @@ html, body {
 		font-size: 10px;
 		margin: 0;
 	}
+	.M_row {
+		top: 50px;
+	}
 }
-
 </style>
 
 		<!-- <div th:text="${foodInfo}" class="mt-5"></div>
@@ -184,13 +190,12 @@ html, body {
 			<div class="row M_row mb-5">
 				<h1 class="Maintit">당신의 취향에 맞는 먹거리를 추천!</h1>
 				<hr />
-				<div class="col-lg-5 col-12 M_poster">
+				<div class="col-lg-4 col-12 M_poster">
 					<img th:src="${foodInfo.f_image}" alt="" class="card-img-top" />
-
-
-
-
 				</div>
+				
+				<div class="col-lg-1 col-12"></div>
+				
 				<div class="col-lg-7 col-12 M_content">
 					<div class="row">
 						<div class="col-12 maintext">
@@ -204,8 +209,7 @@ html, body {
 									<ul class="list-group list-group-flush">
 										<li class="list-group-item"><span class="P_name"
 											th:text="${item.pName}"></span> <span class="F_VOLUME_ARR"
-											th:text="${item.fVolume}"></span> 
-											<a
+											th:text="${item.fVolume}"></span> <a
 											class="d-flex justify-content-center text-decoration-none align-items-center cart border border-0"
 											th:href="@{/product/view(p_seq=${item.pSeq})}"> <span
 												class="material-symbols-outlined">shopping_cart</span>
@@ -236,12 +240,13 @@ html, body {
 								<div class="col">
 									<p class="R_title">유투브 리스트</p>
 									<input type="hidden" id="SEARCH_KEYWORD"
-											th:value="${foodInfo.f_name}" />
+										th:value="${foodInfo.f_name}" />
 									<ul class="list-group list-group-flush youtube">
-										
+
 									</ul>
-									<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                  <script>
+									<script
+										src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+									<script>
                     $(document).ready(function() {
                       var API_KEY = 'AIzaSyBU6VHrt1m0QElge5ihAZQvYSDYq-kirLs'; // 여기에 실제 API 키를 입력하세요.
                       var SEARCH_KEYWORD = $('#SEARCH_KEYWORD').val(); 
@@ -279,7 +284,7 @@ html, body {
                       });
                     });
                   </script>
-									
+
 								</div>
 							</div>
 							<hr />
@@ -417,7 +422,7 @@ html, body {
 				</div>
 			</div>
 
-			
+
 			<script>
 				$(document).ready(function() {
 					$(".card-body").each(function() {

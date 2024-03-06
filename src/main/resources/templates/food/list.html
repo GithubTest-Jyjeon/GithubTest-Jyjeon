@@ -30,8 +30,17 @@
     .R_row,
     .btnDiv {
       position: relative;
-      padding: 0;
+      padding-bottom: 30px
     }
+    
+    .Maintit {
+	margin: 30px 0;
+	font-size: 20px;
+	font-weight: bold;
+}
+    
+    
+    
     .R_category {
       border: 1px solid lightgray;
       padding: 5px;
@@ -76,23 +85,10 @@
       object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채움 */
       aspect-ratio: 4 / 3; /* 이미지의 가로세로 비율을 4:3으로 설정 */
     }
-
-    .R_btn {
-      margin-top: 50px;
-      font-weight: bold;
-      font-size: 20px;
-      width: 200px;
-      height: 50px;
-      border-radius: 10px;
-    }
-    .R_btn:hover {
-      background-color: black;
-      color: white;
-    }
+  
     .btnDiv {
       display: flex;
       justify-content: flex-end;
-      margin-right: 5%;
     }
     @media screen and (max-width: 768px) {
       .btnDiv {
@@ -120,10 +116,10 @@
   
    <div class="container">
       <div class="row R_row">
-        <h1>먹거리를 추천해드려요~~!</h1>
+        <h3 class="Maintit">먹거리를 추천해드려요~~!</h3>
         <hr />
         <!-- =======================================카드하나=============================================== -->
-        <div class="col-6 col-md-6 col-lg-4 col-xl-3 mb-2" th:each="list : ${list}">
+        <div class="col-6 col-md-6 col-lg-4 col-xl-3" th:each="list : ${list}">
           <div class="card border">
             <a th:href="@{/food/view(f_code=${list.f_code})}">
               <img
@@ -170,7 +166,7 @@
 
       <div class="row btnDiv">
         <div class="col text-center">
-          <button class="btn btn-sm btn-outline-secondary mb-5" id="loadMore">
+          <button class="btn btn-primary btn-sm mb-5" id="loadMore">
             더보기
           </button>
         </div>
@@ -193,6 +189,7 @@
           // 추가로 보여줄 카드 수
           var next = visibleCards + 8; // 다음에 보여질 카드 수, 조정 가능
           cards.slice(visibleCards, next).addClass("show");
+          $(".card.show").addClass("mb-2");
           // 모든 카드가 표시된 경우 "더보기" 버튼 숨김
           if (next >= totalCards) {
             $(this).hide();

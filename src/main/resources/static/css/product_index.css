@@ -72,7 +72,7 @@
    min-width: 100px;
 }
 
-.mySwiper .swiper-button-next, .mySwiper .swiper-button-prev {
+.swiper-button-next, .swiper-button-prev {
    color: lightgray;
 }
 

@@ -31,7 +31,7 @@ html, body {
 	position: relative;
 	height: 100%;
 	background-color: white;
-	overflow-x: hidden;
+/* 	overflow-x: hidden; */
 }
     .container {
       display: flex;
@@ -44,6 +44,12 @@ html, body {
 	position: relative;
 	padding: 0;
 }
+.Maintit {
+	margin: 30px 0;
+	font-size: 20px;
+	font-weight: bold;
+}
+
 
 .M_category {
 	border: 1px solid lightgray;
@@ -155,6 +161,7 @@ html, body {
 	background-color: #f67676;
 	color: white;
 	font-weight: bold;
+	margin-bottom:10px;
 }
 
 @media screen and (max-width: 768px) {
@@ -185,7 +192,7 @@ html, body {
     <div class="row R_row">
         <div class="col-12">
             <div class="row">
-                <h1>키워드 추천 공연</h1>
+                <h1 class="Maintit">키워드 추천 공연</h1>
                 <hr />
                 <div th:text="|총 갯수 : ${totalCount}|"></div>
 
@@ -213,7 +220,7 @@ html, body {
 
 			<div class="row btnDiv">
 				<div class="col text-center">
-					<button class="btn btn-sm btn-outline-secondary mb-5" id="loadMore">
+				<button class="btn btn-primary btn-sm mb-5 mt-5" id="loadMore">
 						더보기</button>
 				</div>
 			</div>
@@ -270,7 +277,9 @@ html, body {
 				</div>
 			</div>
 		</div>
-
+					    <div id="btnTop">
+		    	<i class="fa-solid fa-arrow-up"></i>
+		    </div>
 	</div>
 </body>
 </html>

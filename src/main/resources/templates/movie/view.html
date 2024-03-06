@@ -29,23 +29,9 @@ html, body {
 	height: 100%;
 	background-color: #f8f8f8;
 }
-
-/* =======네브바======== */
-.navbar {
-	position: fixed;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	z-index: 99999;
-}
-
-.mainnav {
-	width: 90%;
-}
-
-.navbar-brand {
-	color: #f67676;
-	font-weight: bold;
+.MainCon{
+			position: relative;
+		top:-50px
 }
 
 /* =======포스터======== */
@@ -178,10 +164,6 @@ h3 {
 		font-size: 12px;
 	}
 	
-	.container{
-	position: relative;
-		top:-50px
-	}
 	.Maintit{
 		font-size:23px;
 	}
@@ -192,7 +174,7 @@ h3 {
 
 
 
-		<div class="container">
+		<div class="container MainCon">
 			<!--    <div th:text="${movieInfo}"></div> -->
 			<div class="row M_row">
 				<h1 class="Maintit">당신의 취향에 맞는 영화를 추천!</h1>
@@ -359,7 +341,9 @@ h3 {
 				</div>
 			</div>
 		</div>
-
+				    <div id="btnTop">
+		    	<i class="fa-solid fa-arrow-up"></i>
+		    </div>
 		<script>
       var swiper = new Swiper(".mySwiper", {
         slidesPerView: 5,

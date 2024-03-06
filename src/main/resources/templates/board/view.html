@@ -78,11 +78,13 @@
 								<div class="row h-100">
 									<div class="col-4 h-100">
 										<a th:href="@{/movie/view(m_code=${result.code})}"
-											class="text-dark text-decoration-none"> <img
+											class="text-dark text-decoration-none"> 
+											<img
 											th:if="${result.image != null}" th:src="${result.image}"
 											class="img-fluid rounded-3" />
-											<div th:if="${result.image == null}" th:text="|이미지 없음|"
-												class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
+											<img
+											th:if="${result.image == null}" th:src="@{/img/noimg.jpg}"
+											class="img-fluid rounded-3" />
 										</a>
 									</div>
 									<div class="col-8">
@@ -171,7 +173,7 @@
 				<i class="fa-solid fa-arrow-up"></i>
 			</div>
 
-			<div class="row">
+			<div class="row mb-3">
 				<div class="col d-flex justify-content-center">
 					<a th:href="@{/board/list(page=${page})}" th:text="목록으로"
 						class="btn btn-light"></a>
