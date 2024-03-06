@@ -134,7 +134,11 @@
 											<div th:text="${result.title}" class="fw-bold mb-2"></div>
 											<div class="text-muted small mb-1" th:text="${result.recipe}"></div>
 											<div class="text-muted small">
-												<span th:each="genre : ${genreList}" th:if="${genre.t_code == result.code}" th:text="|${genre.g_name}|" class="btn btn-sm btn-keyword me-1"></span>
+												<span th:each="genre : ${genreList}" 
+      th:if="${genre.t_code == result.code}" 
+      th:text="${#strings.length(genre.g_name) > 100 ? #strings.substring(genre.g_name, 0, 97) + '...' : genre.g_name}" 
+      class="btn btn-sm btn-keyword me-1"></span>
+
 											</div>
 										</div>
 									</div>
