@@ -89,23 +89,18 @@ public class UserController {
 	
 	@GetMapping("/user/myPage")
 	public String myPage(HttpServletRequest request, Model model) {
-//		HttpSession session = request.getSession();
-//		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
-//		
-//		if (userDTO.getU_seq() > 0) {
-//			UserDTO userInfo = dao.getUserInfo(userDTO.getU_seq());
-//			model.addAttribute("userInfo", userInfo);
-//			model.addAttribute("myBoardList", daoBoard.boardList(0, 5, null, ""));
-//			return "/user/myPage";
-//		} else {
-//			return "/user/login";
-//		}
-		int u_seq = 1;
-		UserDTO userInfo = dao.getUserInfo(u_seq);
-		model.addAttribute("userInfo", userInfo);
-		model.addAttribute("myBoardList", daoBoard.boardListForUser(u_seq));
-		model.addAttribute("myOrderList", daoOrder.orderListForUser(u_seq));
-		return "/user/myPage";
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if (userDTO.getU_seq() > 0) {
+			UserDTO userInfo = dao.getUserInfo(userDTO.getU_seq());
+			model.addAttribute("userInfo", userInfo);
+			model.addAttribute("myBoardList", daoBoard.boardListForUser(userDTO.getU_seq()));
+			model.addAttribute("myOrderList", daoOrder.orderListForUser(userDTO.getU_seq()));
+			return "/user/myPage";
+		} else {
+			return "/user/login";
+		}
 	}
 	
 	@GetMapping("/user/myInfoUpdate")

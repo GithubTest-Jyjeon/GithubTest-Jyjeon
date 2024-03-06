@@ -1,6 +1,8 @@
 package com.ex.springboot.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +11,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.ex.springboot.dto.BoardDTO;
 import com.ex.springboot.dto.OrderDTO;
 import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.interfaces.IorderDAO;
+import com.ex.springboot.interfaces.IproductDAO;
 
 @Primary
 @Repository
@@ -50,16 +52,45 @@ public class OrderDAO implements IorderDAO {
 	}
 	
 	@Override
-	public ArrayList<OrderDTO> orderListForUser(int u_seq) {
+	public ArrayList<Map<String, Object>> orderListForUser(int u_seq) {
+		Map<String, Object> map = new HashMap<>();
 		String selectQuery = "SELECT * FROM ( "
                 + "SELECT temp.*, ROWNUM rnum FROM ( "
                 + "SELECT * FROM CG_ORDER ORDER BY O_SEQ DESC"
                 + ") temp "
-                + "WHERE ROWNUM <= 5 "
+                + "WHERE ROWNUM <= 5 AND U_SEQ = "+u_seq
                 + ") WHERE rnum > 0";
-
-		return (ArrayList<OrderDTO>) template.query(selectQuery, new BeanPropertyRowMapper<OrderDTO>(OrderDTO.class));
+		
+		ArrayList<OrderDTO> orderList = (ArrayList<OrderDTO>) template.query(selectQuery, new BeanPropertyRowMapper<OrderDTO>(OrderDTO.class));
+		ArrayList<Map<String, Object>> returnData = new ArrayList<>();
+		
+		int cnt = 0;
+		while(orderList.size() > cnt) {
+			String p_code_arr = orderList.get(cnt).getP_code_arr();
+			StringTokenizer p_code_token = new StringTokenizer(p_code_arr, "|");
+			
+			int productCount = p_code_token.countTokens();
+			
+			map.put("productCount", productCount);
+			
+			String productFirstQuery = "select p_name from cg_product where p_code = '"+p_code_token.nextElement()+"'";
+			String productFirst = template.queryForObject(productFirstQuery, String.class);
+			
+			if(productCount > 1) {
+				map.put("o_title", productFirst+" 외 "+(productCount-1)+" 건 주문");
+			}else {
+				map.put("o_title", productFirst+" 주문");
+			}
+			
+			map.put("orderInfo", orderList.get(cnt));
+			returnData.add(map);
+			
+			cnt++;
+		}
+		System.out.println("rerutnData : "+returnData);
+		return returnData; 
 	}
+
 
 	
 }

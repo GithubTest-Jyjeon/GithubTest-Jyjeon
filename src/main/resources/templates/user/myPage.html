@@ -48,7 +48,7 @@
 						                            <div class="col-12 col-md-10">
 						                                <div class="row h-100">
 						                                    <div class="col-12 col-md-8 d-flex align-items-center"> 
-						                                        <a th:href="@{/board/view(b_seq=${item.b_seq})}" class="fs-5 text-dark text-decoration-none" th:text="${item.b_title}"></a>
+						                                        <a th:href="@{/board/view(b_seq=${item.b_seq}, page=1)}" class="fs-5 text-dark text-decoration-none" th:text="${item.b_title}"></a>
 						                                    </div>
 						                                    <div class="col-12 col-md-4 d-flex align-items-center justify-content-between">
 						                                        <span class="text-muted small">조회수 : <span th:text="${item.b_hit}"></span></span>
@@ -83,15 +83,16 @@
 						                    <li class="list-group-item">
 						                        <div class="row pb-2">
 						                            <div class="col-12 col-md-2">
-						                                <h1 class="display-6 text-primary" th:text="${item.o_seq}"></h1>
+						                                <h1 class="display-6 text-primary" th:text="${item.orderInfo.o_seq}"></h1>
 						                            </div>
 						                            <div class="col-12 col-md-10">
 						                                <div class="row h-100">
 						                                    <div class="col-12 col-md-8 d-flex align-items-center"> 
-						                                        <!-- <a th:href="@{/order/view(o_seq=${item.o_seq})}" class="fs-5 text-dark text-decoration-none" th:text="${order.o_title}"></a> -->
+						                                        <a th:href="@{/order/view(o_seq=${item.orderInfo.o_seq})}" class="fs-5 text-dark text-decoration-none" th:text="${item.o_title}"></a>
 						                                    </div>
 						                                    <div class="col-12 col-md-4 d-flex align-items-center justify-content-between">
-						                                        <span class="text-muted small" th:text="${item.o_reg_date}"></span>
+						                                    	<span class="text-muted small">총 주문건수 <span th:text="${item.productCount}"></span></span>
+						                                        <span class="text-muted small" th:text="${item.orderInfo.o_reg_date}"></span>
 						                                    </div>
 						                                </div>
 						                            </div>
