@@ -37,7 +37,6 @@ public class BoardController {
 		System.out.println(dao.boardList(page, limit, type, word));
 		
 		model.addAttribute("list", dao.boardList(page, limit, type, word));
-		model.addAttribute("query", dao.boardListQuery(page, limit, type, word));
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("startPage", startPage);
@@ -65,10 +64,10 @@ public class BoardController {
 		
 		
 		StringTokenizer code = new StringTokenizer(boardInfo.getB_results(), "|");
-		while(code.hasMoreElements()) {
-			genreList.addAll(dao.genreList(code.nextElement()));
-		}
-		
+		// 수정 필요
+//		while(code.hasMoreElements()) {
+//			genreList.addAll(dao.genreList(code.nextElement()));
+//		}
 		
 		model.addAttribute("boardInfo", boardInfo);
 		model.addAttribute("keywordList", keywordList);

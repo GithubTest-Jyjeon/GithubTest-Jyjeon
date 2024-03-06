@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ex.springboot.SHA256;
 import com.ex.springboot.dto.UserDTO;
+import com.ex.springboot.interfaces.IboardDAO;
+import com.ex.springboot.interfaces.IorderDAO;
 import com.ex.springboot.interfaces.IuserDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,6 +26,12 @@ public class UserController {
 	
 	@Autowired
 	IuserDAO dao;
+	
+	@Autowired
+	IboardDAO daoBoard;
+	
+	@Autowired
+	IorderDAO daoOrder;
 	
 	@GetMapping("/user/join")
 	public String join() {
@@ -81,16 +89,23 @@ public class UserController {
 	
 	@GetMapping("/user/myPage")
 	public String myPage(HttpServletRequest request, Model model) {
-		HttpSession session = request.getSession();
-		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
-		
-		if (userDTO.getU_seq() > 0) {
-			UserDTO userInfo = dao.getUserInfo(userDTO.getU_seq());
-			model.addAttribute("userInfo", userInfo);
-			return "/user/myPage";
-		} else {
-			return "/user/login";
-		}
+//		HttpSession session = request.getSession();
+//		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+//		
+//		if (userDTO.getU_seq() > 0) {
+//			UserDTO userInfo = dao.getUserInfo(userDTO.getU_seq());
+//			model.addAttribute("userInfo", userInfo);
+//			model.addAttribute("myBoardList", daoBoard.boardList(0, 5, null, ""));
+//			return "/user/myPage";
+//		} else {
+//			return "/user/login";
+//		}
+		int u_seq = 1;
+		UserDTO userInfo = dao.getUserInfo(u_seq);
+		model.addAttribute("userInfo", userInfo);
+		model.addAttribute("myBoardList", daoBoard.boardListForUser(u_seq));
+		model.addAttribute("myOrderList", daoOrder.orderListForUser(u_seq));
+		return "/user/myPage";
 	}
 	
 	@GetMapping("/user/myInfoUpdate")
@@ -130,11 +145,6 @@ public class UserController {
 		SHA256 sha256 = new SHA256();
 		u_pw = sha256.encrypt(u_pw);
 		
-		System.out.println("u_seq : "+u_seq);
-		System.out.println("userDTO_compare_seq : "+userDTO_compare.getU_seq());
-		System.out.println("u_pw : "+u_pw);
-		System.out.println("userDTO_compare_pw : "+userDTO_compare.getU_pw());
-		
 		if((u_seq == userDTO_compare.getU_seq()) && u_pw.equals(userDTO_compare.getU_pw())) {
 			int result = dao.deleteUser(u_seq);
 			session.invalidate();
@@ -164,7 +174,6 @@ public class UserController {
 		
 		result = dao.isUserNicknameExist(u_nickname, u_seq);
 		
-		System.out.println("result : "+result);
 		return result;
 	}
 	

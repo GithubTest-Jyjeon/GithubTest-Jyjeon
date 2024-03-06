@@ -1,5 +1,6 @@
 package com.ex.springboot.dao;
 
+import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,12 +9,10 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.ex.springboot.dto.BoardDTO;
+import com.ex.springboot.dto.OrderDTO;
 import com.ex.springboot.dto.ProductDTO;
-import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IorderDAO;
-
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 
 @Primary
 @Repository
@@ -48,6 +47,18 @@ public class OrderDAO implements IorderDAO {
 		template.update(DeleteQuery);
 		
 		return result;
+	}
+	
+	@Override
+	public ArrayList<OrderDTO> orderListForUser(int u_seq) {
+		String selectQuery = "SELECT * FROM ( "
+                + "SELECT temp.*, ROWNUM rnum FROM ( "
+                + "SELECT * FROM CG_ORDER ORDER BY O_SEQ DESC"
+                + ") temp "
+                + "WHERE ROWNUM <= 5 "
+                + ") WHERE rnum > 0";
+
+		return (ArrayList<OrderDTO>) template.query(selectQuery, new BeanPropertyRowMapper<OrderDTO>(OrderDTO.class));
 	}
 
 	

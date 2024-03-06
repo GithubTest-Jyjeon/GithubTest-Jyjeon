@@ -118,7 +118,6 @@ public class BoardDAO implements IboardDAO {
 			}
 		}
 
-		// String selectQuery = "select * from cg_board";
 		String selectQuery = "SELECT * FROM ( "
                 + "SELECT temp.*, ROWNUM rnum FROM ( "
                 + "SELECT * FROM CG_BOARD ORDER BY B_SEQ DESC"
@@ -128,7 +127,18 @@ public class BoardDAO implements IboardDAO {
 
 		return (ArrayList<BoardDTO>) template.query(selectQuery, new Object[] { startRow + limit, startRow },
 				new BeanPropertyRowMapper<BoardDTO>(BoardDTO.class));
-		// return null;
+	}
+	
+	@Override
+	public ArrayList<BoardDTO> boardListForUser(int u_seq) {
+		String selectQuery = "SELECT * FROM ( "
+                + "SELECT temp.*, ROWNUM rnum FROM ( "
+                + "SELECT * FROM CG_BOARD ORDER BY B_SEQ DESC"
+                + ") temp "
+                + "WHERE ROWNUM <= 5 "
+                + ") WHERE rnum > 0";
+
+		return (ArrayList<BoardDTO>) template.query(selectQuery, new BeanPropertyRowMapper<BoardDTO>(BoardDTO.class));
 	}
 
 	@Override
@@ -219,16 +229,9 @@ public class BoardDAO implements IboardDAO {
 	}
 	
 	@Override
-	public ArrayList<GenreDTO> genreList(Object code) {
-		System.out.println(code);
-		String selectQuery = "select m_code as t_code, g_code, g_name from cg_movie_genre where m_code = '"+code+"'";
-		System.out.println(selectQuery);
-		ArrayList<GenreDTO> list = new ArrayList<>();
-		ArrayList<GenreDTO> item = new ArrayList<>();
-		item = (ArrayList<GenreDTO>) template.query(selectQuery, new BeanPropertyRowMapper<GenreDTO>(GenreDTO.class));
-		list.addAll(item);
-		System.out.println(list);
-		return list;
+	public ArrayList<GenreDTO> genreList(Object r_seq) {
+		// 수정 필요
+		return null;
 	}
 
 	@Override
