@@ -1,164 +1,183 @@
 <!DOCTYPE html>
-<html
-	lang="ko"
-	xmlns:th="http://www.thymeleaf.org"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}">
-	
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
-	
-	<body>
-		<div layout:fragment="content">
-			<div class="container py-5">
-				<div class="row mb-3">
-					<div class="col">
-						<a th:href="@{/board/list(page=${page})}" class="btn btn-light text-secondary">
-							<i class="fa-solid fa-angle-left me-2"></i> 목록으로
-						</a>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-12">
-						<h1 th:text="${boardInfo.b_title}" class="display-6"></h1>
-					</div>
-					<hr />
-				</div>
-				<div class="row">
-					<div class="col-6">
-						<p>
-							<i class="fa fa-user me-3"></i> 
-							<span th:text="${boardInfo.u_nickname}" class="fs-3"></span>
-						</p>
-					</div>
-					<div class="col-6 text-end">
-						<p>
-							<i class="fa fa-eye me-3"></i> 
-							<span th:text="${boardInfo.b_hit}" class="fs-3"></span>
-						</p>
-					</div>
-					<hr />
-				</div>
-				
-				<div class="row">
-					<div class="col-12">
-						<p>
-							<i class="fa-solid fa-pen me-3"></i>
-							<span th:text="${boardInfo.b_upd_date}" class="text-muted small text-right"></span>
-							<div th:text="${boardInfo.b_content}"></div>
-						</p>
-					</div>
-					<div class="col-12">
-					</div>
-					<hr />
-				</div>
-				
-				<div class="row">
-					<div class="col-12">
-						<p>
-							<span class="fw-bold" th:text="${boardInfo.u_nickname}"></span> 님이
-						    <span class="fw-bold" th:text="${boardInfo.b_category}"></span>
-							테마에서 선택 한 키워드에요
-						</p>
-						<p>
-							<span th:each="keyword : ${keywordList}" th:text="${keyword.k_word}" class="btn btn-sm btn-keyword me-1" ></span>
-						</p>
-					</div>
-					<hr />
-					
-					<div class="col-12">
-						<p>
-							키워드 조합 결과는 !?
-						</p>
-						
-						<th:block th:switch="${boardInfo.b_category}">
-							<div th:case="영화" class="row mb-3">
-								<div class="col-12 col-md-6 col-xl-4 mb-2" th:each="result : ${resultList}">
-									<div class="row h-100">
-										<div class="col-4 h-100">
-											<a th:href="@{/movie/view(m_code=${result.code})}" class="text-dark text-decoration-none">
-												<img th:if="${result.image != null}" th:src="${result.image}" class="img-fluid rounded-3" />
-												<div th:if="${result.image == null}" th:text="|이미지 없음|" class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
-											</a>
-										</div>
-										<div class="col-8">
-											<div th:text="${result.title}" class="fw-bold mb-2"></div>
-											<div class="text-muted small mb-1">
-												<span th:text="|${result.time}분|"></span> | 
-												<span th:text="|${result.nation}|"></span> | 
-												<span th:text="|${result.year}년 개봉|"></span>
-											</div>
-											<div class="text-muted small">
-												<span th:each="genre : ${genreList}" th:if="${genre.t_code == result.code}" th:text="|${genre.g_name}|" class="btn btn-sm btn-keyword me-1"></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div th:case="공연" class="row mb-3">
-								<div class="col-12 col-md-6 col-xl-4 mb-2" th:each="result : ${resultList}">
-									<div class="row h-100">
-										<div class="col-4 h-100">
-											<a th:href="@{/show/view(s_code=${result.code})}" class="text-dark text-decoration-none">
-												<img th:if="${result.image != null}" th:src="${result.image}" class="img-fluid rounded-3" />
-												<div th:if="${result.image == null}" th:text="|이미지 없음|" class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
-											</a>
-										</div>
-										<div class="col-8">
-											<div th:text="${result.title}" class="fw-bold mb-2"></div>
-											<div class="text-muted small mb-1">
-												<span th:text="|${result.date_s} ~ ${result.date_e}|"></span> |
-												<span th:text="|${result.region}|"></span>
-											</div>
-											<div class="text-muted small">
-												<span th:each="genre : ${genreList}" th:if="${genre.t_code == result.code}" th:text="|${genre.g_name}|" class="btn btn-sm btn-keyword me-1"></span>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							
-							<div th:case="음식" class="row mb-3">
-								<div class="col-12 col-md-6 col-xl-4 mb-2" th:each="result : ${resultList}">
-									<div class="row h-100">
-										<div class="col-4 h-100">
-											<a th:href="@{/food/view(f_code=${result.code})}" class="text-dark text-decoration-none">
-												<img th:if="${result.image != null}" th:src="${result.image}" class="img-fluid rounded-3" />
-												<div th:if="${result.image == null}" th:text="|이미지 없음|" class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
-											</a>
-										</div>
-										<div class="col-8">
-											<div th:text="${result.title}" class="fw-bold mb-2"></div>
-											<div class="text-muted small mb-1" th:text="${result.recipe}"></div>
-											<div class="text-muted small">
-												<span th:each="genre : ${genreList}" 
-      th:if="${genre.t_code == result.code}" 
-      th:text="${#strings.length(genre.g_name) > 100 ? #strings.substring(genre.g_name, 0, 97) + '...' : genre.g_name}" 
-      class="btn btn-sm btn-keyword me-1"></span>
 
-											</div>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<div layout:fragment="content">
+		<div class="container py-5">
+			<div class="row mb-3">
+				<div class="col">
+					<a th:href="@{/board/list(page=${page})}"
+						class="btn btn-light text-secondary"> <i
+						class="fa-solid fa-angle-left me-2"></i> 목록으로
+					</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-12">
+					<h1 th:text="${boardInfo.b_title}" class="display-6"></h1>
+				</div>
+				<hr />
+			</div>
+			<div class="row">
+				<div class="col-6">
+					<p>
+						<i class="fa fa-user me-3"></i> <span
+							th:text="${boardInfo.u_nickname}" class="fs-3"></span>
+					</p>
+				</div>
+				<div class="col-6 text-end">
+					<p>
+						<i class="fa fa-eye me-3"></i> <span th:text="${boardInfo.b_hit}"
+							class="fs-3"></span>
+					</p>
+				</div>
+				<hr />
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<p>
+						<i class="fa-solid fa-pen me-3"></i> <span
+							th:text="${boardInfo.b_upd_date}"
+							class="text-muted small text-right"></span>
+					<div th:text="${boardInfo.b_content}"></div>
+					</p>
+				</div>
+				<div class="col-12"></div>
+				<hr />
+			</div>
+
+			<div class="row">
+				<div class="col-12">
+					<p>
+						<span class="fw-bold" th:text="${boardInfo.u_nickname}"></span> 님이
+						<span class="fw-bold" th:text="${boardInfo.b_category}"></span>
+						테마에서 선택 한 키워드에요
+					</p>
+					<p>
+						<span th:each="keyword : ${keywordList}"
+							th:text="${keyword.k_word}" class="btn btn-sm btn-keyword me-1"></span>
+					</p>
+				</div>
+				<hr />
+
+				<div class="col-12">
+					<p>키워드 조합 결과는 !?</p>
+
+					<th:block th:switch="${boardInfo.b_category}">
+						<div th:case="영화" class="row mb-3">
+							<div class="col-12 col-md-6 col-xl-4 mb-2"
+								th:each="result : ${resultList}">
+								<div class="row h-100">
+									<div class="col-4 h-100">
+										<a th:href="@{/movie/view(m_code=${result.code})}"
+											class="text-dark text-decoration-none"> <img
+											th:if="${result.image != null}" th:src="${result.image}"
+											class="img-fluid rounded-3" />
+											<div th:if="${result.image == null}" th:text="|이미지 없음|"
+												class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
+										</a>
+									</div>
+									<div class="col-8">
+										<div th:text="${result.title}" class="fw-bold mb-2"></div>
+										<div class="text-muted small mb-1">
+											<span th:text="|${result.time}분|"></span> | <span
+												th:text="|${result.nation}|"></span> | <span
+												th:text="|${result.year}년 개봉|"></span>
+										</div>
+										<div class="text-muted small">
+											<span th:each="genre : ${genreList}"
+												th:if="${genre.t_code == result.code}"
+												th:text="|${genre.g_name}|"
+												class="btn btn-sm btn-keyword me-1"></span>
 										</div>
 									</div>
 								</div>
 							</div>
-						</th:block>
-					</div>
-					<hr />
+						</div>
+
+						<div th:case="공연" class="row mb-3">
+							<div class="col-12 col-md-6 col-xl-4 mb-2"
+								th:each="result : ${resultList}">
+								<div class="row h-100">
+									<div class="col-4 h-100">
+										<a th:href="@{/show/view(s_code=${result.code})}"
+											class="text-dark text-decoration-none"> <img
+											th:if="${result.image != null}" th:src="${result.image}"
+											class="img-fluid rounded-3" />
+											<div th:if="${result.image == null}" th:text="|이미지 없음|"
+												class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
+										</a>
+									</div>
+									<div class="col-8">
+										<div th:text="${result.title}" class="fw-bold mb-2"></div>
+										<div class="text-muted small mb-1">
+											<span th:text="|${result.date_s} ~ ${result.date_e}|"></span>
+											| <span th:text="|${result.region}|"></span>
+										</div>
+										<div class="text-muted small">
+											<span th:each="genre : ${genreList}"
+												th:if="${genre.t_code == result.code}"
+												th:text="|${genre.g_name}|"
+												class="btn btn-sm btn-keyword me-1"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div th:case="음식" class="row mb-3">
+							<div class="col-12 col-md-6 col-xl-4 mb-2"
+								th:each="result : ${resultList}">
+								<div class="row h-100">
+									<div class="col-4 h-100">
+										<a th:href="@{/food/view(f_code=${result.code})}"
+											class="text-dark text-decoration-none"> <img
+											th:if="${result.image != null}" th:src="${result.image}"
+											class="img-fluid rounded-3" />
+											<div th:if="${result.image == null}" th:text="|이미지 없음|"
+												class="small text-secondary h-100 bg-light d-flex justify-content-center align-items-center rounded-3"></div>
+										</a>
+									</div>
+									<div class="col-8">
+										<div th:text="${result.title}" class="fw-bold mb-2"></div>
+										<!-- <div class="text-muted small mb-1" th:text="${result.recipe}"></div> -->
+										<div class="text-muted small mb-1"
+											th:text="${result.recipe != null ? (#strings.length(result.recipe) > 80 ? #strings.substring(result.recipe, 0, 77) + '...' : result.recipe) : ''}">
+										</div>
+										<div class="text-muted small">
+											<span th:each="genre : ${genreList}"
+												th:if="${genre.t_code == result.code}"
+												th:text="|${genre.g_name}|"
+												class="btn btn-sm btn-keyword me-1"></span>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</th:block>
 				</div>
-				
-				<div id="btnTop">
-			    	<i class="fa-solid fa-arrow-up"></i>
-			    </div>
-				
-				<div class="row">
-					<div class="col d-flex justify-content-center">
-						<a th:href="@{/board/list(page=${page})}" th:text="목록으로" class="btn btn-light"></a>
-					</div>
+				<hr />
+			</div>
+
+			<div id="btnTop">
+				<i class="fa-solid fa-arrow-up"></i>
+			</div>
+
+			<div class="row">
+				<div class="col d-flex justify-content-center">
+					<a th:href="@{/board/list(page=${page})}" th:text="목록으로"
+						class="btn btn-light"></a>
 				</div>
 			</div>
 		</div>
-	</body>
+	</div>
+</body>
 </html>
