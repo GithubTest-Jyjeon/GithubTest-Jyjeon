@@ -122,7 +122,7 @@ public class BoardDAO implements IboardDAO {
                 + "SELECT temp.*, ROWNUM rnum FROM ( "
                 + "SELECT * FROM CG_BOARD ORDER BY B_SEQ DESC"
                 + ") temp "
-                + "WHERE ROWNUM <= ? "+searchQuery
+                + "WHERE ROWNUM <= ? and b_share_yn = 'Y' "+searchQuery
                 + ") WHERE rnum > ?";
 
 		return (ArrayList<BoardDTO>) template.query(selectQuery, new Object[] { startRow + limit, startRow },
@@ -236,7 +236,7 @@ public class BoardDAO implements IboardDAO {
 
 	@Override
 	public int boardTotal(String type, String word) {
-		String query = "select count(*) from CG_BOARD";
+		String query = "select count(*) from CG_BOARD where b_share_yn = 'Y'";
 		if (word.length() > 0) {
 			switch (type) {
 			case "title":
@@ -251,6 +251,13 @@ public class BoardDAO implements IboardDAO {
 			}
 		}
 		return template.queryForObject(query, Integer.class);
+	}
+	
+	@Override
+	public void boardUpdateShare(int b_seq, String b_share_yn) {
+		String updateQuery = "update cg_board set b_share_yn = '"+b_share_yn+"' where b_seq = "+b_seq;
+		System.out.println(updateQuery);
+		template.update(updateQuery);
 	}
 
 }

@@ -1,9 +1,6 @@
 package com.ex.springboot.controller.movie;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ex.springboot.dto.MovieDTO;
-import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.dto.UserDTO;
+import com.ex.springboot.interfaces.IboardDAO;
 import com.ex.springboot.interfaces.ImovieDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,6 +24,9 @@ public class MovieController {
 
 	@Autowired
 	ImovieDAO dao;
+	
+	@Autowired
+	IboardDAO daoBoard;
 	
 	@GetMapping("/movie/list")
 	public String movieList(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value = "b_seq") int b_seq, Model model, HttpServletRequest request) {
@@ -56,6 +56,7 @@ public class MovieController {
 			model.addAttribute("page", page);
 			model.addAttribute("limit", limit);
 			model.addAttribute("b_seq", b_seq);
+			model.addAttribute("boardInfo", daoBoard.boardView(b_seq));
 			
 			return "/movie/list";
 		}else {

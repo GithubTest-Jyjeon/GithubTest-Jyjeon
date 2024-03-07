@@ -115,8 +115,13 @@
   </style>
   
    <div class="container">
-      <div class="row R_row">
-        <h3 class="Maintit">먹거리를 추천해드려요~~!</h3>
+      <div class="row">
+      	<h1 class="Maintit">키워드 추천 음식</h1>
+        <p class="text-end mb-2">
+        	<input type="hidden" id="b_seq" th:value="${boardInfo.b_seq}">
+			<button type="button" class="btn btn-sm btn-secondary" th:if="${boardInfo.b_share_yn == 'N'}" id="b_share_y">공유하기</button>
+			<button type="button" class="btn btn-sm btn-primary" th:if="${boardInfo.b_share_yn == 'Y'}" id="b_share_n">공유취소</button>
+		</p>
         <hr />
         <!-- =======================================카드하나=============================================== -->
         <div class="col-6 col-md-6 col-lg-4 col-xl-3" th:each="list : ${list}">
@@ -200,6 +205,30 @@
         if (totalCards <= initialCards) {
           $("#loadMore").hide();
         }
+        
+        let b_seq = $("#b_seq").val();
+    	
+    	$("#b_share_y").on("click", function(){
+    		$.ajax({
+    			url : "/board/updateShare",
+    			data : {"b_seq" : b_seq, "b_share_yn" : 'Y'},
+    			type : "post",
+    			success : function(){
+    				$(location).prop("href", location.href);
+    			}
+    		})
+    	})
+    	
+    	$("#b_share_n").on("click", function(){
+    		$.ajax({
+    			url : "/board/updateShare",
+    			data : {"b_seq" : b_seq, "b_share_yn" : 'N'},
+    			type : "post",
+    			success : function(){
+    				$(location).prop("href", location.href);
+    			}
+    		})
+    	})
       });
     </script>
 			

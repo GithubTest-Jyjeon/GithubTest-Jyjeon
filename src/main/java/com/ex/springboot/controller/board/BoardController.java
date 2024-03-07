@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ex.springboot.dto.BoardDTO;
 import com.ex.springboot.dto.GenreDTO;
@@ -76,6 +77,12 @@ public class BoardController {
 //		model.addAttribute("genreList", genreList);
 		
 		return "board/view";
+	}
+	
+	@RequestMapping("/board/updateShare")
+	public @ResponseBody void BoardUpdateShare(@RequestParam(value="b_seq") int b_seq, @RequestParam(value="b_share_yn") String b_share_yn) {
+		dao.boardUpdateShare(b_seq, b_share_yn);
+		System.out.println("????");
 	}
 	
 }

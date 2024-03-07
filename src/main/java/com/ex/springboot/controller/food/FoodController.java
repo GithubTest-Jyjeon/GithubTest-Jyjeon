@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.dto.UserDTO;
+import com.ex.springboot.interfaces.IboardDAO;
 import com.ex.springboot.interfaces.IfoodDAO;
 import com.ex.springboot.interfaces.IproductDAO;
 
@@ -31,6 +32,9 @@ public class FoodController {
 	
 	@Autowired
 	IproductDAO daoproduct;
+	
+	@Autowired
+	IboardDAO daoBoard;
 	
 	@GetMapping("/food/list")
 	public String foodList(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value = "b_seq") int b_seq, Model model, HttpServletRequest request) {
@@ -58,6 +62,7 @@ public class FoodController {
 			model.addAttribute("page", page);
 			model.addAttribute("limit", limit);
 			model.addAttribute("b_seq", b_seq);
+			model.addAttribute("boardInfo", daoBoard.boardView(b_seq));
 			
 			return "/food/list";
 		}else {

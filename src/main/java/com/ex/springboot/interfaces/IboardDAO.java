@@ -32,4 +32,6 @@ public interface IboardDAO {
 	public ArrayList<KeywordDTO> keywordList(String b_keywords);
 	public ArrayList<ResultDTO> resultList(String b_category, int b_seq);
 	public ArrayList<GenreDTO> genreList(Object code);
+	
+	public void boardUpdateShare(int b_seq, String b_share_yn);
 }

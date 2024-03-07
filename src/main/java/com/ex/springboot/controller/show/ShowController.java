@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.ex.springboot.dto.UserDTO;
+import com.ex.springboot.interfaces.IboardDAO;
 import com.ex.springboot.interfaces.IshowDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +22,9 @@ public class ShowController {
 
 	@Autowired
 	IshowDAO dao;
+	
+	@Autowired
+	IboardDAO daoBoard;
 	
 	@GetMapping("/show/list")
 	public String showList(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value = "b_seq") int b_seq, Model model, HttpServletRequest request) {
@@ -47,6 +51,7 @@ public class ShowController {
 			model.addAttribute("page", page);
 			model.addAttribute("limit", limit);
 			model.addAttribute("b_seq", b_seq);
+			model.addAttribute("boardInfo", daoBoard.boardView(b_seq));
 			
 			return "/show/list";
 		}else {
