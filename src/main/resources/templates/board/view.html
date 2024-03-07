@@ -21,7 +21,10 @@
 			</div>
 			<div class="row">
 				<div class="col-12">
-					<h1 th:text="${boardInfo.b_title}" class="display-6"></h1>
+					<h1 class="display-6">
+						<span th:text="${boardInfo.u_nickname}"></span>
+						<span th:text="${boardInfo.b_title}"></span>
+					</h1>
 				</div>
 				<hr />
 			</div>

@@ -65,6 +65,11 @@ public class UserDAO implements IuserDAO {
     }
 	
 	@Override
+	public void nicknameChange(int u_seq, String u_nickname) {
+		String updateQuery = "update cg_board set u_nickname = '"+u_nickname+"' where u_seq = "+u_seq;
+	}
+	
+	@Override
 	public UserDTO getUserInfo(int u_seq) {
 		String selectQuery = "select * from cg_user where u_seq = "+u_seq;
 		

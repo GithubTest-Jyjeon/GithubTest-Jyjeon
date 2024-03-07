@@ -5,6 +5,10 @@
 $( function(){
 	console.log("myInfoUpdate.js load");
 	
+	if($("#msg").val() != null){
+		$("#msgModal").modal("show");
+	}
+	
 	let existCheckNickname = false;
 	
 	let pwRegex = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*\W)(?=\S+$).{8,16}$/;
@@ -139,21 +143,7 @@ $( function(){
 		updateParams.u_address_detail = u_address_detail.val();
 		updateParams.u_address_extra = u_address_extra.val();
 		
-		$.ajax({
-			url : "/user/myInfoUpdateProcess",
-			data : updateParams,
-			type : "post",
-			success : function(returnData){
-				if(returnData){
-					console.log("if : "+returnData);
-				}else{
-					console.log("else : "+returnData);
-				}
-			},
-			error : function(error){
-				console.log(error);
-			}
-		})
+		$("#frmUserInfoUpdate").on("submit");
 	})
 	
 	

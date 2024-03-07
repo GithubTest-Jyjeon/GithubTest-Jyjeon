@@ -25,10 +25,10 @@
 									<div class="col-12 col-md-10">
 										<div class="row h-100">
 											<div class="col-12 col-md-8 d-flex align-items-center">
-												<a
-													th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}"
-													class="fs-5 text-dark text-decoration-none"
-													th:text="${dto.b_title}"></a>
+												<a th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}" class="fs-5 text-dark text-decoration-none">
+													<span th:text="${dto.u_nickname}"></span>
+													<span th:text="${dto.b_title}"></span>
+												</a>
 											</div>
 											<div
 												class="col-12 col-md-4 d-flex align-items-center justify-content-between">

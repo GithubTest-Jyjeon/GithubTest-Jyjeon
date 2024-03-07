@@ -12,12 +12,17 @@
 
 <body>
 <div layout:fragment="content" class="content content1">
-    <div class="container d-flex justify-content-center align-items-center my-5">
-        <div class="row">
-        	<div class="col-md">
-        		<form th:action="@{/user/myInfoUpdate}" method="get">
-        			<input type="submit" class="btn btn-secondary" value="회원정보 수정" />
-        		</form>
+    <div class="container my-5">
+        <div class="row pb-4">
+        	<div class="col-12">
+        		<p class="fs-2"><span th:text="${userInfo.u_nickname}"></span> <span class="fs-6">님의 마이페이지</span></p>
+        	</div>
+        	<div class="col-12 col-md-6">
+        		<p class="text-muted small">최근 로그인 : <span th:text="${userInfo.u_log_date}"></span></p>
+        	</div>
+        	<div class="col-12 col-md-6 text-end">
+        		<a th:href="@{/user/myInfoUpdate}" class="btn btn-secondary">내 정보 수정</a>
+        		<a th:href="@{/cart/list}" class="btn btn-primary">장바구니</a>
         	</div>
         </div>
     </div>
@@ -27,16 +32,21 @@
     <div th:text="${myOrderList}"></div> 
     -->
     
-    <div class="container py-5">
+    <div class="container">
     	<div class="row">
-    		<div class="col">
+    		<div class="col-12 col-lg-6 mb-4">
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item">
 						<h2 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">나의 공유 이력</button>
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">나의 공유 이력</button>
 						</h2>
-						<div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+						<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#accordionExample">
 							<div class="accordion-body">
+								<div class="row" th:if="${#lists.size(myBoardList) == 0}">
+									<div class="col text-center">
+										<span class="text-muted small">공유 이력이 없습니다.</span>
+									</div>
+								</div>
 								<div class="row" th:each="item : ${myBoardList}">
 						            <div class="col">
 						                <ul class="list-group list-group-flush">
@@ -66,17 +76,20 @@
 					</div>
 				</div>
     		</div>
-    	</div>
     	
-    	<div class="row">
-    		<div class="col">
+    		<div class="col-12 col-lg-6 mb-4">
 				<div class="accordion" id="accordionExample2">
 					<div class="accordion-item">
 						<h2 class="accordion-header">
-							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">나의 주문 이력</button>
+							<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">나의 주문 이력</button>
 						</h2>
-						<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample2">
+						<div id="collapseTwo" class="accordion-collapse collapse show" data-bs-parent="#accordionExample2">
 							<div class="accordion-body">
+								<div class="row" th:if="${#lists.size(myOrderList) == 0}">
+									<div class="col text-center">
+										<span class="text-muted small">주문 이력이 없습니다.</span>
+									</div>
+								</div>
 								<div class="row" th:each="item : ${myOrderList}">
 						            <div class="col">
 						                <ul class="list-group list-group-flush">

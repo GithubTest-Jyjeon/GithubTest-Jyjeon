@@ -79,7 +79,7 @@ public class KeywordController {
 			case "CG_FOOD" : boardDTO.setB_category("음식"); break;
 		}
 		
-		String b_title = userDTO.getU_nickname()+" 님의 "+boardDTO.getB_category()+" 결과 공유";
+		String b_title = " 님의 "+boardDTO.getB_category()+" 결과 공유";
 		
 		boardDTO.setU_seq(u_seq);
 		boardDTO.setB_title(b_title);

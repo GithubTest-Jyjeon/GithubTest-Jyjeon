@@ -118,17 +118,34 @@ public class UserController {
 	}
 	
 	@PostMapping("/user/myInfoUpdateProcess")
-	public @ResponseBody boolean myInfoUpdateProcess(HttpServletRequest request, UserDTO userDTO, Model model) throws NoSuchAlgorithmException {
+	public String myInfoUpdateProcess(HttpServletRequest request, UserDTO userDTO, Model model) throws NoSuchAlgorithmException {
 		HttpSession session = request.getSession();
 		UserDTO userDTO_compare = (UserDTO) session.getAttribute("userSession");
+		String nickName_before = userDTO_compare.getU_nickname();
 		
 		if (userDTO.getU_seq() != userDTO_compare.getU_seq()) {
 			// 세션에 저장 된 u_seq 값과 전달 받은 u_seq 값이 다를 경우 로그아웃 처리
-			return false;
+			session.invalidate();
+			return "/user/login";
 		}else {
 			SHA256 sha256 = new SHA256();
 			userDTO.setU_pw(sha256.encrypt(userDTO.getU_pw()));
-			return dao.updateUserInfoProcess(userDTO);
+			boolean result = dao.updateUserInfoProcess(userDTO);
+			if(result == true) {
+				session.invalidate();
+				HttpSession session2 = request.getSession();
+				UserDTO newUserDTO = dao.loginProcess(userDTO.getU_id(), userDTO.getU_pw());
+				session2.setAttribute("userSession", newUserDTO);
+				session2.setMaxInactiveInterval(60 * 30);
+				String nickName_after = newUserDTO.getU_nickname();
+				
+				if(!nickName_before.equals(nickName_after)) {
+					dao.nicknameChange(newUserDTO.getU_seq(), nickName_after);
+				}
+				model.addAttribute("msg", "회원정보가 수정 되었습니다");
+				model.addAttribute("userInfo", newUserDTO);
+			}
+			return "/user/myInfoUpdate";
 		}
 	}
 	
