@@ -5,7 +5,7 @@
 $( function(){
 	console.log("myInfoUpdate.js load");
 	
-	if($("#msg").val() != null){
+	if($("#msg").val().length > 0){
 		$("#msgModal").modal("show");
 	}
 	
