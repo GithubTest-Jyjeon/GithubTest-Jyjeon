@@ -40,6 +40,11 @@ html, body {
 	overflow-x: hidden;
 }
 
+/* .MainCon{
+			position: relative;
+			padding-bottom:50px;
+} */
+
 .R_map {
 	justify-content: center;
 }
@@ -186,7 +191,7 @@ html, body {
 		<div th:text="${productInfo}" class="mt-5"></div>
 		<div th:text="${fVolumeList}" class="mt-5"></div>
  -->
-		<div class="container">
+		<div class="container MainCon">
 			<div class="row M_row mb-5">
 				<h1 class="Maintit">당신의 취향에 맞는 먹거리를 추천!</h1>
 				<hr />
@@ -249,7 +254,8 @@ html, body {
 									<script>
                     $(document).ready(function() {
                       var API_KEY = 'AIzaSyBU6VHrt1m0QElge5ihAZQvYSDYq-kirLs'; // 여기에 실제 API 키를 입력하세요.
-                      var SEARCH_KEYWORD = $('#SEARCH_KEYWORD').val(); 
+                      var SEARCH_KEYWORD = '집에서 ' + $('#SEARCH_KEYWORD').val() + ' 만드는 방법';
+
                       var MAX_RESULTS = 4;
                       var YOUTUBE_API_URL = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&type=video&part=snippet&q=${encodeURIComponent(SEARCH_KEYWORD)}&maxResults=${MAX_RESULTS}`;
 
@@ -288,7 +294,7 @@ html, body {
 								</div>
 							</div>
 							<hr />
-							<div class="row R_map">
+							<div class="row R_map mb-5">
 								<p class="R_title">요리하기 귀찮을 땐</p>
 								<p>
 									내 주변 <span class="P_name" th:text="${foodInfo.f_name}"></span>맛집을
