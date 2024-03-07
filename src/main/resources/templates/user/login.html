@@ -30,7 +30,7 @@
 							</div>
 							
 							<div>
-								<input type="submit" class="btn btn-primary w-100 mb-2" value="Login" />
+								<input type="submit" id="btnLogin" class="btn btn-primary w-100 mb-2" value="Login" />
 								<a th:href="@{/user/join}" class="btn btn-light w-100">Join</a>
 							</div>
 							
@@ -42,6 +42,28 @@
 					</div>
 				</div>
 			</div>
+
+			<script>
+				$(function () {
+					let u_id = $("input[name=u_id]");
+
+					$('#frmUserLogin').on('submit', function(e) {
+						if(u_id.val().replace(/^\s*/, "") == null || u_id.val().replace(/^\s*/, "") == ""){
+							alert("아이디를 입력하세요");
+							u_id.addClass("border-danger");
+							u_id.focus();
+							return false;
+						}else{
+							u_id.removeClass("border-danger");
+							u_id.addClass("border-success");
+						}
+					})
+				})
+			</script>
+
+			<script th:if="${param.error}" type="text/javascript">
+				alert("로그인에 실패했습니다. 아이디 및 비밀번호를 확인해주세요.");
+			</script>
 		</div>
 	</body>
 </html>
