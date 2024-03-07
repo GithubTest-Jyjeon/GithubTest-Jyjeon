@@ -54,6 +54,7 @@
 					</p>
 				</div>
 				<div class="col-5 text-end" th:if="${boardInfo.u_seq == session.userSession.u_seq}">
+					<input type="hidden" id="b_seq" th:value="${boardInfo.b_seq}" />
 					<button type="button" class="btn btn-sm btn-secondary" th:if="${boardInfo.b_share_yn == 'N'}" id="b_share_y">공유하기</button>
 					<button type="button" class="btn btn-sm btn-primary" th:if="${boardInfo.b_share_yn == 'Y'}" id="b_share_n">공유취소</button>
 				</div>

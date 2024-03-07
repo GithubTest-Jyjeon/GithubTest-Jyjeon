@@ -14,7 +14,7 @@ $( function(){
 			data : {"b_seq" : b_seq, "b_share_yn" : 'Y'},
 			type : "post",
 			success : function(){
-				window.reload();
+				$(location).prop("href", location.href);
 			}
 		})
 	})
@@ -25,7 +25,7 @@ $( function(){
 			data : {"b_seq" : b_seq, "b_share_yn" : 'N'},
 			type : "post",
 			success : function(){
-				window.reload();
+				$(location).prop("href", location.href);
 			}
 		})
 	})
