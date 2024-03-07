@@ -25,7 +25,8 @@
 			rel="stylesheet" />
 		<link href="https://webfontworld.github.io/ok/OKDdung.css"
 			rel="stylesheet" />
-
+			
+<link href="https://webfontworld.github.io/crown/CrownMychew.css" rel="stylesheet">
 		<style>
 .material-symbols-outlined {
 	font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
@@ -120,8 +121,8 @@ body {
 }
 
 .card-title {
-	font-family: "OKDdung";
-	font-weight: 400;
+	font-family: 'CrownMychew';
+	font-weight: bold;
 	font-style: normal;
 	letter-spacing: 5px;
 	text-align: center;
@@ -138,8 +139,9 @@ h1 span {
 	top: 10px;
 	display: inline-block;
 	animation: bounce 0.3s ease infinite alternate;
-	font-family: "OKDdung";
-	font-size: 9vw;
+	font-family: 'CrownMychew';
+	font-weight: bold;
+	font-size: 13vw;
 	color: #f74b4b;
 	text-shadow: 0 1px 0 #ccc, 0 2px 0 #ccc, 0 3px 0 #ccc, 0 4px 0 #ccc, 0
 		5px 0 #ccc, 0 6px 0 transparent, 0 7px 0 transparent, 0 8px 0
@@ -185,14 +187,17 @@ h1 span:nth-child(8) {
 
 /* 먹거리 제목 */
 .card-title_food {
-	font-size: 9vw;
+	font-size: 13vw;
 	color: #f74b4b;
 	text-shadow: 5px 5px rgb(156, 148, 148);
 }
 /* 볼거리 제목 */
 .card-title_movie {
-	font-size: 9vw;
+	display:flex;
+	flex-direction: column;
+	font-size: 13vw;
 	text-shadow: 5px 5px rgb(156, 148, 148);
+	line-height: 0.8;
 }
 
 .MovieTit {
@@ -204,7 +209,7 @@ h1 span:nth-child(8) {
 }
 /* 살거리 제목 */
 .card-title_shopping {
-	font-size: 6vw;
+	font-size: 11vw;
 	text-shadow: 5px 5px rgb(156, 148, 148);
 	color: rgb(67, 80, 250);
 }
@@ -219,8 +224,9 @@ h1 span:nth-child(8) {
 
 .main::before {
 	content: "";
+	width:100%;
 	background-color: rgb(255, 216, 216);
-	opacity: 0.4;
+	opacity: 0.6;
 	position: absolute;
 	top: 0;
 	bottom: 0;
@@ -230,11 +236,13 @@ h1 span:nth-child(8) {
 }
 
 .main p {
+
 	font-size: 20px;
 	margin-top: 20px;
 	margin-bottom: 30px;
 	font-weight: bold;
 	z-index: 5;
+	color: #263238;
 }
 
 .main a {
@@ -260,7 +268,7 @@ h1 span:nth-child(8) {
 @media screen and (max-width: 992px) {
 	/* 메인 제목 */
 	h1 span, .card-title {
-		font-size: 13vw;
+		font-size: 22vw;
 		white-space: nowrap;
 	}
 	.row {
@@ -271,7 +279,7 @@ h1 span:nth-child(8) {
 		margin-bottom: 10px;
 	}
 	.main p {
-		font-size: 17px;
+		font-size: 15px;
 		margin-bottom: 50px;
 		font-weight: bold;
 	}
@@ -306,7 +314,7 @@ h1 span:nth-child(8) {
 			<div class="row">
 				<div class="col-12 main">
 					<h5 class="card-title card-title_movie">
-						<span class="MovieTit">MOVIE</span><br /> <span class="ShowTit">SHOW</span>
+						<span class="MovieTit">MOVIE</span> <span class="ShowTit">SHOW</span>
 					</h5>
 
 					<p>키워드를 따라 오늘의 볼거리를 추천 해드립니다</p>
