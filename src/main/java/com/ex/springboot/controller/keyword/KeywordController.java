@@ -78,23 +78,19 @@ public class KeywordController {
 			case "CG_SHOW" : boardDTO.setB_category("공연"); break;
 			case "CG_FOOD" : boardDTO.setB_category("음식"); break;
 		}
-		
 		String b_title = " 님의 "+boardDTO.getB_category()+" 결과 공유";
 		
 		boardDTO.setU_seq(u_seq);
 		boardDTO.setB_title(b_title);
 		boardDTO.setB_hit(0);
 		boardDTO.setU_nickname(userDTO.getU_nickname());
-		
 		int b_seq = daoBoard.boardWrite(boardDTO);
-		
 		String url = "";
 		
 		if(b_seq > 0) {
 			
 			boardDTO.setB_seq(b_seq);
 			boardDTO.setU_seq(u_seq);
-			
 			switch(targetTable) {
 				case "CG_MOVIE" :
 					daoResult.makeMovieResult(b_seq, targetTable, genre, nation, year);
@@ -109,7 +105,6 @@ public class KeywordController {
 					url = "/food/list";
 					break;
 			}
-			
 			daoBoard.boardResultUpdate(b_seq);
 		}
 		

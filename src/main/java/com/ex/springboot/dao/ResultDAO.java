@@ -68,7 +68,7 @@ public class ResultDAO implements IresultDAO {
 			// cg_movie_genre
 			leftJoin += "cg_movie_genre on cg_movie_genre.m_code = cg_movie.m_code and (";
 			for(int i = 0; i < cntGenre; i++) {
-				String kGenreCode = template.queryForObject("select k_code from cg_keyword where k_word = '"+arrGenre[i]+"'", String.class);
+				String kGenreCode = template.queryForObject("select k_code from cg_keyword where k_word = '"+arrGenre[i]+"' and category_type = 'M'", String.class);
 				keywords.add(kGenreCode);
 				
 				leftJoin += " cg_movie_genre.g_name = '"+arrGenre[i]+"' ";
@@ -182,7 +182,7 @@ public class ResultDAO implements IresultDAO {
 			// cg_show_genre
 			leftJoin += "cg_show_genre on cg_show_genre.s_code = cg_show.s_code and (";
 			for(int i = 0; i < cntGenre; i++) {
-				String kGenreCode = template.queryForObject("select k_code from cg_keyword where k_word = '"+arrGenre[i]+"'", String.class);
+				String kGenreCode = template.queryForObject("select k_code from cg_keyword where k_word = '"+arrGenre[i]+"' and category_type = 'S'", String.class);
 				keywords.add(kGenreCode);
 				
 				leftJoin += " cg_show_genre.g_name = '"+arrGenre[i]+"' ";
@@ -212,7 +212,6 @@ public class ResultDAO implements IresultDAO {
 			for(int i = 0; i < cntRegion; i++) {
 				String selQuery = "select k_code from cg_keyword where k_word = '"+arrRegion[i]+"'";
 				keywords.add(template.queryForObject(selQuery, String.class));
-				
 				whereRegion += "s_region = '"+arrRegion[i]+"'";
 				if(i != (cntRegion - 1)) {
 					whereRegion += " or ";
@@ -226,7 +225,6 @@ public class ResultDAO implements IresultDAO {
 		selectQuery += whereRegion + whereGenre;
 	
 		selectQuery = selectQuery.replace(")(", ") and (");
-		System.out.println(selectQuery);
 		
 		int count = 0;
 		String b_keywords = "";
@@ -255,10 +253,8 @@ public class ResultDAO implements IresultDAO {
 				
 				b_results = "";
 			}
-			
 			cnt++;
 		}
-		
 		template.update("update cg_board set b_total_count = "+cnt+" where b_seq = "+b_seq);
 		
 		return 0;
