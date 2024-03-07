@@ -27,7 +27,12 @@
 		html, body {
 			position: relative;
 			height: 100%;
+				background-color: #f8f8f8;
 		}
+		.MainCon{
+			position: relative;
+		top:-50px
+}
 
 		/* =======네브바======== */
 		.navbar {
@@ -48,14 +53,15 @@
 		}
 
 		/* =======포스터======== */
-		.M_row, .swp {
+		.M_row{
 			position: relative;
 			top: 100px;
 		}
 
-		.Maintit {
-			margin-bottom: 50px;
-		}
+.Maintit {
+	margin-bottom: 50px;
+	font-weight: bold;
+}
 
 		.M_poster img {
 			width: 100%;
@@ -132,6 +138,7 @@
 			align-items: center;
 			flex-direction: column;
 			border-radius: 10px;
+						background-color: #f8f8f8;
 		}
 
 		.swiper-slide img {
@@ -168,6 +175,7 @@
 			width: 100%;
 			line-height: 20px;
 			margin-top: 10px;
+	
 		}
 
 		.m_title {
@@ -205,7 +213,7 @@
 
 	<!-- <div th:text="${showInfo}"></div> -->
 
-	<div class="container">
+	<div class="container MainCon">
 		<div class="row M_row">
 			<h1 class="Maintit">당신의 취향에 맞는 공연를 추천!</h1>
 			<hr />

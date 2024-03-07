@@ -40,6 +40,11 @@ html, body {
 	overflow-x: hidden;
 }
 
+/* .MainCon{
+			position: relative;
+			padding-bottom:50px;
+} */
+
 .R_map {
 	justify-content: center;
 }
@@ -186,7 +191,7 @@ html, body {
 		<div th:text="${productInfo}" class="mt-5"></div>
 		<div th:text="${fVolumeList}" class="mt-5"></div>
  -->
-		<div class="container">
+		<div class="container MainCon">
 			<div class="row M_row mb-5">
 				<h1 class="Maintit">당신의 취향에 맞는 먹거리를 추천!</h1>
 				<hr />
@@ -288,7 +293,7 @@ html, body {
 								</div>
 							</div>
 							<hr />
-							<div class="row R_map">
+							<div class="row R_map mb-5">
 								<p class="R_title">요리하기 귀찮을 땐</p>
 								<p>
 									내 주변 <span class="P_name" th:text="${foodInfo.f_name}"></span>맛집을

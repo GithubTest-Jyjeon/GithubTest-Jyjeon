@@ -51,7 +51,7 @@
 					<div class="col">
 						<!-- 페이지 네비게이션 -->
 						<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-center">
+							<ul class="pagination pagination-sm justify-content-center">
 								<li th:classappend="${page > 1} ? '' : 'disabled'"><a
 									class="page-link"
 									th:href="@{/board/list(page=${page - 1}, type=${type}, word=${word})}">Prev</a>
