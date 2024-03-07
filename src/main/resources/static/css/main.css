@@ -1,0 +1,143 @@
+
+
+.card {
+	min-height: auto;
+}
+
+.card-text {
+	white-space: nowrap;
+	overflow-x: auto;
+}
+
+.card-text::-webkit-scrollbar {
+	width: 5px; /* 스크롤바의 너비 */
+	height: 3px; /* 수평 스크롤바의 높이 */
+}
+
+.card-text::-webkit-scrollbar-track {
+	background: #f1f1f1; /* 스크롤바 트랙의 배경색 */
+}
+
+.card-text::-webkit-scrollbar-thumb {
+	background: #888; /* 스크롤바 썸의 배경색 */
+}
+
+.card-text::-webkit-scrollbar-thumb:hover {
+	background: #555; /* 스크롤바 썸에 마우스를 올렸을 때의 배경색 */
+}
+
+.card.show {
+	display: block;
+}
+
+.card-title {
+	font-weight: bold;
+}
+
+.card-img-top {
+	width: 100%; /* 이미지를 부모 요소의 가로 폭에 맞춤 */
+	height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
+	object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채움 */
+	aspect-ratio: 4/3; /* 이미지의 가로세로 비율을 4:3으로 설정 */
+}
+
+.R_category {
+	border: 1px solid lightgray;
+	padding: 5px;
+	border-radius: 10px;
+	margin: 2px 2px;
+	display: inline-block;
+}
+
+.MainSwiper .swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.MainSwiper .swiper-slide {
+	text-align: center;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+}
+
+.MainSwiper .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: 500px;
+	object-fit: cover;
+}
+
+.mySwiper {
+	margin-bottom: 50px;
+}
+
+.mySwiper .swiper {
+	width: 80%;
+	height: auto;
+	min-width: 280px;
+	margin-bottom: 100px;
+}
+
+.swp_title {
+	height: 200px;
+	top: 50px;
+	position: relative;
+	background:
+		url(https://lfmono2.cdn-nhncommerce.com/data/skin/front/moment/img/banner/slider_511517418/8a99a7aedf7f5b72ed10f7ce860fa625_21311.gif)
+		no-repeat;
+	background-size: 100%;
+	background-position: center;
+}
+
+.mySwiper .swiper-slide {
+	text-align: center;
+	background: #fff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	border: 1px solid #dcdcdc;
+	padding: 10px;
+	border-radius: 10px;
+	width: 100px;
+}
+
+.mySwiper .swiper-slide img {
+	display: block;
+	width: 100%;
+	height: auto;
+	max-height: 220px;
+	aspect-ratio: 1/1;
+	object-fit: contain;
+	min-width: 100px;
+}
+
+.swiper-button-next, .swiper-button-prev {
+	color: lightgray;
+}
+
+.mainC_Text {
+	position: absolute;
+	left: 300px;
+}
+
+.mainC_Text3 {
+	position: absolute;
+	right: 300px;
+}
+
+.mainC_Text p, .mainC_Text3 p {
+	font-size: 30px;
+}
+
+@media screen and (max-width: 1050px) {
+	.mySwiper .swiper {
+		width: 95%;
+	}
+	.swp_title h3 {
+		margin-left: 2.5%;
+	}
+}
