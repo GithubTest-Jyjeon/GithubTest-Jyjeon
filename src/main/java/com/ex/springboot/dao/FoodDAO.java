@@ -59,4 +59,26 @@ public class FoodDAO implements IfoodDAO {
 	}
 
 	
+	//	=======================================================================
+	//랜덤한 8개의 테이터 출력
+	public List<FoodDTO> getRandomFoods() {
+	    String sql = "SELECT * FROM (SELECT * FROM cg_food ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM <= 8";
+	    return template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
+	}
+
+	   
+	//f_type_theme별 데이터 8개 랜덤 출력
+	public List<FoodDTO> getFoodsByTheme(String theme) {
+	    String sql = "SELECT * FROM (SELECT * FROM cg_food WHERE f_type_theme = ? ORDER BY DBMS_RANDOM.VALUE) WHERE ROWNUM <= 4";
+	    return template.query(sql, new Object[]{theme}, new BeanPropertyRowMapper<FoodDTO>(FoodDTO.class));
+	}
+
+
+
+	//전체 cg_food 출력
+	public List<FoodDTO> getAllFoods() {
+	    String sql = "SELECT * FROM cg_food";
+	    return template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
+	}
+
 }
