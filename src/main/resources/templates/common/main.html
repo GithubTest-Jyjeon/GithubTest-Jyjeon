@@ -16,7 +16,7 @@
 
 		<div class="container py-4">
 			<div class="row">
-				<div class="col-6 mx-auto">
+				<div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
 					<form th:action="@{/food/search}" method="get" name="frmSearch">
 						<input type="hidden" name="p_category" value="" />
 						<div class="input-group mb-2">
@@ -28,7 +28,7 @@
 						</div>
 					</form>
 					<div class="row">
-						<div class="col">
+						<div class="col text-truncate">
 							<a class="mx-2 small text-secondary text-decoration-none" th:each="item : ${randomSearchFoods}" th:text="|#${item.f_name}|" th:href="@{/food/view(f_code=${item.f_code})}">
 							</a>
 						</div>
