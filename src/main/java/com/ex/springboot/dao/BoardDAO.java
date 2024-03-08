@@ -130,12 +130,16 @@ public class BoardDAO implements IboardDAO {
 	}
 	
 	@Override
-	public ArrayList<BoardDTO> boardListForUser(int u_seq) {
+	public ArrayList<BoardDTO> boardListForUser(int u_seq, int limit) {
+		String limitQuery = "";
+		if(limit > 0) {
+			limitQuery = "ROWNUM <= "+limit+" AND";
+		}
 		String selectQuery = "SELECT * FROM ( "
                 + "SELECT temp.*, ROWNUM rnum FROM ( "
                 + "SELECT * FROM CG_BOARD ORDER BY B_SEQ DESC"
                 + ") temp "
-                + "WHERE ROWNUM <= 5 AND U_SEQ = "+u_seq
+                + "WHERE "+limitQuery+" U_SEQ = "+u_seq
                 + ") WHERE rnum > 0";
 
 		return (ArrayList<BoardDTO>) template.query(selectQuery, new BeanPropertyRowMapper<BoardDTO>(BoardDTO.class));

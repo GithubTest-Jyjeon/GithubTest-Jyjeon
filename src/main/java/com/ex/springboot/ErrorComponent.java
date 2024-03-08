@@ -12,9 +12,10 @@ public class ErrorComponent implements WebServerFactoryCustomizer<ConfigurableWe
 	@Override
 	public void customize(ConfigurableWebServerFactory factory) {
 		ErrorPage errorPage404 = new ErrorPage(HttpStatus.NOT_FOUND, "/error/404");
+		ErrorPage errorPage405 = new ErrorPage(HttpStatus.BAD_REQUEST, "/error/405");
 		ErrorPage errorPage500 = new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, "/error/500");
 		
-		factory.addErrorPages(errorPage404, errorPage500);
+		factory.addErrorPages(errorPage404, errorPage405, errorPage500);
 	}
 	
 }

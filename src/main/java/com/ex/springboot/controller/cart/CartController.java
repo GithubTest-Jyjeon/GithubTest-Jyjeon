@@ -32,6 +32,9 @@ public class CartController {
 	@Autowired
 	IuserDAO daoUser;
 	
+	@Autowired
+	IorderDAO daoOrder;
+	
 	@PostMapping("/cart/insertProduct")
 	public @ResponseBody int cartInsertProduct(@RequestParam(value="p_code") String p_code, @RequestParam(value="p_count") int p_count, HttpServletRequest request) {
 		ProductDTO productDTO = new ProductDTO();
@@ -96,6 +99,17 @@ public class CartController {
 	    }
 	    
 	    return result; // 성공적으로 삭제되면 1, 아니면 0 또는 오류 코드 반환
+	}
+	
+	@GetMapping("/cart/history")
+	public String cartHistoryPage(HttpServletRequest request, Model model) {
+		HttpSession session = request.getSession();
+	    UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+	    int u_seq = userDTO.getU_seq();
+	    
+	    model.addAttribute("historyList", daoOrder.orderListForUser(u_seq, 0));
+	    
+		return "/cart/history";
 	}
 	
 }

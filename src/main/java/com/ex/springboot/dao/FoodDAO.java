@@ -111,8 +111,6 @@ public class FoodDAO implements IfoodDAO {
 			String sql2 = "select * from cg_food where f_code = '"+token.nextElement()+"'";
 			list.add(template.queryForObject(sql2, new BeanPropertyRowMapper<>(FoodDTO.class)));
 		}
-		
-		System.out.println(list);
 		return list;
 	}
 

@@ -46,6 +46,7 @@
 			<script>
 				$(function () {
 					let u_id = $("input[name=u_id]");
+					let u_pw = $("input[name=u_pw]");
 
 					$('#frmUserLogin').on('submit', function(e) {
 						if(u_id.val().replace(/^\s*/, "") == null || u_id.val().replace(/^\s*/, "") == ""){
@@ -55,7 +56,15 @@
 							return false;
 						}else{
 							u_id.removeClass("border-danger");
-							u_id.addClass("border-success");
+						}
+						
+						if(u_pw.val().replace(/^\s*/, "") == null || u_pw.val().replace(/^\s*/, "") == ""){
+							alert("패스워드를 입력하세요");
+							u_pw.addClass("border-danger");
+							u_pw.focus();
+							return false;
+						}else{
+							u_pw.removeClass("border-danger");
 						}
 					})
 				})

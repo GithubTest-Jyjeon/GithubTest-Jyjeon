@@ -25,7 +25,7 @@ public interface IboardDAO {
 	public String boardListQuery(int page, int limit, String type, String word);
 	public ArrayList<BoardDTO> boardList(int page, int limit, String type, String word);
 	
-	public ArrayList<BoardDTO> boardListForUser(int u_seq);
+	public ArrayList<BoardDTO> boardListForUser(int u_seq, int limit);
 	
 	public int boardTotal(String type, String word);
 	

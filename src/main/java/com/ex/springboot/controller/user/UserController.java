@@ -95,8 +95,8 @@ public class UserController {
 		if (userDTO.getU_seq() > 0) {
 			UserDTO userInfo = dao.getUserInfo(userDTO.getU_seq());
 			model.addAttribute("userInfo", userInfo);
-			model.addAttribute("myBoardList", daoBoard.boardListForUser(userDTO.getU_seq()));
-			model.addAttribute("myOrderList", daoOrder.orderListForUser(userDTO.getU_seq()));
+			model.addAttribute("myBoardList", daoBoard.boardListForUser(userDTO.getU_seq(), 5));
+			model.addAttribute("myOrderList", daoOrder.orderListForUser(userDTO.getU_seq(), 5));
 			return "/user/myPage";
 		} else {
 			return "redirect:/user/login";
@@ -140,6 +140,7 @@ public class UserController {
 				String nickName_after = newUserDTO.getU_nickname();
 				
 				if(!nickName_before.equals(nickName_after)) {
+					System.out.println(newUserDTO.getU_seq()+","+nickName_after);
 					dao.nicknameChange(newUserDTO.getU_seq(), nickName_after);
 				}
 				model.addAttribute("msg", "회원정보가 수정 되었습니다");

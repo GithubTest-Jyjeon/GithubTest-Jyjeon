@@ -12,8 +12,8 @@
 
 <body>
 <div layout:fragment="content">
-    <div class="container my-5">
-        <div class="row pb-4">
+    <div class="container mt-5 mb-3">
+        <div class="row">
         	<div class="col-12">
         		<p class="fs-2"><span th:text="${userInfo.u_nickname}"></span> <span class="fs-6">님의 마이페이지</span></p>
         	</div>
@@ -34,7 +34,7 @@
     
     <div class="container">
     	<div class="row">
-    		<div class="col-12 col-lg-6 mb-4">
+    		<div class="col-12 col-lg-6 mb-2">
 				<div class="accordion" id="accordionExample">
 					<div class="accordion-item">
 						<h2 class="accordion-header">
@@ -44,7 +44,11 @@
 							<div class="accordion-body">
 								<div class="row" th:if="${#lists.size(myBoardList) == 0}">
 									<div class="col text-center">
-										<span class="text-muted small">공유 이력이 없습니다.</span>
+										<span class="d-block mb-3">공유 이력이 없습니다.</span>
+										<span class="d-block">
+											<a class="btn btn-sm btn-primary" th:href="@{/keyword/choice(type='food')}">먹거리 선택하러 가기</a>
+											<a class="btn btn-sm btn-secondary" th:href="@{/keyword/choice(type='work')}">볼거리 선택하러 가기</a>
+										</span>
 									</div>
 								</div>
 								<div class="row" th:each="item : ${myBoardList}">
@@ -81,7 +85,7 @@
 				</div>
     		</div>
     	
-    		<div class="col-12 col-lg-6 mb-4">
+    		<div class="col-12 col-lg-6 mb-2">
 				<div class="accordion" id="accordionExample2">
 					<div class="accordion-item">
 						<h2 class="accordion-header">
@@ -91,7 +95,10 @@
 							<div class="accordion-body">
 								<div class="row" th:if="${#lists.size(myOrderList) == 0}">
 									<div class="col text-center">
-										<span class="text-muted small">주문 이력이 없습니다.</span>
+										<span class="d-block mb-3">주문 이력이 없습니다.</span>
+										<span class="d-block">
+											<a class="btn btn-sm btn-primary" th:href="@{/product/index}">쇼핑하러 가기</a>
+										</span>
 									</div>
 								</div>
 								<div class="row" th:each="item : ${myOrderList}">

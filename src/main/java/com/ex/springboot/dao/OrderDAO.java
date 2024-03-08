@@ -51,13 +51,16 @@ public class OrderDAO implements IorderDAO {
 	}
 	
 	@Override
-	public ArrayList<Map<String, Object>> orderListForUser(int u_seq) {
-		Map<String, Object> map = new HashMap<>();
+	public ArrayList<Map<String, Object>> orderListForUser(int u_seq, int limit) {
+		String limitQuery = "";
+		if(limit > 0) {
+			limitQuery = "ROWNUM <= "+limit+" AND";
+		}
 		String selectQuery = "SELECT * FROM ( "
                 + "SELECT temp.*, ROWNUM rnum FROM ( "
                 + "SELECT * FROM CG_ORDER ORDER BY O_SEQ DESC"
                 + ") temp "
-                + "WHERE ROWNUM <= 5 AND U_SEQ = "+u_seq
+                + "WHERE "+limitQuery+" U_SEQ = "+u_seq
                 + ") WHERE rnum > 0";
 		
 		ArrayList<OrderDTO> orderList = (ArrayList<OrderDTO>) template.query(selectQuery, new BeanPropertyRowMapper<OrderDTO>(OrderDTO.class));
@@ -65,6 +68,7 @@ public class OrderDAO implements IorderDAO {
 		
 		int cnt = 0;
 		while(orderList.size() > cnt) {
+			Map<String, Object> map = new HashMap<>();
 			String p_code_arr = orderList.get(cnt).getP_code_arr();
 			StringTokenizer p_code_token = new StringTokenizer(p_code_arr, "|");
 			
@@ -73,6 +77,7 @@ public class OrderDAO implements IorderDAO {
 			map.put("productCount", productCount);
 			
 			String productFirstQuery = "select p_name from cg_product where p_code = '"+p_code_token.nextElement()+"'";
+			System.out.println(productFirstQuery);
 			String productFirst = template.queryForObject(productFirstQuery, String.class);
 			
 			if(productCount > 1) {

@@ -9,5 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
 public interface IorderDAO {
     
     public int orderInsertProcess(String p_code_arr, String p_count_arr, int u_seq);
-    public ArrayList<Map<String, Object>> orderListForUser(int u_seq);
+    public ArrayList<Map<String, Object>> orderListForUser(int u_seq, int limit);
 }

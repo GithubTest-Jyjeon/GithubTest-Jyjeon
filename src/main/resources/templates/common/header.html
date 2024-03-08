@@ -140,13 +140,6 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mx-auto mb-2 mb-lg-0 selector">
-					<li class="">
-						<a class="nav-link active highlight" aria-current="page" th:href="@{/}"></a>
-					</li>
-					<li class="nav-item px-3">
-						<a class="nav-link active selector-item logincheck" aria-current="page"
-						th:href="@{/keyword/choice?type=work}">볼거리</a>
-					</li>
 					<li class="nav-item px-3">
 						<a class="nav-link active selector-item logincheck" aria-current="page"
 						th:href="@{/keyword/choice?type=food}">먹거리</a>
@@ -157,6 +150,10 @@
 					</li>
 					<li class="nav-item px-3">
 						<a class="nav-link active selector-item logincheck" aria-current="page"
+						th:href="@{/keyword/choice?type=work}">볼거리</a>
+					</li>
+					<li class="nav-item px-3">
+						<a class="nav-link active selector-item logincheck" aria-current="page"
 						th:href="@{/board/list}">게시판</a>
 					</li>
 				</ul>
@@ -164,11 +161,11 @@
 			<div>
 				<span th:if="${session.userSession == null}" class="px-3">
 					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/user/login}">로그인</a>
+					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/user/join}">회원가입</a>
 				</span>
 				<span th:if="${session.userSession != null}" class="px-3">
 					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/user/logout}">로그아웃</a>
-				</span>
-				<span th:if="${session.userSession != null}">
+					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/cart/list}">장바구니</a>
 					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/user/myPage}">마이페이지</a>
 				</span>
 			</div>
@@ -188,12 +185,6 @@
 					</div>
 					<div class="row py-3">
 						<div class="col-3">
-							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center logincheck" aria-current="page" th:href="@{/keyword/choice?type=work}">
-								<i class="fa-solid fa-video d-block my-2"></i>
-								볼거리
-							</a>
-						</div>
-						<div class="col-3">
 							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center logincheck" aria-current="page" th:href="@{/keyword/choice?type=food}">
 								<i class="fa-solid fa-utensils d-block my-2"></i>
 								먹거리
@@ -206,6 +197,12 @@
 							</a>
 						</div>
 						<div class="col-3">
+							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center logincheck" aria-current="page" th:href="@{/keyword/choice?type=work}">
+								<i class="fa-solid fa-video d-block my-2"></i>
+								볼거리
+							</a>
+						</div>
+						<div class="col-3">
 							<a class="link-dark text-decoration-none bg-white rounded d-block py-2 text-center logincheck" aria-current="page" th:href="@{/board/list}">
 								<i class="fa-regular fa-message d-block my-2"></i>
 								게시판
@@ -213,15 +210,21 @@
 						</div>
 					</div>
 					<div class="row text-center">
-						<div class="col-12 py-2" th:if="${session.userSession == null}">
+						<div class="col-6 py-2" th:if="${session.userSession == null}">
 							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/login}">로그인</a>
 						</div>
+						<div class="col-6 py-2" th:if="${session.userSession == null}">
+							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/join}">회원가입</a>
+						</div>
 						
-						<div class="col-6 py-2" th:if="${session.userSession != null}">
+						<div class="col-4 py-2" th:if="${session.userSession != null}">
+							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/logout}">로그아웃</a>
+						</div>
+						<div class="col-4 py-2" th:if="${session.userSession != null}">
 							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/myPage}">마이페이지</a>
 						</div>
-						<div class="col-6 py-2" th:if="${session.userSession != null}">
-							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/user/logout}">로그아웃</a>
+						<div class="col-4 py-2" th:if="${session.userSession != null}">
+							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/cart/list}">장바구니</a>
 						</div>
 					</div>
 				</div>
