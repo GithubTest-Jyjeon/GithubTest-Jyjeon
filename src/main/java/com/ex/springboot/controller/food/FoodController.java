@@ -113,6 +113,19 @@ public class FoodController {
 	    return "/food/view";
 	}
 	
+	
+	@GetMapping("/food/search")
+	public String foodListForName(@RequestParam(value="f_name") String f_name, Model model){
+		ArrayList<FoodDTO> searchResult = dao.getFoodListForName(f_name);
+		List<FoodDTO> randomSearchFoods = dao.getRandomSearchFoods();
+		
+		model.addAttribute("foodList", searchResult);
+		model.addAttribute("randomSearchFoods", randomSearchFoods);
+		model.addAttribute("f_name", f_name);
+		
+		return "/food/search";
+	}
+	
     
 
 }

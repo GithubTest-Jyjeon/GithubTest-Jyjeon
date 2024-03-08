@@ -1,6 +1,8 @@
 package com.ex.springboot.controller.common;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,16 +39,20 @@ public class CommonController {
 
         // 2. f_type_theme가 k, u, c, j, d인 데이터 랜덤하게 8개씩 따로 출력
         String[] themes = {"K", "U", "C", "J", "D"};
-        for (String theme : themes) {
-            List<FoodDTO> foodsByTheme = foodDao.getFoodsByTheme(theme);
-            // 모델에 테마별로 별도의 속성으로 추가
-            model.addAttribute(theme + "Foods", foodsByTheme);
-        }
+        Random rand = new Random();
+        String randomTheme = themes[rand.nextInt(5)];
+        List<FoodDTO> foodsByTheme = foodDao.getFoodsByTheme(randomTheme);
+        // 모델에 테마별로 별도의 속성으로 추가
+        model.addAttribute("f_type_theme", randomTheme);
+        model.addAttribute("randomThemeFoods", foodsByTheme);
 
         // 3. 전체 cg_food의 정보 출력
         List<FoodDTO> allFoods = foodDao.getAllFoods();
         model.addAttribute("allFoods", allFoods);
-
+        
+        List<FoodDTO> randomSearchFoods = foodDao.getRandomSearchFoods();
+        model.addAttribute("randomSearchFoods", randomSearchFoods);
+        
         return "/common/main";
     }
 

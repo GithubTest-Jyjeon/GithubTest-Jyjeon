@@ -43,10 +43,10 @@
 
 .R_category {
 	border: 1px solid lightgray;
-	padding: 5px;
-	border-radius: 10px;
-	margin: 2px 2px;
+	padding: .25rem .5rem;
+	border-radius: 2rem;
 	display: inline-block;
+	margin-bottom: .5rem;
 }
 
 .MainSwiper .swiper {

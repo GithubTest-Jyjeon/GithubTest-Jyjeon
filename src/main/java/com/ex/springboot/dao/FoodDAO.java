@@ -80,5 +80,19 @@ public class FoodDAO implements IfoodDAO {
 	    String sql = "SELECT * FROM cg_food";
 	    return template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
 	}
+	
+	@Override
+	// 검색창 밑에 보여 줄 완전 랜덤 음식
+	public List<FoodDTO> getRandomSearchFoods() {
+		String sql = "select * from (select f_code, f_name from cg_food order by DBMS_RANDOM.RANDOM) where rownum <= 5";
+		return template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
+	}
+	
+	// 음식명으로 검색
+	@Override
+	public ArrayList<FoodDTO> getFoodListForName(String f_name) {
+		String sql = "select * from cg_food where f_name like '%"+f_name+"%'";
+		return (ArrayList<FoodDTO>) template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
+	}
 
 }
