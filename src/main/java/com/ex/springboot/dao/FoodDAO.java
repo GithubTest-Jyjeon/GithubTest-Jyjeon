@@ -113,5 +113,23 @@ public class FoodDAO implements IfoodDAO {
 		}
 		return list;
 	}
+	
+	@Override
+	public int foodHeartCheck(int f_seq, int u_seq) {
+		String sql = "select count(*) from cg_food_heart where f_seq = "+f_seq+" and u_seq = "+u_seq;
+		return template.queryForObject(sql, Integer.class);
+	}
+	
+	@Override
+	public int foodHeartOn(int f_seq, int u_seq) {
+		String sql = "insert into cg_food_heart(fh_seq, f_seq, u_seq) values (FOODHEART_SEQ.nextval, "+f_seq+", "+u_seq+")";
+		return template.update(sql);
+	}
+	
+	@Override
+	public int foodHeartOff(int f_seq, int u_seq) {
+		String sql = "delete from cg_food_heart where f_seq = "+f_seq+" and u_seq = "+u_seq;
+		return template.update(sql);
+	}
 
 }

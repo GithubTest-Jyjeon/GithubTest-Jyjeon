@@ -19,4 +19,8 @@ public interface IfoodDAO {
 	public List<FoodDTO> getRandomSearchFoods();
 	public FoodSetDTO getRandomFoodSet();
 	public ArrayList<FoodDTO> getFoodListForCode(String f_code_arr);
+	
+	public int foodHeartCheck(int f_seq, int u_seq);
+	public int foodHeartOn(int f_seq, int u_seq);
+	public int foodHeartOff(int f_seq, int u_seq);
 }

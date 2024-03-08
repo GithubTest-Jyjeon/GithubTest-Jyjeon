@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.ProductDTO;
@@ -103,12 +105,7 @@ public class FoodController {
 	    	ingredientList.add(map);
 	    }
 	    
-	    System.out.println(ingredientList);
 	    model.addAttribute("ingredientList", ingredientList);
-	    
-	    
-	    
-	    
 
 	    return "/food/view";
 	}
@@ -126,6 +123,48 @@ public class FoodController {
 		return "/food/search";
 	}
 	
+	
+	@GetMapping("/food/heartCheck")
+	public @ResponseBody int foodHeartCheck(@RequestParam(value="f_seq") int f_seq, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if(userDTO != null) {
+			int u_seq = userDTO.getU_seq();
+			
+			return dao.foodHeartCheck(f_seq, u_seq);
+		}else {
+			return 0;
+		}
+	}
+	
     
+	@PostMapping("/food/heartOn")
+	public @ResponseBody int foodHeartOn(@RequestParam(value="f_seq") int f_seq, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if(userDTO != null) {
+			int u_seq = userDTO.getU_seq();
+		
+			return dao.foodHeartOn(f_seq, u_seq);
+		}else {
+			return 0;
+		}
+	}
+	
+	@PostMapping("/food/heartOff")
+	public @ResponseBody int foodHeartOff(@RequestParam(value="f_seq") int f_seq, HttpServletRequest request){
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if(userDTO != null) {
+			int u_seq = userDTO.getU_seq();
+		
+			return dao.foodHeartOff(f_seq, u_seq);
+		}else {
+			return 0;
+		}
+	}
 
 }
