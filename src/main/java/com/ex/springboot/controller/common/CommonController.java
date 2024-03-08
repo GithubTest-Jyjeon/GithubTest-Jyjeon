@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ex.springboot.dao.FoodDAO;
 import com.ex.springboot.dto.FoodDTO;
+import com.ex.springboot.dto.FoodSetDTO;
 import com.ex.springboot.interfaces.IuserDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,6 +53,12 @@ public class CommonController {
         
         List<FoodDTO> randomSearchFoods = foodDao.getRandomSearchFoods();
         model.addAttribute("randomSearchFoods", randomSearchFoods);
+        
+        FoodSetDTO foodSet = foodDao.getRandomFoodSet();
+        model.addAttribute("foodSetTitle", foodSet.getFs_title());
+        ArrayList<FoodDTO> foodSetList = foodDao.getFoodListForCode(foodSet.getF_code_arr());
+        model.addAttribute("foodSetList", foodSetList);
+        
         
         return "/common/main";
     }

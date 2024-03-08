@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.ex.springboot.dto.FoodDTO;
+import com.ex.springboot.dto.FoodSetDTO;
 import com.ex.springboot.interfaces.IfoodDAO;
 
 @Primary
@@ -93,6 +94,26 @@ public class FoodDAO implements IfoodDAO {
 	public ArrayList<FoodDTO> getFoodListForName(String f_name) {
 		String sql = "select * from cg_food where f_name like '%"+f_name+"%'";
 		return (ArrayList<FoodDTO>) template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
+	}
+	
+	// 음식 세트 검색
+	public FoodSetDTO getRandomFoodSet(){
+		String sql = "select * from (select * from cg_food_set order by DBMS_RANDOM.RANDOM) where rownum = 1";
+		FoodSetDTO fs = template.queryForObject(sql, new BeanPropertyRowMapper<>(FoodSetDTO.class));
+
+		return fs;
+	}
+	
+	public ArrayList<FoodDTO> getFoodListForCode(String f_code_arr){
+		ArrayList<FoodDTO> list = new ArrayList<>();
+		StringTokenizer token = new StringTokenizer(f_code_arr, "|");
+		while(token.hasMoreElements()) {
+			String sql2 = "select * from cg_food where f_code = '"+token.nextElement()+"'";
+			list.add(template.queryForObject(sql2, new BeanPropertyRowMapper<>(FoodDTO.class)));
+		}
+		
+		System.out.println(list);
+		return list;
 	}
 
 }
