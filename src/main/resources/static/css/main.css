@@ -121,16 +121,18 @@
 
 .mainC_Text {
 	position: absolute;
-	left: 300px;
+	top:-120px;
+	left: -300px;
+}
+.mainC_Text h1 {
+		font-size: 55px;
+		font-weight: bold;
+		margin-bottom: 10px;
 }
 
-.mainC_Text3 {
-	position: absolute;
-	right: 300px;
-}
 
 .mainC_Text p, .mainC_Text3 p {
-	font-size: 30px;
+	font-size: 25px;
 }
 
 @media screen and (max-width: 1050px) {
@@ -140,4 +142,25 @@
 	.swp_title h3 {
 		margin-left: 2.5%;
 	}
+	.MainSwiper .swiper-slide img{
+		height:300px;
+	}
+	
+	.mainC_Text {
+	position: absolute;
+	top:-90px;
+	left:0;
+
+}
+.mainC_Text h1 {
+		font-size: 35px;
+		font-weight: bold;
+		margin-bottom: 10px;
+}
+
+
+.mainC_Text p, .mainC_Text3 p {
+	font-size: 15px;
+}
+	
 }
