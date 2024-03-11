@@ -31,12 +31,19 @@ public class ReplyDAO implements IreplyDAO {
 	
 	@Override
 	public ArrayList<ReplyDTO> getReplyList(int f_seq) {
-		String sql = "select * from cg_food_reply where fr_del_yn = 'N' and f_seq = "+f_seq;
+		String sql = "select * from cg_food_reply where fr_del_yn = 'N' and f_seq = "+f_seq+" order by fr_seq desc";
 		ArrayList<ReplyDTO> list = (ArrayList<ReplyDTO>) template.query(sql, new BeanPropertyRowMapper<ReplyDTO>(ReplyDTO.class));
 		
 		return list;
 	}
-
-
+	
+	
+	@Override
+	public void replyInsertProcess(int f_seq, int u_seq, String u_nickname, String fr_comment) {
+		String sql = "insert into cg_food_reply (fr_seq, f_seq, u_seq, fr_reg_date, fr_comment, u_nickname, fr_del_yn) values (FOODREPLY_SEQ.nextval, "+f_seq+", "+u_seq+", sysdate, '"+fr_comment+"', '"+u_nickname+"'"
+				+ ", 'N')";
+		System.out.println(sql);
+		template.update(sql);
+	}
 	
 }

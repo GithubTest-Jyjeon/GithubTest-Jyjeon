@@ -187,5 +187,20 @@ public class FoodController {
 	public @ResponseBody int foodReplyCount(@RequestParam(value="f_seq") int f_seq) {
 		return daoReply.getReplyCount(f_seq);
 	}
+	
+	@PostMapping("/food/replyInsert")
+	public @ResponseBody int replyInsertProcess(@RequestParam(value="f_seq") int f_seq, @RequestParam(value="fr_comment") String fr_comment, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if(userDTO != null) {
+			int u_seq = userDTO.getU_seq();
+			String u_nickname = userDTO.getU_nickname();
+			daoReply.replyInsertProcess(f_seq, u_seq, u_nickname, fr_comment);
+			return 1;
+		}else {
+			return 0;
+		}
+	}
 
 }

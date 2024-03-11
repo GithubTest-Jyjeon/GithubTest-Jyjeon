@@ -110,6 +110,27 @@ $( function(){
 		success : function(returnData){
 			$(".f_reply").text(returnData);
 		}
-	  })	
+	  })
 	}
+	
+	$("#btnInsertReply").on("click", function(){
+		
+		let fr_comment = $("#fr_comment").val();
+		if(!fr_comment){
+			alert("댓글 코멘트를 입력해주세요");
+			return false;
+		}else{
+			$.ajax({
+				url : "/food/replyInsert",
+				data : {"f_seq" : f_seq, "fr_comment" : fr_comment},
+				type : "post",
+				success : function(returnData){
+					location.reload();
+				},
+				error : function(error){
+					console.log(error);
+				}
+			})
+		}
+	})
 })

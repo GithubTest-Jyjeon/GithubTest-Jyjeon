@@ -50,13 +50,11 @@
 					</div>
 					<div class="row">
 						<div class="col-12">
-							<div class="text-muted">
-								<p>
-									<i class="fa-solid fa-heart text-primary me-2"></i> 레시피 찜 : <span class="f_heart me-2"></span>
-									<span class="mx-3">|</span>
-									<i class="fa-solid fa-comment text-secondary me-2"></i> 댓글 : <span class="f_reply"></span>
-								</p>
-							</div>
+							<p class="text-center text-muted">
+								<i class="fa-solid fa-heart text-primary me-2"></i> 레시피 찜 : <span class="f_heart"></span>
+								<span class="mx-2"></span>
+								<i class="fa-solid fa-comment text-secondary me-2"></i> 댓글 : <span class="f_reply"></span>
+							</p>
 						</div>
 					</div>
 				</div>
@@ -140,9 +138,15 @@
 						<div class="col-12">
 							<h3 class="fs-5 fw-bold bg-light py-2 px-3 rounded-5 border border-light mb-2">댓글</h3>
 						</div>
-						<div class="col-12">
+						<div class="col-12 mb-3" th:if="${session.userSession != null}">
 							<form method="post">
-								<input type="text" class="form-control">
+								<div class="input-group ">
+									<div class="form-floating">
+										<input type="text" class="form-control rounded-start-5" id="fr_comment" name="fr_comment" placeholder="소중한 댓글을 남겨주세요">
+										<label for="fr_comment">소중한 댓글을 남겨주세요 (100자 미만)</label>
+									</div>
+									<button type="button" class="btn btn-primary rounded-end-5" role="button" id="btnInsertReply">댓글 남기기</button>
+								</div>
 							</form>
 						</div>
 						<div class="col-12">
@@ -161,6 +165,10 @@
 					</div>
 				</div>
 			</div>
+			
+			<div id="btnTop">
+		    	<i class="fa-solid fa-arrow-up"></i>
+		    </div>
 			
 			<script th:src="@{/js/foodView.js}"></script>
 			<script th:src="@{/js/youtube.js}"></script>
