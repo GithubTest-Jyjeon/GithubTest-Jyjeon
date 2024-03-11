@@ -193,6 +193,30 @@ public class UserController {
 		
 		return result;
 	}
-	
-	
+
+	@GetMapping("/user/findId")
+	public String findMyId() {
+		return "/user/findId"; // 찾은 아이디를 보여줄 새로운 페이지나, 모달을 표시할 페이지
+	}
+
+	@PostMapping("/user/findIdProcess")
+	public String findIdProcess(@RequestParam("u_email") String u_email, Model model) {
+		int count = dao.countUserIdByEmail(u_email);
+
+		if (count > 0) {
+			UserDTO userDTO = dao.findUserByEmail(u_email); // UserDTO 객체를 반환받음
+			if(userDTO != null) {
+				String u_id = userDTO.getU_id(); // UserDTO 객체에서 u_id 값을 가져옴
+				model.addAttribute("u_id", u_id); // u_id 값을 모델에 추가
+			} else {
+				// UserDTO 객체가 null인 경우 (즉, 이메일에 해당하는 사용자를 찾을 수 없는 경우)
+				model.addAttribute("errorMessage", "해당 이메일로 등록된 아이디가 없습니다.");
+			}
+		} else {
+			// 사용자를 찾을 수 없는 경우, 에러 메시지를 설정
+			model.addAttribute("errorMessage", "해당 이메일로 등록된 아이디가 없습니다.");
+		}
+
+		return "/user/findId";
+	}
 }

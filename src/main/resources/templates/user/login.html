@@ -8,6 +8,12 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
+
+		<style>
+			a {
+				text-decoration: none;
+			}
+		</style>
 	</head>
 	
 	<body>
@@ -35,7 +41,7 @@
 							</div>
 							
 							<p class="text-muted small text-center my-3">
-								<span class="mx-3" role="button">아이디 찾기</span> /
+								<a class="mx-3" role="button" th:href="@{/user/findId}">아이디 찾기</a> /
 								<span class="mx-3" role="button">비밀번호 찾기</span> 
 							</p>
 						</form>
