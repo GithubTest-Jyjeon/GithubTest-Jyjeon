@@ -69,6 +69,10 @@ public class UserController {
 		if(userDTO != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("userSession", userDTO);
+			
+			if(userDTO.getU_id().equals("admin")) {
+				session.setAttribute("adminSession", userDTO);
+			}
 			session.setMaxInactiveInterval(60 * 30);
 			
 			System.out.println("로그인 성공");

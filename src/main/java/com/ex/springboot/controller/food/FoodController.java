@@ -17,10 +17,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.ProductDTO;
+import com.ex.springboot.dto.ReplyDTO;
 import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IboardDAO;
 import com.ex.springboot.interfaces.IfoodDAO;
+import com.ex.springboot.interfaces.IheartDAO;
 import com.ex.springboot.interfaces.IproductDAO;
+import com.ex.springboot.interfaces.IreplyDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -37,6 +40,12 @@ public class FoodController {
 	
 	@Autowired
 	IboardDAO daoBoard;
+	
+	@Autowired
+	IheartDAO daoHeart;
+	
+	@Autowired
+	IreplyDAO daoReply;
 	
 	@GetMapping("/food/list")
 	public String foodList(@RequestParam(value="page", defaultValue="1") int page, @RequestParam(value = "b_seq") int b_seq, Model model, HttpServletRequest request) {
@@ -82,6 +91,7 @@ public class FoodController {
 	    // Recipe List 로직
 	    ArrayList<String> recipeList = new ArrayList<>();
 	    FoodDTO foodDTO = dao.foodView(f_code);
+	    ArrayList<ReplyDTO> replyList = daoReply.getReplyList(foodDTO.getF_seq());
 	    StringTokenizer token = new StringTokenizer(foodDTO.getF_recipe(), "|");
 	    while(token.hasMoreElements()) {
 	        recipeList.add((String) token.nextElement());
@@ -105,6 +115,7 @@ public class FoodController {
 	    	ingredientList.add(map);
 	    }
 	    
+	    model.addAttribute("replyList", replyList);
 	    model.addAttribute("ingredientList", ingredientList);
 
 	    return "/food/view";
@@ -162,6 +173,31 @@ public class FoodController {
 			int u_seq = userDTO.getU_seq();
 		
 			return dao.foodHeartOff(f_seq, u_seq);
+		}else {
+			return 0;
+		}
+	}
+	
+	@GetMapping("/food/heartCount")
+	public @ResponseBody int foodHeartCount(@RequestParam(value="f_seq") int f_seq) {
+		return daoHeart.getHeartCount(f_seq);
+	}
+	
+	@GetMapping("/food/replyCount")
+	public @ResponseBody int foodReplyCount(@RequestParam(value="f_seq") int f_seq) {
+		return daoReply.getReplyCount(f_seq);
+	}
+	
+	@PostMapping("/food/replyInsert")
+	public @ResponseBody int replyInsertProcess(@RequestParam(value="f_seq") int f_seq, @RequestParam(value="fr_comment") String fr_comment, HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if(userDTO != null) {
+			int u_seq = userDTO.getU_seq();
+			String u_nickname = userDTO.getU_nickname();
+			daoReply.replyInsertProcess(f_seq, u_seq, u_nickname, fr_comment);
+			return 1;
 		}else {
 			return 0;
 		}

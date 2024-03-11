@@ -24,4 +24,28 @@ $( function(){
 		$(window).scrollTop(0);
 	})
 	
-})
+	let cnt = $(".f_seq").length;
+      for(let i = 0; i < cnt; i++){
+		  
+		  let f_seq = $(".f_seq").eq(i).val();
+		  
+		  $.ajax({
+			url : "/food/heartCount",
+			data : {"f_seq" : f_seq},
+			type : "get",
+			success : function(returnData){
+				$(".f_heart").eq(i).text(returnData);
+			}
+		  })
+		  
+		  $.ajax({
+			url : "/food/replyCount",
+			data : {"f_seq" : f_seq},
+			type : "get",
+			success : function(returnData){
+				$(".f_reply").eq(i).text(returnData);
+			}
+		  })
+	  }
+	
+  })
