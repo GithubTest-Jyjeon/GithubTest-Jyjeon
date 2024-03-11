@@ -5,9 +5,11 @@
 $( function(){
 	console.log("foodView.js load");
 	
+	let f_seq = $("#f_seq").val();
+	
 	$.ajax({
 		url : "/food/heartCheck",
-		data : {f_seq : $("#f_seq").val()},
+		data : {f_seq : f_seq},
 		type : "get",
 		success : function(returnData){
 			if(returnData != 0){
@@ -40,7 +42,7 @@ $( function(){
 	$("#btnHeartOn").on("click", function(){
 		
 		let params = {
-			f_seq : $("#f_seq").val(),
+			f_seq : f_seq,
 		}
 		
 		$.ajax({
@@ -53,6 +55,7 @@ $( function(){
 					$("#btnHeartOff").removeClass("d-none");
 					$("#heartMsg").text("레시피를 찜 하였습니다");
 					$("#heartModal").modal("show");
+					getHeartAndReplyCount(f_seq);
 				}else{
 					alert("로그인 하시기 바랍니다.");
 					location.href="/user/login";
@@ -65,7 +68,7 @@ $( function(){
 	$("#btnHeartOff").on("click", function(){
 		
 		let params = {
-			f_seq : $("#f_seq").val(),
+			f_seq : f_seq,
 		}
 		
 		$.ajax({
@@ -78,6 +81,7 @@ $( function(){
 					$("#btnHeartOff").addClass("d-none");
 					$("#heartMsg").text("레시피를 찜 해제 하였습니다");
 					$("#heartModal").modal("show");
+					getHeartAndReplyCount(f_seq);
 				}else{
 					alert("로그인 하시기 바랍니다.");
 					location.href="/user/login";
@@ -85,4 +89,27 @@ $( function(){
 			}
 		})
 	})
+	
+	getHeartAndReplyCount(f_seq);
+	
+	function getHeartAndReplyCount(f_seq){
+		  
+	  $.ajax({
+		url : "/food/heartCount",
+		data : {"f_seq" : f_seq},
+		type : "get",
+		success : function(returnData){
+			$(".f_heart").text(returnData);
+		}
+	  })
+	  
+	  $.ajax({
+		url : "/food/replyCount",
+		data : {"f_seq" : f_seq},
+		type : "get",
+		success : function(returnData){
+			$(".f_reply").text(returnData);
+		}
+	  })	
+	}
 })

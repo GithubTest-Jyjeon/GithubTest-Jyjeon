@@ -92,7 +92,7 @@ public class FoodDAO implements IfoodDAO {
 	// 음식명으로 검색
 	@Override
 	public ArrayList<FoodDTO> getFoodListForName(String f_name) {
-		String sql = "select * from cg_food where f_name like '%"+f_name+"%'";
+		String sql = "select * from cg_food where f_name like '%"+f_name+"%' order by f_name asc";
 		return (ArrayList<FoodDTO>) template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
 	}
 	
