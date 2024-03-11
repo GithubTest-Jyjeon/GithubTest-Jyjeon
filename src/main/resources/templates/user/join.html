@@ -12,19 +12,15 @@
 	
 	<body>
 		<div layout:fragment="content">
+
+					
 			<div class="container d-flex justify-content-center align-items-center my-5">
 				<div class="row justify-content-center">
-					
 					<div class="col-md">
-						<div class="d-flex justify-content-center align-items-center mt-5 mb-3">
-							<div class="text-center">
-								<h1 class="display-6">환영합니다!</h1>
-								<p>회원가입을 진행해주세요!</p>
-							</div>
-						</div>
+						<h1 class="display-5 text-center mb-5">회원가입</h1>
 						<form th:action=@{/user/joinProcess} method="post" id="frmUserJoin">
 							<div class="row">
-								<div class="col-lg-6 mt-4">
+								<div class="col-lg-6">
 									<div class="input-group mb-2">
 										<div class="form-floating">
 											<input type="text" class="form-control" id="u_id" name="u_id" placeholder="아이디">
@@ -32,7 +28,7 @@
 										</div>
 										<span class="input-group-text bg-light" role="button" id="btnIdExistCheck">중복확인</span>
 									</div>
-
+		
 									<div class="form-floating mb-2">
 										<input type="password" class="form-control" id="u_pw" name="u_pw" placeholder="패스워드">
 										<label for="u_pw">패스워드</label>
@@ -59,49 +55,54 @@
 										</div>
 									</div>
 								</div>
-
+		
 								<div class="col-lg-6">
-
-									<div class="form-floating mb-2">
-										<input type="date" class="form-control" id="u_birth" name="u_birth" placeholder="생일" max="9999-12-31" />
-										<label for="u_birth">생일</label>
+		
+									<div class="row">
+										<div class="col-7">
+											<div class="form-floating mb-2">
+												<input type="date" class="form-control" id="u_birth" name="u_birth" placeholder="생일" max="9999-12-31" />
+												<label for="u_birth">생일</label>
+											</div>
+										</div>
+										<div class="col-5 d-flex align-items-center">
+											<div class="form-check form-check-inline">
+												<input type="radio" class="form-check-input" name="u_gender" id="u_gender_m" value="남" />
+												<label class="form-check-label" for="u_gender_m">남</label>
+											</div>
+											<div class="form-check form-check-inline">
+												<input type="radio" class="form-check-input" name="u_gender" id="u_gender_w" value="여" />
+												<label class="form-check-label" for="u_gender_w">여</label>
+											</div>
+										</div>
 									</div>
-
-									<div class="form-check form-check-inline my-3">
-										<input type="radio" class="form-check-input" name="u_gender" id="u_gender_m" value="남">
-										<label class="form-check-label" for="u_gender_m">남자</label>
-									</div>
-									<div class="form-check form-check-inline my-3">
-										<input type="radio" class="form-check-input" name="u_gender" id="u_gender_w" value="여">
-										<label class="form-check-label" for="u_gender_w">여자</label>
-									</div>
-
+		
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_phone" name="u_phone" placeholder="이름">
 										<label for="u_phone">연락처 (- 없이 숫자만 입력)</label>
 									</div>
-
+		
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_postcode" name="u_postcode" placeholder="우편번호">
 										<label for="u_postcode">우편번호</label>
 									</div>
-
-
+		
+		
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_address" name="u_address" placeholder="주소">
 										<label for="u_address">주소</label>
 									</div>
-
+		
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_address_detail" name="u_address_detail" placeholder="상세주소">
 										<label for="u_address_detail">상세주소</label>
 									</div>
-
+		
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_address_extra" name="u_address_extra" placeholder="기타">
 										<label for="u_address_extra">기타</label>
 									</div>
-
+		
 								</div>
 								<div class="d-flex justify-content-center col my-5">
 									<input type="submit" class="btn bg-primary text-white mb-3 me-2" value="회원가입" id="btnJoin" />

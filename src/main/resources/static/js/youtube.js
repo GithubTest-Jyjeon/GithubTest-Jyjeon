@@ -4,7 +4,7 @@
 
 $( function(){
 	console.log("youtube.js load");
-	/*
+	
 	var API_KEY = 'AIzaSyCSlHTD8mqUiU76ca8EIZdFZP4MaJPZHgo'; // 여기에 실제 API 키를 입력하세요.
 	var SEARCH_KEYWORD = '집에서 ' + $('#SEARCH_KEYWORD').val() + ' 만드는 방법';
 	var MAX_RESULTS = 3;
@@ -42,6 +42,6 @@ $( function(){
 			
 		$('.youtube').html(output).trigger("create");
 	});
-	*/
+	
 	
 })
