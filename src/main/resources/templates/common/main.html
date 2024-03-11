@@ -15,31 +15,39 @@
 		<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}" />
 
 		<div class="container py-4">
-			<div class="row">
-				<div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
-					<form th:action="@{/food/search}" method="get" name="frmSearch">
-						<input type="hidden" name="p_category" value="" />
-						<div class="input-group mb-2">
-							<div class="form-floating">
-								<input type="text" class="form-control border-3 border-primary" id="f_name"
-									name="f_name" th:value="${f_name}" placeholder="먹거리를 검색해보세요">
-								<label for="f_name">먹거리를 검색해보세요</label>
-							</div>
-							<input type="submit" class="input-group-text bg-primary border-3 border-primary text-white"
-								role="button" value="검색" />
-						</div>
-					</form>
-					<div class="row">
-						<div class="col text-truncate">
-							<a class="mx-2 small text-secondary text-decoration-none"
-								th:each="item : ${randomSearchFoods}" th:text="|#${item.f_name}|"
-								th:href="@{/food/view(f_code=${item.f_code})}">
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+    <div class="row">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-6 mx-auto">
+            <form th:action="@{/food/search}" method="get" name="frmSearch" onsubmit="return validateForm()">
+                <input type="hidden" name="p_category" value="" />
+                <div class="input-group mb-2">
+                    <div class="form-floating">
+                        <input type="text" class="form-control border-3 border-primary" id="f_name" name="f_name" th:value="${f_name}" placeholder="먹거리를 검색해보세요">
+                        <label for="f_name">먹거리를 검색해보세요</label>
+                    </div>
+                    <input type="submit" class="input-group-text bg-primary border-3 border-primary text-white" role="button" value="검색" />
+                </div>
+            </form>
+            <div class="row">
+                <div class="col text-truncate">
+                    <a class="mx-2 small text-secondary text-decoration-none" th:each="item : ${randomSearchFoods}" th:text="|#${item.f_name}|" th:href="@{/food/view(f_code=${item.f_code})}">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateForm() {
+        var x = document.forms["frmSearch"]["f_name"].value;
+        if (x == "") {
+            alert("검색어를 입력해주세요!");
+            return false;
+        }
+        return true;
+    }
+</script>
+
 
 		<div class="container">
 			<div class="row">
