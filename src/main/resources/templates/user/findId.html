@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{layouts/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>아이디 찾기</title>
+</head>
+<body>
+
+<div layout:fragment="content" class="content content1">
+
+    <div class="container position-absolute top-50 start-50 translate-middle">
+        <div class="row jusify-content-center">
+            <div class="col-12 col-md-6 offset-md-3">
+                <h1 class="display-6">이메일로 아이디 찾기</h1>
+                <form th:action="@{/user/findIdProcess}" method="post" id="frmFindId">
+                    <div class="form-floating mb-2">
+                        <input type="email"  class="form-control" id="u_email" name="u_email" required placeholder="이메일 주소를 입력하세요">
+                        <label for="u_email">이메일 주소를 입력하여 아이디를 찾아보세요.</label>
+                    </div>
+
+                    <input type="submit" class="btn btn-primary w-100 mb-2" value="아이디 찾기"/>
+                </form>
+
+                <div th:if="${u_id}">
+                    <p th:text="'찾은 아이디: ' + ${u_id}"></p>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 에러 메시지를 JavaScript alert로 표시 -->
+    <script th:if="${errorMessage}" th:inline="javascript">
+        /*<![CDATA[*/
+        alert([[${errorMessage}]]);
+        /*]]>*/
+    </script>
+
+</div>
+
+</body>
+</html>

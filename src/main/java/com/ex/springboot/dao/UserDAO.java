@@ -2,6 +2,7 @@ package com.ex.springboot.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -73,9 +74,9 @@ public class UserDAO implements IuserDAO {
 	
 	@Override
 	public UserDTO getUserInfo(int u_seq) {
-		String selectQuery = "select * from cg_user where u_seq = "+u_seq;
+		String sql = "select * from cg_user where u_seq = "+u_seq;
 		
-		return (UserDTO) template.queryForObject(selectQuery, new BeanPropertyRowMapper<UserDTO>(UserDTO.class)); 
+		return (UserDTO) template.queryForObject(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
 	}
 	
 	@Override
@@ -107,4 +108,23 @@ public class UserDAO implements IuserDAO {
         return count;
     }
 
+	@Override
+	public int countUserIdByEmail(String u_email) {
+		String sql = "select count(u_id) from cg_user where u_email = '"+u_email+"' and u_del_yn = 'N'";
+
+		int count = template.queryForObject(sql, Integer.class);
+
+		return count;
+	}
+
+	@Override
+	public UserDTO findUserByEmail(String u_email) {
+		String sql = "SELECT * FROM cg_user WHERE u_email = ? AND u_del_yn = 'N'";
+		try {
+			UserDTO userDTO = template.queryForObject(sql, new Object[]{u_email}, new BeanPropertyRowMapper<>(UserDTO.class));
+			return userDTO;
+		} catch (EmptyResultDataAccessException e) {
+			return null; // 결과가 없는 경우, null 반환
+		}
+	}
 }

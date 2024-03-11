@@ -16,4 +16,6 @@ public interface IuserDAO {
 	public int deleteUser(int u_seq);
 	public int isUserIdExist(String u_id);
 	public int isUserNicknameExist(String u_nickname, int u_seq);
+	public int countUserIdByEmail(String u_email);
+	public UserDTO findUserByEmail(String u_email);
 }
