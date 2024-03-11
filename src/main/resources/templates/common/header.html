@@ -159,6 +159,7 @@
 						<a class="nav-link active selector-item logincheck" aria-current="page"
 						th:href="@{/board/list}">게시판</a>
 					</li>
+			
 				</ul>
 			</div>
 			<div>
@@ -169,7 +170,8 @@
 				<span th:if="${session.userSession != null}" class="px-3">
 					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/user/logout}">로그아웃</a>
 					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/cart/list}">장바구니</a>
-					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/user/myPage}">마이페이지</a>
+					<a class="mx-3 text-muted xsmall text-decoration-none" aria-current="page" th:href="@{/user/myPage}" th:if="${session.adminSession == null}">마이페이지</a>
+					<a class="mx-3 xsmall text-decoration-none text-primary" aria-current="page" th:href="@{/admin}" th:if="${session.adminSession != null}">관리자페이지</a>	
 				</span>
 			</div>
 		</div>
@@ -228,6 +230,9 @@
 						</div>
 						<div class="col-4 py-2" th:if="${session.userSession != null}">
 							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/cart/list}">장바구니</a>
+						</div>
+						<div class="col-4 py-2" th:if="${session.adminSession != null}">
+							<a class="link-dark text-decoration-none text-white" aria-current="page" th:href="@{/cart/list}">관리자페이지</a>
 						</div>
 					</div>
 				</div>
