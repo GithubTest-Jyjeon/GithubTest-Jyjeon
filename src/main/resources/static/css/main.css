@@ -135,6 +135,13 @@
 	font-size: 25px;
 }
 
+.swiper-pagination-bullet-active{
+	background:white;
+}
+
+
+
+
 @media screen and (max-width: 1050px) {
 	.mySwiper .swiper {
 		width: 95%;

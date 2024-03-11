@@ -2,6 +2,8 @@ $(document).ready(function () {
 	
 	
 	
+	
+	
       var swiper = new Swiper(".MainSwiper", {
         loop: true,
         pagination: {
