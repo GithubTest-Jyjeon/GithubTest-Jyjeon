@@ -9,6 +9,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.interfaces.IproductDAO;
 
@@ -112,5 +113,52 @@ public class ProductDAO implements IproductDAO {
 		
 		return list;
 	}
+	
+	
+	//전체 물품 가져오기
+	@Override
+	public List<ProductDTO> getAllProducts(){
+	    String selectQuery = "SELECT * FROM cg_product ORDER BY p_code ASC";
+	    return template.query(selectQuery, new BeanPropertyRowMapper<ProductDTO>(ProductDTO.class));
+	}
+	
+	//상품 삭제
+    public int deleteProduct(int p_seq) {
+        String deleteQuery = "DELETE FROM cg_product WHERE p_seq=?";
+        return template.update(deleteQuery, p_seq);
+    }
+	
+ // 상품 정보 업데이트
+    public int updateProduct(ProductDTO product) {
+        String updateQuery = "UPDATE cg_product SET p_code=?, p_name=?, p_category=?, p_price=?, p_stock=?, p_image=?, p_content=?, p_dc_yn=?, p_dc_percent=?, p_new_yn=? WHERE p_seq=?";
+        System.out.println(updateQuery);
+        System.out.println(product);
+        return template.update(updateQuery,
+                product.getP_code(),
+                product.getP_name(),
+                product.getP_category(),
+                product.getP_price(),
+                product.getP_stock(),
+                product.getP_image(),
+                product.getP_content(),
+                product.getP_dc_yn(),
+                product.getP_dc_percent(),
+                product.getP_new_yn(),
+                product.getP_seq());
+    }
+    
+    
+    public int insertProduct(ProductDTO product) {
+    	String insertQuery = "INSERT INTO CG_PRODUCT (P_SEQ, P_CODE, P_NAME, P_CATEGORY, P_PRICE, P_STOCK, P_IMAGE, P_CONTENT, P_DC_YN, P_DC_PERCENT, P_NEW_YN) " +
+                "VALUES (PRODUCT_SEQ.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        return template.update(insertQuery, product.getP_code(), product.getP_name(), product.getP_category(), product.getP_price(), product.getP_stock(), product.getP_image(), product.getP_content(), product.getP_dc_yn(), product.getP_dc_percent(), product.getP_new_yn());
+    }
+
+
+
+
+
+
 
 }

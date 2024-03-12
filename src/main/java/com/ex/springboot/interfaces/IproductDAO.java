@@ -13,11 +13,14 @@ public interface IproductDAO {
 	public List<ProductDTO> productList(String p_category, int page, int limit, String word);
 	public String productListQuery(String p_category, int page, int limit, String word);
 	public ProductDTO productView(int p_seq);
-	public ProductDTO productInfo(String p_code);
-	
+	public ProductDTO productInfo(String p_code);	
 	public int productTotal(String p_category, String word);
 	public List<ProductDTO> productNewList();
-	public List<ProductDTO> productDcList();
-	
+	public List<ProductDTO> productDcList();	
 	public List<ProductDTO> productListForCategory(String p_category);
+	List<ProductDTO> getAllProducts();
+
+
+
+
 }

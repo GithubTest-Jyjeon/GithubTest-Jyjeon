@@ -1,5 +1,7 @@
 package com.ex.springboot.interfaces;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.ex.springboot.dto.UserDTO;
@@ -20,4 +22,8 @@ public interface IuserDAO {
 	public UserDTO findUserByEmail(String u_email);
 	public int countUserPwById(String u_id, String u_email);
 	public void resetUserPw(String u_id, String u_pw, String u_email);
+	public List<UserDTO> getAllUsers();
+	public int deleteUserCompletely(int u_seq);
+	public int reactivateUser(int u_seq);
+
 }

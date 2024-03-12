@@ -1,10 +1,11 @@
 package com.ex.springboot.dao;
 
-import com.ex.springboot.interfaces.IemailDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import com.ex.springboot.interfaces.IemailDAO;
 
 @Service
 public class EmailDAO implements IemailDAO {

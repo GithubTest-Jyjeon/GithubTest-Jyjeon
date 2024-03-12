@@ -1,5 +1,7 @@
 package com.ex.springboot.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -142,5 +144,28 @@ public class UserDAO implements IuserDAO {
 		String sql = "UPDATE cg_user SET u_pw = '" + u_pw + "' WHERE u_id = '" + u_id + "' and u_email = '" + u_email + "' AND u_del_yn = 'N'";
 		template.update(sql);
 	}
+	
+	
+	@Override
+	public List<UserDTO> getAllUsers() {
+	    String sql = "SELECT * FROM cg_user"; 
+	    return template.query(sql, new BeanPropertyRowMapper<>(UserDTO.class));
+	}
+	
+	@Override
+	public int deleteUserCompletely(int u_seq) {
+	    String sql = "DELETE FROM cg_user WHERE u_seq = ?";
+	    return template.update(sql, u_seq);
+	}
+	
+	@Override
+	public int reactivateUser(int u_seq) {
+	    String sql = "UPDATE cg_user SET u_del_yn = 'N', u_del_date = NULL WHERE u_seq = ?";
+	    return template.update(sql, u_seq);
+	}
+
+
+
+
 	
 }
