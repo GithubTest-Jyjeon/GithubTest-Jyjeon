@@ -42,7 +42,6 @@ public class ReplyDAO implements IreplyDAO {
 	public void replyInsertProcess(int f_seq, int u_seq, String u_nickname, String fr_comment) {
 		String sql = "insert into cg_food_reply (fr_seq, f_seq, u_seq, fr_reg_date, fr_comment, u_nickname, fr_del_yn) values (FOODREPLY_SEQ.nextval, "+f_seq+", "+u_seq+", sysdate, '"+fr_comment+"', '"+u_nickname+"'"
 				+ ", 'N')";
-		System.out.println(sql);
 		template.update(sql);
 	}
 	

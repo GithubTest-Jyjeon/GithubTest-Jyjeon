@@ -30,13 +30,13 @@
 				</div>
 			</div>
 			
-			<form th:action="@{/food/writeProcess}" method="post" enctype="multipart/form-data" id="frmFoodWrite">
+			<form th:action="@{/food/writeProcess}" method="post" enctype="multipart/form-data" id="frmFoodWrite" onsubmit="return false;">
 			<div class="row mb-5">
 				
 				<div class="col-12 col-lg-4">
 					<div class="row">
 						<div class="col-12 mb-2">
-							<img class="rounded-5 d-flex bg-light align-items-center justify-content-center mb-2 text-muted small" style="height: 20rem;" id="f_image_preview" src="https://via.placeholder.com/200x200&text=preview" />
+							<img class="rounded-5 d-flex bg-light align-items-center justify-content-center mb-2 text-muted small img-fluid" style="height: 20rem;" id="f_image_preview" src="https://via.placeholder.com/200x200&text=preview" />
 							<input type="file" class="form-control" id="f_image" name="f_image" />
 						</div>
 					</div>
@@ -54,6 +54,83 @@
 						</div>
 					</div>
 					
+					
+					<div class="row mb-4">
+						<div class="col-12">
+							<h3 class="fs-5 fw-bold bg-light py-2 px-3 rounded-5 border border-light mb-2">키워드</h3>
+						</div>
+						<div class="col-12 mb-2">
+							<hr class="hr2" />
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeK" value="K">
+								<label class="form-check-label" for="f_type_themeK">한식</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeU" value="U">
+								<label class="form-check-label" for="f_type_themeU">양식</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeC" value="C">
+								<label class="form-check-label" for="f_type_themeC">중식</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeJ" value="J">
+								<label class="form-check-label" for="f_type_themeJ">일식</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeD" value="D">
+								<label class="form-check-label" for="f_type_themeD">디저트</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeE" value="E">
+								<label class="form-check-label" for="f_type_themeE">기타</label>
+							</div>
+							<hr class="hr2" />
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainR" value="R">
+								<label class="form-check-label" for="f_type_mainR">밥</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainB" value="B">
+								<label class="form-check-label" for="f_type_mainB">빵</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainN" value="N">
+								<label class="form-check-label" for="f_type_mainN">면</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainM" value="M">
+								<label class="form-check-label" for="f_type_mainM">고기</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainS" value="S">
+								<label class="form-check-label" for="f_type_mainS">해산물</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainV" value="V">
+								<label class="form-check-label" for="f_type_mainV">채소</label>
+							</div>
+							<hr class="hr2" />
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_soup" id="f_type_soupY" value="Y">
+								<label class="form-check-label" for="f_type_soupY">국물있음</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_soup" id="f_type_soupN" value="N">
+								<label class="form-check-label" for="f_type_soupN">국물없음</label>
+							</div>
+							<hr class="hr2" />
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_spicy" id="f_type_spicyY" value="Y">
+								<label class="form-check-label" for="f_type_spicyY">매움</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="f_type_spicy" id="f_type_spicyN" value="N">
+								<label class="form-check-label" for="f_type_spicyN">안매움</label>
+							</div>
+							<hr class="hr2" />
+						</div>
+					</div>
 					
 					<div class="row mb-4">
 						<div class="col-12">
@@ -86,12 +163,16 @@
 							</div>
 						</div>
 						<div class="col-12" id="ingredientList"></div>
+						<input type="hidden" name="f_code_arr" id="f_code_arr" />
+						<input type="hidden" name="f_volume_arr" id="f_volume_arr" />
 					</div>
 					
 					
 					<div class="row mb-4">
 						<div class="col-12">
-							<h3 class="fs-5 fw-bold bg-light py-2 px-3 rounded-5 border border-light mb-2">조리순서</h3>
+							<h3 class="fs-5 fw-bold bg-light py-2 px-3 rounded-5 border border-light mb-2">조리순서
+								<span class="text-muted xsmall">'추가' 버튼으로 조리 순서를 추가 해주세요</span>
+							</h3>
 						</div>
 						<div class="col-12">
 							<div class="input-group">
@@ -100,12 +181,13 @@
 							</div>
 						</div>
 						<div class="col-12" id="recipeList"></div>
+						<textarea class="d-none" name="f_recipe"></textarea>
 					</div>
 					
 					
-					<div class="row mb-4">
+					<div class="row mb-5">
 						<div class="col-12 text-center">
-							<button class="btn btn-primary" id="btnRecipeAddDone">레시피 등록하기</button>
+							<input type="submit" class="btn btn-primary" id="btnRecipeAddDone" value="레시피 등록하기">
 							<button class="btn btn-secondary" id="btnBack">취소</button>
 						</div>
 					</div>
