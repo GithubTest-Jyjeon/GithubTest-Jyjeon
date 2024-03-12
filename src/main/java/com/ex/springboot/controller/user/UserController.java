@@ -20,6 +20,7 @@ import com.ex.springboot.interfaces.IuserDAO;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping
@@ -60,7 +61,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/user/loginProcess")
-	public String loginProcess(@RequestParam(value = "u_id") String u_id, @RequestParam(value = "u_pw") String u_pw, HttpServletRequest request) throws NoSuchAlgorithmException {
+	public String loginProcess(@RequestParam(value = "u_id") String u_id, @RequestParam(value = "u_pw") String u_pw, HttpServletRequest request, RedirectAttributes redirectAttributes) throws NoSuchAlgorithmException {
 		UserDTO userDTO = new UserDTO();
 		SHA256 sha256 = new SHA256();
 		u_pw = sha256.encrypt(u_pw);
@@ -77,10 +78,13 @@ public class UserController {
 			session.setMaxInactiveInterval(60 * 30);
 			
 			System.out.println("로그인 성공");
+
 			return "redirect:/";
 		}else {
 			System.out.println("로그인 실패");
-			return "redirect:/user/login?error=true";
+
+			redirectAttributes.addFlashAttribute("error", true);
+			return "redirect:/user/login";
 		}
 	}
 	
