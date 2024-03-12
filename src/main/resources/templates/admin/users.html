@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>관리자페이지</title>
+</head>
+
+<body>
+    <div class="container mt-5" layout:fragment="content">
+        <h1 class="mb-4">관리자 페이지</h1>
+        <div class="table-responsive text-center">
+            <table class="table table-bordered">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>번호</th>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>닉네임</th>
+                        <th>이메일</th>
+                        <th>생년월일</th>
+                        <th>성별</th>
+                        <th>전화번호</th>
+                        <th>등록일</th>
+                        <th>업데이트일</th>
+                        <th>최근 로그인</th>
+                        <th>탈퇴일</th>
+                        <th>탈퇴여부</th>
+                        <th>조치</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="user : ${users}">
+                        <td th:text="${user.u_seq}"></td>
+                        <td th:text="${user.u_id}"></td>
+                        <td th:text="${user.u_name}"></td>
+                        <td th:text="${user.u_nickname}"></td>
+                        <td th:text="${user.u_email}"></td>
+                        <td th:text="${user.u_birth}"></td>
+                        <td th:text="${user.u_gender}"></td>
+                        <td th:text="${user.u_phone}"></td>
+                        <td th:text="${user.u_reg_date}"></td>
+                        <td th:text="${user.u_upd_date}"></td>
+                        <td th:text="${user.u_log_date}"></td>
+                        <td th:text="${user.u_del_date}"></td>
+                        <td th:text="${user.u_del_yn == 'Y' ? 'Y' : 'N'}"></td>
+                        <td>
+                            <a th:href="@{/admin/deleteUserCompletely(u_seq=${user.u_seq})}" class="btn btn-danger btn-sm mb-2" onclick="return confirm('정말로 삭제하시겠습니까?');">완전 삭제</a>
+                            <a th:href="@{/admin/deleteUser(u_seq=${user.u_seq})}" th:if="${user.u_del_yn == 'N'}" class="btn btn-warning btn-sm" onclick="return confirm('정말로 탈퇴 처리하시겠습니까?');">탈퇴 처리</a>
+                            <a th:if="${user.u_del_yn == 'Y'}" th:href="@{/admin/reactivateUser(u_seq=${user.u_seq})}" class="btn btn-success btn-sm" onclick="return confirm('이 사용자를 재활성화하시겠습니까?');">재활성화</a>                                                      
+                            
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>

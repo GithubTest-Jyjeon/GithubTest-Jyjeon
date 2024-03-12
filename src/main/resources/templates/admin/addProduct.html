@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>상품 추가 페이지</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container mt-5">
+		<h2>상품 추가</h2>
+		<form th:action="@{/admin/insertProduct}" method="post">
+			<!-- 각 필드 입력 폼, p_seq 제외하고 만들기 -->
+			
+			
+			<div class="form-group">
+				<label for="p_code">상품 코드</label> <input type="text" id="p_code"
+					name="p_code" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="p_name">상품 이름</label> <input type="text" id="p_name"
+					name="p_name" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="p_category">카테고리</label> <input type="text"
+					id="p_category" name="p_category" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="p_price">가격</label> <input type="number" id="p_price"
+					name="p_price" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="p_stock">재고</label> <input type="number" id="p_stock"
+					name="p_stock" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="p_image">상품 이미지 URL</label> <input type="text"
+					id="p_image" name="p_image" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="p_content">상품 설명</label>
+				<textarea id="p_content" name="p_content" class="form-control"
+					rows="3" required></textarea>
+			</div>
+			<div class="form-group">
+				<label for="p_dc_yn">할인 여부 (Y/N)</label> <input type="text"
+					id="p_dc_yn" name="p_dc_yn" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="p_dc_percent">할인율 (%)</label> <input type="number"
+					id="p_dc_percent" name="p_dc_percent" class="form-control">
+			</div>
+			<div class="form-group">
+				<label for="p_new_yn">신상품 여부 (Y/N)</label> <input type="text"
+					id="p_new_yn" name="p_new_yn" class="form-control" required>
+			</div>
+			<button type="submit" class="btn btn-primary">상품 추가</button>
+
+		</form>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

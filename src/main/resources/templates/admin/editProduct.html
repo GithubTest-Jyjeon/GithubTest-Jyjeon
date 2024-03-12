@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 수정 관리자 페이지</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div layout:fragment="content">
+        <h1>상품 수정 페이지</h1>
+        <form th:action="@{/admin/updateProduct}" th:method="post" th:object="${product}">
+        	<input type="hidden" th:field="*{p_seq}" id="p_seq" />
+            <div class="form-group">
+                <label for="p_code">상품 코드</label>
+                <input type="text" class="form-control" id="p_code" th:field="*{p_code}" readonly>
+            </div>
+            <div class="form-group">
+                <label for="p_name">상품 이름</label>
+                <input type="text" class="form-control" id="p_name" th:field="*{p_name}">
+            </div>
+           <div class="form-group">
+			    <label for="p_category">카테고리</label>
+			    <select class="form-control" id="p_category" th:field="*{p_category}">
+			        <option value="야채/채소" th:selected="${product.p_category == '야채/채소'}">야채/채소</option>
+			        <option value="축산/계란" th:selected="${product.p_category == '축산/계란'}">축산/계란</option>
+			        <option value="수산/건어물" th:selected="${product.p_category == '수산/건어물'}">수산/건어물</option>
+			        <option value="소스/양념/조미료" th:selected="${product.p_category == '소스/양념/조미료'}">소스/양념/조미료</option>
+			        <option value="곡류/견과류" th:selected="${product.p_category == '곡류/견과류'}">곡류/견과류</option>
+			        <option value="가공식품" th:selected="${product.p_category == '가공식품'}">가공식품</option>
+			        <option value="유제품" th:selected="${product.p_category == '유제품'}">유제품</option>
+			        <option value="과일류" th:selected="${product.p_category == '과일류'}">과일류</option>
+			    </select>
+			</div>
+
+            <div class="form-group">
+                <label for="p_price">가격</label>
+                <input type="number" class="form-control" id="p_price" th:field="*{p_price}">
+            </div>
+            <div class="form-group">
+                <label for="p_stock">재고</label>
+                <input type="number" class="form-control" id="p_stock" th:field="*{p_stock}">
+            </div>
+            <div class="form-group">
+                <label for="p_image">이미지</label>
+                <input type="text" class="form-control" id="p_image" th:field="*{p_image}">
+            </div>
+            
+            <div class="form-group">
+			    <label for="p_dc_yn">할인 여부 (Y/N)</label>            
+			    <select class="form-control" id="p_dc_yn" th:field="*{p_dc_yn}">
+			        <option value="Y" th:selected="${product.p_dc_yn == 'Y'}">Y</option>
+			        <option value="N" th:selected="${product.p_dc_yn == 'N'}">N</option>
+			    </select>
+			</div>
+
+            <div class="form-group">
+                <label for="p_dc_percent">할인율 (%)</label>
+                <input type="number" class="form-control" id="p_dc_percent" th:field="*{p_dc_percent}">
+            </div>
+            <div class="form-group">
+			    <label for="p_new_yn">신상품 여부 (Y/N)</label>
+			    <select class="form-control" id="p_new_yn" th:field="*{p_new_yn}">
+			        <option value="Y" th:selected="${product.p_new_yn == 'Y'}">Y</option>
+			        <option value="N" th:selected="${product.p_new_yn == 'N'}">N</option>
+			    </select>
+			</div>
+            <div class="form-group">
+                <label for="p_content">상품 설명</label>
+                <textarea class="form-control" id="p_content" rows="3" th:field="*{p_content}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">수정하기</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>상품 관리자 페이지</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div layout:fragment="content">
+
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<h1>상품 페이지</h1>
+		<a href="/admin/addProduct" class="btn btn-success">상품 추가</a>
+		
+		
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">#</th>
+					<th scope="col">이미지</th>
+					<th scope="col">상품 코드</th>
+					<th scope="col">상품 분류</th>
+					<th scope="col">상품 이름</th>
+					<th scope="col">가격</th>
+					<th scope="col">재고</th>
+					<th scope="col">할인유무</th>
+					<th scope="col">할인율</th>
+					<th scope="col">신상품</th>
+					<th scope="col">동작</th>
+				</tr>
+			</thead>
+			<tbody>
+			    <tr th:each="product : ${products}">
+			        <td th:text="${product.p_seq}"></td>
+			      	<td>
+   					 <img th:src="${product.p_image}" alt="상품 이미지" style="width:100px; height:auto;">
+					</td>
+			        <td th:text="${product.p_code}"></td>
+			        <td th:text="${product.p_category}"></td>
+			        <td th:text="${product.p_name}"></td>
+			        <td th:text="${product.p_price}"></td>
+			        <td th:text="${product.p_stock}"></td>
+			        <td th:text="${product.p_dc_yn}"></td>
+			        <td th:text="${product.p_dc_percent}"></td>
+			        <td th:text="${product.p_new_yn}"></td>
+			        <td>
+			           <a th:href="@{/admin/editProduct/{p_seq}(p_seq=${product.p_seq})}" class="btn btn-primary">수정</a>
+			           <a href="#" class="btn btn-danger" th:onclick="'confirmDelete(' + ${product.p_seq} + ');'">삭제</a>
+			
+			        </td>
+			    </tr>
+			</tbody>
+
+
+		</table>
+		
+		<script>
+			function confirmDelete(p_seq) {
+			    var confirmResult = confirm("정말로 이 상품을 삭제하시겠습니까?");
+			    if (confirmResult) {
+			        // 사용자가 '확인'을 클릭한 경우, 삭제 처리를 위한 URL로 리디렉션
+			        window.location.href = '/admin/deleteProduct/' + p_seq;
+			    }
+			}
+		</script>
+				</div>
+			</div>
+		</div>
+
+
+		
+		
+		
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
