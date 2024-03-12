@@ -7,7 +7,7 @@ function addComma(val){
 }
 
 $( function(){
-	console.log("common.js load");
+	console.log("search.js load");
 	
 	let globalNav = $("#globalNav");
 	

@@ -23,4 +23,6 @@ public interface IfoodDAO {
 	public int foodHeartCheck(int f_seq, int u_seq);
 	public int foodHeartOn(int f_seq, int u_seq);
 	public int foodHeartOff(int f_seq, int u_seq);
+	
+	public int foodWrite(FoodDTO foodDTO);
 }

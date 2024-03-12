@@ -1,11 +1,16 @@
 package com.ex.springboot.controller.food;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.ProductDTO;
@@ -121,10 +127,56 @@ public class FoodController {
 	    return "/food/view";
 	}
 	
+	@GetMapping("/food/write")
+	public String foodWrite() {
+		return "/food/write";
+	}
+	
+	
+	@PostMapping("/food/writeProcess")
+	public String foodWriteProcess(Model model, MultipartFile file, Object msg) throws IOException {
+		
+		String UPLOAD_DIRECTORY = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
+		
+		JSONObject obj = new JSONObject();
+		
+		try {
+			StringBuilder fileNames = new StringBuilder();
+			Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
+			fileNames.append(file.getOriginalFilename());
+			byte[] fileSize = file.getBytes();
+			Files.write(fileNameAndPath, fileSize);
+			
+			System.out.println("파일이 저장되는 경로 : "+fileNameAndPath+"\n");
+			System.out.println("fileNames 에서 얻은 이미지 파일명 : "+fileNames+"\n");
+			System.out.println("model 에 저장한 메세지 : "+msg+"\n");
+			System.out.println("--------------------------------------------------");
+			
+			obj.put("success", true);
+			obj.put("업로드 결과", "성공");
+			obj.put("파일 저장명", fileNameAndPath);
+			
+			model.addAttribute("fileNameAndPath", fileNameAndPath);
+			model.addAttribute("fileNames", fileNames);
+			model.addAttribute("filePath", UPLOAD_DIRECTORY);
+			
+			String[] contentType = file.getContentType().split("/");			
+			model.addAttribute("contentType", contentType[0]);
+		} catch(Exception e) {
+			e.getStackTrace();
+			obj.put("success", false);
+			obj.put("업로드 결과", "실패");
+		}
+		
+		return "/food/write";
+		// return obj.toJSONString();
+	}
+	
 	
 	@GetMapping("/food/search")
 	public String foodListForName(@RequestParam(value="f_name") String f_name, Model model){
-		ArrayList<FoodDTO> searchResult = dao.getFoodListForName(f_name);
+		String f_name_replace = f_name.replace(" ", "");
+		ArrayList<FoodDTO> searchResult = dao.getFoodListForName(f_name_replace);
 		List<FoodDTO> randomSearchFoods = dao.getRandomSearchFoods();
 		
 		model.addAttribute("foodList", searchResult);

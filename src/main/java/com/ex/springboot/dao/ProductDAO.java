@@ -1,5 +1,6 @@
 package com.ex.springboot.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,5 +103,14 @@ public class ProductDAO implements IproductDAO {
 	}
 
 	
+	@Override
+	public List<ProductDTO> productListForCategory(String p_category){
+		ArrayList<ProductDTO> list = new ArrayList<>();
+		
+		String sql = "select * from cg_product where p_category = '"+p_category+"' order by p_name asc";
+		list = (ArrayList<ProductDTO>) template.query(sql, new BeanPropertyRowMapper<ProductDTO>(ProductDTO.class));
+		
+		return list;
+	}
 
 }

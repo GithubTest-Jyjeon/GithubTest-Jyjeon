@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+
+<body>
+	<div layout:fragment="content" class="content content1">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+		<div class="modal fade" id="heartModal" data-bs-toggle="modal" tabindex="-1">
+		  <div class="modal-dialog modal-sm modal-dialog-centered">
+		    <div class="modal-content">
+		      <div class="modal-body">
+		      	<div id="heartMsg" class="text-center"></div>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+		<div class="container py-5">
+			<div class="row mb-2">
+				<div class="col-5">
+					<button onclick="javascript:history.back(-1);" class="btn btn-light">뒤로가기</button>
+				</div>
+			</div>
+			
+			<form th:action="@{/food/writeProcess}" method="post" enctype="multipart/form-data" id="frmFoodWrite">
+			<div class="row mb-5">
+				
+				<div class="col-12 col-lg-4">
+					<div class="row">
+						<div class="col-12 mb-2">
+							<img class="rounded-5 d-flex bg-light align-items-center justify-content-center mb-2 text-muted small" style="height: 20rem;" id="f_image_preview" src="https://via.placeholder.com/200x200&text=preview" />
+							<input type="file" class="form-control" id="f_image" name="f_image" />
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="col-12 col-lg-8">
+				
+					<div class="row">
+						<div class="col">
+							<div class="form-floating mb-2">
+								<input type="text" class="form-control fw-bold border border-5 border-primary" name="f_name" id="f_name" placeholder="음식명" />
+								<label for="f_name">음식명</label>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="row mb-4">
+						<div class="col-12">
+							<h3 class="fs-5 fw-bold bg-light py-2 px-3 rounded-5 border border-light mb-2">재료</h3>
+						</div>
+						<div class="col-12 col-lg-4 mb-2">
+							상품 분류
+							<select class="form-select" name="p_category" id="p_category">
+								<option value="" selected disabled>재료 분류를 선택해주세요</option>
+								<option value="수산/건어물">수산/건어물</option>
+								<option value="야채/채소">야채/채소</option>
+								<option value="축산/계란">축산/계란</option>
+								<option value="소스/양념/조미료">소스/양념/조미료</option>
+								<option value="가공식품">가공식품</option>
+								<option value="유제품">유제품</option>
+								<option value="과일류">과일류</option>
+								<option value="곡류/견과류">곡류/견과류</option>
+							</select>
+						</div>
+						<div class="col-6 col-lg-4 mb-2">
+							상품 선택
+							<select class="form-select" name="productList" id="productList">
+							</select>
+						</div>
+						<div class="col-6 col-lg-4 mb-2">
+							용량
+							<div class="input-group">
+								<input type="text" class="form-control" id="f_volume" name="f_volume" />
+								<button type="button" class="btn btn-light" id="btnIngredientAdd">추가</button>
+							</div>
+						</div>
+						<div class="col-12" id="ingredientList"></div>
+					</div>
+					
+					
+					<div class="row mb-4">
+						<div class="col-12">
+							<h3 class="fs-5 fw-bold bg-light py-2 px-3 rounded-5 border border-light mb-2">조리순서</h3>
+						</div>
+						<div class="col-12">
+							<div class="input-group">
+								<input type="text" class="form-control" id="f_recipe" name="f_recipe" />
+								<button type="button" class="btn btn-light" id="btnRecipeAdd">추가</button>
+							</div>
+						</div>
+						<div class="col-12" id="recipeList"></div>
+					</div>
+					
+					
+					<div class="row mb-4">
+						<div class="col-12 text-center">
+							<button class="btn btn-primary" id="btnRecipeAddDone">레시피 등록하기</button>
+							<button class="btn btn-secondary" id="btnBack">취소</button>
+						</div>
+					</div>
+					
+				</div>
+			</div>
+			</form>
+			
+			<div id="btnTop">
+		    	<i class="fa-solid fa-arrow-up"></i>
+		    </div>
+			
+			<script th:src="@{/js/foodWrite.js}"></script>
+
+		</div>
+</body>
+</html>
