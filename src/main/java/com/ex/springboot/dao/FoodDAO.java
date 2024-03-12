@@ -133,8 +133,15 @@ public class FoodDAO implements IfoodDAO {
 	}
 	
 	@Override
-	public int foodWrite(FoodDTO foodDTO) {
-		return 1;
+	public String foodWrite(FoodDTO foodDTO) {
+		String f_seq_query = "select f_seq from cg_food where rownum = 1 order by f_seq desc";
+		int f_seq = template.queryForObject(f_seq_query, Integer.class);
+			f_seq++;
+		String f_code = String.format("%04d", f_seq);
+		String sql = "insert into cg_food (f_seq, f_code, f_name, f_image, f_code_arr, f_volume_arr, f_recipe, f_type_theme, f_type_main, f_type_soup, f_type_spicy) values (FOOD_SEQ.nextval, '"+f_code+"', '"+foodDTO.getF_name()+"', '"+foodDTO.getF_image()+"', '"+foodDTO.getF_code_arr()+"', '"+foodDTO.getF_volume_arr()+"', '"+foodDTO.getF_recipe()+"', '"+foodDTO.getF_type_theme()+"', '"+foodDTO.getF_type_main()+"', '"+foodDTO.getF_type_soup()+"', '"+foodDTO.getF_type_spicy()+"')";
+		template.update(sql);
+		
+		return f_code;
 	}
 
 }

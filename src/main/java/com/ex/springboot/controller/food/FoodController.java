@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -89,7 +89,6 @@ public class FoodController {
 	
 	@GetMapping("/food/view")
 	public String foodView(@RequestParam(value = "f_code") String f_code, Model model) {
-		
 	    // 기존 코드
 	    model.addAttribute("foodInfo", dao.foodView(f_code));
 	    model.addAttribute("f_code", f_code);
@@ -123,7 +122,6 @@ public class FoodController {
 	    
 	    model.addAttribute("replyList", replyList);
 	    model.addAttribute("ingredientList", ingredientList);
-
 	    return "/food/view";
 	}
 	
@@ -132,45 +130,52 @@ public class FoodController {
 		return "/food/write";
 	}
 	
-	
+	@ResponseBody
 	@PostMapping("/food/writeProcess")
-	public String foodWriteProcess(Model model, MultipartFile file, Object msg) throws IOException {
-		
+	public String uplaodImage(HttpServletRequest request, @RequestParam("f_image") MultipartFile file, Model model) throws IOException {
 		String UPLOAD_DIRECTORY = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
-		
-		JSONObject obj = new JSONObject();
 		
 		try {
 			StringBuilder fileNames = new StringBuilder();
-			Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, file.getOriginalFilename());
-			fileNames.append(file.getOriginalFilename());
+			String originalFilename = file.getOriginalFilename();
+			long timestamp = System.currentTimeMillis();
+			String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+			String newFilename = timestamp+"."+ext;
+			Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, newFilename);
+			fileNames.append(newFilename);
 			byte[] fileSize = file.getBytes();
 			Files.write(fileNameAndPath, fileSize);
 			
-			System.out.println("파일이 저장되는 경로 : "+fileNameAndPath+"\n");
-			System.out.println("fileNames 에서 얻은 이미지 파일명 : "+fileNames+"\n");
-			System.out.println("model 에 저장한 메세지 : "+msg+"\n");
-			System.out.println("--------------------------------------------------");
+			String f_name = request.getParameter("f_name");
+			String f_code_arr = request.getParameter("f_code_arr");
+			String f_volume_arr = request.getParameter("f_volume_arr");
+			String f_recipe = request.getParameter("f_recipe");
+			String f_image = "/uploads/"+newFilename;
+			String f_type_theme = request.getParameter("f_type_theme");
+			String f_type_main = request.getParameter("f_type_main");
+			String f_type_soup = request.getParameter("f_type_soup");
+			String f_type_spicy = request.getParameter("f_type_spicy");
 			
-			obj.put("success", true);
-			obj.put("업로드 결과", "성공");
-			obj.put("파일 저장명", fileNameAndPath);
+			FoodDTO foodDTO = new FoodDTO();
+			foodDTO.setF_name(f_name);
+			foodDTO.setF_code_arr(f_code_arr);
+			foodDTO.setF_volume_arr(f_volume_arr);
+			foodDTO.setF_recipe(f_recipe);
+			foodDTO.setF_image(f_image);
+			foodDTO.setF_type_theme(f_type_theme);
+			foodDTO.setF_type_main(f_type_main);
+			foodDTO.setF_type_soup(f_type_soup);
+			foodDTO.setF_type_spicy(f_type_spicy);
 			
-			model.addAttribute("fileNameAndPath", fileNameAndPath);
-			model.addAttribute("fileNames", fileNames);
-			model.addAttribute("filePath", UPLOAD_DIRECTORY);
-			
-			String[] contentType = file.getContentType().split("/");			
-			model.addAttribute("contentType", contentType[0]);
+			String f_code = dao.foodWrite(foodDTO);
+			model.addAttribute("f_code", f_code);
+			return f_code;
 		} catch(Exception e) {
 			e.getStackTrace();
-			obj.put("success", false);
-			obj.put("업로드 결과", "실패");
+			return "";
 		}
-		
-		return "/food/write";
-		// return obj.toJSONString();
 	}
+	
 	
 	
 	@GetMapping("/food/search")

@@ -50,7 +50,6 @@ $( function(){
 			type : "get",
 			success : function(returnData){
 				let cnt = returnData.length;
-				html += '<option value="" selected disabled>재료를 선택해주세요</option>';
 				for(var i = 0; i < cnt; i++){
 					html += '<option value="'+returnData[i].p_code+'">'+returnData[i].p_name+'</option>';	
 				}
@@ -69,6 +68,10 @@ $( function(){
 		let p_code = $("#productList option:selected").val();
 		let f_volume = $("#f_volume").val();
 		
+		if(p_name == null || p_name == ""){
+			alert("재료를 선택해주세요");
+			return false;
+		}
 		
 		if(f_volume.replace(/^\s*/, "") == null || f_volume.replace(/^\s*/, "") == ""){
 			alert("용량을 입력해주세요");
@@ -82,13 +85,17 @@ $( function(){
 			html += '</span>';
 		
 		$("#ingredientList").append(html).trigger("create");
+		$("#f_volume").val("");
 	})
 	
 	
 	$("#btnRecipeAdd").on("click", function(){
-		console.log("조리순서 추가 할거여");
-		
 		let f_recipe = $("#f_recipe").val();
+		
+		if(f_recipe == null || f_recipe == ""){
+			alert("내용을 입력해주세요");
+			return false;
+		}
 		
 		let html  = '';
 			html += '<div class="row">';
@@ -106,12 +113,6 @@ $( function(){
 	
 	
 	$("#btnRecipeAddDone").on("click", function(){
-		let formData = new FormData();
-		let f_image = $("#f_image");
-        let files = f_image[0].files; 
-		
-		let f_name = $("#f_name").val();
-			
 		let f_code_arr = '';
 		let f_volume_arr = '';
 		let f_recipe = '';
@@ -133,31 +134,77 @@ $( function(){
 		for(var k = 0; k < f_recipe_count; k++){
 			f_recipe += $(".recipeItem").eq(k).text()+"|";
 		}
+		
 		f_recipe = f_recipe.slice(0, -1);
 		
-		formData.append("f_image", files);
-		formData.append("f_name", f_name);
-		formData.append("f_code_arr", f_code_arr);
-		formData.append("f_volume_arr", f_volume_arr);
-		formData.append("f_recipe", f_recipe);
+		if($("#f_image").val() == null || $("#f_image").val() == ""){
+			alert("이미지를 등록해주세요");
+			return false;
+		}
+		
+		if($("#f_name").val().replace(/^\s*/, "") == null || $("#f_name").val().replace(/^\s*/, "") == ""){
+			alert("음식명을 입력해주세요");
+			return false;
+		}
+		
+		if($("input[name=f_type_theme]").is(":checked") == false){
+			alert("음식테마 키워드를 선택 해주세요");
+			return false;
+		}
+		if($("input[name=f_type_main]").is(":checked") == false){
+			alert("주 재료 키워드를 선택 해주세요");
+			return false;
+		}
+		if($("input[name=f_type_soup]").is(":checked") == false){
+			alert("국물있음/국물없음 키워드를 선택 해주세요");
+			return false;
+		}
+		if($("input[name=f_type_spicy]").is(":checked") == false){
+			alert("매움/안매움 키워드를 선택 해주세요");
+			return false;
+		}
+		
+		if(f_code_arr == null || f_code_arr == ""){
+			alert("재료를 하나 이상 등록해주세요");
+			return false;
+		}
+		
+		if(f_recipe == null || f_recipe == ""){
+			alert("조리 순서를 하나 이상 입력해주세요");
+			return false;
+		}
+		
+		$("#f_recipe").val(f_recipe);
+		$("#f_code_arr").val(f_code_arr);
+		$("#f_volume_arr").val(f_volume_arr);
+		
+		let formData = new FormData($("#frmFoodWrite")[0]);
+		let f_image = $("#f_image");
+        let files = f_image[0].files; 
+		
+		let f_name = $("#f_name").val();
 		
 		$.ajax({
 			url : "/food/writeProcess",
-			type : "post",
 			data : formData,
-			enctype: 'multipart/form-data',
-		    processData: false,
-		    contentType: false,
-		    cache: false,
+			type : "post",
+			cache : false,
+			contentType : false,
+			processData : false,
 			success : function(returnData){
-				console.log(returnData);
+				alert("레시피 등록이 완료 되었습니다!");
+				var result = confirm("레시피 보기 화면으로 이동하시겠습니까?");
+				
+				if(result){
+					location.href="/food/view?f_code="+returnData;	
+				}else{
+					location.href="/";
+				}
 			},
 			error : function(error){
 				console.log(error);
+				return false;	
 			}
 		})
-		
-		return false;
-		
 	})
 })
