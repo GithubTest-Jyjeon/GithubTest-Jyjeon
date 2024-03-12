@@ -127,4 +127,20 @@ public class UserDAO implements IuserDAO {
 			return null; // 결과가 없는 경우, null 반환
 		}
 	}
+
+	@Override
+	public int countUserPwById(String u_id, String u_email) {
+		String sql = "select count(u_pw) from cg_user where u_email = '"+u_email+"' and u_id = '" + u_id + "' and u_del_yn = 'N'";
+
+		int count = template.queryForObject(sql, Integer.class);
+
+		return count;
+	}
+
+	@Override
+	public void resetUserPw(String u_id, String u_pw, String u_email) {
+		String sql = "UPDATE cg_user SET u_pw = '" + u_pw + "' WHERE u_id = '" + u_id + "' and u_email = '" + u_email + "' AND u_del_yn = 'N'";
+		template.update(sql);
+	}
+	
 }

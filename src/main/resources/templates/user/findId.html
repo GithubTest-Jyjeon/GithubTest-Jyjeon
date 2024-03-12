@@ -29,6 +29,11 @@
                     <p th:text="'찾은 아이디: ' + ${u_id}"></p>
                 </div>
 
+                <p class="text-muted small text-center my-3">
+                    <a class="mx-3" role="button" th:href="@{/user/login}">로그인</a> /
+                    <a class="mx-3" role="button" th:href="@{/user/findPw}">비밀번호 찾기</a>
+                </p>
+
             </div>
         </div>
     </div>

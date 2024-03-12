@@ -40,6 +40,8 @@ dependencies {
 	implementation group: 'jakarta.servlet.jsp.jstl', name: 'jakarta.servlet.jsp.jstl-api'
 	implementation group: 'org.apache.tomcat.embed', name: 'tomcat-embed-jasper'
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {

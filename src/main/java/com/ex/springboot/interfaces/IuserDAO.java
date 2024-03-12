@@ -18,4 +18,6 @@ public interface IuserDAO {
 	public int isUserNicknameExist(String u_nickname, int u_seq);
 	public int countUserIdByEmail(String u_email);
 	public UserDTO findUserByEmail(String u_email);
+	public int countUserPwById(String u_id, String u_email);
+	public void resetUserPw(String u_id, String u_pw, String u_email);
 }

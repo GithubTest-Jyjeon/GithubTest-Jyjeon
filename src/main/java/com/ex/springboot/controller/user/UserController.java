@@ -2,6 +2,7 @@ package com.ex.springboot.controller.user;
 
 import java.security.NoSuchAlgorithmException;
 
+import com.ex.springboot.interfaces.IemailDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -218,5 +219,44 @@ public class UserController {
 		}
 
 		return "/user/findId";
+	}
+
+	@Autowired
+	private IemailDAO iemailDAO;
+
+	@GetMapping("/user/findPw")
+	public String findMyPw() {
+		return "/user/findPw";
+	}
+
+	@PostMapping("/user/findPwProcess")
+	public String findPwProcess(@RequestParam("u_id") String u_id, @RequestParam("u_email") String u_email, Model model) throws NoSuchAlgorithmException {
+		int count = dao.countUserPwById(u_id, u_email);
+
+		if (count > 0) {
+
+
+			String newPw = "a123456789";
+
+			SHA256 sha256 = new SHA256();
+			newPw = sha256.encrypt(newPw);
+
+			dao.resetUserPw(u_id, newPw, u_email);
+
+			try {
+				// 초기화된 비밀번호를 이메일로 전송
+				iemailDAO.sendNewPw(u_email, "비밀번호 초기화 알림", "귀하의 비밀번호가 초기화되었습니다. 새 비밀번호: " + newPw);
+			} catch (Exception e) {
+				model.addAttribute("errorMessage", "비밀번호 초기화 이메일 전송에 실패했습니다.");
+				return "/user/findPw"; // 이메일 전송 실패 시 돌아갈 페이지
+			}
+
+			model.addAttribute("message", "비밀번호가 초기화되었습니다. 귀하에 이메일로 초기화 비밀번호를 보내드렸습니다.");
+
+			return "/user/login";
+		} else {
+			model.addAttribute("errorMessage", "해당하는 사용자 정보가 없습니다. 회원 가입을 진행해 주세요.");
+			return "/user/join";
+		}
 	}
 }
