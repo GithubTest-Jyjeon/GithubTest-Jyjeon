@@ -131,5 +131,10 @@ public class FoodDAO implements IfoodDAO {
 		String sql = "delete from cg_food_heart where f_seq = "+f_seq+" and u_seq = "+u_seq;
 		return template.update(sql);
 	}
+	
+	@Override
+	public int foodWrite(FoodDTO foodDTO) {
+		return 1;
+	}
 
 }

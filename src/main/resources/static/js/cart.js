@@ -82,9 +82,9 @@ $( function(){
     $(".btnProductDelete").on("click", function() {
         let p_code = $(this).attr("data-pCode"); // 'data-p_code' 속성에서 상품 코드를 가져옵니다.
         
-        let confirm = confirm("상품을 장바구니에서 삭제 하시겠습니까?");
+        var confirmCheck = confirm("상품을 장바구니에서 삭제 하시겠습니까?");
         
-        if(confirm){
+        if(confirmCheck){
 			$.ajax({
 	            url: '/cart/deleteProduct',
 	            type: 'POST',

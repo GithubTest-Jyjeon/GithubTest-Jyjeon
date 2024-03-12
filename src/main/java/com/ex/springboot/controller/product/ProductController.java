@@ -1,12 +1,16 @@
 package com.ex.springboot.controller.product;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ex.springboot.dto.ProductDTO;
 import com.ex.springboot.interfaces.IproductDAO;
 
 @Controller
@@ -71,6 +75,12 @@ public class ProductController {
 		model.addAttribute("dcList", dao.productDcList());
 		
 		return "/product/view";
+	}
+	
+	
+	@GetMapping("/product/listForCategory")
+	public @ResponseBody List<ProductDTO> productListForCategory(@RequestParam(value = "p_category", defaultValue = "") String p_category, Model model) {
+		return dao.productListForCategory(p_category);
 	}
 	
 }

@@ -18,4 +18,6 @@ public interface IproductDAO {
 	public int productTotal(String p_category, String word);
 	public List<ProductDTO> productNewList();
 	public List<ProductDTO> productDcList();
+	
+	public List<ProductDTO> productListForCategory(String p_category);
 }

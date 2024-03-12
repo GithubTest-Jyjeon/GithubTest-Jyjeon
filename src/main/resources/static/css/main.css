@@ -39,16 +39,12 @@
 	height: auto; /* 높이를 자동으로 설정하여 비율 유지 */
 	object-fit: cover; /* 이미지 비율을 유지하면서 컨테이너를 꽉 채움 */
 	aspect-ratio: 4/3; /* 이미지의 가로세로 비율을 4:3으로 설정 */
-}
-
-.card a {
-	color: #f74747;
-	border: #f74747;
+	border: solid 0px #f74747;
+	transition: .2s;
 }
 
 .card-img-top:hover{
 	border: solid 6px #f74747;
-	transition: .2s;
 	box-sizing: border;
 }
 
