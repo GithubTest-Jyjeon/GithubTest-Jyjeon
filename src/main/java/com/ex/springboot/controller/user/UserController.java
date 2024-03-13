@@ -1,8 +1,8 @@
 package com.ex.springboot.controller.user;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Random;
 
-import com.ex.springboot.interfaces.IemailDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,16 +11,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ex.springboot.SHA256;
 import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IboardDAO;
+import com.ex.springboot.interfaces.IemailDAO;
 import com.ex.springboot.interfaces.IorderDAO;
 import com.ex.springboot.interfaces.IuserDAO;
 
+import ch.qos.logback.core.testUtil.RandomUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping
@@ -238,14 +240,22 @@ public class UserController {
 		int count = dao.countUserPwById(u_id, u_email);
 
 		if (count > 0) {
+			
+			StringBuilder sb = new StringBuilder();
+		    Random rd = new Random();
 
-
-			String newPw = "a123456789";
+		    for(int i = 0; i < 6; i++){
+		        sb.append((char)(rd.nextInt(26)+65));
+		    }
+		    
+		    String newPw = sb.toString();
+			
+			System.out.println(newPw);
 
 			SHA256 sha256 = new SHA256();
-			newPw = sha256.encrypt(newPw);
+			String newPwHash = sha256.encrypt(newPw);
 
-			dao.resetUserPw(u_id, newPw, u_email);
+			dao.resetUserPw(u_id, newPwHash, u_email);
 
 			try {
 				// 초기화된 비밀번호를 이메일로 전송
