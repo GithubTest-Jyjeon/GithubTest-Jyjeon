@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.FoodSetDTO;
+import com.ex.springboot.dto.UserDTO;
 
 @Mapper
 public interface IfoodDAO {
@@ -24,5 +25,6 @@ public interface IfoodDAO {
 	public int foodHeartOn(int f_seq, int u_seq);
 	public int foodHeartOff(int f_seq, int u_seq);
 	
-	public String foodWrite(FoodDTO foodDTO);
+	public String foodWrite(FoodDTO foodDTO, int u_seq, String u_nickname);
+	public String foodUpdate(FoodDTO foodDTO, int u_seq);
 }

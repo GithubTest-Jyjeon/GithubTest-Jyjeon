@@ -30,14 +30,18 @@
 				</div>
 			</div>
 			
-			<form th:action="@{/food/writeProcess}" method="post" enctype="multipart/form-data" id="frmFoodWrite" onsubmit="return false;">
+			<form th:action="@{/food/updateProcess}" method="post" enctype="multipart/form-data" id="frmFoodUpdate" onsubmit="return false;">
+			<input type="hidden" id="f_seq" name="f_seq" th:value="${foodInfo.f_seq}" />
+			<input type="hidden" id="f_code" name="f_code" th:value="${foodInfo.f_code}" />
 			<div class="row mb-5">
 				
 				<div class="col-12 col-lg-4">
 					<div class="row">
 						<div class="col-12 mb-2">
-							<img class="rounded-5 d-flex bg-light align-items-center justify-content-center mb-2 text-muted small img-fluid" style="height: 20rem;" id="f_image_preview" src="https://via.placeholder.com/200x200&text=preview" />
+							<img class="rounded-5 d-flex bg-light align-items-center justify-content-center mb-2 text-muted small img-fluid" id="f_image_preview" th:src="@{${foodInfo.f_image}}" />
 							<input type="file" class="form-control" id="f_image" name="f_image" />
+							<span class="text-muted small">이미지를 등록하지 않으면 기존의 이미지가 유지됩니다.</span>
+							<input type="hidden" id="f_image_original" name="f_image_original" th:value="${foodInfo.f_image}" />
 						</div>
 					</div>
 				</div>
@@ -48,7 +52,7 @@
 					<div class="row">
 						<div class="col">
 							<div class="form-floating mb-2">
-								<input type="text" class="form-control fw-bold border border-5 border-primary" name="f_name" id="f_name" placeholder="음식명" />
+								<input type="text" class="form-control fw-bold border border-5 border-primary" name="f_name" id="f_name" placeholder="음식명" th:value="${foodInfo.f_name}" />
 								<label for="f_name">음식명</label>
 							</div>
 						</div>
@@ -62,70 +66,70 @@
 						<div class="col-12 mb-2">
 							<hr class="hr2" />
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeK" value="K">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeK" value="K" th:checked="${foodInfo.f_type_theme == 'K'}">
 								<label class="form-check-label" for="f_type_themeK">한식</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeU" value="U">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeU" value="U" th:checked="${foodInfo.f_type_theme == 'U'}">
 								<label class="form-check-label" for="f_type_themeU">양식</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeC" value="C">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeC" value="C" th:checked="${foodInfo.f_type_theme == 'C'}">
 								<label class="form-check-label" for="f_type_themeC">중식</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeJ" value="J">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeJ" value="J" th:checked="${foodInfo.f_type_theme == 'J'}">
 								<label class="form-check-label" for="f_type_themeJ">일식</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeD" value="D">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeD" value="D" th:checked="${foodInfo.f_type_theme == 'D'}">
 								<label class="form-check-label" for="f_type_themeD">디저트</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeE" value="E">
+								<input class="form-check-input" type="radio" name="f_type_theme" id="f_type_themeE" value="E" th:checked="${foodInfo.f_type_theme == 'E'}">
 								<label class="form-check-label" for="f_type_themeE">기타</label>
 							</div>
 							<hr class="hr2" />
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainR" value="R">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainR" value="R" th:checked="${foodInfo.f_type_main == 'R'}">
 								<label class="form-check-label" for="f_type_mainR">밥</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainB" value="B">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainB" value="B" th:checked="${foodInfo.f_type_main == 'B'}">
 								<label class="form-check-label" for="f_type_mainB">빵</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainN" value="N">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainN" value="N" th:checked="${foodInfo.f_type_main == 'N'}">
 								<label class="form-check-label" for="f_type_mainN">면</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainM" value="M">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainM" value="M" th:checked="${foodInfo.f_type_main == 'M'}">
 								<label class="form-check-label" for="f_type_mainM">고기</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainS" value="S">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainS" value="S" th:checked="${foodInfo.f_type_main == 'S'}">
 								<label class="form-check-label" for="f_type_mainS">해산물</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainV" value="V">
+								<input class="form-check-input" type="radio" name="f_type_main" id="f_type_mainV" value="V" th:checked="${foodInfo.f_type_main == 'V'}">
 								<label class="form-check-label" for="f_type_mainV">채소</label>
 							</div>
 							<hr class="hr2" />
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_soup" id="f_type_soupY" value="Y">
+								<input class="form-check-input" type="radio" name="f_type_soup" id="f_type_soupY" value="Y" th:checked="${foodInfo.f_type_soup == 'Y'}">
 								<label class="form-check-label" for="f_type_soupY">국물있음</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_soup" id="f_type_soupN" value="N">
+								<input class="form-check-input" type="radio" name="f_type_soup" id="f_type_soupN" value="N" th:checked="${foodInfo.f_type_soup == 'N'}">
 								<label class="form-check-label" for="f_type_soupN">국물없음</label>
 							</div>
 							<hr class="hr2" />
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_spicy" id="f_type_spicyY" value="Y">
+								<input class="form-check-input" type="radio" name="f_type_spicy" id="f_type_spicyY" value="Y" th:checked="${foodInfo.f_type_spicy == 'Y'}">
 								<label class="form-check-label" for="f_type_spicyY">매움</label>
 							</div>
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="f_type_spicy" id="f_type_spicyN" value="N">
+								<input class="form-check-input" type="radio" name="f_type_spicy" id="f_type_spicyN" value="N" th:checked="${foodInfo.f_type_spicy == 'N'}">
 								<label class="form-check-label" for="f_type_spicyN">안매움</label>
 							</div>
 							<hr class="hr2" />
@@ -162,7 +166,13 @@
 								<button type="button" class="btn btn-light" id="btnIngredientAdd">추가</button>
 							</div>
 						</div>
-						<div class="col-12" id="ingredientList"></div>
+						<div class="col-12" id="ingredientList">
+							<span class="d-inline-block border border-light rounded-5 py-1 px-3 me-2 ingredientParent" th:each="cnt, stat : ${#numbers.sequence(1, {productCnt})}">
+								<span class="ingredientCode" th:data-pcode="${pCodeList[stat.index]}" th:text="${pNameList[stat.index]}"></span>
+								<span class="ingredientVolume" th:data-fvolume="${fVolumeList[stat.index]}" th:text="${fVolumeList[stat.index]}"></span>
+								<span class="ingredientDel text-primary" th:idx="${stat.index}" role="button">X</span>
+							</span>
+						</div>
 						<input type="hidden" name="f_code_arr" id="f_code_arr" />
 						<input type="hidden" name="f_volume_arr" id="f_volume_arr" />
 					</div>
@@ -180,7 +190,15 @@
 								<button type="button" class="btn btn-light" id="btnRecipeAdd">추가</button>
 							</div>
 						</div>
-						<div class="col-12" id="recipeList"></div>
+						<div class="col-12" id="recipeList">
+							<div class="row recipeParent" th:each="recipe, recipeStat : ${recipeList}">
+								<div class="col-12 p-3">
+									<div class="rounded-5 bg-primary text-white px-3 mb-2 d-inline-block recipeNum" th:text="${recipeStat.count}"></div>
+									<span class="recipeDel text-primary ms-3" th:idx="${recipeStat.index}" role="button">X</span>
+									<div class="recipeItem" th:text="${recipe}"></div>
+								</div>
+							</div>
+						</div>
 						<textarea class="d-none" name="f_recipe"></textarea>
 					</div>
 					
@@ -200,7 +218,7 @@
 		    	<i class="fa-solid fa-arrow-up"></i>
 		    </div>
 			
-			<script th:src="@{/js/foodWrite.js}"></script>
+			<script th:src="@{/js/foodUpdate.js}"></script>
 
 		</div>
 </body>

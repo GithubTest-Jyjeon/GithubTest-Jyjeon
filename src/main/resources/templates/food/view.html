@@ -24,12 +24,12 @@
 
 
 		<div class="container py-5">
-			<div class="row mb-2">
-				<div class="col-5">
-					<button onclick="javascript:history.back(-1);" class="btn btn-light">뒤로가기</button>
-				</div>
-				<div class="col-7">
-					<p class="text-end">
+			<div class="row mb-2 g-0">
+				<div class="col d-flex justify-content-between">
+					<div class="d-inline-block">
+						<button onclick="javascript:history.back(-1);" class="btn btn-light">뒤로가기</button>
+					</div>
+					<div class="d-inline-block">
 						<input type="hidden" id="f_seq" th:value="${foodInfo.f_seq}" />
 						<a class="btn btn-outline-secondary d-none" id="btnHeartOff">
 							<i class="fa-regular fa-heart"></i> 레시피 찜 해제
@@ -37,7 +37,10 @@
 						<a class="btn btn-outline-primary d-none" id="btnHeartOn">
 							<i class="fa-solid fa-heart"></i> 레시피 찜 하기
 						</a>
-					</p>
+						<th:block th:if="${session.userSession != null}">
+							<a class="btn btn-outline-warning" th:if="${session.userSession.u_seq == foodInfo.u_seq}" th:text="수정하기" th:href="@{/food/update(f_code=${foodInfo.f_code})}"></a>						
+						</th:block>
+					</div>
 				</div>
 			</div>
 			<div class="row mb-5">
@@ -63,8 +66,9 @@
 				<div class="col-12 col-lg-8">
 				
 					<div class="row">
-						<div class="col">
-							<p class="pb-3 fs-1 fw-bold" th:text="${foodInfo.f_name}"></p>
+						<div class="col mb-3 text-center text-lg-start">
+							<span class="fs-4 fw-bold" th:text="${foodInfo.u_nickname}"></span> 님의
+							<span class="fs-1 fw-bold" th:text="${foodInfo.f_name}"></span> 레시피
 						</div>
 					</div>
 					
@@ -142,8 +146,8 @@
 							<form method="post">
 								<div class="input-group ">
 									<div class="form-floating">
-										<input type="text" class="form-control rounded-start-5" id="fr_comment" name="fr_comment" placeholder="소중한 댓글을 남겨주세요">
-										<label for="fr_comment">소중한 댓글을 남겨주세요 (100자 미만)</label>
+										<input type="text" class="form-control rounded-start-5 text-muted xsmall" id="fr_comment" name="fr_comment" placeholder="소중한 댓글을 남겨주세요">
+										<label for="fr_comment">소중한 댓글을 남겨주세요</label>
 									</div>
 									<button type="button" class="btn btn-primary rounded-end-5" role="button" id="btnInsertReply">댓글 남기기</button>
 								</div>
@@ -157,7 +161,7 @@
 											<span class="fw-bold" th:text="${item.u_nickname}"></span>
 											<span class="text-muted xsmall" th:text="${item.fr_reg_date}"></span>
 										</div>
-										<div class="col-12" th:text="${item.fr_comment}"></div>
+										<div class="col-12 text-break" th:text="${item.fr_comment}"></div>
 									</div>
 								</li>
 								<li class="list-group-item" th:if="${replyList.size == 0}">

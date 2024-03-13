@@ -59,7 +59,8 @@ $( function(){
 		
 	})
 	
-	let cntIngredient = 0;
+	let cntIngredient = $(".ingredientParent").length;
+	
 	$("#btnIngredientAdd").on("click", function(){
 		let p_name = $("#productList option:selected").text();
 		let p_code = $("#productList option:selected").val();
@@ -87,7 +88,8 @@ $( function(){
 		$("#f_volume").val("");
 	})
 	
-	let cntRecipe = 0;
+	let cntRecipe = $(".recipeParent").length;
+	
 	$("#btnRecipeAdd").on("click", function(){
 		let f_recipe = $("#f_recipe").val();
 		
@@ -139,11 +141,6 @@ $( function(){
 		
 		f_recipe = f_recipe.slice(0, -1);
 		
-		if($("#f_image").val() == null || $("#f_image").val() == ""){
-			alert("이미지를 등록해주세요");
-			return false;
-		}
-		
 		if($("#f_name").val().replace(/^\s*/, "") == null || $("#f_name").val().replace(/^\s*/, "") == ""){
 			alert("음식명을 입력해주세요");
 			return false;
@@ -180,36 +177,36 @@ $( function(){
 		$("#f_code_arr").val(f_code_arr);
 		$("#f_volume_arr").val(f_volume_arr);
 		
-		let formData = new FormData($("#frmFoodWrite")[0]);
+		let formData = new FormData($("#frmFoodUpdate")[0]);
 		let f_image = $("#f_image");
-        let files = f_image[0].files; 
-		
+        let files = f_image[0].files;
+        
 		let f_name = $("#f_name").val();
 		
 		$.ajax({
-			url : "/food/writeProcess",
+			url : "/food/updateProcess",
 			data : formData,
 			type : "post",
 			cache : false,
 			contentType : false,
 			processData : false,
 			success : function(returnData){
-				console.log(returnData);
 				switch(returnData){
+					
 					case "errorFileSize" : 
 						alert("파일 용량은 5MB 이하로 업로드 하시기 바랍니다.");
 						return false;
 					
-					case "errorInsert" : 
-						alert("레시피 등록에 실패 하였습니다.");
+					case "errorUpdate" : 
+						alert("레시피 수정에 실패 하였습니다.");
 						return false;
 					
 					case "errorUserDTO" :
-						alert("로그인 후 등록 하시기 바랍니다."); 
+						alert("로그인 후 수정 하시기 바랍니다."); 
 						return false;
 					
 					default :
-						alert("레시피 등록이 완료 되었습니다!");
+						alert("레시피 수정이 완료 되었습니다!");
 						var result = confirm("레시피 보기 화면으로 이동하시겠습니까?");
 						
 						if(result){

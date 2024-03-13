@@ -15,4 +15,6 @@ public class FoodDTO {
 	private String f_type_main;
 	private String f_type_soup;
 	private String f_type_spicy;
+	private int u_seq;
+	private String u_nickname;
 }

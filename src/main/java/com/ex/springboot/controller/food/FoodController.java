@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
+import org.apache.groovy.parser.antlr4.util.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,7 +42,7 @@ public class FoodController {
 	IfoodDAO dao;
 	
 	@Autowired
-	IproductDAO daoproduct;
+	IproductDAO daoProduct;
 	
 	@Autowired
 	IboardDAO daoBoard;
@@ -90,7 +90,8 @@ public class FoodController {
 	@GetMapping("/food/view")
 	public String foodView(@RequestParam(value = "f_code") String f_code, Model model) {
 	    // 기존 코드
-	    model.addAttribute("foodInfo", dao.foodView(f_code));
+		FoodDTO foodInfo = dao.foodView(f_code);
+	    model.addAttribute("foodInfo", foodInfo);
 	    model.addAttribute("f_code", f_code);
 
 	    // Recipe List 로직
@@ -111,7 +112,7 @@ public class FoodController {
 	    StringTokenizer tokenFVolume = new StringTokenizer(foodDTO.getF_volume_arr(), "|");
 	    while(tokenFCode.hasMoreElements()) {
 	    	Map<String, String> map = new HashMap<>();
-	    	ProductDTO pInfo = daoproduct.productInfo((String)tokenFCode.nextElement());
+	    	ProductDTO pInfo = daoProduct.productInfo((String)tokenFCode.nextElement());
 	    	String fVolume = (String)tokenFVolume.nextElement();
 	    	String pSeq = pInfo.getP_seq()+"";
 	    	map.put("pSeq", pSeq);
@@ -126,13 +127,74 @@ public class FoodController {
 	}
 	
 	@GetMapping("/food/write")
-	public String foodWrite() {
-		return "/food/write";
+	public String foodWrite(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if(userDTO != null) {
+			return "/food/write";
+		}else {
+			return "/user/login";
+		}
+	}
+	
+	@GetMapping("/food/update")
+	public String foodUpdate(HttpServletRequest request, @RequestParam(value="f_code") String f_code, Model model) {
+		HttpSession session = request.getSession();
+		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+		
+		if(userDTO != null) {
+			if(userDTO.getU_seq() == 0) {
+				return "/food/view?f_code="+f_code;
+			}else {
+				FoodDTO foodInfo = new FoodDTO();
+				foodInfo = dao.foodView(f_code);
+				String codeString = foodInfo.getF_code_arr();
+				String volumeString = foodInfo.getF_volume_arr();
+				String recipeString = foodInfo.getF_recipe();
+				
+				List<String> pCodeList = new ArrayList<>();
+				List<String> pNameList = new ArrayList<>();
+				List<String> fVolumeList = new ArrayList<>();
+				List<String> recipeList = new ArrayList<>();
+
+				int cnt = 0;
+				StringTokenizer codeToken = new StringTokenizer(codeString, "|");
+				StringTokenizer volumeToken = new StringTokenizer(volumeString, "|");
+				while(codeToken.hasMoreElements()) {
+					cnt++;
+					
+					String p_code = (String) codeToken.nextElement();
+					String p_name = daoProduct.productInfo(p_code).getP_name();
+					String f_volume = (String) volumeToken.nextElement();
+					
+					pCodeList.add(p_code);
+					pNameList.add(p_name);
+					fVolumeList.add(f_volume);
+				}
+				
+				StringTokenizer recipeToken = new StringTokenizer(recipeString, "|");
+				while(recipeToken.hasMoreElements()) {
+					recipeList.add((String) recipeToken.nextElement());
+				}
+				
+				model.addAttribute("productCnt", cnt);
+				model.addAttribute("foodInfo", foodInfo);
+				model.addAttribute("pCodeList", pCodeList);
+				model.addAttribute("pNameList", pNameList);
+				model.addAttribute("fVolumeList", fVolumeList);
+				model.addAttribute("recipeList", recipeList);
+				
+				return "/food/update";
+			}
+		}else {
+			return "/user/login";
+		}
 	}
 	
 	@ResponseBody
 	@PostMapping("/food/writeProcess")
-	public String uplaodImage(HttpServletRequest request, @RequestParam("f_image") MultipartFile file, Model model) throws IOException {
+	public String foodWriteProcess(HttpServletRequest request, @RequestParam("f_image") MultipartFile file, Model model) throws IOException {
 		String UPLOAD_DIRECTORY = System.getProperty("user.dir")+"/src/main/resources/static/uploads";
 		
 		try {
@@ -145,6 +207,11 @@ public class FoodController {
 			fileNames.append(newFilename);
 			byte[] fileSize = file.getBytes();
 			Files.write(fileNameAndPath, fileSize);
+			
+			if(Files.size(fileNameAndPath) > 5242880) {
+				Files.delete(fileNameAndPath);
+				return "errorFileSize";
+			}
 			
 			String f_name = request.getParameter("f_name");
 			String f_code_arr = request.getParameter("f_code_arr");
@@ -167,12 +234,103 @@ public class FoodController {
 			foodDTO.setF_type_soup(f_type_soup);
 			foodDTO.setF_type_spicy(f_type_spicy);
 			
-			String f_code = dao.foodWrite(foodDTO);
-			model.addAttribute("f_code", f_code);
-			return f_code;
+			HttpSession session = request.getSession();
+			UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+
+			if(userDTO != null) {
+				int u_seq = userDTO.getU_seq();
+				String u_nickname = userDTO.getU_nickname();
+				String f_code = dao.foodWrite(foodDTO, u_seq, u_nickname);
+				
+				model.addAttribute("f_code", f_code);
+				
+				return f_code;
+			}else {
+				return "errorUserDTO";
+			}
 		} catch(Exception e) {
 			e.getStackTrace();
-			return "";
+			return "errorInsert";
+		}
+	}
+	
+	
+	@ResponseBody
+	@PostMapping("/food/updateProcess")
+	public String foodUpdateProcess(HttpServletRequest request, @RequestParam(required = false, value="f_image") MultipartFile file, Model model) throws IOException {
+		
+		String UPLOAD_DIRECTORY = System.getProperty("user.dir")+"/src/main/resources/static";
+		
+		try {
+			StringBuilder fileNames = new StringBuilder();
+			String newFilename = null;
+			Path fileNameAndPath = null;
+			byte[] fileSize = null;
+			
+			String f_image_final = "";
+			
+			if(file.getSize() == 0) {
+				f_image_final = request.getParameter("f_image_original");
+			}else {
+				String originalFilename = file.getOriginalFilename();
+				long timestamp = System.currentTimeMillis();
+				String ext = originalFilename.substring(originalFilename.lastIndexOf(".") + 1);
+				newFilename = timestamp+"."+ext;
+				fileNameAndPath = Paths.get(UPLOAD_DIRECTORY+"/uploads", newFilename);
+				fileNames.append(newFilename);
+				fileSize = file.getBytes();
+				Files.write(fileNameAndPath, fileSize);
+				
+				if(Files.size(fileNameAndPath) > 5242880) {
+					Files.delete(fileNameAndPath);
+					return "errorFileSize";
+				}
+				Path deletePath = Paths.get(UPLOAD_DIRECTORY, request.getParameter("f_image_original"));
+				Files.delete(deletePath);
+				f_image_final = "/uploads/"+newFilename;
+			}
+			
+			String f_code = request.getParameter("f_code");
+			String f_name = request.getParameter("f_name");
+			String f_code_arr = request.getParameter("f_code_arr");
+			String f_volume_arr = request.getParameter("f_volume_arr");
+			String f_recipe = request.getParameter("f_recipe");
+			String f_image = f_image_final;
+			String f_type_theme = request.getParameter("f_type_theme");
+			String f_type_main = request.getParameter("f_type_main");
+			String f_type_soup = request.getParameter("f_type_soup");
+			String f_type_spicy = request.getParameter("f_type_spicy");
+			
+			FoodDTO foodDTO = new FoodDTO();
+			foodDTO.setF_code(f_code);
+			foodDTO.setF_name(f_name);
+			foodDTO.setF_code_arr(f_code_arr);
+			foodDTO.setF_volume_arr(f_volume_arr);
+			foodDTO.setF_recipe(f_recipe);
+			foodDTO.setF_image(f_image);
+			foodDTO.setF_type_theme(f_type_theme);
+			foodDTO.setF_type_main(f_type_main);
+			foodDTO.setF_type_soup(f_type_soup);
+			foodDTO.setF_type_spicy(f_type_spicy);
+			
+			HttpSession session = request.getSession();
+			UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
+			
+			if(userDTO != null) {
+				int u_seq = userDTO.getU_seq();
+				f_code = dao.foodUpdate(foodDTO, u_seq);
+
+				model.addAttribute("f_code", f_code);
+				
+				return f_code;
+			}else {
+				System.out.println("errorUserDTO");
+				Files.delete(fileNameAndPath);
+				return "errorUserDTO";
+			}
+		} catch(Exception e) {
+			e.getStackTrace();
+			return "errorUpdate";
 		}
 	}
 	

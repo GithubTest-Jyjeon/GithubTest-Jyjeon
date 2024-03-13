@@ -11,16 +11,126 @@
 
 <body>
 	<div layout:fragment="content">
-
-		<div class="container mt-5">
+	
+		<div class="container">
 			<div class="row">
-				<div class="col-4"></div>
-				<div class="col-4 d-flex flex-column justify-content-center">
-					<h1 class="mb-5 text-center">관리자 페이지</h1>				
-						<a class="btn btn-primary btn-lg mb-5" href="/admin/users">유저 관리</a>
-						<a class="btn btn-primary btn-lg" href="/admin/products">상품 관리</a>
+				<div class="col-12 my-5">
+					<h1 class="fs-1 fw-bold">관리자 페이지 <span class="fs-5">[대시보드]</span></h1>
 				</div>
-				<div class="col-4"></div>
+			</div>
+			<div class="row g-2">
+
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">레시피 관리</p>
+						<div class="text-muted small mb-2">
+							레시피 데이터를 등록 / 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/foodList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">영화 관리</p>
+						<div class="text-muted small mb-2">
+							영화 데이터를 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/movieList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">공연 관리</p>
+						<div class="text-muted small mb-2">
+							공연 데이터를 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/showList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">게시글 관리</p>
+						<div class="text-muted small mb-2">
+							게시글 데이터를 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/boardList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">상품 관리</p>
+						<div class="text-muted small mb-2">
+							상품 데이터를 등록 / 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/productList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">사용자 관리</p>
+						<div class="text-muted small mb-2">
+							사용자 데이터를 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/userList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">댓글 관리</p>
+						<div class="text-muted small mb-2">
+							댓글 데이터를 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/replyList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-6 col-lg-3">
+					<div class="border border-light rounded-4 p-3">
+						<p class="fw-bold">주문 관리</p>
+						<div class="text-muted small mb-2">
+							주문 데이터를 조회 / 수정 / 삭제합니다.
+						</div>
+						<div class="text-end">
+							<a class="btn btn-sm btn-primary rounded-5" th:href="@{/admin/orderList}">
+								<i class="fa-regular fa-pen-to-square"></i>
+							</a>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		

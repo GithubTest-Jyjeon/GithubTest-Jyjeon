@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import com.ex.springboot.dto.FoodDTO;
 import com.ex.springboot.dto.FoodSetDTO;
+import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IfoodDAO;
 
 @Primary
@@ -133,15 +134,23 @@ public class FoodDAO implements IfoodDAO {
 	}
 	
 	@Override
-	public String foodWrite(FoodDTO foodDTO) {
+	public String foodWrite(FoodDTO foodDTO, int u_seq, String u_nickname) {
 		String f_seq_query = "select f_seq from cg_food where rownum = 1 order by f_seq desc";
 		int f_seq = template.queryForObject(f_seq_query, Integer.class);
 			f_seq++;
 		String f_code = String.format("%04d", f_seq);
-		String sql = "insert into cg_food (f_seq, f_code, f_name, f_image, f_code_arr, f_volume_arr, f_recipe, f_type_theme, f_type_main, f_type_soup, f_type_spicy) values (FOOD_SEQ.nextval, '"+f_code+"', '"+foodDTO.getF_name()+"', '"+foodDTO.getF_image()+"', '"+foodDTO.getF_code_arr()+"', '"+foodDTO.getF_volume_arr()+"', '"+foodDTO.getF_recipe()+"', '"+foodDTO.getF_type_theme()+"', '"+foodDTO.getF_type_main()+"', '"+foodDTO.getF_type_soup()+"', '"+foodDTO.getF_type_spicy()+"')";
+		String sql = "insert into cg_food (f_seq, f_code, f_name, f_image, f_code_arr, f_volume_arr, f_recipe, f_type_theme, f_type_main, f_type_soup, f_type_spicy, u_seq, u_nickname) values (FOOD_SEQ.nextval, '"+f_code+"', '"+foodDTO.getF_name()+"', '"+foodDTO.getF_image()+"', '"+foodDTO.getF_code_arr()+"', '"+foodDTO.getF_volume_arr()+"', '"+foodDTO.getF_recipe()+"', '"+foodDTO.getF_type_theme()+"', '"+foodDTO.getF_type_main()+"', '"+foodDTO.getF_type_soup()+"', '"+foodDTO.getF_type_spicy()+"', "+u_seq+", '"+u_nickname+"')";
 		template.update(sql);
 		
 		return f_code;
 	}
-
+	
+	@Override
+	public String foodUpdate(FoodDTO foodDTO, int u_seq) {
+		String sql = "update cg_food set f_name = '"+foodDTO.getF_name()+"', f_image = '"+foodDTO.getF_image()+"', f_code_arr = '"+foodDTO.getF_code_arr()+"', f_volume_arr = '"+foodDTO.getF_volume_arr()+"', f_recipe = '"+foodDTO.getF_recipe()+"', f_type_theme = '"+foodDTO.getF_type_theme()+"', f_type_main = '"+foodDTO.getF_type_main()+"', f_type_soup = '"+foodDTO.getF_type_soup()+"', f_type_spicy = '"+foodDTO.getF_type_spicy()+"' where f_code = '"+foodDTO.getF_code()+"' and u_seq = "+u_seq;
+		template.update(sql);
+		
+		return foodDTO.getF_code();
+	}
+	
 }

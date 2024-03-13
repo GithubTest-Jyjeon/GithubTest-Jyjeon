@@ -15,11 +15,12 @@
     <div class="container position-absolute top-50 start-50 translate-middle">
         <div class="row jusify-content-center">
             <div class="col-12 col-md-6 offset-md-3">
-                <h1 class="display-6">이메일로 아이디 찾기</h1>
+                <h1 class="display-6">아이디 찾기</h1>
+                <p>회원가입시 입력한 이메일 주소를 입력하시면 아이디를 찾아드립니다.</p>
                 <form th:action="@{/user/findIdProcess}" method="post" id="frmFindId">
                     <div class="form-floating mb-2">
-                        <input type="email"  class="form-control" id="u_email" name="u_email" required placeholder="이메일 주소를 입력하세요">
-                        <label for="u_email">이메일 주소를 입력하여 아이디를 찾아보세요.</label>
+                        <input type="email"  class="form-control" id="u_email" name="u_email" required placeholder="가입시 입력한 이메일 주소 입력">
+                        <label for="u_email">이메일</label>
                     </div>
 
                     <input type="submit" class="btn btn-primary w-100 mb-2" value="아이디 찾기"/>
@@ -30,8 +31,8 @@
                 </div>
 
                 <p class="text-muted small text-center my-3">
-                    <a class="mx-3" role="button" th:href="@{/user/login}">로그인</a> /
-                    <a class="mx-3" role="button" th:href="@{/user/findPw}">비밀번호 찾기</a>
+                    <a class="mx-3 text-decoration-none text-dark" role="button" th:href="@{/user/login}">로그인</a> /
+                    <a class="mx-3 text-decoration-none text-dark" role="button" th:href="@{/user/findPw}">비밀번호 찾기</a>
                 </p>
 
             </div>
