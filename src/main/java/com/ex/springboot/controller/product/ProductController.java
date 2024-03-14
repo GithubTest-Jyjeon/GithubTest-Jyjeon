@@ -42,28 +42,39 @@ public class ProductController {
 	
 	@GetMapping("/product/list")
 	public String productListPage(@RequestParam(value="p_category") String p_category, @RequestParam(value="page", defaultValue="1") int page, @RequestParam(value="word", defaultValue="") String word, Model model) {
-		int limit = 24;
-		int totalCount = dao.productTotal(p_category, word);
-		int totalPage = (int) Math.ceil((double)totalCount / limit);
-		int startPage = ((page - 1) / 10) * 10 + 1;
-		int endPage = startPage + 9;
-		if(endPage > totalPage) {
-			endPage = totalPage;
-		}
-		
-		model.addAttribute("list", dao.productList(p_category, page, limit, word));
-		model.addAttribute("category_arr", category_arr);
-		model.addAttribute("p_category", p_category);
-		model.addAttribute("totalCount", totalCount);
-		model.addAttribute("totalPage", totalPage);
-		model.addAttribute("startPage", startPage);
-		model.addAttribute("endPage", endPage);
-		model.addAttribute("page", page);
-		model.addAttribute("word", word);
-		model.addAttribute("limit", limit);
-		
-		return "/product/list";
+	    int limit = 24;
+	    int totalCount = dao.productTotal(p_category, word);
+	    int totalPage = (int) Math.ceil((double)totalCount / limit);
+	    int startPage = ((page - 1) / 10) * 10 + 1;
+	    int endPage = startPage + 9;
+	    if(endPage > totalPage) {
+	        endPage = totalPage;
+	    }
+
+	    // p_category에 해당하는 친절한 이름 찾기
+	    String categoryName = p_category; // 기본값을 p_category로 설정
+	    for (String category : category_arr) {
+	        if (category.contains(p_category)) { // 배열에서 p_category에 해당하는 문자열을 포함하는지 확인
+	            categoryName = category; // 해당하는 친절한 카테고리 이름으로 설정
+	            break;
+	        }
+	    }
+	    
+	    model.addAttribute("list", dao.productList(p_category, page, limit, word));
+	    model.addAttribute("category_arr", category_arr);
+	    model.addAttribute("p_category", p_category);
+	    model.addAttribute("categoryName", categoryName); // 모델에 친절한 카테고리 이름 추가
+	    model.addAttribute("totalCount", totalCount);
+	    model.addAttribute("totalPage", totalPage);
+	    model.addAttribute("startPage", startPage);
+	    model.addAttribute("endPage", endPage);
+	    model.addAttribute("page", page);
+	    model.addAttribute("word", word);
+	    model.addAttribute("limit", limit);
+	    
+	    return "/product/list";
 	}
+
 	
 	
 	@GetMapping("/product/view")

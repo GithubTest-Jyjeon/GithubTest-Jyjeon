@@ -11,6 +11,8 @@
 <body>
 	<div layout:fragment="content">
 		<div class="container mb-5">
+		<button class="btn btn-secondary mt-5" onclick="goBack()">뒤로 가기</button>
+		
 
 			<!-- 리스트 아이템 반복 -->
 			<div class="container py-5">
@@ -19,8 +21,16 @@
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item">
 								<div class="row pb-2">
-									<div class="col-12">
-										<h2 class="text-primary" th:text="${order.o_title}"></h2>
+									<div class="col-12 d-flex justify-content-between">
+										
+										 <h3 th:text="${order.o_title}">주문 제목</h3>
+										 
+										 <a th:href="@{/order/view(o_seq=${order.orderInfo.o_seq})}">
+										 <button class="btn btn-primary text-nowrap">상세보기</button>                                        
+                                        </a>
+										 
+										 <!-- <a th:href="@{/order/view(o_seq=${order.orderInfo.o_seq})}" class="text-decoration-none text-dark">                                       
+                                        </a> -->
 									</div>
 									<div class="col-12">
 										<div>
@@ -41,52 +51,10 @@
 					<hr class="my-4" />
 				</div>
 			</div>
-
-
-			<!-- <div class="container">
-				<div class="row">
-					<div class="col">
-						페이지 네비게이션
-						<nav aria-label="Page navigation example">
-							<ul class="pagination justify-content-center">
-								<li th:classappend="${page > 1} ? '' : 'disabled'"><a
-									class="page-link"
-									th:href="@{/board/list(page=${page - 1}, type=${type}, word=${word})}">Prev</a>
-								</li>
-								<li th:each="i : ${#numbers.sequence(startPage, endPage)}"
-									th:classappend="${page == i} ? 'active' : ''"><a
-									class="page-link"
-									th:href="@{/board/list(page=${i}, type=${type}, word=${word})}"
-									th:text="${i}"></a></li>
-								<li th:classappend="${page < totalPage} ? '' : 'disabled'">
-									<a class="page-link"
-									th:href="@{/board/list(page=${page + 1}, type=${type}, word=${word})}">Next</a>
-								</li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div> -->
-
-			<!-- 검색 폼 -->
-			<!-- <div class="container">
-				<div class="row">
-					<div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
-						<form th:action="@{/board/list}" method="get">
-							<div class="input-group">
-								<select name="type" class="form-select">
-									<option value="title">제목</option>
-									<option value="content">내용</option>
-									<option value="writer">작성자</option>
-								</select> <input type="text" name="word" class="form-control"
-									placeholder="검색어 입력">
-								<button type="submit" class="btn btn-primary">검색</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div> -->
 		</div>
+		 <div id="btnTop">
+		    	<i class="fa-solid fa-arrow-up"></i>
+		    </div>
 	</div>
 </body>
 </html>

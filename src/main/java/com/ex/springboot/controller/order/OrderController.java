@@ -6,10 +6,12 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ex.springboot.dto.OrderDTO;
 import com.ex.springboot.dto.UserDTO;
 import com.ex.springboot.interfaces.IorderDAO;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -60,4 +62,24 @@ public class OrderController {
 		  
 		  return 0;
 	}
+	
+
+	@RequestMapping("/order/view")
+	public String getOrderDetail(@RequestParam("o_seq") int o_seq, Model model) {
+	    try {
+	        OrderDTO orderDetail = dao.getOrderDetailByOSeq(o_seq);
+	        if (orderDetail != null) {
+	            model.addAttribute("orderDetail", orderDetail);
+	            return "/order/view"; // Thymeleaf에 의해 처리될 뷰의 이름
+	        } else {
+	            model.addAttribute("errorMessage", "Order not found");
+	            return "errorPage"; // 적절한 에러 페이지로 리다이렉트
+	        }
+	    } catch (Exception e) {
+	        model.addAttribute("errorMessage", "Error retrieving order");
+	        return "errorPage"; // 적절한 에러 페이지로 리다이렉트
+	    }
+	}
+
+
 }

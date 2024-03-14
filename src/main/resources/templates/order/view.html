@@ -1,18 +1,60 @@
 <!DOCTYPE html>
-<html
-	lang="ko"
-	xmlns:th="http://www.thymeleaf.org"
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layouts/layout}">
+
+<head>
+<meta charset="UTF-8">
+<title>주문 상세 정보</title>
+<!-- 부트스트랩 CSS 추가 -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+	<div layout:fragment="content" class="content content1">
 	
-	<head>
-		<meta charset="UTF-8">
-		<title>Insert title here</title>
-	</head>
-	
-	<body>
-		<div layout:fragment="content" class="content content1">
-		fuck you;
+		<div class="container mt-5">
+			<button class="btn btn-secondary mb-5" onclick="goBack()">뒤로 가기</button>
+			<div class="row">
+				<div class="col">
+					<h2>주문 상세 정보</h2>
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">
+								주문 번호: <span th:text="${orderDetail.o_seq}">Order ID</span>
+							</h5>
+							<table class="table">
+								<thead>
+									<tr>
+										<th scope="col">상품명</th>
+										<th scope="col">수량</th>
+										<th scope="col">가격</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="item : ${orderDetail.items}">
+										<td th:text="${item.split('/')[0].trim()}">Product Name</td>
+										<td
+											th:text="${item.split('/')[1].trim().split(':')[1].trim()}">Quantity</td>
+										<td
+											th:text="${item.split('/')[2].trim().split(':')[1].trim()} + '원'">Price</td>
+									</tr>
+								</tbody>
+							</table>	
+							<p class="card-text">
+								총 가격: <span th:text="${orderDetail.o_total_price} + '원'">Total
+									Price</span>
+							</p>
+							<p class="card-text">
+								등록 날짜: <span th:text="${orderDetail.o_reg_date}">Order
+									Date</span>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-	</body>
+	</div>
+</body>
 </html>

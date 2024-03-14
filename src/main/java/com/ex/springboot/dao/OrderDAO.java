@@ -2,6 +2,7 @@ package com.ex.springboot.dao;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 
@@ -86,6 +87,7 @@ public class OrderDAO implements IorderDAO {
 				map.put("o_title", productFirst+" 주문");
 			}
 			
+			
 			map.put("orderInfo", orderList.get(cnt));
 			returnData.add(map);
 			
@@ -94,6 +96,31 @@ public class OrderDAO implements IorderDAO {
 		System.out.println("rerutnData : "+returnData);
 		return returnData; 
 	}
+	
+	
+	 @Override
+	    public OrderDTO getOrderDetailByOSeq(int o_seq) {
+	        String query = "SELECT * FROM cg_order WHERE o_seq = ?";
+	        try {
+	            OrderDTO orderDetail = template.queryForObject(query, new BeanPropertyRowMapper<>(OrderDTO.class), o_seq);
+	            if(orderDetail != null) {
+	                List<String> items = new ArrayList<>();
+	                String[] pCodes = orderDetail.getP_code_arr().split("\\|");
+	                String[] pCounts = orderDetail.getP_count_arr().split("\\|");
+	                String[] pPrices = orderDetail.getP_price_arr().split("\\|");
+	                for(int i = 0; i < pCodes.length; i++) {
+	                    String pNameQuery = "SELECT p_name FROM cg_product WHERE p_code = ?";
+	                    String pName = template.queryForObject(pNameQuery, new Object[]{pCodes[i]}, String.class);
+	                    items.add(pName + " / 수량: " + pCounts[i] + " / 가격: " + pPrices[i]);
+	                }
+	                orderDetail.setItems(items);
+	            }
+	            return orderDetail;
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return null;
+	        }
+	    }
 
 
 	
