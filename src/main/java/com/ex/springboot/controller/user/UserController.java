@@ -42,17 +42,18 @@ public class UserController {
 		return "/user/join";
 	}
 	
+	@ResponseBody
 	@PostMapping("/user/joinProcess")
-	public String joinProcess(UserDTO userDTO) throws NoSuchAlgorithmException {
+	public boolean joinProcess(UserDTO userDTO) throws NoSuchAlgorithmException {
 		SHA256 sha256 = new SHA256();
 		userDTO.setU_pw(sha256.encrypt(userDTO.getU_pw()));
 		
 		if(dao.joinProcess(userDTO)) {
 			System.out.println("회원가입 성공");
-			return "/user/login";
+			return true;
 		} else{
 			System.out.println("회원가입 실패");
-			return "/user/join";
+			return false;
 		}
 	
 	}

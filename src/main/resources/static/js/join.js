@@ -165,20 +165,15 @@ $( function(){
 		
 		$.ajax({
 			url : "/user/joinProccess",
-			data : params,
+			data : joinParams,
 			type : "post",
 			success : function(returnData){
-				if(returnData > 0){
-					alert("이미 존재하는 아이디 입니다");
-					u_id.removeClass("border-success");
-					u_id.addClass("border-danger");
-					u_id.focus();
-					return false;
+				if(returnData){
+					alert("회원가입 성공");
+					location.href="/user/login";
 				}else{
-					alert("사용 가능한 아이디 입니다");
-					u_id.removeClass("border-danger");
-					u_id.addClass("border-success");
-					existCheckId = true;
+					alert("회원가입 실패");
+					return false;
 				}
 			},
 			error : function(error){
