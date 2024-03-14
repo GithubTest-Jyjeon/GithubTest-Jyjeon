@@ -27,11 +27,10 @@
 		html, body {
 			position: relative;
 			height: 100%;
-				background-color: #f8f8f8;
 		}
 		.MainCon{
 			position: relative;
-		top:-50px
+		top:0;
 }
 
 		/* =======네브바======== */
@@ -71,17 +70,7 @@
 			padding: 30px;
 		}
 
-		.S_mapButton {
-			width: 80px;
-			height: 30px;
-			background-color: lightgray;
-			margin: 5px 10px 0 10px;
-			border-radius: 10px;
-		}
 
-		.S_mapButton:hover {
-			background-color: wheat;
-		}
 
 		/* ==============콘텐츠 */
 		.maintext {
@@ -160,6 +149,12 @@
 		}
 
 		@media screen and (max-width: 1050px) {
+		.MainCon{
+		top:-50px;
+}
+			
+		
+		
 			.M_poster img {
 				padding: 0;
 			}
@@ -215,6 +210,9 @@
 
 	<div class="container MainCon">
 		<div class="row M_row">
+		<div class="col">
+			<button class="btn btn-light text-secondary mb-5" onclick="goBack()"><i class="fa-solid fa-angle-left me-2"></i>뒤로 가기</button>
+			</div>
 			<h1 class="Maintit">당신의 취향에 맞는 공연를 추천!</h1>
 			<hr />
 			<div class="col-md-4 col-12 M_poster">
@@ -232,9 +230,9 @@
 						</p>
 						<p class="p2">
 							<span th:text="${showInfo.s_stage}"></span>
-							<button type="button" class="S_mapButton border-0"
+							<button type="button" class="btn btn-link"
 									data-bs-toggle="modal" data-bs-target="#MapViewModal">
-								지도</button>
+								<i class="fa-solid fa-location-dot"></i></button>
 							/ <span th:text="${showInfo.s_grade}"></span>
 							/<span th:text="${showInfo.s_running_time}"></span>
 						</p>

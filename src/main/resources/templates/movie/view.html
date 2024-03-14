@@ -27,7 +27,6 @@
 html, body {
 	position: relative;
 	height: 100%;
-	background-color: #f8f8f8;
 }
 .MainCon{
 			position: relative;
@@ -178,6 +177,9 @@ h3 {
 		<div class="container MainCon">
 			<!--    <div th:text="${movieInfo}"></div> -->
 			<div class="row M_row">
+			<div class="col">
+			<button class="btn btn-light text-secondary mb-5" onclick="goBack()"><i class="fa-solid fa-angle-left me-2"></i>뒤로 가기</button>
+			</div>
 				<h1 class="Maintit">당신의 취향에 맞는 영화를 추천!</h1>
 				<hr />
 				<div class="col-md-4 col-12 M_poster">
