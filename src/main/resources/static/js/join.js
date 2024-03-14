@@ -112,7 +112,7 @@ $( function(){
 			u_nickname.addClass("border-danger");
 			return false;
 		}else{
-			joinParam.u_nickname = u_nickname.val();
+			joinParams.u_nickname = u_nickname.val();
 		}
 		
 		if(u_name.val().replace(/^\s*/, "") == null || u_name.val().replace(/^\s*/, "") == ""){
@@ -124,7 +124,7 @@ $( function(){
 			u_name.removeClass("border-danger");
 			u_name.addClass("border-success");
 			
-			joinParam.u_nickname = u_nickname.val().replace(/^\s*/, "");
+			joinParams.u_name = u_name.val().replace(/^\s*/, "");
 		}
 		
 		if(!emailRegex.test(u_email.val())){
@@ -136,7 +136,7 @@ $( function(){
 			u_email.removeClass("border-danger");
 			u_email.addClass("border-success");
 			
-			joinParam.u_email = u_email.val().replace(/^\s*/, "");
+			joinParams.u_email = u_email.val().replace(/^\s*/, "");
 		}
 		
 		if(u_birth.val() == null || u_birth.val() == ""){
@@ -148,20 +148,20 @@ $( function(){
 			u_birth.removeClass("border-danger");
 			u_birth.addClass("border-success");
 			
-			joinParam.u_birth = u_birth.val();
+			joinParams.u_birth = u_birth.val();
 		}
 		
 		if(u_gender_m.is(":checked")){
-			joinParam.u_gender = u_gender_m.val();	
+			joinParams.u_gender = u_gender_m.val();	
 		}else{
-			joinParam.u_gender = u_gender_w.val();
+			joinParams.u_gender = u_gender_w.val();
 		}
 		
-		joinParam.u_phone = u_phone.val();
-		joinParam.u_postcode = u_postcode.val();
-		joinParam.u_address = u_address.val();
-		joinParam.u_address_detail = u_address_detail.val();
-		joinParam.u_address_extra = u_address_extra.val();
+		joinParams.u_phone = u_phone.val();
+		joinParams.u_postcode = u_postcode.val();
+		joinParams.u_address = u_address.val();
+		joinParams.u_address_detail = u_address_detail.val();
+		joinParams.u_address_extra = u_address_extra.val();
 		
 		$.ajax({
 			url : "/user/joinProccess",

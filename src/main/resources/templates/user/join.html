@@ -18,7 +18,7 @@
 				<div class="row justify-content-center">
 					<div class="col-md">
 						<h1 class="display-5 text-center mb-5">회원가입</h1>
-						<form th:action=@{/user/joinProcess} method="post" id="frmUserJoin">
+						<form th:action=@{/user/joinProcess} method="post" id="frmUserJoin" onsubmit="return false;">
 							<div class="row">
 								<div class="col-lg-6">
 									<div class="input-group mb-2">
@@ -46,7 +46,7 @@
 									</div>
 									<div class="form-floating mb-2">
 										<input type="text" class="form-control" id="u_name" name="u_name" placeholder="이름">
-										<label for="u_nickname">이름</label>
+										<label for="u_name">이름</label>
 									</div>
 									<div class="input-group mb-2">
 										<div class="form-floating">
@@ -113,12 +113,6 @@
 					</div>
 				</div>
 			</div>
-			<!-- 에러 메시지를 JavaScript alert로 표시 -->
-			<script th:if="${errorMessage}" th:inline="javascript">
-				/*<![CDATA[*/
-				alert([[${errorMessage}]]);
-				/*]]>*/
-			</script>
 
 			<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 			<script th:src="@{/js/join.js}"></script>
