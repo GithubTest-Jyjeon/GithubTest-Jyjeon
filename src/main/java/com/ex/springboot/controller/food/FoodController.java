@@ -208,11 +208,6 @@ public class FoodController {
 			byte[] fileSize = file.getBytes();
 			Files.write(fileNameAndPath, fileSize);
 			
-			if(Files.size(fileNameAndPath) > 5242880) {
-				Files.delete(fileNameAndPath);
-				return "errorFileSize";
-			}
-			
 			String f_name = request.getParameter("f_name");
 			String f_code_arr = request.getParameter("f_code_arr");
 			String f_volume_arr = request.getParameter("f_volume_arr");
@@ -281,10 +276,6 @@ public class FoodController {
 				fileSize = file.getBytes();
 				Files.write(fileNameAndPath, fileSize);
 				
-				if(Files.size(fileNameAndPath) > 5242880) {
-					Files.delete(fileNameAndPath);
-					return "errorFileSize";
-				}
 				Path deletePath = Paths.get(UPLOAD_DIRECTORY, request.getParameter("f_image_original"));
 				Files.delete(deletePath);
 				f_image_final = "/uploads/"+newFilename;

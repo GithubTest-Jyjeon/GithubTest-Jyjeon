@@ -251,8 +251,6 @@ public class UserController {
 		    
 		    String newPw = sb.toString();
 			
-			System.out.println(newPw);
-
 			SHA256 sha256 = new SHA256();
 			String newPwHash = sha256.encrypt(newPw);
 
@@ -271,7 +269,7 @@ public class UserController {
 			return "/user/login";
 		} else {
 			model.addAttribute("errorMessage", "해당하는 사용자 정보가 없습니다. 회원 가입을 진행해 주세요.");
-			return "/user/join";
+			return "/user/findPw";
 		}
 	}
 }

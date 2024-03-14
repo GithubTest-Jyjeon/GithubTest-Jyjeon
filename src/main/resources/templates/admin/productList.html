@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/layout}">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>상품 관리자 페이지</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+	<div layout:fragment="content">
+
+		<div class="container">
+			<div class="row my-5">
+				<div class="col-12 mb-2">
+					<a th:href="@{/admin}" class="btn btn-light text-muted">
+						<i class="fa-solid fa-angle-left"></i> 대시보드로 이동
+					</a>
+				</div>
+				<div class="col-12">
+					<h1 class="fs-1 fw-bold">관리자 페이지 <span class="fs-5">[상품 목록]</span></h1>
+				</div>
+			</div>
+		
+			<div class="row mb-3">
+				<div class="col-8">
+					<div class="row">
+						<div class="col-8">
+							<div class="form-floating">
+							    <select class="form-select" id="categorySelect">
+							    	<option value="" th:selected="${category == ''}">전체상품</option>
+							        <option value="야채/채소" th:selected="${category == '야채/채소'}">야채/채소</option>
+							        <option value="축산/계란" th:selected="${category == '축산/계란'}">축산/계란</option>
+							        <option value="수산/건어물" th:selected="${category == '수산/건어물'}">수산/건어물</option>
+							        <option value="소스/양념/조미료" th:selected="${category == '소스/양념/조미료'}">소스/양념/조미료</option>
+							        <option value="곡류/견과류" th:selected="${category == '곡류/견과류'}">곡류/견과류</option>
+							        <option value="가공식품" th:selected="${category == '가공식품'}">가공식품</option>
+							        <option value="유제품" th:selected="${category == '유제품'}">유제품</option>
+							        <option value="과일류" th:selected="${category == '과일류'}">과일류</option>
+							    </select>
+							    <label for="p_category">카테고리</label>
+							</div>
+						</div>
+						<div class="col-4 d-flex align-items-end">
+							<span class="text-muted" th:text="|${totalCount} 건|"></span>
+						</div>
+					</div>
+				</div>
+				<div class="col-4 d-flex justify-content-end align-items-end">
+					<a th:href="@{/admin/product/insert(page=${page}, category=${category})}" class="btn btn-primary">상품 추가</a>
+				</div>
+			</div>
+			
+			<hr />
+			
+			<div class="row">
+				<div class="col-12 col-md-6 col-xl-4 mb-2" th:each="item, stat : ${productList}">
+					<a th:href="@{/admin/product/view(page=${page}, category=${category}, p_seq=${item.p_seq})}" class="text-dark text-decoration-none">
+					<div class="row g-0">
+						<div class="col-5 pe-3 text-center">
+							<img class="img-fluid w-100 border border-light rounded-5" th:src="@{${item.p_image}}" />
+						</div>
+						<div class="col-7">
+							<div class="text-muted small">
+								<span th:text="|[${item.p_code}]|"></span>
+								<span th:text="|[${item.p_category}]|"></span>
+							</div>
+							<div class="text-muted small">
+								<span th:text="${item.p_name}" class="text-dark fs-5 fw-bold"></span>
+							</div>
+							<div class="text-mubted small mb-2">
+								<span th:if="${item.p_new_yn == 'Y'}" class="text-info">신상품</span>
+								<span th:if="${item.p_dc_yn == 'Y'}" class="text-primary">할인상품</span>
+								<span th:if="${item.p_dc_yn != 'Y' && item.p_new_yn != 'Y'}" class="text-secondary">일반상품</span>
+							</div>
+							<div class="mb-2">
+								<th:block th:if="${item.p_dc_yn == 'Y'}">
+									<span th:text="|${#numbers.formatInteger(item.p_price, 3, 'COMMA')}원|" class="text-secondary text-decoration-line-through"></span>
+									<span th:text="|${item.p_dc_percent}%|" class="text-primary"></span>
+									<span th:text="|${#numbers.formatInteger(((item.p_price * 100) - (item.p_price * item.p_dc_percent)) / 100, 3, 'COMMA')}원|"></span>
+								</th:block>
+								<th:block th:if="${item.p_dc_yn == 'N'}">
+									<span th:text="|${#numbers.formatInteger(item.p_price, 3, 'COMMA')}원|"></span>
+								</th:block>
+							</div>
+							<div>
+								<span th:text="|재고 ${item.p_stock}개|" class="text-muted xsmall"></span>
+							</div>
+						</div>
+						
+					</div>
+					</a>
+					<hr class="hr2" />
+				</div>
+			</div>
+		</div>
+		
+		<div class="container pt-4 pb-5 mb-5">
+			<div class="row">
+				<div class="col">
+					<!-- 페이지 네비게이션 -->
+					<nav aria-label="Page navigation">
+						<ul class="pagination pagination-sm justify-content-center">
+							<li th:classappend="${page > 1} ? '' : 'disabled'">
+								<a class="page-link rounded-start-5" th:href="@{/admin/product/list(page=${page - 1}, category=${category})}">
+									<i class="fa-solid fa-angle-left"></i>
+								</a>
+							</li>
+							<li th:each="i : ${#numbers.sequence(startPage, endPage)}" th:classappend="${page == i} ? 'active' : ''">
+								<a class="page-link px-1" th:href="@{/admin/product/list(page=${i}, category=${category})}" th:text="${i}"></a>
+							</li>
+							<li th:classappend="${page < totalPage} ? '' : 'disabled'">
+								<a class="page-link rounded-end-5" th:href="@{/admin/product/list(page=${page + 1}, category=${category})}">
+									<i class="fa-solid fa-angle-right"></i>
+								</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$("#categorySelect").on("change", function(){
+				let category = $(this).val();
+				location.href="/admin/product/list?page=1&category="+category;
+			})			
+		</script>
+
+	</div>
+</body>
+
+</html>

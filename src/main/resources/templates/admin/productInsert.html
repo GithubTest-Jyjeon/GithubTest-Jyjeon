@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layouts/layout}">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>상품 추가 관리자 페이지</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+</head>
+
+<body>
+    <div layout:fragment="content">
+        
+        <div class="container">
+        	<div class="row my-5">
+				<div class="col-12">
+					<h1 class="fs-1 fw-bold">관리자 페이지 <span class="fs-5">[상품 추가]</span></h1>
+				</div>
+			</div>
+		
+			<div class="row mb-3">
+				<div class="col-12">
+					<a th:href="@{/admin/product/list(page=${page}, category=${category})}" class="btn btn-light">뒤로가기</a>
+				</div>
+			</div>
+			
+			<div class="row mb-3">
+				<div class="col-12 col-lg-4 mb-2">
+					<div class="h-100 d-flex justify-content-center justify-content-lg-start align-items-center">
+						<img src="" class="img-fluid" id="p_image_preview" style="height: 20rem" />
+					</div>
+				</div>
+				<div class="col-12 col-lg-8">
+					<form th:action="@{/admin/product/insertProcess}" method="post">
+						<input type="hidden" name="page" th:value="${page}" />
+						<input type="hidden" name="category" th:value="${category}" />
+			        	<div class="row g-2">
+			        		<div class="col-5 col-md-3">
+			        			<div class="form-floating">
+					                <input type="text" class="form-control" id="p_code" placeholder="상품 코드 (자동생성)" value="####" readonly />
+					                <label for="p_code">상품 코드 (자동생성)</label>
+					            </div>
+			        		</div>
+			        		<div class="col-7 col-md-5">
+			        			<div class="form-floating">
+					            	<input type="text" class="form-control" id="p_name" name="p_name" placeholder="상품 명">
+					                <label for="p_name">상품 명</label>
+					            </div>
+			        		</div>
+			        		<div class="col-12 col-md-4">
+			        			<div class="form-floating">
+								    <select class="form-select" id="p_category" name="p_category">
+								    	<option value="" selected disabled>카테고리 선택</option>
+								        <option value="야채/채소" th:selected="${category == '야채/채소'}">야채/채소</option>
+								        <option value="축산/계란" th:selected="${category == '축산/계란'}">축산/계란</option>
+								        <option value="수산/건어물" th:selected="${category == '수산/건어물'}">수산/건어물</option>
+								        <option value="소스/양념/조미료" th:selected="${category == '소스/양념/조미료'}">소스/양념/조미료</option>
+								        <option value="곡류/견과류" th:selected="${category == '곡류/견과류'}">곡류/견과류</option>
+								        <option value="가공식품" th:selected="${category == '가공식품'}">가공식품</option>
+								        <option value="유제품" th:selected="${category == '유제품'}">유제품</option>
+								        <option value="과일류" th:selected="${category == '과일류'}">과일류</option>
+								    </select>
+								    <label for="p_category">카테고리</label>
+								</div>
+			        		</div>
+			        		<div class="col-6 col-md-3">
+			        			<div class="form-floating">
+								    <select class="form-select" id="p_dc_yn" name="p_dc_yn">
+								        <option value="Y">Y</option>
+								        <option value="N" selected>N</option>
+								    </select>
+								    <label for="p_dc_yn">할인 여부 (Y/N)</label>
+								</div>
+			        		</div>
+			        		<div class="col-6 col-md-3">
+			        			<div class="form-floating">
+					                <input type="number" class="form-control" id="p_dc_percent" name="p_dc_percent" value="0" placeholder="할인율 (%)">
+					                <label for="p_dc_percent">할인율 (%)</label>
+					            </div>
+			        		</div>
+			        		<div class="col-6 col-md-3">
+			        			<div class="form-floating">
+								    <select class="form-select" id="p_new_yn" name="p_new_yn">
+								        <option value="Y">Y</option>
+								        <option value="N">N</option>
+								    </select>
+								    <label for="p_new_yn">신상품 여부 (Y/N)</label>
+								</div>
+			        		</div>
+			        		<div class="col-6 col-md-3">
+			        			<div class="form-floating">
+					                <input type="number" class="form-control" id="p_stock" name="p_stock" value="0" placeholder="재고">
+					                <label for="p_stock">재고</label>
+					            </div>
+			        		</div>
+			        		<div class="col-6">
+			        			<div class="form-floating">
+					                <input type="number" class="form-control" id="p_price" name="p_price" value="0" placeholder="가격 (할인 적용 전)" />
+					                <label for="p_price">가격 (할인 적용 전)</label>
+					            </div>
+			        		</div>
+			        		<div class="col-6">
+			        			<div class="form-floating">
+					                <input type="number" class="form-control" id="p_price_dc" name="p_price_dc" placeholder="가격 (할인 적용 후)" readonly />
+					                <label for="p_price_dc">가격 (할인 적용 후)</label>
+					            </div>
+			        		</div>
+			        		<div class="col-12 col-md-6">
+			        			<div class="form-floating">
+					                <input type="text" class="form-control" id="p_image" name="p_image" placeholder="상품 이미지" />
+					                <label for="p_image">상품 이미지</label>
+					            </div>
+			        		</div>
+			        		<div class="col-12 col-md-6">
+			        			<div class="form-floating mb-2">
+					                <textarea class="form-control" id="p_content" rows="3" name="p_content" placeholder="상품 설명"></textarea>
+					                <label for="p_content">상품 설명</label>
+					            </div>
+			        		</div>
+			        	</div>
+			        	<div class="row">
+			        		<div class="col-12 text-center">
+			        			<button type="submit" class="btn btn-primary" id="btnInsert">등록완료</button>
+			        			<button type="reset" class="btn btn-secondary" id="btnReset">다시입력</button>
+			        		</div>
+			        	</div>
+
+			        </form>
+				</div>
+			</div>
+        </div>
+        
+        <script th:src="@{/js/admin/productInsert.js}"></script>
+        
+    </div>
+</body>
+
+</html>

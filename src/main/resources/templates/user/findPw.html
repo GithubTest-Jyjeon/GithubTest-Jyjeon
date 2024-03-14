@@ -44,6 +44,7 @@
     <script th:if="${errorMessage}" th:inline="javascript">
         /*<![CDATA[*/
         alert([[${errorMessage}]]);
+        document.location.href="/user/join";
         /*]]>*/
     </script>
 
