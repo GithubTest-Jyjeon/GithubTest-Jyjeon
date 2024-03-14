@@ -164,7 +164,7 @@ $( function(){
 		joinParams.u_address_extra = u_address_extra.val();
 		
 		$.ajax({
-			url : "/user/joinProccess",
+			url : "/user/joinProcess",
 			data : joinParams,
 			type : "post",
 			success : function(returnData){
