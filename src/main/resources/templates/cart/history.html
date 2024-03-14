@@ -14,42 +14,39 @@
 
 			<!-- 리스트 아이템 반복 -->
 			<div class="container py-5">
-				<div class="row" th:each="dto : ${list}">
+				<div class="row" th:each="order : ${historyList}">
 					<div class="col">
 						<ul class="list-group list-group-flush">
 							<li class="list-group-item">
 								<div class="row pb-2">
-									<div class="col-12 col-md-2">
-										<h1 class="display-6 text-primary" th:text="${dto.b_seq}"></h1>
+									<div class="col-12">
+										<h2 class="text-primary" th:text="${order.o_title}"></h2>
 									</div>
-									<div class="col-12 col-md-10">
-										<div class="row h-100">
-											<div class="col-12 col-md-8 d-flex align-items-center">
-												<a th:href="@{/board/view(b_seq=${dto.b_seq}, page=${page})}" class="fs-5 text-dark text-decoration-none">
-													<span th:text="${dto.u_nickname}"></span>
-													<span th:text="${dto.b_title}"></span>
-												</a>
-											</div>
-											<div
-												class="col-12 col-md-4 d-flex align-items-center justify-content-between">
-												<span class="text-muted small">조회수 : <span
-													th:text="${dto.b_hit}"></span></span> <span
-													class="text-muted small" th:text="${dto.b_upd_date}"></span>
-											</div>
+									<div class="col-12">
+										<div>
+											주문번호: <span th:text="${order.orderInfo.o_seq}"></span>
 										</div>
+										<div>
+											주문 총액: <span th:text="${order.orderInfo.o_total_price}"></span>
+										</div>
+										<div>
+											주문 날짜: <span th:text="${order.orderInfo.o_reg_date}"></span>
+										</div>
+										<!-- 기타 필요한 주문 정보 추가 -->
 									</div>
 								</div>
 							</li>
 						</ul>
 					</div>
-					<hr class="hr2" />
+					<hr class="my-4" />
 				</div>
 			</div>
 
-			<div class="container">
+
+			<!-- <div class="container">
 				<div class="row">
 					<div class="col">
-						<!-- 페이지 네비게이션 -->
+						페이지 네비게이션
 						<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
 								<li th:classappend="${page > 1} ? '' : 'disabled'"><a
@@ -69,10 +66,10 @@
 						</nav>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 			<!-- 검색 폼 -->
-			<div class="container">
+			<!-- <div class="container">
 				<div class="row">
 					<div class="col-12 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
 						<form th:action="@{/board/list}" method="get">
@@ -88,7 +85,7 @@
 						</form>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 	</div>
 </body>
