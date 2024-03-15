@@ -103,6 +103,7 @@
 		        		<div class="col-12 text-center">
 		        			<a th:href="@{/admin/product/update(page=${page}, category=${category}, p_seq=${productInfo.p_seq})}" class="btn btn-warning" id="btnUpdate">수정하기</a>
 			        		<a th:href="@{/admin/product/delete(page=${page}, category=${category}, p_seq=${productInfo.p_seq})}" class="btn btn-primary" id="btnDelete">삭제하기</a>
+			        		<a th:href="@{/product/view(p_seq=${productInfo.p_seq})}" class="btn btn-light">상품보기</a>
 		        		</div>
 		        	</div>
 				</div>

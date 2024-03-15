@@ -180,7 +180,6 @@ public class AdminProductController {
 		Model model
     ) {
 		model.addAttribute("page", page);
-        model.addAttribute("limit", LIMIT);
         model.addAttribute("category", category);
 		
         int result = dao.delProductInfo(p_seq); // 실제 상품 삭제 호출

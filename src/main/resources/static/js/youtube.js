@@ -9,7 +9,7 @@ $( function(){
 	var SEARCH_KEYWORD = '집에서 ' + $('#SEARCH_KEYWORD').val() + ' 만드는 방법';
 	var MAX_RESULTS = 3;
 	
-	// var YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search?key='+API_KEY+'&type=video&part=snippet&q='+encodeURIComponent(SEARCH_KEYWORD)+'&maxResults='+MAX_RESULTS;
+	var YOUTUBE_API_URL = 'https://www.googleapis.com/youtube/v3/search?key='+API_KEY+'&type=video&part=snippet&q='+encodeURIComponent(SEARCH_KEYWORD)+'&maxResults='+MAX_RESULTS;
 
 	$.get(YOUTUBE_API_URL, function(data) {
 		var items = data.items;

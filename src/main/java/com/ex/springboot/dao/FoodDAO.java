@@ -86,7 +86,7 @@ public class FoodDAO implements IfoodDAO {
 	@Override
 	// 검색창 밑에 보여 줄 완전 랜덤 음식
 	public List<FoodDTO> getRandomSearchFoods() {
-		String sql = "select * from (select f_code, f_name from cg_food order by DBMS_RANDOM.RANDOM) where rownum <= 5";
+		String sql = "select * from (select f_code, f_name from cg_food where f_volume_arr != 'test' order by DBMS_RANDOM.RANDOM) where rownum <= 5";
 		return template.query(sql, new BeanPropertyRowMapper<>(FoodDTO.class));
 	}
 	

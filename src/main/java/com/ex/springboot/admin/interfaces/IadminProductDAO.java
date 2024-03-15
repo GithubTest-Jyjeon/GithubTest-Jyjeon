@@ -10,8 +10,6 @@ import com.ex.springboot.admin.dto.AdminProductDTO;
 public interface IadminProductDAO {
 
 	public List<AdminProductDTO> getProductList(int page, int limit, String category, String p_name);
-//	public List<AdminProductDTO> getNewProductList(int page, int limit, String category, String p_name);
-//	public List<AdminProductDTO> getDcProductList(int page, int limit, String category, String p_name);
 	public int getProductCount(String category);
 	public int setProductInfo(AdminProductDTO dto);
 	public AdminProductDTO getProductInfo(int p_seq);
