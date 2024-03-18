@@ -33,26 +33,26 @@
                 </thead>
                 <tbody>
                     <tr th:each="user : ${users}">
-                        <td th:text="${user.u_seq}"></td>
-                        <td th:text="${user.u_id}"></td>
-                        <td th:text="${user.u_name}"></td>
-                        <td th:text="${user.u_nickname}"></td>
-                        <td th:text="${user.u_email}"></td>
-                        <td th:text="${user.u_birth}"></td>
-                        <td th:text="${user.u_gender}"></td>
-                        <td th:text="${user.u_phone}"></td>
-                        <td th:text="${user.u_reg_date}"></td>
-                        <td th:text="${user.u_upd_date}"></td>
-                        <td th:text="${user.u_log_date}"></td>
-                        <td th:text="${user.u_del_date}"></td>
-                        <td th:text="${user.u_del_yn == 'Y' ? 'Y' : 'N'}"></td>
-                        <td>
-                            <a th:href="@{/admin/deleteUserCompletely(u_seq=${user.u_seq})}" class="btn btn-danger btn-sm mb-2" onclick="return confirm('정말로 삭제하시겠습니까?');">완전 삭제</a>
-                            <a th:href="@{/admin/deleteUser(u_seq=${user.u_seq})}" th:if="${user.u_del_yn == 'N'}" class="btn btn-warning btn-sm" onclick="return confirm('정말로 탈퇴 처리하시겠습니까?');">탈퇴 처리</a>
-                            <a th:if="${user.u_del_yn == 'Y'}" th:href="@{/admin/reactivateUser(u_seq=${user.u_seq})}" class="btn btn-success btn-sm" onclick="return confirm('이 사용자를 재활성화하시겠습니까?');">재활성화</a>                                                      
-                            
-                        </td>
-                    </tr>
+					    <td th:text="${user.u_seq}"></td>
+					    <td th:text="${user.u_id}"></td>
+					    <td th:text="${user.u_name}"></td>
+					    <td th:text="${user.u_nickname}"></td>
+					    <td th:text="${user.u_email}"></td>
+					    <td th:text="${user.u_birth}"></td>
+					    <td th:text="${user.u_gender}"></td>
+					    <td th:text="${user.u_phone}"></td>
+					    <td th:text="${user.u_reg_date}"></td>
+					    <td th:text="${user.u_upd_date}"></td>
+					    <td th:text="${user.u_log_date}"></td>
+					    <td th:text="${user.u_del_date}"></td>
+					    <td th:text="${user.u_del_yn == 'Y' ? 'Y' : 'N'}"></td>
+					    <td>
+					        <a th:href="@{/admin/user/deleteUserCompletely(u_seq=${user.u_seq})}" class="btn btn-danger btn-sm mb-2" onclick="return confirm('정말로 삭제하시겠습니까?');">완전 삭제</a>
+					        <a th:href="@{/admin/user/deleteUser(u_seq=${user.u_seq})}" th:if="${user.u_del_yn == 'N'}" class="btn btn-warning btn-sm" onclick="return confirm('정말로 탈퇴 처리하시겠습니까?');">탈퇴 처리</a>
+					        <a th:if="${user.u_del_yn == 'Y'}" th:href="@{/admin/user/reactivateUser(u_seq=${user.u_seq})}" class="btn btn-success btn-sm" onclick="return confirm('이 사용자를 재활성화하시겠습니까?');">재활성화</a>
+					    </td>
+					</tr>
+
                 </tbody>
             </table>
         </div>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ex.springboot.admin.dao.AdminUserDAO;
 import com.ex.springboot.dao.UserDAO;
 import com.ex.springboot.dto.UserDTO;
 
@@ -16,7 +17,7 @@ import com.ex.springboot.dto.UserDTO;
 public class AdminUserController {
 
 	@Autowired
-	UserDAO dao;
+	AdminUserDAO dao;
 	
 	@GetMapping("/admin/user/list")
     public String listUsers(Model model) {
@@ -25,7 +26,7 @@ public class AdminUserController {
         return "/admin/userList"; // 사용자 목록 페이지
     }
 
-    @GetMapping("/deleteUser")
+    @GetMapping("/admin/user/deleteUser")
     public String deleteUser(@RequestParam("u_seq") int u_seq, RedirectAttributes redirectAttributes) {
         int result = dao.deleteUser(u_seq); // 삭제 또는 탈퇴 처리
         if(result > 0) {
@@ -33,10 +34,10 @@ public class AdminUserController {
         } else {
             redirectAttributes.addFlashAttribute("message", "사용자 삭제(또는 탈퇴 처리) 실패");
         }
-        return "redirect:/admin/users";
+        return "redirect:/admin/user/list";
     }
     
-    @GetMapping("/deleteUserCompletely")
+    @GetMapping("/admin/user/deleteUserCompletely")
     public String deleteUserCompletely(@RequestParam("u_seq") int u_seq, RedirectAttributes redirectAttributes) {
         int result = dao.deleteUserCompletely(u_seq);
         if(result > 0) {
@@ -44,10 +45,10 @@ public class AdminUserController {
         } else {
             redirectAttributes.addFlashAttribute("message", "사용자 삭제 실패.");
         }
-        return "redirect:/admin/users";
+        return "redirect:/admin/user/list";
     }
     
-    @GetMapping("/reactivateUser")
+    @GetMapping("/admin/user/reactivateUser")
     public String reactivateUser(@RequestParam("u_seq") int u_seq, RedirectAttributes redirectAttributes) {
         int result = dao.reactivateUser(u_seq);
         if(result > 0) {
@@ -55,7 +56,7 @@ public class AdminUserController {
         } else {
             redirectAttributes.addFlashAttribute("message", "사용자 재활성화 실패.");
         }
-        return "redirect:/admin/users";
+        return "redirect:/admin/user/list";
     }
 
 
