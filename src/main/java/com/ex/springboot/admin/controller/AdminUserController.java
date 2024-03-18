@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ex.springboot.admin.dao.AdminUserDAO;
+import com.ex.springboot.admin.dto.AdminUserDTO;
 import com.ex.springboot.dao.UserDAO;
 import com.ex.springboot.dto.UserDTO;
 
@@ -21,7 +22,7 @@ public class AdminUserController {
 	
 	@GetMapping("/admin/user/list")
     public String listUsers(Model model) {
-        List<UserDTO> userList = dao.getAllUsers(); // 수정된 getAllUsers() 호출
+        List<AdminUserDTO> userList = dao.getAllUsers(); // 수정된 getAllUsers() 호출
         model.addAttribute("users", userList);
         return "/admin/userList"; // 사용자 목록 페이지
     }

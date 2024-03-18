@@ -2,6 +2,7 @@ package com.ex.springboot.admin.dao;
 
 import java.util.List;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -9,9 +10,8 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-
+import com.ex.springboot.admin.dto.AdminUserDTO; // 수정
 import com.ex.springboot.admin.interfaces.IadminUserDAO;
-import com.ex.springboot.dto.UserDTO;
 
 @Primary
 @Repository
@@ -21,7 +21,7 @@ public class AdminUserDAO implements IadminUserDAO {
 	JdbcTemplate template;
 
 	@Override
-	public boolean joinProcess(UserDTO userDTO) {
+	public boolean joinProcess(AdminUserDTO userDTO) {
         String sql = "insert into cg_user ("
         		+ "u_seq,"
         		+ "u_id,"
@@ -44,10 +44,10 @@ public class AdminUserDAO implements IadminUserDAO {
     }
 
 	@Override
-    public UserDTO loginProcess(String u_id, String u_pw) {
+    public AdminUserDTO loginProcess(String u_id, String u_pw) {
         try {
         	String sql = "select * from cg_user where u_id = '"+u_id+"' and u_pw = '"+u_pw+"' and u_del_yn = 'N'";
-        	UserDTO result = template.queryForObject(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
+        	AdminUserDTO result = template.queryForObject(sql, new BeanPropertyRowMapper<AdminUserDTO>(AdminUserDTO.class));
         	int u_seq = result.getU_seq();
         	if(result != null) {
         		String updateLoginDate = "update cg_user set u_log_date=sysdate where u_seq = ?";
@@ -61,7 +61,7 @@ public class AdminUserDAO implements IadminUserDAO {
     }
 
 	@Override
-	public boolean updateUserInfoProcess(UserDTO userDTO) {
+	public boolean updateUserInfoProcess(AdminUserDTO userDTO) {
         String sql = "UPDATE cg_user SET u_pw=?, u_name=?, u_nickname=?, u_email=?, u_birth=?, u_postcode=?, u_address=?, u_address_detail=?, u_address_extra=?, u_gender=?, u_phone=?, u_upd_date=sysdate WHERE u_seq=?";
         int result = template.update(sql, userDTO.getU_pw(), userDTO.getU_name(), userDTO.getU_nickname(), userDTO.getU_email(), userDTO.getU_birth(), userDTO.getU_postcode(), userDTO.getU_address(), userDTO.getU_address_detail(), userDTO.getU_address_extra(), userDTO.getU_gender(), userDTO.getU_phone(), userDTO.getU_seq());
         return result > 0;
@@ -75,10 +75,10 @@ public class AdminUserDAO implements IadminUserDAO {
 	}
 	
 	@Override
-	public UserDTO getUserInfo(int u_seq) {
+	public AdminUserDTO getUserInfo(int u_seq) {
 		String sql = "select * from cg_user where u_seq = "+u_seq;
 		
-		return (UserDTO) template.queryForObject(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
+		return (AdminUserDTO) template.queryForObject(sql, new BeanPropertyRowMapper<AdminUserDTO>(AdminUserDTO.class));
 	}
 	
 	@Override
@@ -120,10 +120,10 @@ public class AdminUserDAO implements IadminUserDAO {
 	}
 
 	@Override
-	public UserDTO findUserByEmail(String u_email) {
+	public AdminUserDTO findUserByEmail(String u_email) {
 		String sql = "SELECT * FROM cg_user WHERE u_email = ? AND u_del_yn = 'N'";
 		try {
-			UserDTO userDTO = template.queryForObject(sql, new Object[]{u_email}, new BeanPropertyRowMapper<>(UserDTO.class));
+			AdminUserDTO userDTO = template.queryForObject(sql, new Object[]{u_email}, new BeanPropertyRowMapper<>(AdminUserDTO.class));
 			return userDTO;
 		} catch (EmptyResultDataAccessException e) {
 			return null; // 결과가 없는 경우, null 반환
@@ -147,9 +147,9 @@ public class AdminUserDAO implements IadminUserDAO {
 	
 	
 	@Override
-	public List<UserDTO> getAllUsers() {
+	public List<AdminUserDTO> getAllUsers() {
 	    String sql = "SELECT * FROM cg_user"; 
-	    return template.query(sql, new BeanPropertyRowMapper<>(UserDTO.class));
+	    return template.query(sql, new BeanPropertyRowMapper<>(AdminUserDTO.class));
 	}
 	
 	@Override
