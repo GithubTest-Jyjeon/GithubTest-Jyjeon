@@ -18,11 +18,11 @@ public class AdminUserController {
 	@Autowired
 	UserDAO dao;
 	
-	@GetMapping("/users")
+	@GetMapping("/admin/user/list")
     public String listUsers(Model model) {
         List<UserDTO> userList = dao.getAllUsers(); // 수정된 getAllUsers() 호출
         model.addAttribute("users", userList);
-        return "admin/users"; // 사용자 목록 페이지
+        return "/admin/userList"; // 사용자 목록 페이지
     }
 
     @GetMapping("/deleteUser")
