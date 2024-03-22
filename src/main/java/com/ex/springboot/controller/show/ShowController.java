@@ -53,7 +53,7 @@ public class ShowController {
 			model.addAttribute("b_seq", b_seq);
 			model.addAttribute("boardInfo", daoBoard.boardView(b_seq));
 			
-			return "/show/list";
+			return "show/list";
 		}else {
 			return "redirect:/user/login";
 		}
@@ -70,7 +70,7 @@ public class ShowController {
 		model.addAttribute("actors", String.join(", ", actors));
 		model.addAttribute("directors", String.join(", ", directors));
 
-		return "/show/view";
+		return "show/view";
 	}
 	
 }

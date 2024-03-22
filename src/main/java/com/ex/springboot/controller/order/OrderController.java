@@ -70,7 +70,7 @@ public class OrderController {
 	        OrderDTO orderDetail = dao.getOrderDetailByOSeq(o_seq);
 	        if (orderDetail != null) {
 	            model.addAttribute("orderDetail", orderDetail);
-	            return "/order/view"; // Thymeleaf에 의해 처리될 뷰의 이름
+	            return "order/view"; // Thymeleaf에 의해 처리될 뷰의 이름
 	        } else {
 	            model.addAttribute("errorMessage", "Order not found");
 	            return "errorPage"; // 적절한 에러 페이지로 리다이렉트

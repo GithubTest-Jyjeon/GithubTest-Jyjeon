@@ -81,7 +81,7 @@ public class FoodController {
 			model.addAttribute("b_seq", b_seq);
 			model.addAttribute("boardInfo", daoBoard.boardView(b_seq));
 			
-			return "/food/list";
+			return "food/list";
 		}else {
 			return "redirect:/user/login";
 		}
@@ -123,7 +123,7 @@ public class FoodController {
 	    
 	    model.addAttribute("replyList", replyList);
 	    model.addAttribute("ingredientList", ingredientList);
-	    return "/food/view";
+	    return "food/view";
 	}
 	
 	@GetMapping("/food/write")
@@ -132,9 +132,9 @@ public class FoodController {
 		UserDTO userDTO = (UserDTO) session.getAttribute("userSession");
 		
 		if(userDTO != null) {
-			return "/food/write";
+			return "food/write";
 		}else {
-			return "/user/login";
+			return "user/login";
 		}
 	}
 	
@@ -145,7 +145,7 @@ public class FoodController {
 		
 		if(userDTO != null) {
 			if(userDTO.getU_seq() == 0) {
-				return "/food/view?f_code="+f_code;
+				return "food/view?f_code="+f_code;
 			}else {
 				FoodDTO foodInfo = new FoodDTO();
 				foodInfo = dao.foodView(f_code);
@@ -185,10 +185,10 @@ public class FoodController {
 				model.addAttribute("fVolumeList", fVolumeList);
 				model.addAttribute("recipeList", recipeList);
 				
-				return "/food/update";
+				return "food/update";
 			}
 		}else {
-			return "/user/login";
+			return "user/login";
 		}
 	}
 	
@@ -337,7 +337,7 @@ public class FoodController {
 		model.addAttribute("randomSearchFoods", randomSearchFoods);
 		model.addAttribute("f_name", f_name);
 		
-		return "/food/search";
+		return "food/search";
 	}
 	
 	

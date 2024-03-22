@@ -13,19 +13,19 @@ public class ErrorController {
 	@RequestMapping("/error/404")
 	public String errorPage404(HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("에러 났다 404");
-		return "/error/404";
+		return "error/404";
 	}
 	
 	@RequestMapping("/error/405")
 	public String errorPage405(HttpServletRequest request, HttpServletResponse response, Model model) {
 		System.out.println("에러 났다 405");
-		return "/error/405";
+		return "error/405";
 	}
 	
 	@RequestMapping("/error/500")
 	public String errorPage500(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("에러 났다 404");
-		return "/error/500";
+		return "error/500";
 	}
 	
 }

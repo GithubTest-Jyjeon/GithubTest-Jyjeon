@@ -58,7 +58,7 @@ public class MovieController {
 			model.addAttribute("b_seq", b_seq);
 			model.addAttribute("boardInfo", daoBoard.boardView(b_seq));
 			
-			return "/movie/list";
+			return "movie/list";
 		}else {
 			return "redirect:/user/login";
 		}
@@ -84,7 +84,7 @@ public class MovieController {
 	        model.addAttribute("directorString", directorString);
 	        model.addAttribute("m_code", m_code);
 	        
-	        return "/movie/view";
+	        return "movie/view";
 	    }
 
 	

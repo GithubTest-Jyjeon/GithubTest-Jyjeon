@@ -8,7 +8,7 @@ public class AdminCommonController {
 
     @GetMapping("/admin")
     public String dashboard() {
-        return "/admin/dashboard"; // dashboard.html 뷰를 반환
+        return "admin/dashboard"; // dashboard.html 뷰를 반환
     }
 
 }

@@ -48,7 +48,7 @@ public class KeywordController {
 		model.addAttribute("genreListMovie", genreListMovie);
 		model.addAttribute("genreListShow", genreListShow);
 		
-		return "/keyword/choice";
+		return "keyword/choice";
 	}
 
 	@ResponseBody

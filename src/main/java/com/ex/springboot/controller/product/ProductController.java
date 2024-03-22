@@ -29,7 +29,7 @@ public class ProductController {
 		
 		// model.addAttribute("list", dao.productNewList(limit));
 		model.addAttribute("limit", limit);
-		return "/product/index";
+		return "product/index";
 	}
 	
 	@GetMapping("/product/index")
@@ -37,7 +37,7 @@ public class ProductController {
 		model.addAttribute("category_arr", category_arr);
 		model.addAttribute("newList", dao.productNewList());
 		model.addAttribute("dcList", dao.productDcList());
-		return "/product/index";
+		return "product/index";
 	}
 	
 	@GetMapping("/product/list")
@@ -72,7 +72,7 @@ public class ProductController {
 	    model.addAttribute("word", word);
 	    model.addAttribute("limit", limit);
 	    
-	    return "/product/list";
+	    return "product/list";
 	}
 
 	
@@ -85,7 +85,7 @@ public class ProductController {
 		model.addAttribute("newList", dao.productNewList());
 		model.addAttribute("dcList", dao.productDcList());
 		
-		return "/product/view";
+		return "product/view";
 	}
 	
 	

@@ -39,7 +39,7 @@ public class UserController {
 	
 	@GetMapping("/user/join")
 	public String join() {
-		return "/user/join";
+		return "user/join";
 	}
 	
 	@ResponseBody
@@ -60,7 +60,7 @@ public class UserController {
 	
 	@GetMapping("/user/login")
 	public String login() {
-		return "/user/login";
+		return "user/login";
 	}
 	
 	@PostMapping("/user/loginProcess")
@@ -109,7 +109,7 @@ public class UserController {
 			model.addAttribute("userInfo", userInfo);
 			model.addAttribute("myBoardList", daoBoard.boardListForUser(userDTO.getU_seq(), 5));
 			model.addAttribute("myOrderList", daoOrder.orderListForUser(userDTO.getU_seq(), 5));
-			return "/user/myPage";
+			return "user/myPage";
 		} else {
 			return "redirect:/user/login";
 		}
@@ -123,9 +123,9 @@ public class UserController {
 		if (userDTO.getU_seq() > 0) {
 			UserDTO userInfo = dao.getUserInfo(userDTO.getU_seq());
 			model.addAttribute("userInfo", userInfo);
-			return "/user/myInfoUpdate";
+			return "user/myInfoUpdate";
 		} else {
-			return "/user/login";
+			return "user/login";
 		}
 	}
 	
@@ -138,7 +138,7 @@ public class UserController {
 		if (userDTO.getU_seq() != userDTO_compare.getU_seq()) {
 			// 세션에 저장 된 u_seq 값과 전달 받은 u_seq 값이 다를 경우 로그아웃 처리
 			session.invalidate();
-			return "/user/login";
+			return "user/login";
 		}else {
 			SHA256 sha256 = new SHA256();
 			userDTO.setU_pw(sha256.encrypt(userDTO.getU_pw()));
@@ -158,7 +158,7 @@ public class UserController {
 				model.addAttribute("msg", "회원정보가 수정 되었습니다");
 				model.addAttribute("userInfo", newUserDTO);
 			}
-			return "/user/myInfoUpdate";
+			return "user/myInfoUpdate";
 		}
 	}
 	
@@ -204,7 +204,7 @@ public class UserController {
 
 	@GetMapping("/user/findId")
 	public String findMyId() {
-		return "/user/findId"; // 찾은 아이디를 보여줄 새로운 페이지나, 모달을 표시할 페이지
+		return "user/findId"; // 찾은 아이디를 보여줄 새로운 페이지나, 모달을 표시할 페이지
 	}
 
 	@PostMapping("/user/findIdProcess")
@@ -225,7 +225,7 @@ public class UserController {
 			model.addAttribute("errorMessage", "해당 이메일로 등록된 아이디가 없습니다.");
 		}
 
-		return "/user/findId";
+		return "user/findId";
 	}
 
 	@Autowired
@@ -233,7 +233,7 @@ public class UserController {
 
 	@GetMapping("/user/findPw")
 	public String findMyPw() {
-		return "/user/findPw";
+		return "user/findPw";
 	}
 
 	@PostMapping("/user/findPwProcess")
@@ -261,15 +261,15 @@ public class UserController {
 				iemailDAO.sendNewPw(u_email, "비밀번호 초기화 알림", "귀하의 비밀번호가 초기화되었습니다. 새 비밀번호: " + newPw);
 			} catch (Exception e) {
 				model.addAttribute("errorMessage", "비밀번호 초기화 이메일 전송에 실패했습니다.");
-				return "/user/findPw"; // 이메일 전송 실패 시 돌아갈 페이지
+				return "user/findPw"; // 이메일 전송 실패 시 돌아갈 페이지
 			}
 
 			model.addAttribute("message", "비밀번호가 초기화되었습니다. 귀하에 이메일로 초기화 비밀번호를 보내드렸습니다.");
 
-			return "/user/login";
+			return "user/login";
 		} else {
 			model.addAttribute("errorMessage", "해당하는 사용자 정보가 없습니다. 회원 가입을 진행해 주세요.");
-			return "/user/findPw";
+			return "user/findPw";
 		}
 	}
 }

@@ -60,7 +60,7 @@ public class CommonController {
         model.addAttribute("foodSetList", foodSetList);
         
         
-        return "/common/main";
+        return "common/main";
     }
 
    

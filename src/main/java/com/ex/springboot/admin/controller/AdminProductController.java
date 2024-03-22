@@ -50,7 +50,7 @@ public class AdminProductController {
         model.addAttribute("p_name", p_name);
         model.addAttribute("productList", productList);
         
-        return "/admin/productList";
+        return "admin/productList";
     }
     
     @GetMapping("/admin/product/view")
@@ -66,7 +66,7 @@ public class AdminProductController {
         model.addAttribute("category", category);
         model.addAttribute("productInfo", productInfo);
         
-        return "/admin/productView";
+        return "admin/productView";
     }
     
     @GetMapping("/admin/product/insert")
@@ -78,7 +78,7 @@ public class AdminProductController {
         model.addAttribute("page", page);
         model.addAttribute("category", category);
         
-        return "/admin/productInsert";
+        return "admin/productInsert";
     }
     
     @PostMapping("/admin/product/insertProcess")
@@ -135,7 +135,7 @@ public class AdminProductController {
         
         if (dto != null) {
         	model.addAttribute("productInfo", dto);
-            return "/admin/productUpdate";
+            return "admin/productUpdate";
         } else {
             return "redirect:/admin/product/list";
         }

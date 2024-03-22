@@ -80,7 +80,7 @@ public class CartController {
 	        ArrayList<ProductDTO> cartList = daoCart.getCartListByUserId(userDTO.getU_seq());
 	        model.addAttribute("cartList", cartList);
 	        
-	        return "/cart/list"; // 장바구니 목록을 보여주는 뷰 페이지 경로
+	        return "cart/list"; // 장바구니 목록을 보여주는 뷰 페이지 경로
 	    } else {
 	        // 사용자가 로그인하지 않은 경우 로그인 페이지로 리다이렉트
 	        return "redirect:/user/login";
@@ -109,7 +109,7 @@ public class CartController {
 	    
 	    model.addAttribute("historyList", daoOrder.orderListForUser(u_seq, 0));
 	    
-		return "/cart/history";
+		return "cart/history";
 	}
 	
 }
